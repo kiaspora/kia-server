@@ -9,6 +9,8 @@ import { ImdbDetailController } from './parse/imdb-detail.controller';
 
 import { TitleSearchController } from './justus/titleSearch.controller';
 import { TitleDetailController } from './justus/titleDetail.controller';
+import { FilmTrailerController } from './justus/filmTrailer.controller';
+import { FilmTrailerService } from './justus/filmTrailer.service';
 
 import { TraceIdMiddleware } from './common/trace-id.middleware';
 import { TraceIdInterceptor } from './common/trace-id.interceptor';
@@ -24,8 +26,12 @@ import { TraceIdInterceptor } from './common/trace-id.interceptor';
     ImdbDetailController,
     TitleSearchController,
     TitleDetailController,
+    FilmTrailerController,
   ],
-  providers: [{ provide: APP_INTERCEPTOR, useClass: TraceIdInterceptor }],
+  providers: [
+    FilmTrailerService,
+    { provide: APP_INTERCEPTOR, useClass: TraceIdInterceptor },
+  ],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
