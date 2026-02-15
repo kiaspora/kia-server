@@ -111,6 +111,61 @@ function hasPartialInfo(info: TitleDetailInfo) {
   return Object.values(info).some((v) => !String(v || '').trim());
 }
 
+function hasRequiredTitleYear(info: TitleDetailInfo) {
+  return Boolean(String(info.title || '').trim()) && Boolean(String(info.year || '').trim());
+}
+
+function hasAnyInfoValue(info: TitleDetailInfo) {
+  return Boolean(
+    String(info.title || '').trim() ||
+      String(info.year || '').trim() ||
+      String(info.rated || '').trim() ||
+      String(info.released || '').trim() ||
+      String(info.runtime || '').trim() ||
+      String(info.genre || '').trim() ||
+      String(info.director || '').trim() ||
+      String(info.writers || '').trim() ||
+      String(info.actors || '').trim() ||
+      String(info.plot || '').trim() ||
+      String(info.language || '').trim() ||
+      String(info.country || '').trim() ||
+      String(info.poster || '').trim(),
+  );
+}
+
+function toTitleDetailInfoFromFallback(raw: any, imdbId: string): TitleDetailInfo {
+  const runtimeRaw = cleanText(raw?.runtime);
+  const runtime = /^\d+$/.test(runtimeRaw) ? runtimeRaw : parseRuntimeMinutes(runtimeRaw);
+
+  return {
+    title: cleanText(raw?.title),
+    year: cleanText(raw?.year),
+    rated: cleanText(raw?.rated),
+    released: cleanText(raw?.released),
+    runtime,
+    genre: cleanText(raw?.genre),
+    director: cleanText(raw?.director),
+    writers: cleanText(raw?.writers),
+    actors: cleanText(raw?.actors),
+    plot: cleanText(raw?.plot),
+    language: cleanText(raw?.language),
+    country: cleanText(raw?.country),
+    poster: cleanText(raw?.poster),
+    imdbId: cleanText(raw?.imdbId) || imdbId,
+  };
+}
+
+function buildLocalBaseUrl(req: Request) {
+  const proto =
+    (req.header('x-forwarded-proto') || '').split(',')[0]?.trim() || req.protocol || 'http';
+  const host =
+    (req.header('x-forwarded-host') || '').split(',')[0]?.trim() ||
+    req.get('host') ||
+    req.headers.host ||
+    '';
+  return host ? `${proto}://${host}` : '';
+}
+
 @Controller('api/justus')
 @UseGuards(BearerTokenGuard)
 export class TitleDetailController {
@@ -141,33 +196,6 @@ export class TitleDetailController {
       imdbId,
     };
 
-    const errors: any[] = [];
-    const apiKey = process.env.OMDB_API_KEY;
-
-    if (!apiKey) {
-      const body = {
-        requestId: traceId,
-        statusCode: 500,
-        dataSource: 'imdb',
-        imdbId,
-        info: baseInfo,
-        errors: [
-          makeError({
-            source: 'config',
-            message: 'Missing OMDB_API_KEY',
-            code: 'MISSING_OMDB_API_KEY',
-          }),
-        ],
-        traceId,
-      };
-
-      res.setHeader('x-trace-id', traceId);
-      return res
-        .status(500)
-        .set({ ...JSON_HEADERS, ...CORS_HEADERS })
-        .send(JSON.stringify(body));
-    }
-
     if (!/^tt\d+$/.test(imdbId)) {
       const body = {
         requestId: traceId,
@@ -192,79 +220,108 @@ export class TitleDetailController {
         .send(JSON.stringify(body));
     }
 
-    const omdbParams = new URLSearchParams({ apikey: apiKey, i: imdbId });
-    const omdbUrl = `http://www.omdbapi.com/?${omdbParams.toString()}`;
+    const apiKey = process.env.OMDB_API_KEY;
+    const omdbErrors: any[] = [];
+    let omdbInfo = baseInfo;
+    let omdbStatus = 502;
+    let shouldFallback = false;
 
-    try {
-      const upstream = await fetch(omdbUrl, {
-        method: 'GET',
-        headers: { 'x-trace-id': traceId },
-      });
-
-      const raw = await upstream.text().catch(() => '');
-      let parsed: any = {};
+    if (!apiKey) {
+      shouldFallback = true;
+      omdbErrors.push(
+        makeError({
+          source: 'config',
+          message: 'Missing OMDB_API_KEY',
+          code: 'MISSING_OMDB_API_KEY',
+        }),
+      );
+    } else {
+      const omdbParams = new URLSearchParams({ apikey: apiKey, i: imdbId });
+      const omdbUrl = `http://www.omdbapi.com/?${omdbParams.toString()}`;
 
       try {
-        parsed = raw ? JSON.parse(raw) : {};
+        const upstream = await fetch(omdbUrl, {
+          method: 'GET',
+          headers: { 'x-trace-id': traceId },
+        });
+
+        omdbStatus = upstream.status;
+        const raw = await upstream.text().catch(() => '');
+        let parsed: any = {};
+
+        try {
+          parsed = raw ? JSON.parse(raw) : {};
+        } catch (err) {
+          shouldFallback = true;
+          omdbErrors.push(
+            makeError({
+              source: 'omdb',
+              message: `OMDb JSON parse failed: ${extractErrMessage(err)}`,
+              code: 'OMDB_JSON_PARSE_FAILED',
+              details: { bodySnippet: truncate(raw) },
+            }),
+          );
+        }
+
+        if (!upstream.ok) {
+          shouldFallback = true;
+          omdbErrors.push(
+            makeError({
+              source: 'omdb',
+              message: `OMDb HTTP ${upstream.status} ${upstream.statusText || ''}`.trim(),
+              code: upstream.status,
+              details: { bodySnippet: truncate(raw) },
+            }),
+          );
+        } else if (String(parsed?.Response || '').toLowerCase() === 'false') {
+          shouldFallback = true;
+          omdbErrors.push(
+            makeError({
+              source: 'omdb',
+              message: String(parsed?.Error || 'Title not found'),
+              code: 'OMDB_NO_RESULTS',
+            }),
+          );
+        } else {
+          omdbInfo = toTitleDetailInfo(parsed, imdbId);
+          if (!hasRequiredTitleYear(omdbInfo)) {
+            shouldFallback = true;
+            omdbErrors.push(
+              makeError({
+                source: 'omdb',
+                message: 'OMDb missing required fields: title/year',
+                code: 'OMDB_MISSING_REQUIRED_FIELDS',
+                details: {
+                  missingFields: [
+                    ...(!String(omdbInfo.title || '').trim() ? ['title'] : []),
+                    ...(!String(omdbInfo.year || '').trim() ? ['year'] : []),
+                  ],
+                },
+              }),
+            );
+          }
+        }
       } catch (err) {
-        errors.push(
+        shouldFallback = true;
+        omdbErrors.push(
           makeError({
             source: 'omdb',
-            message: `OMDb JSON parse failed: ${extractErrMessage(err)}`,
-            code: 'OMDB_JSON_PARSE_FAILED',
-            details: { bodySnippet: truncate(raw) },
+            message: `OMDb fetch failed: ${extractErrMessage(err)}`,
+            code: 'OMDB_FETCH_FAILED',
+            details: { error: stringifyError(err), omdbUrl },
           }),
         );
       }
+    }
 
-      if (!upstream.ok) {
-        errors.push(
-          makeError({
-            source: 'omdb',
-            message: `OMDb HTTP ${upstream.status} ${upstream.statusText || ''}`.trim(),
-            code: upstream.status,
-            details: { bodySnippet: truncate(raw) },
-          }),
-        );
-      } else if (String(parsed?.Response || '').toLowerCase() === 'false') {
-        errors.push(
-          makeError({
-            source: 'omdb',
-            message: String(parsed?.Error || 'Title not found'),
-            code: 'OMDB_NO_RESULTS',
-          }),
-        );
-      }
-
-      const hasHardErrors = errors.length > 0;
-      if (hasHardErrors) {
-        const failureStatus = !upstream.ok ? upstream.status : 404;
-        const body = {
-          requestId: traceId,
-          statusCode: failureStatus,
-          dataSource: 'imdb',
-          imdbId,
-          info: baseInfo,
-          errors,
-          traceId,
-        };
-
-        res.setHeader('x-trace-id', traceId);
-        return res
-          .status(failureStatus)
-          .set({ ...JSON_HEADERS, ...CORS_HEADERS })
-          .send(JSON.stringify(body));
-      }
-
-      const info = toTitleDetailInfo(parsed, imdbId);
-      const statusCode = hasPartialInfo(info) ? 206 : 200;
-
+    if (!shouldFallback) {
+      const statusCode = hasPartialInfo(omdbInfo) ? 206 : 200;
       const body = {
         requestId: traceId,
         statusCode,
         dataSource: 'imdb',
         imdbId,
-        info,
+        info: omdbInfo,
         errors: [],
         traceId,
       };
@@ -274,29 +331,125 @@ export class TitleDetailController {
         .status(statusCode)
         .set({ ...JSON_HEADERS, ...CORS_HEADERS })
         .send(JSON.stringify(body));
-    } catch (err) {
+    }
+
+    // Fallback: /api/parse/imdbDetail?imdbId=...
+    const base = buildLocalBaseUrl(req);
+    const fallbackErrors: any[] = [];
+    let fallbackInfo = baseInfo;
+    let fallbackStatus = 502;
+
+    if (!base) {
+      fallbackErrors.push(
+        makeError({
+          source: 'imdbDetailFallback',
+          message: 'Cannot resolve local base URL for fallback',
+          code: 'FALLBACK_BASE_URL_UNRESOLVED',
+        }),
+      );
+    } else {
+      const fallbackUrl = `${base.replace(/\/$/, '')}/api/parse/imdbDetail?imdbId=${encodeURIComponent(imdbId)}`;
+      const authHeader = req.header('authorization') || req.header('Authorization');
+
+      try {
+        const fallbackResp = await fetch(fallbackUrl, {
+          method: 'GET',
+          headers: {
+            ...(authHeader ? { authorization: authHeader } : {}),
+            'x-trace-id': traceId,
+          },
+        });
+
+        fallbackStatus = fallbackResp.status;
+        const raw = await fallbackResp.text().catch(() => '');
+        let parsed: any = {};
+
+        try {
+          parsed = raw ? JSON.parse(raw) : {};
+        } catch (err) {
+          fallbackErrors.push(
+            makeError({
+              source: 'imdbDetailFallback',
+              message: `Fallback JSON parse failed: ${extractErrMessage(err)}`,
+              code: 'FALLBACK_JSON_PARSE_FAILED',
+              details: { bodySnippet: truncate(raw), fallbackUrl },
+            }),
+          );
+        }
+
+        if (!fallbackResp.ok) {
+          fallbackErrors.push(
+            makeError({
+              source: 'imdbDetailFallback',
+              message: `Fallback HTTP ${fallbackResp.status} ${fallbackResp.statusText || ''}`.trim(),
+              code: fallbackResp.status,
+              details: { bodySnippet: truncate(raw), fallbackUrl },
+            }),
+          );
+        }
+
+        if (parsed?.info && typeof parsed.info === 'object') {
+          fallbackInfo = toTitleDetailInfoFromFallback(parsed.info, imdbId);
+        }
+
+        if (Array.isArray(parsed?.errors) && parsed.errors.length > 0) {
+          fallbackErrors.push(
+            ...parsed.errors.map((msg: any) =>
+              makeError({
+                source: 'imdbDetailFallback',
+                message: String(msg),
+                code: 'FALLBACK_PARTIAL',
+              }),
+            ),
+          );
+        }
+      } catch (err) {
+        fallbackErrors.push(
+          makeError({
+            source: 'imdbDetailFallback',
+            message: `Fallback fetch failed: ${extractErrMessage(err)}`,
+            code: 'FALLBACK_FETCH_FAILED',
+            details: { error: stringifyError(err), fallbackUrl },
+          }),
+        );
+      }
+    }
+
+    if (hasRequiredTitleYear(fallbackInfo)) {
+      const statusCode = hasPartialInfo(fallbackInfo) ? 206 : 200;
       const body = {
         requestId: traceId,
-        statusCode: 502,
+        statusCode,
         dataSource: 'imdb',
         imdbId,
-        info: baseInfo,
-        errors: [
-          makeError({
-            source: 'omdb',
-            message: `OMDb fetch failed: ${extractErrMessage(err)}`,
-            code: 'OMDB_FETCH_FAILED',
-            details: { error: stringifyError(err) },
-          }),
-        ],
+        info: fallbackInfo,
+        errors: statusCode === 206 ? fallbackErrors : [],
         traceId,
       };
 
       res.setHeader('x-trace-id', traceId);
       return res
-        .status(502)
+        .status(statusCode)
         .set({ ...JSON_HEADERS, ...CORS_HEADERS })
         .send(JSON.stringify(body));
     }
+
+    const fallbackFailedStatus = hasAnyInfoValue(omdbInfo) ? 206 : omdbStatus >= 400 ? omdbStatus : 502;
+    const fallbackFailedInfo = hasAnyInfoValue(omdbInfo) ? omdbInfo : baseInfo;
+    const body = {
+      requestId: traceId,
+      statusCode: fallbackFailedStatus,
+      dataSource: 'imdb',
+      imdbId,
+      info: fallbackFailedInfo,
+      errors: [...omdbErrors, ...fallbackErrors],
+      traceId,
+    };
+
+    res.setHeader('x-trace-id', traceId);
+    return res
+      .status(fallbackFailedStatus)
+      .set({ ...JSON_HEADERS, ...CORS_HEADERS })
+      .send(JSON.stringify(body));
   }
 }
