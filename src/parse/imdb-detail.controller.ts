@@ -1,7 +1,7 @@
 // src/parse/imdb-detail.controller.ts
 import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
-import { readFile } from 'node:fs/promises';
+import { readFile, unlink } from 'node:fs/promises';
 import path from 'node:path';
 import * as cheerio from 'cheerio';
 import type { Element } from 'domhandler';
@@ -476,6 +476,12 @@ export class ImdbDetailController {
       },
       errors,
     };
+
+    try {
+      await unlink(absPath);
+    } catch {
+      // Best-effort cleanup; parsing result is still returned.
+    }
 
     return resp;
   }
