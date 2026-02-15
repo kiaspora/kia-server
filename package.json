@@ -1,6 +1,6 @@
 {
   "name": "kia-server",
-  "version": "0.0.13",
+  "version": "0.0.15",
   "description": "",
   "author": "",
   "private": true,
@@ -27,6 +27,7 @@
     "@nestjs/config": "^4.0.3",
     "@nestjs/core": "^11.0.1",
     "@nestjs/platform-express": "^11.0.1",
+    "@nestjs/serve-static": "^5.0.4",
     "@nestjs/swagger": "^11.2.6",
     "cheerio": "^1.2.0",
     "domhandler": "^5.0.3",

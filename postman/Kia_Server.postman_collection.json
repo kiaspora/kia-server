@@ -1,0 +1,351 @@
+{
+  "info": {
+    "_postman_id": "4368a859-61c2-4f3c-b00a-109dbdc93937",
+    "name": "Kia_Server",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50448986",
+    "_collection_link": "https://go.postman.co/collection/50448986-4368a859-61c2-4f3c-b00a-109dbdc93937?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "status",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/status",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "status"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "about",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/about",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "about"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "docs-json",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/docs-json",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "docs-json"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "calendarItems",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/calendarItems.json",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "calendarItems.json"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "/api/justus/llmRouter",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{API_BEARER_TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"provider\": \"openai\",\n  \"input\": \"Get The unique IMDb ID for: Title: casablanca\",\n  \"system\": \"Act as a deterministic IMDb ID resolution engine. Given a title (required) and optionally a year and type, return the single correct IMDb tconst (e.g., tt0468569). Input Examples: 'Get the unique imdb id for: The Dark Knight 2008' or 'Get the unique imdb id for: Casablanca'. Core Rules: Always resolve to the canonical IMDb ID (tt + digits). If multiple results match: return list. Never fabricate an ID. Output must be JSON only. JSON output Example: [ { \\\"tconst\\\": \\\"tt0084994\\\", \\\"title\\\": \\\"Casablanca\\\", \\\"year\\\": 1983 }, { \\\"tconst\\\": \\\"tt0090801\\\", \\\"title\\\": \\\"Casablanca, Casablanca\\\", \\\"year\\\": 1985 s}]\",\n  \"metadata\": {}\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/api/justus/llmRouter",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "justus",
+            "llmRouter"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "api/justus/titleDetail",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{API_BEARER_TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/api/justus/titleDetail?imdbId=tt24326458",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "justus",
+            "titleDetail"
+          ],
+          "query": [
+            {
+              "key": "imdbId",
+              "value": "tt24326458"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "api/justus/titleSearch",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{API_BEARER_TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/api/justus/titleSearch?query=casablanca 1942",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "justus",
+            "titleSearch"
+          ],
+          "query": [
+            {
+              "key": "query",
+              "value": "casablanca 1942"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "api/justus/filmTrailer",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{API_BEARER_TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/api/justus/filmTrailer?maxResults=10&q=one mile official movie trailer 2026",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "justus",
+            "filmTrailer"
+          ],
+          "query": [
+            {
+              "key": "maxResults",
+              "value": "10"
+            },
+            {
+              "key": "q",
+              "value": "one mile official movie trailer 2026"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "api/parse/html",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{API_BEARER_TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/api/parse/html?url=https://www.imdb.com/title/tt24326458",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "parse",
+            "html"
+          ],
+          "query": [
+            {
+              "key": "url",
+              "value": "https://www.imdb.com/title/tt24326458"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "api/parse/imdbSearch",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/api/parse/imdbSearch?query=sirens",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "parse",
+            "imdbSearch"
+          ],
+          "query": [
+            {
+              "key": "query",
+              "value": "sirens"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "api/parse/imdbDetail",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{API_BEARER_TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/api/parse/imdbDetail?imdbId=tt24326458",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "parse",
+            "imdbDetail"
+          ],
+          "query": [
+            {
+              "key": "imdbId",
+              "value": "tt24326458"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "OMDB API",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://www.omdbapi.com/?apikey=1e26bd15&i=tt0034583",
+          "protocol": "http",
+          "host": [
+            "www",
+            "omdbapi",
+            "com"
+          ],
+          "path": [
+            ""
+          ],
+          "query": [
+            {
+              "key": "apikey",
+              "value": "1e26bd15"
+            },
+            {
+              "key": "i",
+              "value": "tt0034583"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
