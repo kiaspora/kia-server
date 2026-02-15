@@ -8,6 +8,7 @@ import { ImdbSearchController } from './parse/imdb-search.controller';
 import { ImdbDetailController } from './parse/imdb-detail.controller';
 
 import { TitleSearchController } from './justus/titleSearch.controller';
+import { TitleDetailController } from './justus/titleDetail.controller';
 
 import { TraceIdMiddleware } from './common/trace-id.middleware';
 import { TraceIdInterceptor } from './common/trace-id.interceptor';
@@ -16,7 +17,14 @@ import { TraceIdInterceptor } from './common/trace-id.interceptor';
   imports: [
       ConfigModule.forRoot({ isGlobal: true }), // loads .env
   ],
-  controllers: [MetaController, ParseController, ImdbSearchController, ImdbDetailController, TitleSearchController],
+  controllers: [
+    MetaController,
+    ParseController,
+    ImdbSearchController,
+    ImdbDetailController,
+    TitleSearchController,
+    TitleDetailController,
+  ],
   providers: [{ provide: APP_INTERCEPTOR, useClass: TraceIdInterceptor }],
 })
 export class AppModule implements NestModule {
