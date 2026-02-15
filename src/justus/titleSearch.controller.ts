@@ -75,6 +75,19 @@ function stringifyError(err: any) {
   }
 }
 
+function parseTitleWithOptionalYearSuffix(raw: string) {
+  const trimmed = String(raw || '').trim();
+  const match = trimmed.match(/^(.*\S)\s+(\d{4})$/);
+  if (!match) return { title: trimmed, year: null as number | null };
+
+  const year = parseInt(match[2], 10);
+  if (!Number.isFinite(year) || year < 1800 || year > 2100) {
+    return { title: trimmed, year: null as number | null };
+  }
+
+  return { title: match[1].trim(), year };
+}
+
 @Controller('api/justus')
 @UseGuards(BearerTokenGuard)
 export class TitleSearchController {
@@ -112,12 +125,27 @@ export class TitleSearchController {
     const qs = req.url.split('?')[1] ?? '';
     const params = new URLSearchParams(qs);
 
-    // Forward everything except dataSource
+    const incomingQuery = params.get('q') || params.get('query') || params.get('s') || '';
+    const parsedQuery = parseTitleWithOptionalYearSuffix(incomingQuery);
+
+    // Forward everything except dataSource; normalize search params for CF worker
     const upstreamParams = new URLSearchParams(params);
     upstreamParams.delete('dataSource');
+    upstreamParams.delete('query');
+    upstreamParams.delete('s');
+
+    if (parsedQuery.title) {
+      upstreamParams.set('q', parsedQuery.title);
+    }
+
+    if (parsedQuery.year !== null) {
+      upstreamParams.set('year_min', String(parsedQuery.year));
+      upstreamParams.set('year_max', String(parsedQuery.year));
+      upstreamParams.delete('year');
+    }
 
     const pageLimit = parseInt(params.get('limit') || '20', 10);
-    const omdbQuery = params.get('q') || params.get('query') || params.get('s') || '';
+    const omdbQuery = parsedQuery.title;
     const omdbPageRaw = parseInt(params.get('page') || '', 10);
 
     const targetUrl =
