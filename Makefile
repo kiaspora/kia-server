@@ -7,6 +7,9 @@ PKG_NAME := $(shell npm pkg get name | tr -d '"')
 PKG_VERSION := $(shell npm pkg get version | tr -d '"')
 RN_VERSION := $(shell npm pkg get dependencies.react-native | tr -d '"')
 
+bump:
+	pnpm run bump
+
 doc-repomix:
 	@mkdir -p temp
 	@npx repomix@latest --style markdown -o temp/repomix-$(PKG_NAME)-$(PKG_VERSION).md
@@ -24,6 +27,3 @@ git-file:
 
 git-set:
 	git remote set-url origin git@github.com-kiaspora:kiaspora/kia-mobile-app.git;ssh-add ~/.ssh/id_ed25519_kiaspora
-
-src:
-	source ~/.zshrc 

@@ -1,7 +1,9 @@
-import { Controller, Get, Query, Req } from '@nestjs/common';
+import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import type { Request } from 'express';
 import { readFile } from 'node:fs/promises';
 import path from 'node:path';
+import { BearerTokenGuard } from '../auth/bearer-token.guard';
+import type { TraceRequest } from '../common/trace-id.middleware';
 
 type ParseHtmlResponse = {
   statusCode: number;
@@ -63,8 +65,10 @@ function parseImdbFindHtml(html: string): ImdbSearchItem[] {
 
 @Controller('api/parse')
 export class ImdbSearchController {
+  @UseGuards(BearerTokenGuard)
   @Get('imdbSearch')
-  async imdbSearch(@Query('query') query: string | undefined, @Req() req: Request) {
+  async imdbSearch(@Query('query') query: string | undefined, @Req() req: TraceRequest) {
+    const auth = (req.headers?.authorization ?? req.headers?.Authorization) as string | undefined;
     const started = Date.now();
 
     const q = (query ?? '').trim();
@@ -100,7 +104,13 @@ export class ImdbSearchController {
 
     let parseResp: ParseHtmlResponse;
     try {
-      const r = await fetch(localParseUrl, { redirect: 'follow' });
+      const r = await fetch(localParseUrl, { 
+        redirect: 'follow',
+        headers: {
+            ...(auth ? { Authorization: auth } : {}),
+            ...(req.traceId ? { 'x-trace-id': req.traceId } : {}),
+        },
+      });
       parseResp = (await r.json()) as ParseHtmlResponse;
     } catch (e: any) {
       const latency = Date.now() - started;

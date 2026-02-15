@@ -1,9 +1,10 @@
-import { Controller, Get, Query, Res } from '@nestjs/common';
+import { Controller, Get, Query, Res, UseGuards } from '@nestjs/common';
 import type { Response } from 'express';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { URL } from 'node:url';
 import path from 'node:path';
+import { BearerTokenGuard } from '../auth/bearer-token.guard';
 
 type ParseHtmlResponse = {
   statusCode: number;        // remote fetch status, or 400/500 for local validation/runtime
@@ -16,6 +17,7 @@ type ParseHtmlResponse = {
 
 @Controller('api/parse')
 export class ParseController {
+  @UseGuards(BearerTokenGuard)
   @Get('html')
   async parseHtml(
     @Query('url') urlStr: string | undefined,
