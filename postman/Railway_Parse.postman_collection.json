@@ -1,0 +1,106 @@
+{
+  "info": {
+    "_postman_id": "b933db35-2e94-4f22-bc54-ddefb228fd74",
+    "name": "Railway_Parse",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50448986",
+    "_collection_link": "https://go.postman.co/collection/50448986-b933db35-2e94-4f22-bc54-ddefb228fd74?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "api/parse/html",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{API_BEARER_TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/api/parse/html?url=https://www.imdb.com/title/tt24326458",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "parse",
+            "html"
+          ],
+          "query": [
+            {
+              "key": "url",
+              "value": "https://www.imdb.com/title/tt24326458"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "api/parse/imdbDetail",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{API_BEARER_TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/api/parse/imdbDetail?imdbId=tt24326458",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "parse",
+            "imdbDetail"
+          ],
+          "query": [
+            {
+              "key": "imdbId",
+              "value": "tt24326458"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "api/parse/imdbSearch",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/api/parse/imdbSearch?query=sirens",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "parse",
+            "imdbSearch"
+          ],
+          "query": [
+            {
+              "key": "query",
+              "value": "sirens"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}

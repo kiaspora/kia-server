@@ -43,12 +43,51 @@ function camelizeValue(value: any): any {
   return value;
 }
 
-function normalizeItemsToCamel(items: any): any[] {
+function parseYearValue(raw: any): number | null {
+  if (typeof raw === 'number' && Number.isFinite(raw)) {
+    return Math.trunc(raw);
+  }
+
+  const text = String(raw ?? '').trim();
+  if (!text) return null;
+
+  // OMDb can return ranges like "2024-", "2024–", or "2024-2026".
+  const rangeMatch = text.match(/^(\d{4})\s*[-–]/);
+  if (rangeMatch) {
+    const year = parseInt(rangeMatch[1], 10);
+    return Number.isFinite(year) ? year : null;
+  }
+
+  const match = text.match(/\b(\d{4})\b/);
+  if (!match) return null;
+
+  const year = parseInt(match[1], 10);
+  return Number.isFinite(year) ? year : null;
+}
+
+function toCanonicalSearchItem(raw: any): { tconst: string; title: string; year: number } | null {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
+
+  const normalized = camelizeValue(raw);
+
+  const tconst = String(
+    normalized.tconst ?? normalized.imdbId ?? normalized.imdbID ?? (raw as any).imdbID ?? '',
+  ).trim();
+  const title = String(normalized.title ?? '').trim();
+
+  if (!tconst || !title) return null;
+
+  const year = parseYearValue(normalized.year);
+  if (year === null) return null;
+
+  return { tconst, title, year };
+}
+
+function normalizeItemsToCanonical(items: any): Array<{ tconst: string; title: string; year: number }> {
   if (!Array.isArray(items)) return [];
-  return items.map((item) => {
-    if (!item || typeof item !== 'object' || Array.isArray(item)) return item;
-    return camelizeValue(item);
-  });
+  return items
+    .map((item) => toCanonicalSearchItem(item))
+    .filter((item): item is { tconst: string; title: string; year: number } => Boolean(item));
 }
 
 function truncate(s: any, n = 800) {
@@ -251,7 +290,7 @@ export class TitleSearchController {
         return {
           ok: true,
           status: 200,
-          items: normalizeItemsToCamel(pageLimit > 0 ? found.slice(0, pageLimit) : found),
+          items: normalizeItemsToCanonical(pageLimit > 0 ? found.slice(0, pageLimit) : found),
         };
       } catch (err) {
         return {
@@ -312,7 +351,7 @@ export class TitleSearchController {
         }
 
         if (Array.isArray(parsed)) {
-          items = normalizeItemsToCamel(parsed);
+          items = normalizeItemsToCanonical(parsed);
         } else {
           errors.push(
             makeError({
