@@ -7,6 +7,9 @@ PKG_NAME := $(shell npm pkg get name | tr -d '"')
 PKG_VERSION := $(shell npm pkg get version | tr -d '"')
 RN_VERSION := $(shell npm pkg get dependencies.react-native | tr -d '"')
 
+serve:
+	pnpm start:dev
+
 bump:
 	pnpm run bump
 

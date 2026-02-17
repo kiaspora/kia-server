@@ -15,6 +15,7 @@ import { FilmTrailerController } from './justus/filmTrailer.controller';
 import { FilmTrailerService } from './justus/filmTrailer.service';
 import { LlmRouterController } from './justus/llmRouter.controller';
 import { LlmRouterService } from './justus/llmRouter.service';
+import { GenerateReviewModule } from './generate-review/generate-review.module';
 
 import { TraceIdMiddleware } from './common/trace-id.middleware';
 import { TraceIdInterceptor } from './common/trace-id.interceptor';
@@ -25,6 +26,7 @@ import { TraceIdInterceptor } from './common/trace-id.interceptor';
     ServeStaticModule.forRoot({
       rootPath: join(process.cwd(), 'public'),
     }),
+    GenerateReviewModule,
   ],
   controllers: [
     MetaController,
