@@ -303,8 +303,8 @@ export class TranslationRouterService {
     payload: { sourceText: string; sourceLang: string; targetLang: string; context: string | null; customPrompt: string | null },
     traceId: string,
   ): Promise<ProviderResult200> {
-    const apiKey = pickFirstEnv('DEEPSEEK_KIA_API_KEY', 'DEEPSEEK_API_KEY');
-    if (!apiKey) throw new HttpError(500, 'Missing DEEPSEEK_KIA_API_KEY', 'MISSING_DEEPSEEK_KIA_API_KEY');
+    const apiKey = pickFirstEnv('DEEPSEEK_API_KEY', 'DEEPSEEK_API_KEY');
+    if (!apiKey) throw new HttpError(500, 'Missing DEEPSEEK_API_KEY', 'MISSING_DEEPSEEK_API_KEY');
 
     const model = pickFirstEnv('DEEPSEEK_TRANSLATION_MODEL') || 'deepseek-chat';
     const started = Date.now();
