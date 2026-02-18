@@ -17,6 +17,8 @@ import { LlmRouterController } from './justus/llmRouter.controller';
 import { LlmRouterService } from './justus/llmRouter.service';
 import { GenerateReviewModule } from './generate-review/generate-review.module';
 
+import { KiasporaModule } from './kiaspora/kiaspora.module';
+
 import { TraceIdMiddleware } from './common/trace-id.middleware';
 import { TraceIdInterceptor } from './common/trace-id.interceptor';
 
@@ -27,6 +29,7 @@ import { TraceIdInterceptor } from './common/trace-id.interceptor';
       rootPath: join(process.cwd(), 'public'),
     }),
     GenerateReviewModule,
+    KiasporaModule
   ],
   controllers: [
     MetaController,
