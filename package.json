@@ -1,6 +1,6 @@
 {
   "name": "kia-server",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "",
   "author": "",
   "private": true,
@@ -23,6 +23,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@google-cloud/speech": "^7.2.1",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.3",
     "@nestjs/core": "^11.0.1",
