@@ -1,6 +1,6 @@
 {
   "name": "kia-server",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "",
   "author": "",
   "private": true,
@@ -34,6 +34,7 @@
     "cheerio": "^1.2.0",
     "domhandler": "^5.0.3",
     "express-basic-auth": "^1.2.1",
+    "pg": "^8.18.0",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.1",
     "swagger-ui-express": "^5.0.1"
