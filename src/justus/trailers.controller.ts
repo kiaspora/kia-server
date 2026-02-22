@@ -1,3 +1,4 @@
+// src/justus/trailers.controller.ts
 import { Controller, Get, Query, Req, UseGuards } from '@nestjs/common';
 import { BearerTokenGuard } from '../auth/bearer-token.guard';
 import type { Request } from 'express';
@@ -7,12 +8,15 @@ import * as path from 'node:path';
 type TraceRequest = Request & { traceId?: string };
 
 type ParseHtmlResponse = {
-  statusCode: number;
+  ok: boolean;
+  rendered: boolean;
   url: string;
-  filePath: string | null;
-  errors: string[];
-  latency: number;
+  htmlPath: string | null;
+  screenshotPath: string | null;
+  networkLogPath: string | null;
   size: number;
+  latencyMs: number;
+  error?: string;
 };
 
 type ImdbDetailBody = {
@@ -49,7 +53,7 @@ function sleep(ms: number) {
 }
 
 function randomDelayMs() {
-  // 500..1500 inclusive-ish
+  // 500..1500
   return 500 + Math.floor(Math.random() * 1001);
 }
 
@@ -77,13 +81,36 @@ function parseImdbIdsFromTrailerHtml(html: string): string[] {
   return out;
 }
 
-function looksBlockedOrConsent(html: string) {
+function isSafeTempPath(p: string | null | undefined) {
+  return typeof p === 'string' && p.startsWith('temp/');
+}
+
+async function cleanupParseArtifacts(resp: ParseHtmlResponse | null | undefined) {
+  if (!resp) return;
+
+  const rels = [resp.htmlPath, resp.screenshotPath, resp.networkLogPath].filter(Boolean) as string[];
+
+  await Promise.all(
+    rels.map(async (rel) => {
+      if (!isSafeTempPath(rel)) return;
+      const abs = path.join(process.cwd(), rel);
+      await fs.unlink(abs).catch(() => void 0);
+    }),
+  );
+}
+
+function looksStronglyBlocked(html: string) {
   const s = html.toLowerCase();
   return (
-    s.includes('consent') ||
     s.includes('captcha') ||
+    s.includes('verify you are human') ||
     s.includes('robot check') ||
-    s.includes('verify you are human')
+    s.includes('access denied') ||
+    s.includes('request blocked') ||
+    s.includes('perimeterx') ||
+    s.includes('px-captcha') ||
+    s.includes('incapsula') ||
+    s.includes('cloudflare')
   );
 }
 
@@ -91,14 +118,19 @@ function looksBlockedOrConsent(html: string) {
 @Controller('api/justus')
 export class TrailersController {
   @Get('trailers')
-  async trailers(@Query('limit') limitRaw: string | undefined, @Req() req: TraceRequest): Promise<ApiResponse<{
-    sourceUrl: string;
-    limit: number;
-    candidateCount: number;
-    writtenCount: number;
-    outputFile: string;
-    items: ImdbDetailBody[];
-  } | null>> {
+  async trailers(
+    @Query('limit') limitRaw: string | undefined,
+    @Req() req: TraceRequest,
+  ): Promise<
+    ApiResponse<{
+      sourceUrl: string;
+      limit: number;
+      candidateCount: number;
+      writtenCount: number;
+      outputFile: string;
+      items: ImdbDetailBody[];
+    } | null>
+  > {
     const started = Date.now();
     const limit = parseLimit(limitRaw);
     const sourceUrl = 'https://www.imdb.com/trailers';
@@ -138,31 +170,38 @@ export class TrailersController {
       };
     }
 
-    if (!parseResp.filePath || (parseResp.errors?.length ?? 0) > 0) {
+    if (!parseResp?.ok || !parseResp.htmlPath) {
+      // If /api/parse/html failed, there may be nothing to clean, but safe to try.
+      await cleanupParseArtifacts(parseResp).catch(() => void 0);
+
       return {
-        statusCode: parseResp.statusCode || 500,
-        errors: parseResp.errors?.length ? parseResp.errors : ['No filePath returned'],
+        statusCode: 502,
+        errors: [parseResp?.error || 'No htmlPath returned from /api/parse/html'],
         latency: Date.now() - started,
         data: null,
       };
     }
 
     // 2) Safety: only read from temp/
-    if (!parseResp.filePath.startsWith('temp/')) {
+    if (!isSafeTempPath(parseResp.htmlPath)) {
+      await cleanupParseArtifacts(parseResp).catch(() => void 0);
+
       return {
         statusCode: 400,
-        errors: ['Invalid filePath (must start with temp/)'],
+        errors: ['Invalid htmlPath (must start with temp/)'],
         latency: Date.now() - started,
         data: null,
       };
     }
 
-    // 3) Read HTML from disk + parse first 40 ids
-    const absPath = path.join(process.cwd(), parseResp.filePath);
+    // 3) Read HTML from disk
+    const absHtmlPath = path.join(process.cwd(), parseResp.htmlPath);
     let html: string;
     try {
-      html = await fs.readFile(absPath, 'utf8');
+      html = await fs.readFile(absHtmlPath, 'utf8');
     } catch (e: any) {
+      await cleanupParseArtifacts(parseResp).catch(() => void 0);
+
       return {
         statusCode: 500,
         errors: [e?.message ? String(e.message) : 'Failed to read HTML file'],
@@ -171,29 +210,36 @@ export class TrailersController {
       };
     }
 
-    // best-effort cleanup
-    fs.unlink(absPath).catch(() => void 0);
-
     console.log('[trailers] html bytes:', Buffer.byteLength(html, 'utf8'));
     console.log('[trailers] contains "/title/tt"?', html.includes('/title/tt'));
 
-    if (looksBlockedOrConsent(html)) {
+    // ✅ NEW RULE:
+    //  - First, try extracting ids.
+    //  - Only call it "blocked" if there are ZERO ids AND strong block markers exist.
+    const candidates = parseImdbIdsFromTrailerHtml(html);
+
+    if (candidates.length === 0) {
+      const blocked = looksStronglyBlocked(html);
+      // Keep artifacts for debugging when blocked/empty (do NOT cleanup here).
       return {
         statusCode: 502,
-        errors: ['IMDB returned a consent/captcha page; no titles to parse'],
+        errors: [
+          blocked
+            ? 'IMDB appears blocked (captcha/bot wall); no titles to parse'
+            : 'No IMDb title ids found in rendered HTML (layout/API change or render incomplete)',
+          `debug: ${parseResp.htmlPath ?? ''} ${parseResp.screenshotPath ?? ''} ${parseResp.networkLogPath ?? ''}`.trim(),
+        ],
         latency: Date.now() - started,
         data: null,
       };
     }
 
-    const candidates = parseImdbIdsFromTrailerHtml(html);
     const targetIds = candidates.slice(0, limit);
 
     // 4) Call /api/parse/imdbDetail sequentially w/ delay, keep only successful
     const items: ImdbDetailBody[] = [];
     for (let i = 0; i < targetIds.length; i++) {
       const imdbId = targetIds[i];
-
       const detailUrl = `${base}/api/parse/imdbDetail?imdbId=${encodeURIComponent(imdbId)}`;
 
       try {
@@ -212,7 +258,7 @@ export class TrailersController {
           items.push(body);
         }
       } catch {
-        // swallow per requirement: don't add items to JSON if error returned
+        // swallow: don't add items if request fails
       }
 
       if (i < targetIds.length - 1) {
@@ -221,6 +267,7 @@ export class TrailersController {
     }
 
     if (items.length === 0) {
+      // Keep artifacts for debugging when no details succeeded.
       return {
         statusCode: 200,
         errors: ['No items parsed; calendarItems.json not updated'],
@@ -245,6 +292,9 @@ export class TrailersController {
     await fs.mkdir(path.dirname(outAbs), { recursive: true });
     await fs.writeFile(tmpAbs, JSON.stringify(items, null, 2), 'utf8');
     await fs.rename(tmpAbs, outAbs);
+
+    // ✅ 6) Cleanup parse artifacts AFTER successful write
+    await cleanupParseArtifacts(parseResp).catch(() => void 0);
 
     return {
       statusCode: 200,
