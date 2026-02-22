@@ -1,0 +1,50 @@
+[
+  {
+    "requestId": "5858a84f-ff8e-4431-9216-8529592c6000",
+    "statusCode": 206,
+    "dataSource": "imdb",
+    "imdbId": "tt0427340",
+    "info": {
+      "title": "Masters of the Universe",
+      "year": "2026",
+      "rated": "",
+      "released": "05 Jun 2026",
+      "runtime": "",
+      "genre": "Action, Adventure, Family",
+      "director": "Travis Knight",
+      "writers": "Chris Butler, Aaron Nee, Adam Nee",
+      "actors": "Nicholas Galitzine, Morena Baccarin, Alison Brie",
+      "plot": "A young man on Earth discovers a fabulous secret legacy as the prince of an alien planet, and must recover a magic sword and return home to protect his kingdom.",
+      "language": "English",
+      "country": "United States",
+      "poster": "https://m.media-amazon.com/images/M/MV5BN2MzMjMyNmQtYzkwMC00NTM2LThmN2ItMTczMGVmNGY5ODZlXkEyXkFqcGc@._V1_SX300.jpg",
+      "imdbId": "tt0427340"
+    },
+    "errors": [],
+    "traceId": "5858a84f-ff8e-4431-9216-8529592c6000"
+  },
+  {
+    "requestId": "5858a84f-ff8e-4431-9216-8529592c6000",
+    "statusCode": 206,
+    "dataSource": "imdb",
+    "imdbId": "tt11378946",
+    "info": {
+      "title": "Michael",
+      "year": "2026",
+      "rated": "PG-13",
+      "released": "24 Apr 2026",
+      "runtime": "",
+      "genre": "Biography, Drama, History",
+      "director": "Antoine Fuqua",
+      "writers": "John Logan",
+      "actors": "Jaafar Jackson, Juliano Valdi, Tony von Halle",
+      "plot": "The story of the famous musician Michael Jackson, known as the King of Pop.",
+      "language": "English",
+      "country": "United Kingdom",
+      "poster": "https://m.media-amazon.com/images/M/MV5BZWU5ZjMxZWMtMGMxNy00NzBjLWFhNmYtZmEzNDVmMTRkZDgwXkEyXkFqcGc@._V1_SX300.jpg",
+      "imdbId": "tt11378946"
+    },
+    "errors": [],
+    "traceId": "5858a84f-ff8e-4431-9216-8529592c6000"
+  }
+]

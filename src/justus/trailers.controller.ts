@@ -7,26 +7,15 @@ import * as path from 'node:path';
 
 type TraceRequest = Request & { traceId?: string };
 
-type ParseHtmlResponse = {
-  ok: boolean;
-  rendered: boolean;
-  url: string;
-  htmlPath: string | null;
-  screenshotPath: string | null;
-  networkLogPath: string | null;
-  size: number;
-  latencyMs: number;
-  error?: string;
-};
-
-type ImdbDetailBody = {
+type TitleDetailBody = {
   requestId: string;
-  statusCode: number;
+  statusCode: number; // 200 | 206 etc
   dataSource: 'imdb' | string;
   imdbId: string;
   info: any;
   errors: any[];
   traceId?: string;
+  timestamp?: string;
 };
 
 type ApiResponse<T> = {
@@ -35,7 +24,6 @@ type ApiResponse<T> = {
   latency: number;
   size?: number;
   data: T;
-  // traceId injected by interceptor
 };
 
 function clampInt(n: number, min: number, max: number) {
@@ -57,61 +45,18 @@ function randomDelayMs() {
   return 500 + Math.floor(Math.random() * 1001);
 }
 
-function parseImdbIdsFromTrailerHtml(html: string): string[] {
-  const patterns = [
-    /href=['"]\/title\/(tt\d+)\b/gi,
-    /\/title\/(tt\d+)\b/gi,
-  ];
-
-  const out: string[] = [];
-  const seen = new Set<string>();
-
-  for (const re of patterns) {
-    let m: RegExpExecArray | null;
-    while ((m = re.exec(html)) !== null) {
-      const id = m[1];
-      if (!seen.has(id)) {
-        seen.add(id);
-        out.push(id);
-        if (out.length >= 40) return out;
-      }
-    }
-  }
-
-  return out;
+function isValidImdbId(s: unknown): s is string {
+  return typeof s === 'string' && /^tt\d{5,12}$/.test(s);
 }
 
-function isSafeTempPath(p: string | null | undefined) {
-  return typeof p === 'string' && p.startsWith('temp/');
+function uniq<T>(arr: T[]) {
+  return Array.from(new Set(arr));
 }
 
-async function cleanupParseArtifacts(resp: ParseHtmlResponse | null | undefined) {
-  if (!resp) return;
-
-  const rels = [resp.htmlPath, resp.screenshotPath, resp.networkLogPath].filter(Boolean) as string[];
-
-  await Promise.all(
-    rels.map(async (rel) => {
-      if (!isSafeTempPath(rel)) return;
-      const abs = path.join(process.cwd(), rel);
-      await fs.unlink(abs).catch(() => void 0);
-    }),
-  );
-}
-
-function looksStronglyBlocked(html: string) {
-  const s = html.toLowerCase();
-  return (
-    s.includes('captcha') ||
-    s.includes('verify you are human') ||
-    s.includes('robot check') ||
-    s.includes('access denied') ||
-    s.includes('request blocked') ||
-    s.includes('perimeterx') ||
-    s.includes('px-captcha') ||
-    s.includes('incapsula') ||
-    s.includes('cloudflare')
-  );
+function log(traceId: string | undefined, ...args: any[]) {
+  const prefix = traceId ? `[trailers][${traceId}]` : `[trailers]`;
+  // eslint-disable-next-line no-console
+  console.log(prefix, ...args);
 }
 
 @UseGuards(BearerTokenGuard)
@@ -123,17 +68,20 @@ export class TrailersController {
     @Req() req: TraceRequest,
   ): Promise<
     ApiResponse<{
-      sourceUrl: string;
+      inputFile: string;
+      outputFile: string;
       limit: number;
       candidateCount: number;
+      requestedCount: number;
       writtenCount: number;
-      outputFile: string;
-      items: ImdbDetailBody[];
+      items: TitleDetailBody[];
     } | null>
   > {
     const started = Date.now();
     const limit = parseLimit(limitRaw);
-    const sourceUrl = 'https://www.imdb.com/trailers';
+    const traceId = req.traceId;
+
+    log(traceId, 'START', { limit });
 
     const auth = (req.headers?.authorization ?? (req.headers as any)?.Authorization) as string | undefined;
 
@@ -147,145 +95,126 @@ export class TrailersController {
       (req as any).get?.('host');
 
     const base = `${proto}://${host}`;
+    log(traceId, 'BASE', base);
 
-    // 1) Call /api/parse/html?url=https://www.imdb.com/trailers
-    const localParseUrl = `${base}/api/parse/html?url=${encodeURIComponent(sourceUrl)}`;
+    // 1) Read public/trailer_ids.json
+    const inRel = 'public/trailer_ids.json';
+    const inAbs = path.join(process.cwd(), inRel);
 
-    let parseResp: ParseHtmlResponse;
+    type TrailerIdRow = { imdb_id?: unknown; imdbId?: unknown; id?: unknown } | string;
+
+    let rawJson: unknown;
     try {
-      const r = await fetch(localParseUrl, {
-        redirect: 'follow',
-        headers: {
-          ...(auth ? { Authorization: auth } : {}),
-          ...(req.traceId ? { 'x-trace-id': req.traceId } : {}),
-        },
-      });
-      parseResp = (await r.json()) as ParseHtmlResponse;
+      log(traceId, 'READ input', inRel, '=>', inAbs);
+      const raw = await fs.readFile(inAbs, 'utf8');
+      rawJson = JSON.parse(raw);
     } catch (e: any) {
+      log(traceId, 'READ/PARSE FAIL', e?.message || e);
       return {
         statusCode: 500,
-        errors: [e?.message ? String(e.message) : 'Failed to call /api/parse/html'],
+        errors: [e?.message ? String(e.message) : `Failed to read/parse ${inRel}`],
         latency: Date.now() - started,
         data: null,
       };
     }
 
-    if (!parseResp?.ok || !parseResp.htmlPath) {
-      // If /api/parse/html failed, there may be nothing to clean, but safe to try.
-      await cleanupParseArtifacts(parseResp).catch(() => void 0);
-
-      return {
-        statusCode: 502,
-        errors: [parseResp?.error || 'No htmlPath returned from /api/parse/html'],
-        latency: Date.now() - started,
-        data: null,
-      };
-    }
-
-    // 2) Safety: only read from temp/
-    if (!isSafeTempPath(parseResp.htmlPath)) {
-      await cleanupParseArtifacts(parseResp).catch(() => void 0);
-
+    if (!Array.isArray(rawJson)) {
       return {
         statusCode: 400,
-        errors: ['Invalid htmlPath (must start with temp/)'],
+        errors: [`${inRel} must be a JSON array`],
         latency: Date.now() - started,
         data: null,
       };
     }
 
-    // 3) Read HTML from disk
-    const absHtmlPath = path.join(process.cwd(), parseResp.htmlPath);
-    let html: string;
-    try {
-      html = await fs.readFile(absHtmlPath, 'utf8');
-    } catch (e: any) {
-      await cleanupParseArtifacts(parseResp).catch(() => void 0);
+    const extracted = rawJson
+      .map((row: TrailerIdRow) => {
+        if (typeof row === 'string') return row;
+        if (row && typeof row === 'object') {
+          const r = row as any;
+          return (r.imdb_id ?? r.imdbId ?? r.id) as unknown;
+        }
+        return undefined;
+      })
+      .filter(isValidImdbId);
 
-      return {
-        statusCode: 500,
-        errors: [e?.message ? String(e.message) : 'Failed to read HTML file'],
-        latency: Date.now() - started,
-        data: null,
-      };
-    }
-
-    console.log('[trailers] html bytes:', Buffer.byteLength(html, 'utf8'));
-    console.log('[trailers] contains "/title/tt"?', html.includes('/title/tt'));
-
-    // ✅ NEW RULE:
-    //  - First, try extracting ids.
-    //  - Only call it "blocked" if there are ZERO ids AND strong block markers exist.
-    const candidates = parseImdbIdsFromTrailerHtml(html);
+    const candidates = uniq(extracted);
 
     if (candidates.length === 0) {
-      const blocked = looksStronglyBlocked(html);
-      // Keep artifacts for debugging when blocked/empty (do NOT cleanup here).
       return {
-        statusCode: 502,
-        errors: [
-          blocked
-            ? 'IMDB appears blocked (captcha/bot wall); no titles to parse'
-            : 'No IMDb title ids found in rendered HTML (layout/API change or render incomplete)',
-          `debug: ${parseResp.htmlPath ?? ''} ${parseResp.screenshotPath ?? ''} ${parseResp.networkLogPath ?? ''}`.trim(),
-        ],
+        statusCode: 400,
+        errors: [`No valid IMDb ids found in ${inRel}`],
         latency: Date.now() - started,
         data: null,
       };
     }
 
+    // ✅ limit enforced here
     const targetIds = candidates.slice(0, limit);
+    log(traceId, 'TARGETS', { requestedCount: targetIds.length, targetIds });
 
-    // 4) Call /api/parse/imdbDetail sequentially w/ delay, keep only successful
-    const items: ImdbDetailBody[] = [];
+    // 2) Call /api/justus/titleDetail sequentially with 500..1500ms delay
+    const items: TitleDetailBody[] = [];
+
     for (let i = 0; i < targetIds.length; i++) {
       const imdbId = targetIds[i];
-      const detailUrl = `${base}/api/parse/imdbDetail?imdbId=${encodeURIComponent(imdbId)}`;
+
+      // ✅ CORRECT ENDPOINT
+      const detailUrl = `${base}/api/justus/titleDetail?imdbId=${encodeURIComponent(imdbId)}`;
+
+      const t0 = Date.now();
+      log(traceId, `DETAIL ${i + 1}/${targetIds.length} -> FETCH start`, { imdbId });
 
       try {
+        const ac = new AbortController();
+        const timeoutMs = 20_000;
+        const timer = setTimeout(() => ac.abort(), timeoutMs);
+
         const r = await fetch(detailUrl, {
           redirect: 'follow',
+          signal: ac.signal,
           headers: {
             ...(auth ? { Authorization: auth } : {}),
-            ...(req.traceId ? { 'x-trace-id': req.traceId } : {}),
+            ...(traceId ? { 'x-trace-id': traceId } : {}),
           },
+        }).finally(() => clearTimeout(timer));
+
+        const httpStatus = r.status;
+        const body = (await r.json()) as TitleDetailBody;
+
+        const ms = Date.now() - t0;
+        const hasErrors = Array.isArray(body?.errors) && body.errors.length > 0;
+
+        // titleDetail often returns 206; treat 200/206 as success
+        const ok = (body?.statusCode === 200 || body?.statusCode === 206) && !hasErrors;
+
+        log(traceId, `DETAIL ${i + 1}/${targetIds.length} <- FETCH done`, {
+          imdbId,
+          httpStatus,
+          bodyStatusCode: body?.statusCode,
+          ok,
+          ms,
         });
 
-        const body = (await r.json()) as ImdbDetailBody;
-
-        const hasErrors = Array.isArray(body?.errors) && body.errors.length > 0;
-        if (body?.statusCode === 200 && !hasErrors) {
-          items.push(body);
-        }
-      } catch {
-        // swallow: don't add items if request fails
+        if (ok) items.push(body);
+      } catch (e: any) {
+        const ms = Date.now() - t0;
+        log(traceId, `DETAIL ${i + 1}/${targetIds.length} FAIL`, {
+          imdbId,
+          ms,
+          err: e?.name === 'AbortError' ? 'AbortError (timeout)' : e?.message || String(e),
+        });
       }
 
       if (i < targetIds.length - 1) {
-        await sleep(randomDelayMs());
+        const d = randomDelayMs();
+        log(traceId, `DELAY ${i + 1}/${targetIds.length}`, { ms: d });
+        await sleep(d);
       }
     }
 
-    if (items.length === 0) {
-      // Keep artifacts for debugging when no details succeeded.
-      return {
-        statusCode: 200,
-        errors: ['No items parsed; calendarItems.json not updated'],
-        latency: Date.now() - started,
-        size: 0,
-        data: {
-          sourceUrl,
-          limit,
-          candidateCount: candidates.length,
-          writtenCount: 0,
-          outputFile: 'public/calendarItems.json',
-          items: [],
-        },
-      };
-    }
-
-    // 5) Write public/calendarItems.json (atomic)
-    const outRel = 'public/calendarItems.json';
+    // 3) Write public/trailers_list.json (atomic)
+    const outRel = 'public/trailers_list.json';
     const outAbs = path.join(process.cwd(), outRel);
     const tmpAbs = `${outAbs}.tmp`;
 
@@ -293,20 +222,21 @@ export class TrailersController {
     await fs.writeFile(tmpAbs, JSON.stringify(items, null, 2), 'utf8');
     await fs.rename(tmpAbs, outAbs);
 
-    // ✅ 6) Cleanup parse artifacts AFTER successful write
-    await cleanupParseArtifacts(parseResp).catch(() => void 0);
+    const latency = Date.now() - started;
+    log(traceId, 'DONE', { requestedCount: targetIds.length, writtenCount: items.length, latencyMs: latency });
 
     return {
       statusCode: 200,
-      errors: [],
-      latency: Date.now() - started,
+      errors: items.length ? [] : ['No items parsed; trailers_list.json written as empty array'],
+      latency,
       size: items.length,
       data: {
-        sourceUrl,
+        inputFile: inRel,
+        outputFile: outRel,
         limit,
         candidateCount: candidates.length,
+        requestedCount: targetIds.length,
         writtenCount: items.length,
-        outputFile: outRel,
         items,
       },
     };
