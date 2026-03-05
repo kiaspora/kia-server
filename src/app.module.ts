@@ -11,6 +11,7 @@ import { ImdbDetailController } from './parse/imdb-detail.controller';
 
 import { GenerateReviewModule } from './generate-review/generate-review.module';
 import { JustUsModule } from './justus/justus.module';
+import { AsunderModule } from './asunder/asunder.module';
 
 import { KiasporaModule } from './kiaspora/kiaspora.module';
 
@@ -26,6 +27,7 @@ import { TraceIdInterceptor } from './common/trace-id.interceptor';
     GenerateReviewModule,
     KiasporaModule,
     JustUsModule,
+    AsunderModule,
   ],
   controllers: [
     MetaController,
