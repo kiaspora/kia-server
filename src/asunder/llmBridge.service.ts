@@ -193,9 +193,41 @@ export class LlmBridgeService {
       delete payload.messages;
     }
 
+    // Chat Completions function tools are nested under "function".
+    // Responses API expects function tool fields at the top level of each tool object.
+    if (Array.isArray(payload.tools)) {
+      payload.tools = payload.tools.map((tool) => {
+        if (!tool || typeof tool !== 'object' || Array.isArray(tool)) {
+          return tool;
+        }
+
+        const toolRecord = tool as Record<string, unknown>;
+        if (toolRecord.type !== 'function') {
+          return toolRecord;
+        }
+
+        const fn = toolRecord.function;
+        if (!fn || typeof fn !== 'object' || Array.isArray(fn)) {
+          return toolRecord;
+        }
+
+        const fnRecord = fn as Record<string, unknown>;
+        return {
+          ...toolRecord,
+          ...fnRecord,
+          function: undefined,
+        };
+      });
+    }
+
     // If caller omitted model for prompt-based request, allow env default.
     if ((payload.model == null || payload.model === '') && defaultModel) {
       payload.model = defaultModel;
+    }
+
+    // gpt-5 family rejects temperature on the Responses API.
+    if (typeof payload.model === 'string' && /^gpt-5/i.test(payload.model)) {
+      delete payload.temperature;
     }
 
     // Responses API uses max_output_tokens, not max_tokens.
