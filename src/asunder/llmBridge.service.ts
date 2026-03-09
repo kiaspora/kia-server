@@ -6,9 +6,16 @@ type ChatMessage = {
   [key: string]: unknown;
 };
 
+type PromptRef = {
+  id?: string;
+  version?: string;
+};
+
 export type LlmBridgeRequest = {
-  model: string;
-  messages: ChatMessage[];
+  model?: string;
+  messages?: ChatMessage[];
+  input?: unknown;
+  prompt?: PromptRef;
   stream?: boolean;
   [key: string]: unknown;
 };
@@ -28,6 +35,7 @@ export class LlmBridgeService {
   async forward(requestBody: unknown, traceId: string): Promise<globalThis.Response> {
     const body = this.validateRequest(requestBody);
     const config = this.getUpstreamConfig();
+    const upstreamBody = this.buildUpstreamPayload(body, config.defaultModel, config.promptId);
 
     const response = await this.fetchWithTimeout(
       config.url,
@@ -38,7 +46,7 @@ export class LlmBridgeService {
           'content-type': 'application/json',
           'x-trace-id': traceId,
         },
-        body: JSON.stringify(body),
+        body: JSON.stringify(upstreamBody),
       },
       60_000,
     );
@@ -57,26 +65,76 @@ export class LlmBridgeService {
     }
 
     const body = value as Record<string, unknown>;
+    const hasPrompt = body.prompt != null;
+    const hasMessages = body.messages != null;
+    const hasInput = body.input != null;
 
-    if (typeof body.model !== 'string' || !body.model.trim()) {
-      throw new LlmBridgeError(400, 'model is required and must be a non-empty string', {
+    if (!hasPrompt && !hasMessages && !hasInput) {
+      throw new LlmBridgeError(
+        400,
+        'One of prompt, messages, or input is required',
+        {
+          error: {
+            message: 'One of prompt, messages, or input is required',
+            type: 'invalid_request_error',
+          },
+        },
+      );
+    }
+
+    if (body.model != null && (typeof body.model !== 'string' || !body.model.trim())) {
+      throw new LlmBridgeError(400, 'model must be a non-empty string when provided', {
         error: {
-          message: 'model is required and must be a non-empty string',
+          message: 'model must be a non-empty string when provided',
           type: 'invalid_request_error',
         },
       });
     }
 
-    if (!Array.isArray(body.messages)) {
-      throw new LlmBridgeError(400, 'messages is required and must be an array', {
+    if (hasPrompt) {
+      if (!body.prompt || typeof body.prompt !== 'object' || Array.isArray(body.prompt)) {
+        throw new LlmBridgeError(400, 'prompt must be an object when provided', {
+          error: {
+            message: 'prompt must be an object when provided',
+            type: 'invalid_request_error',
+          },
+        });
+      }
+
+      const prompt = body.prompt as Record<string, unknown>;
+      if (prompt.id != null) {
+        throw new LlmBridgeError(400, 'prompt.id must not be provided by the client', {
+          error: {
+            message: 'prompt.id must not be provided by the client',
+            type: 'invalid_request_error',
+          },
+        });
+      }
+
+      if (
+        prompt.version != null &&
+        typeof prompt.version !== 'string' &&
+        typeof prompt.version !== 'number'
+      ) {
+        throw new LlmBridgeError(400, 'prompt.version must be a string or number when provided', {
+          error: {
+            message: 'prompt.version must be a string or number when provided',
+            type: 'invalid_request_error',
+          },
+        });
+      }
+    }
+
+    if (hasMessages && !Array.isArray(body.messages)) {
+      throw new LlmBridgeError(400, 'messages must be an array when provided', {
         error: {
-          message: 'messages is required and must be an array',
+          message: 'messages must be an array when provided',
           type: 'invalid_request_error',
         },
       });
     }
 
-    for (const message of body.messages) {
+    for (const message of ((body.messages as unknown[] | undefined) ?? [])) {
       if (!message || typeof message !== 'object' || Array.isArray(message)) {
         throw new LlmBridgeError(400, 'each message must be an object', {
           error: {
@@ -120,6 +178,54 @@ export class LlmBridgeService {
     return body as LlmBridgeRequest;
   }
 
+  private buildUpstreamPayload(
+    body: LlmBridgeRequest,
+    defaultModel?: string,
+    promptId?: string,
+  ) {
+    const payload: Record<string, unknown> = { ...body };
+
+    // Backward compatibility:
+    // Existing callers send Chat Completions-style { model, messages, ... }.
+    // New upstream is /v1/responses, so translate messages -> input.
+    if (Array.isArray(payload.messages) && payload.input == null) {
+      payload.input = payload.messages;
+      delete payload.messages;
+    }
+
+    // If caller omitted model for prompt-based request, allow env default.
+    if ((payload.model == null || payload.model === '') && defaultModel) {
+      payload.model = defaultModel;
+    }
+
+    // Responses API uses max_output_tokens, not max_tokens.
+    if (payload.max_output_tokens == null && payload.max_tokens != null) {
+      payload.max_output_tokens = payload.max_tokens;
+      delete payload.max_tokens;
+    }
+
+    // Normalize prompt.version to string for consistency.
+    if (payload.prompt && typeof payload.prompt === 'object' && !Array.isArray(payload.prompt)) {
+      const prompt = payload.prompt as Record<string, unknown>;
+      if (!promptId) {
+        throw new LlmBridgeError(500, 'Prompt ID env missing', {
+          error: {
+            message:
+              'Server misconfigured: prompt ID env missing for prompt-based request',
+            type: 'server_error',
+          },
+        });
+      }
+
+      prompt.id = promptId;
+      if (typeof prompt.version === 'number') {
+        prompt.version = String(prompt.version);
+      }
+    }
+
+    return payload;
+  }
+
   private getUpstreamConfig() {
     const apiKey = process.env.OPENAI_API_KEY || process.env.OPENAI_KIA_API_KEY;
     if (!apiKey) {
@@ -132,13 +238,27 @@ export class LlmBridgeService {
     }
 
     const baseUrl = (process.env.ASUNDER_LLM_UPSTREAM_BASE_URL ?? 'https://api.openai.com').trim();
-    const path = (process.env.ASUNDER_LLM_UPSTREAM_PATH ?? '/v1/chat/completions').trim();
+    const path = (process.env.ASUNDER_LLM_UPSTREAM_PATH ?? '/v1/responses').trim();
     const normalizedBase = baseUrl.replace(/\/+$/, '');
     const normalizedPath = path.startsWith('/') ? path : `/${path}`;
+    const defaultModel =
+      (process.env.ASUNDER_LLM_DEFAULT_MODEL ||
+        process.env.OPENAI_PROMPT_MODEL ||
+        process.env.OPENAI_MODEL ||
+        '').trim() || undefined;
+    const promptId =
+      (
+        process.env.OPENAI_ARCHETYPE_PROMP_ID ||
+        process.env.OPENAI_PROMPT_ID ||
+        process.env.ASUNDER_LLM_PROMPT_ID ||
+        ''
+      ).trim() || undefined;
 
     return {
       apiKey,
       url: `${normalizedBase}${normalizedPath}`,
+      defaultModel,
+      promptId,
     };
   }
 

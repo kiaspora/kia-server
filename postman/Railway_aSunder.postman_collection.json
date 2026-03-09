@@ -9,6 +9,52 @@
   },
   "item": [
     {
+      "name": "Responses API Prompt ID",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{API_BEARER_TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-trace-id",
+            "value": "postman-prompt-001"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"prompt\": {\n    \"version\": \"1\"\n  },\n  \"input\": \"Explain what a gateway LLM bridge does in one paragraph.\",\n  \"model\": \"gpt-4.1\"\n}"
+        },
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/api/asunder/llmBridge",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "asunder",
+            "llmBridge"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
       "name": "CORS Preflight",
       "request": {
         "auth": {
