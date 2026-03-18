@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import type { Request } from 'express';
+import Busboy from 'busboy';
 
 type ChatMessageRole = 'system' | 'developer' | 'user' | 'assistant' | 'tool';
 type ChatMessage = {
@@ -10,6 +12,22 @@ type PromptRef = {
   id?: string;
   version?: string;
 };
+
+export type UploadedAttachment = {
+  filename: string;
+  mimeType: string;
+  buffer: Buffer;
+  size: number;
+};
+
+type ResponseInputMessage = {
+  role: string;
+  content: unknown;
+  [key: string]: unknown;
+};
+
+const OPENAI_FILE_MAX_BYTES = 512 * 1024 * 1024;
+const MAX_ATTACHMENTS = 5;
 
 export type LlmBridgeRequest = {
   model?: string;
@@ -33,11 +51,115 @@ export class LlmBridgeError extends Error {
 
 @Injectable()
 export class LlmBridgeService {
-  async forward(requestBody: unknown, traceId: string): Promise<globalThis.Response> {
+  async parseMultipart(req: Request): Promise<{
+    body: LlmBridgeRequest;
+    attachments: UploadedAttachment[];
+  }> {
+    return await new Promise((resolve, reject) => {
+      const bb = Busboy({
+        headers: req.headers as Busboy.BusboyConfig['headers'],
+        limits: {
+          files: MAX_ATTACHMENTS,
+          fileSize: OPENAI_FILE_MAX_BYTES,
+        },
+      });
+
+      const attachments: UploadedAttachment[] = [];
+      let payloadField: string | undefined;
+
+      bb.on('field', (name, value) => {
+        if (name === 'payload') {
+          payloadField = value;
+        }
+      });
+
+      bb.on('file', (name, file, info) => {
+        if (name !== 'file' && name !== 'files') {
+          file.resume();
+          return;
+        }
+
+        const filename = info.filename?.trim() || 'upload.bin';
+        const mimeType = info.mimeType || 'application/octet-stream';
+        const chunks: Buffer[] = [];
+        let total = 0;
+
+        file.on('data', (chunk: Buffer) => {
+          total += chunk.length;
+          if (total > OPENAI_FILE_MAX_BYTES) {
+            reject(this.invalidRequest(413, 'Uploaded file is too large'));
+            file.resume();
+            return;
+          }
+
+          chunks.push(chunk);
+        });
+
+        file.on('limit', () => reject(this.invalidRequest(413, 'Uploaded file is too large')));
+        file.on('end', () => {
+          if (total === 0) {
+            reject(this.invalidRequest(400, `Uploaded file "${filename}" is empty`));
+            return;
+          }
+
+          attachments.push({
+            filename,
+            mimeType,
+            buffer: Buffer.concat(chunks),
+            size: total,
+          });
+        });
+        file.on('error', () => reject(this.invalidRequest(400, 'Failed to read uploaded file')));
+      });
+
+      bb.on('filesLimit', () =>
+        reject(this.invalidRequest(400, `Too many files. Maximum ${MAX_ATTACHMENTS} allowed`)),
+      );
+      bb.on('error', () => reject(this.invalidRequest(400, 'Invalid multipart/form-data payload')));
+      bb.on('finish', () => {
+        if (payloadField == null || !payloadField.trim()) {
+          reject(this.invalidRequest(400, 'Missing payload field'));
+          return;
+        }
+
+        let parsedPayload: unknown;
+        try {
+          parsedPayload = JSON.parse(payloadField);
+        } catch {
+          reject(this.invalidRequest(400, 'payload must be valid JSON'));
+          return;
+        }
+
+        resolve({
+          body: this.validateRequest(parsedPayload),
+          attachments,
+        });
+      });
+
+      const raw: unknown = (req as any).rawBody ?? (req as any).body;
+      if (Buffer.isBuffer(raw)) bb.end(raw);
+      else req.pipe(bb);
+    });
+  }
+
+  async forward(
+    requestBody: unknown,
+    traceId: string,
+    attachments: UploadedAttachment[] = [],
+  ): Promise<globalThis.Response> {
     const body = this.validateRequest(requestBody);
     const config = this.getUpstreamConfig();
     const promptId = this.resolvePromptId(body.promptId, config.promptId);
-    const upstreamBody = this.buildUpstreamPayload(body, config.defaultModel, promptId);
+    this.validateAttachmentCompatibility(body, attachments);
+    const fileIds =
+      attachments.length > 0
+        ? await Promise.all(
+            attachments.map((attachment) =>
+              this.uploadFileToOpenAI(attachment, traceId, config.apiKey, config.filesUrl),
+            ),
+          )
+        : [];
+    const upstreamBody = this.buildUpstreamPayload(body, config.defaultModel, promptId, fileIds);
 
     const response = await this.fetchWithTimeout(
       config.url,
@@ -196,9 +318,14 @@ export class LlmBridgeService {
     body: LlmBridgeRequest,
     defaultModel?: string,
     promptId?: string,
+    fileIds: string[] = [],
   ) {
     const payload: Record<string, unknown> = { ...body };
     delete payload.promptId;
+
+    if (fileIds.length > 0) {
+      payload.input = this.injectFileInputs(payload.input, fileIds);
+    }
 
     // Backward compatibility:
     // Existing callers send Chat Completions-style { model, messages, ... }.
@@ -277,6 +404,120 @@ export class LlmBridgeService {
     return requestPromptId?.trim() || defaultPromptId;
   }
 
+  private injectFileInputs(input: unknown, fileIds: string[]) {
+    if (fileIds.length === 0) return input;
+
+    const fileParts: Array<{ type: 'input_file'; file_id: string }> = fileIds.map((fileId) => ({
+      type: 'input_file',
+      file_id: fileId,
+    }));
+
+    if (typeof input === 'string') {
+      const content: Array<{ type: 'input_text'; text: string } | { type: 'input_file'; file_id: string }> = [];
+      if (input.trim()) content.push({ type: 'input_text', text: input });
+      content.push(...fileParts);
+      return [{ role: 'user', content }];
+    }
+
+    if (Array.isArray(input)) {
+      return [...input, this.buildAttachmentMessage(fileParts)];
+    }
+
+    if (input && typeof input === 'object') {
+      return [input, this.buildAttachmentMessage(fileParts)];
+    }
+
+    throw this.invalidRequest(
+      400,
+      'File attachments require request.input as a string, object, or array',
+    );
+  }
+
+  private validateAttachmentCompatibility(
+    body: LlmBridgeRequest,
+    attachments: UploadedAttachment[],
+  ) {
+    if (attachments.length === 0) return;
+
+    if (body.messages != null) {
+      throw this.invalidRequest(400, 'File attachments are not supported with messages');
+    }
+
+    if (body.input == null) {
+      throw this.invalidRequest(400, 'File attachments require request.input');
+    }
+  }
+
+  private buildAttachmentMessage(fileParts: Array<{ type: 'input_file'; file_id: string }>) {
+    const message: ResponseInputMessage = {
+      role: 'user',
+      content: fileParts,
+    };
+
+    return message;
+  }
+
+  private async uploadFileToOpenAI(
+    attachment: UploadedAttachment,
+    traceId: string,
+    apiKey: string,
+    filesUrl: string,
+  ) {
+    const form = new FormData();
+    form.append('purpose', 'user_data');
+    form.append(
+      'file',
+      new Blob([Uint8Array.from(attachment.buffer)], { type: attachment.mimeType }),
+      attachment.filename,
+    );
+
+    const response = await this.fetchWithTimeout(
+      filesUrl,
+      {
+        method: 'POST',
+        headers: {
+          authorization: `Bearer ${apiKey}`,
+          'x-trace-id': traceId,
+        },
+        body: form,
+      },
+      60_000,
+    );
+
+    if (!response.ok) {
+      const body = await response.text().catch(() => '');
+      throw new LlmBridgeError(502, 'OpenAI file upload failed', {
+        error: {
+          message: 'Failed to upload file to OpenAI Files API',
+          type: 'server_error',
+        },
+        upstream_status: response.status,
+        upstream_body: body,
+      });
+    }
+
+    const json = (await response.json().catch(() => null)) as { id?: unknown } | null;
+    if (!json || typeof json.id !== 'string' || !json.id.trim()) {
+      throw new LlmBridgeError(502, 'OpenAI file upload failed', {
+        error: {
+          message: 'OpenAI Files API response did not include a file ID',
+          type: 'server_error',
+        },
+      });
+    }
+
+    return json.id.trim();
+  }
+
+  private invalidRequest(statusCode: number, message: string) {
+    return new LlmBridgeError(statusCode, message, {
+      error: {
+        message,
+        type: 'invalid_request_error',
+      },
+    });
+  }
+
   private getUpstreamConfig() {
     const apiKey = process.env.OPENAI_API_KEY || process.env.OPENAI_KIA_API_KEY;
     if (!apiKey) {
@@ -308,6 +549,7 @@ export class LlmBridgeService {
     return {
       apiKey,
       url: `${normalizedBase}${normalizedPath}`,
+      filesUrl: `${normalizedBase}/v1/files`,
       defaultModel,
       promptId,
     };

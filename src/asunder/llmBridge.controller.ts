@@ -16,6 +16,15 @@ const CORS_HEADERS = {
 };
 const ALLOW_HEADER = 'POST, OPTIONS';
 
+function isMultipart(req: Request): boolean {
+  return (req.headers['content-type'] || '').toString().toLowerCase().includes('multipart/form-data');
+}
+
+function isJson(req: Request): boolean {
+  const contentType = (req.headers['content-type'] || '').toString().toLowerCase();
+  return contentType === '' || contentType.includes('application/json');
+}
+
 @Controller('api/asunder')
 export class LlmBridgeController {
   constructor(private readonly llmBridgeService: LlmBridgeService) {}
@@ -31,12 +40,28 @@ export class LlmBridgeController {
   @UseGuards(BearerTokenGuard)
   async post(@Req() req: Request, @Res() res: ExpressResponse) {
     const traceId = this.resolveTraceId(req);
-    const isStreaming = req.body?.stream === true;
 
     res.setHeader('X-Trace-Id', traceId);
 
     try {
-      const upstream = await this.llmBridgeService.forward(req.body, traceId);
+      if (!isJson(req) && !isMultipart(req)) {
+        throw new LlmBridgeError(415, 'Unsupported media type', {
+          error: {
+            message: 'Unsupported media type. Use application/json or multipart/form-data',
+            type: 'invalid_request_error',
+          },
+        });
+      }
+
+      const parsed = isMultipart(req)
+        ? await this.llmBridgeService.parseMultipart(req)
+        : { body: req.body, attachments: [] };
+      const isStreaming = parsed.body?.stream === true;
+      const upstream = await this.llmBridgeService.forward(
+        parsed.body,
+        traceId,
+        parsed.attachments,
+      );
 
       if (isStreaming && upstream.ok && upstream.body) {
         return await this.pipeSse(upstream, res, traceId);
