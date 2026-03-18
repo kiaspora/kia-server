@@ -40,21 +40,23 @@ export class LlmBridgeController {
   @UseGuards(BearerTokenGuard)
   async post(@Req() req: Request, @Res() res: ExpressResponse) {
     const traceId = this.resolveTraceId(req);
+    const multipart = isMultipart(req);
 
     res.setHeader('X-Trace-Id', traceId);
 
     try {
-      if (!isJson(req) && !isMultipart(req)) {
+      if (!isJson(req) && !multipart) {
         throw new LlmBridgeError(415, 'Unsupported media type', {
           error: {
             message: 'Unsupported media type. Use application/json or multipart/form-data',
             type: 'invalid_request_error',
           },
+          trace_id: traceId,
         });
       }
 
-      const parsed = isMultipart(req)
-        ? await this.llmBridgeService.parseMultipart(req)
+      const parsed = multipart
+        ? await this.llmBridgeService.parseMultipart(req, traceId)
         : { body: req.body, attachments: [] };
       const isStreaming = parsed.body?.stream === true;
       const upstream = await this.llmBridgeService.forward(
@@ -69,6 +71,10 @@ export class LlmBridgeController {
 
       return await this.sendJson(upstream, res, traceId);
     } catch (error: any) {
+      console.error(
+        `[asunder.llmBridge] request failure trace=${traceId} multipart=${multipart}:`,
+        error?.stack || error?.message || String(error),
+      );
       return this.sendLocalError(res, traceId, error);
     }
   }
@@ -146,13 +152,15 @@ export class LlmBridgeController {
   private sendLocalError(res: ExpressResponse, traceId: string, error: unknown) {
     if (error instanceof LlmBridgeError) {
       const body =
-        error.body ??
-        ({
-          error: {
-            message: error.message,
-            type: 'server_error',
-          },
-        } as const);
+        error.body && typeof error.body === 'object'
+          ? { ...(error.body as Record<string, unknown>), trace_id: traceId }
+          : {
+              error: {
+                message: error.message,
+                type: 'server_error',
+              },
+              trace_id: traceId,
+            };
 
       return res
         .status(error.statusCode)
@@ -160,11 +168,15 @@ export class LlmBridgeController {
         .send(JSON.stringify(body));
     }
 
+    const details =
+      error instanceof Error ? error.message : typeof error === 'string' ? error : 'Unexpected failure';
     const body = {
       error: {
         message: 'Internal server error',
         type: 'server_error',
+        details,
       },
+      trace_id: traceId,
     };
 
     return res

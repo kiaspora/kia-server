@@ -62,7 +62,7 @@ describe('LlmBridgeService', () => {
     expect(upstreamBody.prompt).toEqual({ id: 'env-prompt' });
   });
 
-  it('uploads attachments and injects file references into input', async () => {
+  it('uploads pdf attachments and injects file references into input', async () => {
     process.env.OPENAI_API_KEY = 'test-key';
     process.env.ASUNDER_LLM_PROMPT_ID = 'env-prompt';
 
@@ -86,8 +86,8 @@ describe('LlmBridgeService', () => {
       'trace-attach',
       [
         {
-          filename: 'report.txt',
-          mimeType: 'text/plain',
+          filename: 'report.pdf',
+          mimeType: 'application/pdf',
           buffer: Buffer.from('hello'),
           size: 5,
         },
@@ -108,6 +108,71 @@ describe('LlmBridgeService', () => {
           { type: 'input_file', file_id: 'file_123' },
         ],
       },
+    ]);
+    expect(upstreamBody.tools).toBeUndefined();
+  });
+
+  it('routes markdown attachments through file_search', async () => {
+    process.env.OPENAI_API_KEY = 'test-key';
+    process.env.ASUNDER_LLM_PROMPT_ID = 'env-prompt';
+
+    const fetchMock = jest
+      .fn()
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ id: 'file_md_123' }), {
+          status: 200,
+          headers: { 'content-type': 'application/json' },
+        }),
+      )
+      .mockResolvedValueOnce(
+        new Response(JSON.stringify({ id: 'vs_123' }), {
+          status: 200,
+          headers: { 'content-type': 'application/json' },
+        }),
+      )
+      .mockResolvedValueOnce(
+        new Response(
+          JSON.stringify({
+            id: 'vs_123',
+            file_counts: { in_progress: 0, failed: 0, completed: 1, total: 1 },
+          }),
+          {
+            status: 200,
+            headers: { 'content-type': 'application/json' },
+          },
+        ),
+      )
+      .mockResolvedValueOnce(new Response('{}', { status: 200 }));
+    global.fetch = fetchMock as typeof fetch;
+
+    const service = new LlmBridgeService();
+
+    await service.forward(
+      {
+        input: 'Explain the attached markdown',
+      },
+      'trace-md',
+      [
+        {
+          filename: 'AGENTS.md',
+          mimeType: 'text/markdown',
+          buffer: Buffer.from('# Hello'),
+          size: 7,
+        },
+      ],
+    );
+
+    expect(fetchMock).toHaveBeenCalledTimes(4);
+    expect(fetchMock.mock.calls[0]?.[0]).toBe('https://api.openai.com/v1/files');
+    expect(fetchMock.mock.calls[1]?.[0]).toBe('https://api.openai.com/v1/vector_stores');
+    expect(fetchMock.mock.calls[2]?.[0]).toBe('https://api.openai.com/v1/vector_stores/vs_123');
+
+    const [, options] = fetchMock.mock.calls[3] as [string, RequestInit];
+    const upstreamBody = JSON.parse(String(options.body));
+
+    expect(upstreamBody.input).toBe('Explain the attached markdown');
+    expect(upstreamBody.tools).toEqual([
+      { type: 'file_search', vector_store_ids: ['vs_123'] },
     ]);
   });
 
@@ -134,6 +199,44 @@ describe('LlmBridgeService', () => {
     ).rejects.toMatchObject({
       statusCode: 400,
       message: 'File attachments are not supported with messages',
+    });
+  });
+
+  it('surfaces OpenAI file upload failure details', async () => {
+    process.env.OPENAI_API_KEY = 'test-key';
+
+    const fetchMock = jest.fn().mockResolvedValue(
+      new Response(JSON.stringify({ error: { message: 'purpose invalid' } }), {
+        status: 400,
+        headers: { 'content-type': 'application/json' },
+      }),
+    );
+    global.fetch = fetchMock as typeof fetch;
+
+    const service = new LlmBridgeService();
+
+    await expect(
+      service.forward(
+        {
+          input: 'Explain attached document',
+        },
+        'trace-upload-fail',
+        [
+          {
+            filename: 'report.txt',
+            mimeType: 'text/plain',
+            buffer: Buffer.from('hello'),
+            size: 5,
+          },
+        ],
+      ),
+    ).rejects.toMatchObject({
+      statusCode: 502,
+      body: {
+        filename: 'report.txt',
+        trace_id: 'trace-upload-fail',
+        upstream_status: 400,
+      },
     });
   });
 
