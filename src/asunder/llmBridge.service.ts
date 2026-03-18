@@ -16,6 +16,7 @@ export type LlmBridgeRequest = {
   messages?: ChatMessage[];
   input?: unknown;
   prompt?: PromptRef;
+  promptId?: string;
   stream?: boolean;
   [key: string]: unknown;
 };
@@ -35,7 +36,8 @@ export class LlmBridgeService {
   async forward(requestBody: unknown, traceId: string): Promise<globalThis.Response> {
     const body = this.validateRequest(requestBody);
     const config = this.getUpstreamConfig();
-    const upstreamBody = this.buildUpstreamPayload(body, config.defaultModel, config.promptId);
+    const promptId = this.resolvePromptId(body.promptId, config.promptId);
+    const upstreamBody = this.buildUpstreamPayload(body, config.defaultModel, promptId);
 
     const response = await this.fetchWithTimeout(
       config.url,
@@ -125,6 +127,18 @@ export class LlmBridgeService {
       }
     }
 
+    if (
+      body.promptId != null &&
+      (typeof body.promptId !== 'string' || !body.promptId.trim())
+    ) {
+      throw new LlmBridgeError(400, 'promptId must be a non-empty string when provided', {
+        error: {
+          message: 'promptId must be a non-empty string when provided',
+          type: 'invalid_request_error',
+        },
+      });
+    }
+
     if (hasMessages && !Array.isArray(body.messages)) {
       throw new LlmBridgeError(400, 'messages must be an array when provided', {
         error: {
@@ -184,6 +198,7 @@ export class LlmBridgeService {
     promptId?: string,
   ) {
     const payload: Record<string, unknown> = { ...body };
+    delete payload.promptId;
 
     // Backward compatibility:
     // Existing callers send Chat Completions-style { model, messages, ... }.
@@ -240,11 +255,11 @@ export class LlmBridgeService {
     if (payload.prompt && typeof payload.prompt === 'object' && !Array.isArray(payload.prompt)) {
       const prompt = payload.prompt as Record<string, unknown>;
       if (!promptId) {
-        throw new LlmBridgeError(500, 'Prompt ID env missing', {
+        throw new LlmBridgeError(400, 'Missing prompt ID', {
           error: {
             message:
-              'Server misconfigured: prompt ID env missing for prompt-based request',
-            type: 'server_error',
+              'Missing prompt ID: neither request.promptId nor environment prompt ID is set',
+            type: 'invalid_request_error',
           },
         });
       }
@@ -256,6 +271,10 @@ export class LlmBridgeService {
     }
 
     return payload;
+  }
+
+  private resolvePromptId(requestPromptId?: string, defaultPromptId?: string) {
+    return requestPromptId?.trim() || defaultPromptId;
   }
 
   private getUpstreamConfig() {
