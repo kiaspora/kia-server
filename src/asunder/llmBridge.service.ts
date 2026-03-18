@@ -52,6 +52,7 @@ export type LlmBridgeRequest = {
   input?: unknown;
   prompt?: PromptRef;
   promptId?: string;
+  promptVersion?: number;
   stream?: boolean;
   [key: string]: unknown;
 };
@@ -180,6 +181,7 @@ export class LlmBridgeService {
     const body = this.validateRequest(requestBody);
     const config = this.getUpstreamConfig();
     const promptId = this.resolvePromptId(body.promptId, config.promptId);
+    const promptVersion = this.resolvePromptVersion(body.promptVersion);
     this.validateAttachmentCompatibility(body, attachments);
     const preparedAttachments =
       attachments.length > 0
@@ -189,6 +191,7 @@ export class LlmBridgeService {
       body,
       config.defaultModel,
       promptId,
+      promptVersion,
       preparedAttachments.pdfFileIds,
       preparedAttachments.vectorStoreId,
     );
@@ -293,6 +296,18 @@ export class LlmBridgeService {
       });
     }
 
+    if (
+      body.promptVersion != null &&
+      (!Number.isInteger(body.promptVersion) || Number(body.promptVersion) < 1)
+    ) {
+      throw new LlmBridgeError(400, 'promptVersion must be a positive integer when provided', {
+        error: {
+          message: 'promptVersion must be a positive integer when provided',
+          type: 'invalid_request_error',
+        },
+      });
+    }
+
     if (hasMessages && !Array.isArray(body.messages)) {
       throw new LlmBridgeError(400, 'messages must be an array when provided', {
         error: {
@@ -350,11 +365,13 @@ export class LlmBridgeService {
     body: LlmBridgeRequest,
     defaultModel?: string,
     promptId?: string,
+    promptVersion?: string,
     fileIds: string[] = [],
     vectorStoreId?: string,
   ) {
     const payload: Record<string, unknown> = { ...body };
     delete payload.promptId;
+    delete payload.promptVersion;
 
     if (fileIds.length > 0) {
       payload.input = this.injectFileInputs(payload.input, fileIds);
@@ -416,7 +433,16 @@ export class LlmBridgeService {
     }
 
     // Normalize prompt.version to string for consistency.
-    if (payload.prompt && typeof payload.prompt === 'object' && !Array.isArray(payload.prompt)) {
+    const shouldAttachPromptConfig =
+      (payload.prompt && typeof payload.prompt === 'object' && !Array.isArray(payload.prompt)) ||
+      promptId ||
+      promptVersion;
+
+    if (shouldAttachPromptConfig) {
+      if (!payload.prompt || typeof payload.prompt !== 'object' || Array.isArray(payload.prompt)) {
+        payload.prompt = {};
+      }
+
       const prompt = payload.prompt as Record<string, unknown>;
       if (!promptId) {
         throw new LlmBridgeError(400, 'Missing prompt ID', {
@@ -429,7 +455,9 @@ export class LlmBridgeService {
       }
 
       prompt.id = promptId;
-      if (typeof prompt.version === 'number') {
+      if (promptVersion != null) {
+        prompt.version = promptVersion;
+      } else if (typeof prompt.version === 'number') {
         prompt.version = String(prompt.version);
       }
     }
@@ -439,6 +467,10 @@ export class LlmBridgeService {
 
   private resolvePromptId(requestPromptId?: string, defaultPromptId?: string) {
     return requestPromptId?.trim() || defaultPromptId;
+  }
+
+  private resolvePromptVersion(requestPromptVersion?: number) {
+    return requestPromptVersion != null ? String(requestPromptVersion) : undefined;
   }
 
   private async prepareAttachmentsForResponses(

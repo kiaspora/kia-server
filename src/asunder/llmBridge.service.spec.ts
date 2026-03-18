@@ -62,6 +62,30 @@ describe('LlmBridgeService', () => {
     expect(upstreamBody.prompt).toEqual({ id: 'env-prompt' });
   });
 
+  it('maps top-level promptVersion onto prompt.version without requiring prompt object', async () => {
+    process.env.OPENAI_API_KEY = 'test-key';
+
+    const fetchMock = jest.fn().mockResolvedValue(new Response('{}', { status: 200 }));
+    global.fetch = fetchMock as typeof fetch;
+
+    const service = new LlmBridgeService();
+
+    await service.forward(
+      {
+        promptId: 'prompt-123',
+        promptVersion: 3,
+        input: 'hello',
+      },
+      'trace-prompt-version',
+    );
+
+    const [, options] = fetchMock.mock.calls[0] as [string, RequestInit];
+    const upstreamBody = JSON.parse(String(options.body));
+
+    expect(upstreamBody.prompt).toEqual({ id: 'prompt-123', version: '3' });
+    expect(upstreamBody.promptVersion).toBeUndefined();
+  });
+
   it('uploads pdf attachments and injects file references into input', async () => {
     process.env.OPENAI_API_KEY = 'test-key';
     process.env.ASUNDER_LLM_PROMPT_ID = 'env-prompt';
