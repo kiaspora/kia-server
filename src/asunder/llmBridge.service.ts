@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import type { Request } from 'express';
 import Busboy from 'busboy';
+import * as fs from 'node:fs/promises';
+import * as path from 'node:path';
+import { inferMimeFromFilename, parseBase64DataUrl } from './attachment.util';
 
 type ChatMessageRole = 'system' | 'developer' | 'user' | 'assistant' | 'tool';
 type ChatMessage = {
@@ -13,6 +16,12 @@ type PromptRef = {
   version?: string;
 };
 
+type RequestedAttachment = {
+  name: string;
+  file_data?: string;
+  path?: string;
+};
+
 export type UploadedAttachment = {
   filename: string;
   mimeType: string;
@@ -20,36 +29,28 @@ export type UploadedAttachment = {
   size: number;
 };
 
-type ResponseInputMessage = {
-  role: string;
-  content: unknown;
-  [key: string]: unknown;
+type NormalizedAttachment = {
+  filename: string;
+  mimeType: string;
+  fileData: string;
+  size: number;
 };
 
-type LlmBridgeTool = {
-  type?: string;
-  [key: string]: unknown;
-};
-
-type VectorStore = {
-  id?: unknown;
-  file_counts?: {
-    in_progress?: unknown;
-    failed?: unknown;
-    completed?: unknown;
-    total?: unknown;
-  };
-};
-
-const OPENAI_FILE_MAX_BYTES = 512 * 1024 * 1024;
+const MAX_ATTACHMENT_BYTES = 20 * 1024 * 1024;
 const MAX_ATTACHMENTS = 5;
-const VECTOR_STORE_POLL_INTERVAL_MS = 1_000;
-const VECTOR_STORE_READY_TIMEOUT_MS = 60_000;
+const ALLOWED_ATTACHMENT_MIME_TYPES = new Set([
+  'text/plain',
+  'text/markdown',
+  'application/json',
+  'text/csv',
+  'application/pdf',
+]);
 
 export type LlmBridgeRequest = {
   model?: string;
   messages?: ChatMessage[];
   input?: unknown;
+  attachments?: RequestedAttachment[];
   prompt?: PromptRef;
   promptId?: string;
   promptVersion?: number;
@@ -85,7 +86,7 @@ export class LlmBridgeService {
         headers: req.headers as Busboy.BusboyConfig['headers'],
         limits: {
           files: MAX_ATTACHMENTS,
-          fileSize: OPENAI_FILE_MAX_BYTES,
+          fileSize: MAX_ATTACHMENT_BYTES,
         },
       });
 
@@ -111,7 +112,7 @@ export class LlmBridgeService {
 
         file.on('data', (chunk: Buffer) => {
           total += chunk.length;
-          if (total > OPENAI_FILE_MAX_BYTES) {
+          if (total > MAX_ATTACHMENT_BYTES) {
             rejectOnce(this.invalidRequest(413, 'Uploaded file is too large'));
             file.resume();
             return;
@@ -182,18 +183,17 @@ export class LlmBridgeService {
     const config = this.getUpstreamConfig();
     const promptId = this.resolvePromptId(body.promptId, config.promptId);
     const promptVersion = this.resolvePromptVersion(body.promptVersion);
-    this.validateAttachmentCompatibility(body, attachments);
-    const preparedAttachments =
-      attachments.length > 0
-        ? await this.prepareAttachmentsForResponses(attachments, traceId, config.apiKey, config)
-        : { pdfFileIds: [], vectorStoreId: undefined };
+    const normalizedAttachments = await this.normalizeAttachments(
+      body.attachments,
+      attachments,
+      traceId,
+    );
     const upstreamBody = this.buildUpstreamPayload(
       body,
       config.defaultModel,
       promptId,
       promptVersion,
-      preparedAttachments.pdfFileIds,
-      preparedAttachments.vectorStoreId,
+      normalizedAttachments,
     );
 
     const response = await this.fetchWithTimeout(
@@ -227,14 +227,15 @@ export class LlmBridgeService {
     const hasPrompt = body.prompt != null;
     const hasMessages = body.messages != null;
     const hasInput = body.input != null;
+    const hasAttachments = body.attachments != null;
 
-    if (!hasPrompt && !hasMessages && !hasInput) {
+    if (!hasPrompt && !hasMessages && !hasInput && !hasAttachments) {
       throw new LlmBridgeError(
         400,
-        'One of prompt, messages, or input is required',
+        'One of prompt, messages, input, or attachments is required',
         {
           error: {
-            message: 'One of prompt, messages, or input is required',
+            message: 'One of prompt, messages, input, or attachments is required',
             type: 'invalid_request_error',
           },
         },
@@ -358,6 +359,77 @@ export class LlmBridgeService {
       });
     }
 
+    if (hasAttachments && !Array.isArray(body.attachments)) {
+      throw new LlmBridgeError(400, 'attachments must be an array when provided', {
+        error: {
+          message: 'attachments must be an array when provided',
+          type: 'invalid_request_error',
+        },
+      });
+    }
+
+    const attachments = (body.attachments as unknown[] | undefined) ?? [];
+    if (attachments.length > MAX_ATTACHMENTS) {
+      throw new LlmBridgeError(400, `Too many attachments. Maximum ${MAX_ATTACHMENTS} allowed`, {
+        error: {
+          message: `Too many attachments. Maximum ${MAX_ATTACHMENTS} allowed`,
+          type: 'invalid_request_error',
+        },
+      });
+    }
+
+    for (const attachment of attachments) {
+      if (!attachment || typeof attachment !== 'object' || Array.isArray(attachment)) {
+        throw new LlmBridgeError(400, 'each attachment must be an object', {
+          error: {
+            message: 'each attachment must be an object',
+            type: 'invalid_request_error',
+          },
+        });
+      }
+
+      const record = attachment as Record<string, unknown>;
+      if (typeof record.name !== 'string' || !record.name.trim()) {
+        throw new LlmBridgeError(400, 'attachment.name must be a non-empty string', {
+          error: {
+            message: 'attachment.name must be a non-empty string',
+            type: 'invalid_request_error',
+          },
+        });
+      }
+
+      if (record.file_data != null && (typeof record.file_data !== 'string' || !record.file_data.trim())) {
+        throw new LlmBridgeError(400, 'attachment.file_data must be a non-empty string when provided', {
+          error: {
+            message: 'attachment.file_data must be a non-empty string when provided',
+            type: 'invalid_request_error',
+          },
+        });
+      }
+
+      if (record.path != null && (typeof record.path !== 'string' || !record.path.trim())) {
+        throw new LlmBridgeError(400, 'attachment.path must be a non-empty string when provided', {
+          error: {
+            message: 'attachment.path must be a non-empty string when provided',
+            type: 'invalid_request_error',
+          },
+        });
+      }
+
+      if (record.file_data == null && record.path == null) {
+        throw new LlmBridgeError(
+          400,
+          `Attachment "${record.name}" must include either file_data or path`,
+          {
+            error: {
+              message: `Attachment "${record.name}" must include either file_data or path`,
+              type: 'invalid_request_error',
+            },
+          },
+        );
+      }
+    }
+
     return body as LlmBridgeRequest;
   }
 
@@ -366,26 +438,21 @@ export class LlmBridgeService {
     defaultModel?: string,
     promptId?: string,
     promptVersion?: string,
-    fileIds: string[] = [],
-    vectorStoreId?: string,
+    attachments: NormalizedAttachment[] = [],
   ) {
     const payload: Record<string, unknown> = { ...body };
     delete payload.promptId;
     delete payload.promptVersion;
-
-    if (fileIds.length > 0) {
-      payload.input = this.injectFileInputs(payload.input, fileIds);
-    }
-
-    if (vectorStoreId) {
-      payload.tools = this.withFileSearchTool(payload.tools, vectorStoreId);
-    }
+    delete payload.attachments;
 
     // Backward compatibility:
     // Existing callers send Chat Completions-style { model, messages, ... }.
     // New upstream is /v1/responses, so translate messages -> input.
-    if (Array.isArray(payload.messages) && payload.input == null) {
-      payload.input = payload.messages;
+    if (attachments.length > 0) {
+      payload.input = this.buildResponsesInput(body, attachments);
+      delete payload.messages;
+    } else if (Array.isArray(payload.messages) && payload.input == null) {
+      payload.input = this.buildResponsesInput(body, []);
       delete payload.messages;
     }
 
@@ -465,388 +532,226 @@ export class LlmBridgeService {
     return payload;
   }
 
+  private async normalizeAttachments(
+    attachments: RequestedAttachment[] | undefined,
+    uploadedAttachments: UploadedAttachment[],
+    traceId: string,
+  ): Promise<NormalizedAttachment[]> {
+    const requestedAttachments = attachments ?? [];
+    const totalCount = requestedAttachments.length + uploadedAttachments.length;
+
+    if (totalCount === 0) return [];
+    if (totalCount > MAX_ATTACHMENTS) {
+      throw this.invalidRequest(400, `Too many attachments. Maximum ${MAX_ATTACHMENTS} allowed`);
+    }
+
+    const normalized: NormalizedAttachment[] = [];
+
+    for (const attachment of requestedAttachments) {
+      if (attachment.file_data) {
+        const parsed = this.parseAttachmentDataUrl(attachment.file_data);
+        this.validateNormalizedAttachment(attachment.name, parsed.mimeType, parsed.buffer.length);
+        this.logNormalizedAttachment(traceId, attachment.name, parsed.mimeType, parsed.buffer.length);
+        normalized.push({
+          filename: attachment.name,
+          mimeType: parsed.mimeType,
+          fileData: attachment.file_data,
+          size: parsed.buffer.length,
+        });
+        continue;
+      }
+
+      if (attachment.path) {
+        let fileBuffer: Buffer;
+        try {
+          fileBuffer = await fs.readFile(attachment.path);
+        } catch {
+          throw this.invalidRequest(
+            400,
+            `Attachment path could not be read: ${attachment.path}`,
+          );
+        }
+        const filename = attachment.name || path.basename(attachment.path);
+        const mimeType = inferMimeFromFilename(filename);
+
+        if (!mimeType) {
+          throw this.invalidRequest(
+            400,
+            `Could not infer MIME type for attachment: ${filename}`,
+          );
+        }
+
+        this.validateNormalizedAttachment(filename, mimeType, fileBuffer.length);
+        this.logNormalizedAttachment(traceId, filename, mimeType, fileBuffer.length);
+        normalized.push({
+          filename,
+          mimeType,
+          fileData: `data:${mimeType};base64,${fileBuffer.toString('base64')}`,
+          size: fileBuffer.length,
+        });
+        continue;
+      }
+
+      throw this.invalidRequest(
+        400,
+        `Attachment "${attachment.name}" must include either file_data or path`,
+      );
+    }
+
+    for (const attachment of uploadedAttachments) {
+      this.validateNormalizedAttachment(
+        attachment.filename,
+        attachment.mimeType,
+        attachment.size,
+      );
+      this.logNormalizedAttachment(
+        traceId,
+        attachment.filename,
+        attachment.mimeType,
+        attachment.size,
+      );
+      normalized.push({
+        filename: attachment.filename,
+        mimeType: attachment.mimeType,
+        fileData: `data:${attachment.mimeType};base64,${attachment.buffer.toString('base64')}`,
+        size: attachment.size,
+      });
+    }
+
+    return normalized;
+  }
+
+  private buildResponsesInput(body: LlmBridgeRequest, attachments: NormalizedAttachment[]) {
+    if (body.messages?.length) {
+      return body.messages.map((message) => ({
+        role: message.role,
+        content: this.buildMessageContent(message.content, message.role, attachments),
+      }));
+    }
+
+    if (typeof body.input === 'string') {
+      const content: Array<Record<string, string>> = [];
+      if (body.input.trim()) {
+        content.push({ type: 'input_text', text: body.input });
+      }
+      content.push(...this.buildFileContentItems(attachments));
+      return [{ role: 'user', content }];
+    }
+
+    if (Array.isArray(body.input)) {
+      return attachments.length > 0
+        ? [...body.input, this.buildAttachmentInputMessage(attachments)]
+        : body.input;
+    }
+
+    if (body.input && typeof body.input === 'object') {
+      return attachments.length > 0
+        ? [body.input, this.buildAttachmentInputMessage(attachments)]
+        : body.input;
+    }
+
+    if (attachments.length > 0) {
+      return [this.buildAttachmentInputMessage(attachments)];
+    }
+
+    throw this.invalidRequest(400, 'Request must include input, messages, or attachments');
+  }
+
+  private buildMessageContent(
+    content: unknown,
+    role: ChatMessageRole,
+    attachments: NormalizedAttachment[],
+  ) {
+    const normalized = this.normalizeMessageContent(content);
+    if (role === 'user' && attachments.length > 0) {
+      normalized.push(...this.buildFileContentItems(attachments));
+    }
+    return normalized;
+  }
+
+  private normalizeMessageContent(content: unknown) {
+    if (typeof content === 'string') {
+      return [{ type: 'input_text', text: content }];
+    }
+
+    if (Array.isArray(content)) {
+      return [...content];
+    }
+
+    if (content && typeof content === 'object') {
+      return [content];
+    }
+
+    if (content == null) {
+      return [];
+    }
+
+    return [{ type: 'input_text', text: String(content) }];
+  }
+
+  private buildFileContentItems(attachments: NormalizedAttachment[]) {
+    return attachments.map((attachment) => ({
+      type: 'input_file' as const,
+      filename: attachment.filename,
+      file_data: attachment.fileData,
+    }));
+  }
+
+  private buildAttachmentInputMessage(attachments: NormalizedAttachment[]) {
+    return {
+      role: 'user',
+      content: this.buildFileContentItems(attachments),
+    };
+  }
+
+  private parseAttachmentDataUrl(fileData: string) {
+    try {
+      return parseBase64DataUrl(fileData);
+    } catch (error) {
+      throw this.invalidRequest(
+        400,
+        error instanceof Error ? error.message : 'attachments.file_data is invalid',
+      );
+    }
+  }
+
+  private validateNormalizedAttachment(filename: string, mimeType: string, size: number) {
+    if (!size) {
+      throw this.invalidRequest(
+        400,
+        `Attachment "${filename}" decoded to an empty file`,
+      );
+    }
+
+    if (size > MAX_ATTACHMENT_BYTES) {
+      throw this.invalidRequest(
+        400,
+        `Attachment "${filename}" exceeds max size of ${MAX_ATTACHMENT_BYTES} bytes`,
+      );
+    }
+
+    if (!ALLOWED_ATTACHMENT_MIME_TYPES.has(mimeType)) {
+      throw this.invalidRequest(400, `Unsupported attachment MIME type: ${mimeType}`);
+    }
+  }
+
+  private logNormalizedAttachment(
+    traceId: string,
+    filename: string,
+    mimeType: string,
+    size: number,
+  ) {
+    console.info(
+      `[asunder.llmBridge] normalized attachment trace=${traceId} filename=${filename} mime=${mimeType} size=${size}`,
+    );
+  }
+
   private resolvePromptId(requestPromptId?: string, defaultPromptId?: string) {
     return requestPromptId?.trim() || defaultPromptId;
   }
 
   private resolvePromptVersion(requestPromptVersion?: number) {
     return requestPromptVersion != null ? String(requestPromptVersion) : undefined;
-  }
-
-  private async prepareAttachmentsForResponses(
-    attachments: UploadedAttachment[],
-    traceId: string,
-    apiKey: string,
-    config: ReturnType<LlmBridgeService['getUpstreamConfig']>,
-  ) {
-    const uploaded = await Promise.all(
-      attachments.map(async (attachment) => ({
-        attachment,
-        fileId: await this.uploadFileToOpenAI(attachment, traceId, apiKey, config.filesUrl),
-      })),
-    );
-
-    const pdfFileIds = uploaded
-      .filter(({ attachment }) => this.isPdfAttachment(attachment))
-      .map(({ fileId }) => fileId);
-    const searchableFileIds = uploaded
-      .filter(({ attachment }) => !this.isPdfAttachment(attachment))
-      .map(({ fileId }) => fileId);
-
-    const vectorStoreId =
-      searchableFileIds.length > 0
-        ? await this.createVectorStoreForFiles(searchableFileIds, traceId, apiKey, config.vectorStoresUrl)
-        : undefined;
-
-    return { pdfFileIds, vectorStoreId };
-  }
-
-  private injectFileInputs(input: unknown, fileIds: string[]) {
-    if (fileIds.length === 0) return input;
-
-    const fileParts: Array<{ type: 'input_file'; file_id: string }> = fileIds.map((fileId) => ({
-      type: 'input_file',
-      file_id: fileId,
-    }));
-
-    if (typeof input === 'string') {
-      const content: Array<{ type: 'input_text'; text: string } | { type: 'input_file'; file_id: string }> = [];
-      if (input.trim()) content.push({ type: 'input_text', text: input });
-      content.push(...fileParts);
-      return [{ role: 'user', content }];
-    }
-
-    if (Array.isArray(input)) {
-      return [...input, this.buildAttachmentMessage(fileParts)];
-    }
-
-    if (input && typeof input === 'object') {
-      return [input, this.buildAttachmentMessage(fileParts)];
-    }
-
-    throw this.invalidRequest(
-      400,
-      'File attachments require request.input as a string, object, or array',
-    );
-  }
-
-  private validateAttachmentCompatibility(
-    body: LlmBridgeRequest,
-    attachments: UploadedAttachment[],
-  ) {
-    if (attachments.length === 0) return;
-
-    if (body.messages != null) {
-      throw this.invalidRequest(400, 'File attachments are not supported with messages');
-    }
-
-    if (body.input == null) {
-      throw this.invalidRequest(400, 'File attachments require request.input');
-    }
-
-    for (const attachment of attachments) {
-      if (!this.isSupportedAttachment(attachment)) {
-        throw this.invalidRequest(
-          400,
-          `Unsupported attachment type for ${attachment.filename}. Use PDF for input_file or a supported document type for file_search`,
-        );
-      }
-    }
-  }
-
-  private buildAttachmentMessage(fileParts: Array<{ type: 'input_file'; file_id: string }>) {
-    const message: ResponseInputMessage = {
-      role: 'user',
-      content: fileParts,
-    };
-
-    return message;
-  }
-
-  private async uploadFileToOpenAI(
-    attachment: UploadedAttachment,
-    traceId: string,
-    apiKey: string,
-    filesUrl: string,
-  ) {
-    console.info(
-      `[asunder.llmBridge] uploading attachment trace=${traceId} filename=${attachment.filename} size=${attachment.size} mime=${attachment.mimeType}`,
-    );
-    const form = new FormData();
-    form.append('purpose', 'user_data');
-    form.append(
-      'file',
-      new Blob([Uint8Array.from(attachment.buffer)], { type: attachment.mimeType }),
-      attachment.filename,
-    );
-
-    const response = await this.fetchWithTimeout(
-      filesUrl,
-      {
-        method: 'POST',
-        headers: {
-          authorization: `Bearer ${apiKey}`,
-          'x-trace-id': traceId,
-        },
-        body: form,
-      },
-      60_000,
-    );
-
-    if (!response.ok) {
-      const body = await response.text().catch(() => '');
-      console.error(
-        `[asunder.llmBridge] file upload failed trace=${traceId} filename=${attachment.filename} status=${response.status}: ${body}`,
-      );
-      throw new LlmBridgeError(502, 'OpenAI file upload failed', {
-        error: {
-          message: 'Failed to upload file to OpenAI Files API',
-          type: 'server_error',
-          details: `OpenAI Files API returned ${response.status}`,
-        },
-        filename: attachment.filename,
-        upstream_status: response.status,
-        upstream_body: body,
-        trace_id: traceId,
-      });
-    }
-
-    const json = (await response.json().catch(() => null)) as { id?: unknown } | null;
-    if (!json || typeof json.id !== 'string' || !json.id.trim()) {
-      console.error(
-        `[asunder.llmBridge] file upload missing id trace=${traceId} filename=${attachment.filename}`,
-      );
-      throw new LlmBridgeError(502, 'OpenAI file upload failed', {
-        error: {
-          message: 'OpenAI Files API response did not include a file ID',
-          type: 'server_error',
-          details: 'Missing id in Files API response',
-        },
-        filename: attachment.filename,
-        trace_id: traceId,
-      });
-    }
-
-    console.info(
-      `[asunder.llmBridge] uploaded attachment trace=${traceId} filename=${attachment.filename} file_id=${json.id.trim()}`,
-    );
-    return json.id.trim();
-  }
-
-  private async createVectorStoreForFiles(
-    fileIds: string[],
-    traceId: string,
-    apiKey: string,
-    vectorStoresUrl: string,
-  ) {
-    console.info(
-      `[asunder.llmBridge] creating vector store trace=${traceId} files=${fileIds.length}`,
-    );
-
-    const createResponse = await this.fetchWithTimeout(
-      vectorStoresUrl,
-      {
-        method: 'POST',
-        headers: {
-          authorization: `Bearer ${apiKey}`,
-          'content-type': 'application/json',
-          'x-trace-id': traceId,
-        },
-        body: JSON.stringify({
-          file_ids: fileIds,
-          expires_after: {
-            anchor: 'last_active_at',
-            days: 1,
-          },
-        }),
-      },
-      60_000,
-    );
-
-    if (!createResponse.ok) {
-      const body = await createResponse.text().catch(() => '');
-      console.error(
-        `[asunder.llmBridge] vector store create failed trace=${traceId} status=${createResponse.status}: ${body}`,
-      );
-      throw new LlmBridgeError(502, 'OpenAI vector store creation failed', {
-        error: {
-          message: 'Failed to create vector store for file_search',
-          type: 'server_error',
-          details: `OpenAI vector store API returned ${createResponse.status}`,
-        },
-        upstream_status: createResponse.status,
-        upstream_body: body,
-        trace_id: traceId,
-      });
-    }
-
-    const vectorStore = (await createResponse.json().catch(() => null)) as VectorStore | null;
-    const vectorStoreId =
-      vectorStore && typeof vectorStore.id === 'string' && vectorStore.id.trim()
-        ? vectorStore.id.trim()
-        : null;
-
-    if (!vectorStoreId) {
-      throw new LlmBridgeError(502, 'OpenAI vector store creation failed', {
-        error: {
-          message: 'OpenAI vector store API response did not include an ID',
-          type: 'server_error',
-        },
-        trace_id: traceId,
-      });
-    }
-
-    await this.waitForVectorStoreReady(vectorStoreId, traceId, apiKey, vectorStoresUrl);
-    console.info(
-      `[asunder.llmBridge] vector store ready trace=${traceId} vector_store_id=${vectorStoreId}`,
-    );
-    return vectorStoreId;
-  }
-
-  private async waitForVectorStoreReady(
-    vectorStoreId: string,
-    traceId: string,
-    apiKey: string,
-    vectorStoresUrl: string,
-  ) {
-    const deadline = Date.now() + VECTOR_STORE_READY_TIMEOUT_MS;
-
-    while (Date.now() < deadline) {
-      const response = await this.fetchWithTimeout(
-        `${vectorStoresUrl}/${vectorStoreId}`,
-        {
-          method: 'GET',
-          headers: {
-            authorization: `Bearer ${apiKey}`,
-            'x-trace-id': traceId,
-          },
-        },
-        30_000,
-      );
-
-      if (!response.ok) {
-        const body = await response.text().catch(() => '');
-        throw new LlmBridgeError(502, 'OpenAI vector store poll failed', {
-          error: {
-            message: 'Failed while polling vector store readiness',
-            type: 'server_error',
-            details: `OpenAI vector store API returned ${response.status}`,
-          },
-          upstream_status: response.status,
-          upstream_body: body,
-          trace_id: traceId,
-        });
-      }
-
-      const vectorStore = (await response.json().catch(() => null)) as VectorStore | null;
-      const fileCounts = vectorStore?.file_counts;
-      const inProgress = this.asNumber(fileCounts?.in_progress);
-      const failed = this.asNumber(fileCounts?.failed);
-      const completed = this.asNumber(fileCounts?.completed);
-
-      if (failed > 0) {
-        throw new LlmBridgeError(502, 'OpenAI vector store ingestion failed', {
-          error: {
-            message: 'One or more files failed to index for file_search',
-            type: 'server_error',
-          },
-          vector_store_id: vectorStoreId,
-          file_counts: fileCounts,
-          trace_id: traceId,
-        });
-      }
-
-      if (inProgress === 0 && completed > 0) {
-        return;
-      }
-
-      await this.delay(VECTOR_STORE_POLL_INTERVAL_MS);
-    }
-
-    throw new LlmBridgeError(504, 'OpenAI vector store timed out', {
-      error: {
-        message: 'Timed out waiting for vector store indexing',
-        type: 'server_error',
-      },
-      vector_store_id: vectorStoreId,
-      trace_id: traceId,
-    });
-  }
-
-  private withFileSearchTool(tools: unknown, vectorStoreId: string) {
-    const normalized: LlmBridgeTool[] = Array.isArray(tools)
-      ? [...(tools as LlmBridgeTool[])]
-      : [];
-    const hasFileSearch = normalized.some((tool) => tool?.type === 'file_search');
-
-    if (hasFileSearch) {
-      return normalized.map((tool) =>
-        tool?.type === 'file_search'
-          ? { ...tool, vector_store_ids: [vectorStoreId] }
-          : tool,
-      );
-    }
-
-    return [...normalized, { type: 'file_search', vector_store_ids: [vectorStoreId] }];
-  }
-
-  private isPdfAttachment(attachment: UploadedAttachment) {
-    return (
-      attachment.mimeType.toLowerCase() === 'application/pdf' ||
-      attachment.filename.toLowerCase().endsWith('.pdf')
-    );
-  }
-
-  private isSupportedAttachment(attachment: UploadedAttachment) {
-    const filename = attachment.filename.toLowerCase();
-    const mimeType = attachment.mimeType.toLowerCase();
-
-    if (this.isPdfAttachment(attachment)) return true;
-
-    const supportedMimes = new Set([
-      'text/plain',
-      'text/markdown',
-      'text/html',
-      'text/css',
-      'text/javascript',
-      'application/json',
-      'application/msword',
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      'application/vnd.openxmlformats-officedocument.presentationml.presentation',
-      'application/typescript',
-    ]);
-    const supportedExtensions = [
-      '.txt',
-      '.md',
-      '.html',
-      '.css',
-      '.js',
-      '.json',
-      '.doc',
-      '.docx',
-      '.pptx',
-      '.ts',
-      '.py',
-      '.rb',
-      '.php',
-      '.java',
-      '.c',
-      '.cpp',
-      '.cs',
-      '.go',
-      '.sh',
-      '.tex',
-    ];
-
-    return supportedMimes.has(mimeType) || supportedExtensions.some((ext) => filename.endsWith(ext));
-  }
-
-  private asNumber(value: unknown) {
-    return typeof value === 'number' && Number.isFinite(value) ? value : 0;
-  }
-
-  private async delay(ms: number) {
-    await new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   private invalidRequest(statusCode: number, message: string) {
@@ -889,8 +794,6 @@ export class LlmBridgeService {
     return {
       apiKey,
       url: `${normalizedBase}${normalizedPath}`,
-      filesUrl: `${normalizedBase}/v1/files`,
-      vectorStoresUrl: `${normalizedBase}/v1/vector_stores`,
       defaultModel,
       promptId,
     };

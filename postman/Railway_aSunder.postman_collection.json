@@ -225,6 +225,52 @@
         }
       },
       "response": []
+    },
+    {
+      "name": "Attachment Example",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{API_BEARER_TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-trace-id",
+            "value": "postman-attach-001"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"model\": \"gpt-5-nano\",\n  \"stream\": false,\n  \"input\": \"Summarize the attached markdown file in 5 bullets.\",\n  \"attachments\": [\n    {\n      \"name\": \"sample.md\",\n      \"file_data\": \"data:text/plain;base64,SGVsbG8gd29ybGQ=\"\n    }\n  ]\n}\n"
+        },
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/api/asunder/llmBridge",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "asunder",
+            "llmBridge"
+          ]
+        }
+      },
+      "response": []
     }
   ],
   "variable": [
