@@ -1,98 +1,200 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# kia-server
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+`kia-server` is a NestJS API that hosts multiple product-facing services behind one process:
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+- media/title lookup endpoints under `api/justus`
+- LLM routing and bridge endpoints under `api/justus`, `api/asunder`, and `api/cutr`
+- translation, OCR/image, prompt config, and speech endpoints under `api/kiaspora`
+- parsing utilities under `api/parse`
+- health and service metadata at `/status` and `/about`
 
-## Description
+The server is designed to run locally or on Railway, with bearer-token protection on the write and AI-facing routes.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Tech Stack
 
-## Project setup
+- Node.js + NestJS
+- TypeScript
+- Express transport
+- Swagger at `/docs` when enabled
+- Jest for unit tests
 
-```bash
-$ pnpm install
+## Project Layout
+
+```text
+src/
+  app.module.ts              Root module wiring
+  main.ts                    Bootstrap, body limits, Swagger
+  auth/                      Bearer auth guard
+  common/                    Trace ID middleware + interceptor
+  asunder/                   OpenAI bridge / prompt proxy
+  cutr/                      Multi-provider LLM router
+  generate-review/           Review generation workflow
+  justus/                    Title, trailer, and legacy router endpoints
+  kiaspora/                  Translation, image scan, speech, prompt config
+  meta/                      Status/about endpoints
+  parse/                     HTML + IMDb parsing endpoints
+docs/
+  taste-engine.md            Review-generation design notes
+  sop-setup.md               Setup and operational notes
+postman/
+  *.json                     Request collections for local/manual testing
 ```
 
-## Compile and run the project
+## Local Setup
+
+### 1. Install dependencies
 
 ```bash
-# development
-$ pnpm run start
-
-# watch mode
-$ pnpm run start:dev
-
-# production mode
-$ pnpm run start:prod
+npm install
 ```
 
-## Run tests
+### 2. Configure environment
+
+Create a local `.env` with the keys required for the endpoints you plan to use.
+
+Common variables:
 
 ```bash
-# unit tests
-$ pnpm run test
+PORT=3000
+NODE_ENV=development
+ENABLE_SWAGGER=true
+API_BEARER_TOKEN=...
 
-# e2e tests
-$ pnpm run test:e2e
+OPENAI_API_KEY=...
+OPENAI_KIA_API_KEY=...
+OPENAI_ARCHETYPE_API_KEY=...
+OPENAI_MODEL=gpt-5-nano
 
-# test coverage
-$ pnpm run test:cov
+DEEPSEEK_API_KEY=...
+GROQ_API_KEY=...
+
+OMDB_API_KEY=...
+GOOGLE_API_KEY=...
 ```
 
-## Deployment
+Notes:
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+- `API_BEARER_TOKEN` is required by guarded routes such as `api/cutr/llmRouter` and `api/asunder/llmBridge`.
+- `OPENAI_*`, `DEEPSEEK_*`, and `GROQ_*` are only required for the providers you call.
+- Do not commit secrets. Keep `.env` local.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+### 3. Start the server
 
 ```bash
-$ pnpm install -g @nestjs/mau
-$ mau deploy
+npm run start:dev
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+The API listens on `http://localhost:3000` by default.
 
-## Resources
+## Development Commands
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+npm run build
+npm run start:dev
+npm run test
+npm run test:e2e
+npm run lint
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+If Jest trips over local Watchman permissions, disable it explicitly:
 
-## Support
+```bash
+JEST_WATCHMAN=0 npm test -- --watchman=false
+```
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+## Auth
 
-## Stay in touch
+Guarded endpoints expect:
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+```http
+Authorization: Bearer <API_BEARER_TOKEN>
+```
 
-## License
+Public endpoints include:
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+- `GET /status`
+- `GET /about`
+- Swagger docs at `GET /docs` when enabled
+
+## Primary API Surface
+
+### Meta
+
+- `GET /status`
+- `GET /about`
+
+### Parse
+
+- `GET /api/parse/html`
+- `GET /api/parse/imdbSearch`
+- `GET /api/parse/imdbDetail`
+
+### JustUs
+
+- `GET /api/justus/titleSearch`
+- `GET /api/justus/titleDetail`
+- `GET /api/justus/trailers`
+- `GET /api/justus/filmTrailer`
+- `POST /api/justus/llmRouter`
+- `POST /api/justus/generateReview`
+
+### Asunder
+
+- `POST /api/asunder/llmBridge`
+- `POST /api/asunder/openPrompt`
+
+`llmBridge` supports JSON and multipart payloads and can proxy streaming responses.
+
+### CUTR
+
+- `POST /api/cutr/llmRouter`
+
+`cutr` provides normalized multi-provider LLM responses across OpenAI, DeepSeek, and Groq.
+
+### Kiaspora
+
+- `POST /api/kiaspora/translationRouter`
+- `POST /api/kiaspora/translationChat`
+- `POST /api/kiaspora/speechToText`
+- `POST /api/kiaspora/imageScan`
+- `GET/POST /api/kiaspora/promptConfig`
+
+## CUTR Response Contract
+
+`/api/cutr/llmRouter` returns one universal schema regardless of provider. Frontends and analytics should consume this normalized shape instead of branching on provider-native response payloads.
+
+Top-level fields:
+
+- `content`
+- `archetype`
+- `provider`
+- `model`
+- `latency_ms`
+- `usage`
+- `performance`
+- `routing`
+- `telemetry`
+- `raw_provider_meta`
+
+See [`src/cutr/llmRouter.service.ts`](/Users/novelbamboo/Desktop/github/kia-server/src/cutr/llmRouter.service.ts) for the normalization logic and [`src/cutr/llmRouter.service.spec.ts`](/Users/novelbamboo/Desktop/github/kia-server/src/cutr/llmRouter.service.spec.ts) for provider mapping coverage.
+
+## Traceability
+
+The app assigns trace IDs via middleware and echoes them through AI-facing routes. For debugging:
+
+- send `x-trace-id` on requests when reproducing issues
+- check provider request IDs returned in response headers or `telemetry`
+- preserve `raw_provider_meta` in logs if you need provider-level audit detail
+
+## Manual Testing
+
+Postman collections live under [`postman/`](/Users/novelbamboo/Desktop/github/kia-server/postman). Use them for local smoke tests against:
+
+- `api/asunder/llmBridge`
+- `api/cutr/llmRouter`
+- `api/justus/llmRouter`
+
+## Notes For Maintainers
+
+- This repo currently contains a live-looking `.env`. Treat it as sensitive material and rotate credentials if they have ever been shared outside a secure environment.
+- When changing request or response contracts for LLM routes, update docs and specs in the same change.

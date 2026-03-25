@@ -21,15 +21,62 @@ type LlmRouterRequest = {
   archetype: Archetype;
   messages: Message[];
   traceId: string;
+  model?: string;
   promptId?: string;
   promptVersion?: number;
+  routing?: {
+    priority: 'latency' | 'quality' | 'balanced' | null;
+  };
+  telemetry?: {
+    request_id: string | null;
+  };
+};
+
+type UniversalUsage = {
+  input_tokens: number | null;
+  output_tokens: number | null;
+  total_tokens: number | null;
+  reasoning_tokens: number | null;
+  cached_input_tokens: number | null;
+  cache_hit_tokens: number | null;
+  cache_miss_tokens: number | null;
+};
+
+type UniversalPerformance = {
+  queue_time_ms: number | null;
+  prompt_time_ms: number | null;
+  completion_time_ms: number | null;
+  total_time_ms: number | null;
+};
+
+type UniversalRouting = {
+  selected_provider: string | null;
+  fallback_used: boolean;
+  fallback_from: string | null;
+  priority: 'latency' | 'quality' | 'balanced' | null;
+};
+
+type UniversalTelemetry = {
+  request_id: string | null;
+  response_id: string | null;
+  timestamp: string | null;
 };
 
 type ProviderResult = {
-  content: string;
+  content: unknown;
+  archetype: string | null;
   provider: Provider;
-  latency_ms: number;
-  raw_provider_meta: any;
+  model: string | null;
+  latency_ms: number | null;
+  usage: UniversalUsage;
+  performance: UniversalPerformance;
+  routing: UniversalRouting;
+  telemetry: UniversalTelemetry;
+  raw_provider_meta: {
+    id: string | null;
+    usage: Record<string, unknown>;
+    raw: Record<string, unknown>;
+  };
 };
 
 class HttpError extends Error {
@@ -102,6 +149,28 @@ function extractTextFromProviderBody(body: any): string {
   return '';
 }
 
+function toNullableNumber(value: unknown): number | null {
+  if (typeof value === 'number' && Number.isFinite(value)) return value;
+  return null;
+}
+
+function toMilliseconds(value: unknown): number | null {
+  const seconds = toNullableNumber(value);
+  return seconds == null ? null : seconds * 1000;
+}
+
+function normalizeContent(value: string): unknown {
+  const trimmed = value.trim();
+  if (!trimmed) return '';
+  if (!trimmed.startsWith('{') && !trimmed.startsWith('[')) return value;
+
+  try {
+    return JSON.parse(trimmed);
+  } catch {
+    return value;
+  }
+}
+
 const VALID_PROVIDERS: Provider[] = ['deepseek', 'groq', 'openai'];
 const VALID_ARCHETYPES: Archetype[] = [
   'none',
@@ -112,6 +181,8 @@ const VALID_ARCHETYPES: Archetype[] = [
   'Reviewer',
   'Facilitator',
 ];
+const VALID_PRIORITIES = ['latency', 'quality', 'balanced'] as const;
+type RoutingPriority = (typeof VALID_PRIORITIES)[number];
 
 @Injectable()
 export class LlmRouterService {
@@ -235,14 +306,125 @@ export class LlmRouterService {
 
     const promptId = body.promptId;
     const promptVersion = body.promptVersion;
+    const model = isNonEmptyString(body.model) ? body.model.trim() : undefined;
+
+    let routing: LlmRouterRequest['routing'];
+    const routingRaw = body.routing;
+    if (routingRaw && typeof routingRaw === 'object' && !Array.isArray(routingRaw)) {
+      const priorityRaw = (routingRaw as Record<string, unknown>).priority;
+      if (priorityRaw == null || priorityRaw === '') {
+        routing = { priority: null };
+      } else if (
+        typeof priorityRaw === 'string' &&
+        VALID_PRIORITIES.includes(priorityRaw.trim() as RoutingPriority)
+      ) {
+        routing = { priority: priorityRaw.trim() as RoutingPriority };
+      } else {
+        throw new HttpError(
+          400,
+          'routing.priority must be "latency", "quality", or "balanced"',
+          'INVALID_ROUTING_PRIORITY',
+        );
+      }
+    }
+
+    let telemetry: LlmRouterRequest['telemetry'];
+    const telemetryRaw = body.telemetry;
+    if (
+      telemetryRaw &&
+      typeof telemetryRaw === 'object' &&
+      !Array.isArray(telemetryRaw)
+    ) {
+      const requestIdRaw = (telemetryRaw as Record<string, unknown>).request_id;
+      if (requestIdRaw == null || requestIdRaw === '') {
+        telemetry = { request_id: null };
+      } else if (typeof requestIdRaw === 'string') {
+        telemetry = { request_id: requestIdRaw.trim() || null };
+      } else {
+        throw new HttpError(
+          400,
+          'telemetry.request_id must be a string when provided',
+          'INVALID_TELEMETRY_REQUEST_ID',
+        );
+      }
+    }
 
     return {
       provider,
       stream,
       archetype,
       messages,
+      ...(model ? { model } : {}),
       ...(typeof promptId === 'string' ? { promptId } : {}),
       ...(typeof promptVersion === 'number' ? { promptVersion } : {}),
+      ...(routing ? { routing } : {}),
+      ...(telemetry ? { telemetry } : {}),
+    };
+  }
+
+  private buildNormalizedResult(args: {
+    payload: LlmRouterRequest;
+    provider: Provider;
+    model: string;
+    latency_ms: number;
+    parsed: any;
+    usage: UniversalUsage;
+    performance?: Partial<UniversalPerformance>;
+    requestId?: string | null;
+    timestamp?: string | null;
+  }): ProviderResult {
+    const {
+      payload,
+      provider,
+      model,
+      latency_ms,
+      parsed,
+      usage,
+      performance,
+      requestId,
+      timestamp,
+    } = args;
+
+    return {
+      content: normalizeContent(extractTextFromProviderBody(parsed)),
+      archetype: payload.archetype ?? null,
+      provider,
+      model,
+      latency_ms,
+      usage,
+      performance: {
+        queue_time_ms: null,
+        prompt_time_ms: null,
+        completion_time_ms: null,
+        total_time_ms: null,
+        ...performance,
+      },
+      routing: {
+        selected_provider: provider,
+        fallback_used: false,
+        fallback_from: null,
+        priority: payload.routing?.priority ?? null,
+      },
+      telemetry: {
+        request_id: payload.telemetry?.request_id ?? requestId ?? null,
+        response_id: typeof parsed?.id === 'string' ? parsed.id : null,
+        timestamp:
+          (typeof parsed?.created_at === 'string' && parsed.created_at) ||
+          (typeof parsed?.timestamp === 'string' && parsed.timestamp) ||
+          timestamp ||
+          new Date().toISOString(),
+      },
+      raw_provider_meta: {
+        id: typeof parsed?.id === 'string' ? parsed.id : null,
+        usage:
+          parsed?.usage && typeof parsed.usage === 'object' && !Array.isArray(parsed.usage)
+            ? (parsed.usage as Record<string, unknown>)
+            : {},
+        raw:
+          parsed && typeof parsed === 'object' && !Array.isArray(parsed)
+            ? (parsed as Record<string, unknown>)
+            : {},
+      },
     };
   }
 
@@ -257,7 +439,9 @@ export class LlmRouterService {
     }
 
     const model =
-      pickFirstEnv('OPENAI_PROMPT_MODEL', 'OPENAI_MODEL') || 'gpt-4.1-mini';
+      payload.model ||
+      pickFirstEnv('OPENAI_PROMPT_MODEL', 'OPENAI_MODEL') ||
+      'gpt-4.1-mini';
     const requestBody: Record<string, unknown> = {
       model,
       input: payload.messages,
@@ -308,20 +492,28 @@ export class LlmRouterService {
       );
     }
 
-    const content = extractTextFromProviderBody(parsed);
-
-    return {
-      content: String(content),
+    const usage = parsed?.usage ?? {};
+    return this.buildNormalizedResult({
+      payload,
       provider: 'openai',
+      model,
       latency_ms,
-      raw_provider_meta: {
-        model,
-        usage: parsed?.usage ?? null,
-        id: parsed?.id ?? null,
-        promptId: payload.promptId,
-        promptVersion: payload.promptVersion,
+      parsed,
+      requestId: resp.headers.get('x-request-id'),
+      usage: {
+        input_tokens: toNullableNumber(usage?.input_tokens),
+        output_tokens: toNullableNumber(usage?.output_tokens),
+        total_tokens: toNullableNumber(usage?.total_tokens),
+        reasoning_tokens: toNullableNumber(
+          usage?.output_tokens_details?.reasoning_tokens,
+        ),
+        cached_input_tokens: toNullableNumber(
+          usage?.input_tokens_details?.cached_tokens,
+        ),
+        cache_hit_tokens: null,
+        cache_miss_tokens: null,
       },
-    };
+    });
   }
 
   private async callDeepSeek(
@@ -335,7 +527,7 @@ export class LlmRouterService {
         'MISSING_DEEPSEEK_API_KEY',
       );
 
-    const model = pickFirstEnv('DEEPSEEK_MODEL') || 'deepseek-chat';
+    const model = payload.model || pickFirstEnv('DEEPSEEK_MODEL') || 'deepseek-chat';
     const started = Date.now();
 
     const resp = await fetch('https://api.deepseek.com/chat/completions', {
@@ -372,18 +564,26 @@ export class LlmRouterService {
       );
     }
 
-    const content = parsed?.choices?.[0]?.message?.content ?? '';
-
-    return {
-      content: String(content),
+    const usage = parsed?.usage ?? {};
+    return this.buildNormalizedResult({
+      payload,
       provider: 'deepseek',
+      model,
       latency_ms,
-      raw_provider_meta: {
-        model,
-        usage: parsed?.usage ?? null,
-        id: parsed?.id ?? null,
+      parsed,
+      requestId: resp.headers.get('x-request-id'),
+      usage: {
+        input_tokens: toNullableNumber(usage?.prompt_tokens),
+        output_tokens: toNullableNumber(usage?.completion_tokens),
+        total_tokens: toNullableNumber(usage?.total_tokens),
+        reasoning_tokens: null,
+        cached_input_tokens: toNullableNumber(
+          usage?.prompt_tokens_details?.cached_tokens,
+        ),
+        cache_hit_tokens: toNullableNumber(usage?.prompt_cache_hit_tokens),
+        cache_miss_tokens: toNullableNumber(usage?.prompt_cache_miss_tokens),
       },
-    };
+    });
   }
 
   private async callGroq(payload: LlmRouterRequest): Promise<ProviderResult> {
@@ -391,7 +591,7 @@ export class LlmRouterService {
     if (!apiKey)
       throw new HttpError(500, 'Missing GROQ_API_KEY', 'MISSING_GROQ_API_KEY');
 
-    const model = pickFirstEnv('GROQ_MODEL') || 'llama-3.1-8b-instant';
+    const model = payload.model || pickFirstEnv('GROQ_MODEL') || 'llama-3.1-8b-instant';
     const started = Date.now();
 
     const resp = await fetch(
@@ -431,17 +631,29 @@ export class LlmRouterService {
       );
     }
 
-    const content = parsed?.choices?.[0]?.message?.content ?? '';
-
-    return {
-      content: String(content),
+    const usage = parsed?.usage ?? {};
+    return this.buildNormalizedResult({
+      payload,
       provider: 'groq',
+      model,
       latency_ms,
-      raw_provider_meta: {
-        model,
-        usage: parsed?.usage ?? null,
-        id: parsed?.id ?? null,
+      parsed,
+      requestId: resp.headers.get('x-request-id'),
+      usage: {
+        input_tokens: toNullableNumber(usage?.prompt_tokens),
+        output_tokens: toNullableNumber(usage?.completion_tokens),
+        total_tokens: toNullableNumber(usage?.total_tokens),
+        reasoning_tokens: null,
+        cached_input_tokens: null,
+        cache_hit_tokens: null,
+        cache_miss_tokens: null,
       },
-    };
+      performance: {
+        queue_time_ms: toMilliseconds(usage?.queue_time),
+        prompt_time_ms: toMilliseconds(usage?.prompt_time),
+        completion_time_ms: toMilliseconds(usage?.completion_time),
+        total_time_ms: toMilliseconds(usage?.total_time),
+      },
+    });
   }
 }
