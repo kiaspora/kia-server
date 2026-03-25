@@ -55,6 +55,53 @@ function pickFirstEnv(...names: string[]) {
   return '';
 }
 
+function extractTextFromProviderBody(body: any): string {
+  const outputText = body?.output_text;
+  if (typeof outputText === 'string' && outputText.trim()) {
+    return outputText.trim();
+  }
+
+  const output = body?.output;
+  if (Array.isArray(output)) {
+    const parts: string[] = [];
+    for (const item of output) {
+      const content = item?.content;
+      if (!Array.isArray(content)) continue;
+
+      for (const block of content) {
+        if (typeof block?.text === 'string') {
+          parts.push(block.text);
+          continue;
+        }
+
+        if (typeof block?.text?.value === 'string') {
+          parts.push(block.text.value);
+          continue;
+        }
+
+        if (typeof block?.content === 'string') {
+          parts.push(block.content);
+          continue;
+        }
+
+        if (typeof block?.content?.value === 'string') {
+          parts.push(block.content.value);
+        }
+      }
+    }
+
+    const joined = parts.join('').trim();
+    if (joined) return joined;
+  }
+
+  const chatCompletion = body?.choices?.[0]?.message?.content;
+  if (typeof chatCompletion === 'string' && chatCompletion.trim()) {
+    return chatCompletion.trim();
+  }
+
+  return '';
+}
+
 const VALID_PROVIDERS: Provider[] = ['deepseek', 'groq', 'openai'];
 const VALID_ARCHETYPES: Archetype[] = [
   'none',
@@ -209,22 +256,36 @@ export class LlmRouterService {
       );
     }
 
-    const model = pickFirstEnv('OPENAI_MODEL') || 'gpt-4o-mini';
+    const model =
+      pickFirstEnv('OPENAI_PROMPT_MODEL', 'OPENAI_MODEL') || 'gpt-4.1-mini';
+    const requestBody: Record<string, unknown> = {
+      model,
+      input: payload.messages,
+      stream: payload.stream,
+    };
+
+    if (!/^gpt-5/i.test(model)) {
+      requestBody.temperature = 0.7;
+    }
+
+    const maxOutputTokens = process.env.OPENAI_MAX_OUTPUT_TOKENS;
+    if (isNonEmptyString(maxOutputTokens)) {
+      const parsed = Number.parseInt(maxOutputTokens, 10);
+      if (Number.isFinite(parsed) && parsed > 0) {
+        requestBody.max_output_tokens = parsed;
+      }
+    }
+
     const started = Date.now();
 
-    const resp = await fetch('https://api.openai.com/v1/chat/completions', {
+    const resp = await fetch('https://api.openai.com/v1/responses', {
       method: 'POST',
       headers: {
         authorization: `Bearer ${apiKey}`,
         'content-type': 'application/json',
         'x-trace-id': payload.traceId,
       },
-      body: JSON.stringify({
-        model,
-        messages: payload.messages,
-        temperature: 0.7,
-        stream: payload.stream,
-      }),
+      body: JSON.stringify(requestBody),
     });
 
     const latency_ms = Date.now() - started;
@@ -247,7 +308,7 @@ export class LlmRouterService {
       );
     }
 
-    const content = parsed?.choices?.[0]?.message?.content ?? '';
+    const content = extractTextFromProviderBody(parsed);
 
     return {
       content: String(content),

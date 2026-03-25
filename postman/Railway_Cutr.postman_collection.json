@@ -1,0 +1,173 @@
+{
+  "info": {
+    "_postman_id": "94cf8227-3aba-4596-ba2b-05ddd70bb54f",
+    "name": "Railway_Cutr",
+    "description": "Postman collection for /api/cutr/llmRouter",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "50448986",
+    "_collection_link": "https://go.postman.co/collection/50448986-94cf8227-3aba-4596-ba2b-05ddd70bb54f?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "llmRouter - OpenAI",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{API_BEARER_TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-trace-id",
+            "value": "{{traceId}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"provider\": \"openai\",\n  \"stream\": false,\n  \"archetype\": \"Analyst\",\n  \"messages\": [\n    {\n      \"role\": \"system\",\n      \"content\": \"You are a helpful assistant.\"\n    },\n    {\n      \"role\": \"user\",\n      \"content\": \"What's a name you like?\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/api/cutr/llmRouter",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "cutr",
+            "llmRouter"
+          ]
+        },
+        "description": "Routes request to OpenAI provider."
+      },
+      "response": []
+    },
+    {
+      "name": "llmRouter - Groq",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{apiBearerToken}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-trace-id",
+            "value": "{{traceId}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"provider\": \"groq\",\n  \"stream\": false,\n  \"archetype\": \"Builder\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Write a short NestJS controller example.\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/cutr/llmRouter",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "cutr",
+            "llmRouter"
+          ]
+        },
+        "description": "Routes request to Groq provider."
+      },
+      "response": []
+    },
+    {
+      "name": "llmRouter - DeepSeek",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{API_BEARER_TOKEN}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-trace-id",
+            "value": "{{traceId}}"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"provider\": \"deepseek\",\n  \"stream\": false,\n  \"archetype\": \"Reviewer\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Review this API design and suggest two improvements.\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/api/cutr/llmRouter",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "cutr",
+            "llmRouter"
+          ]
+        },
+        "description": "Routes request to DeepSeek provider."
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": []
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{apiBearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    },
+    {
+      "key": "apiBearerToken",
+      "value": ""
+    },
+    {
+      "key": "traceId",
+      "value": "postman-trace-001"
+    }
+  ]
+}

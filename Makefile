@@ -15,6 +15,7 @@ bump:
 
 repomix:
 	@mkdir -p temp
+	@rm temp/repomix-$(PKG_NAME)-*
 	@npx repomix@latest --style markdown -o temp/repomix-$(PKG_NAME)-$(PKG_VERSION).md
 # smaller + more “structural” (less raw noise)
 # npx repomix@latest --compress --parsable-style
