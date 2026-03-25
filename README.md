@@ -176,7 +176,7 @@ Top-level fields:
 - `telemetry`
 - `raw_provider_meta`
 
-See [`src/cutr/llmRouter.service.ts`](/Users/novelbamboo/Desktop/github/kia-server/src/cutr/llmRouter.service.ts) for the normalization logic and [`src/cutr/llmRouter.service.spec.ts`](/Users/novelbamboo/Desktop/github/kia-server/src/cutr/llmRouter.service.spec.ts) for provider mapping coverage.
+See [`src/cutr/llmRouter.service.ts`](src/cutr/llmRouter.service.ts) for the normalization logic and [`src/cutr/llmRouter.service.spec.ts`](src/cutr/llmRouter.service.spec.ts) for provider mapping coverage.
 
 ## Traceability
 
@@ -188,7 +188,7 @@ The app assigns trace IDs via middleware and echoes them through AI-facing route
 
 ## Manual Testing
 
-Postman collections live under [`postman/`](/Users/novelbamboo/Desktop/github/kia-server/postman). Use them for local smoke tests against:
+Postman collections live under [`postman/`](postman). Use them for local smoke tests against:
 
 - `api/asunder/llmBridge`
 - `api/cutr/llmRouter`
