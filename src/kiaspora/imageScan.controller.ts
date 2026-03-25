@@ -1,4 +1,12 @@
-import { Body, Controller, HttpCode, Options, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Options,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import type { Request } from 'express';
 
 import { BearerTokenGuard } from '../auth/bearer-token.guard';
@@ -33,7 +41,9 @@ export class ImageScanController {
   @Post('imageScan')
   async handler(@Req() req: Request, @Body() body: RouterBody) {
     // Multipart bodies are not JSON-parsed; parse from stream instead.
-    const parsed: RouterBody = isMultipart(req) ? await this.svc.parseMultipart(req) : this.svc.parseJsonBody(body);
+    const parsed: RouterBody = isMultipart(req)
+      ? await this.svc.parseMultipart(req)
+      : this.svc.parseJsonBody(body);
 
     // Outputs must remain the same as the Cloud Function (no envelope).
     return this.svc.run(parsed, req);

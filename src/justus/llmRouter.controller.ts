@@ -1,4 +1,12 @@
-import { All, Controller, Options, Post, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  All,
+  Controller,
+  Options,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import type { Request, Response } from 'express';
 import { randomUUID } from 'node:crypto';
 import { BearerTokenGuard } from '../auth/bearer-token.guard';
@@ -20,14 +28,20 @@ export class LlmRouterController {
   options(@Req() req: Request, @Res() res: Response) {
     const traceId = this.resolveTraceId(req);
     res.setHeader('X-Trace-Id', traceId);
-    return res.status(204).set({ ...CORS_HEADERS, Allow: ALLOW_HEADER }).send();
+    return res
+      .status(204)
+      .set({ ...CORS_HEADERS, Allow: ALLOW_HEADER })
+      .send();
   }
 
   @Post('llmRouter')
   @UseGuards(BearerTokenGuard)
   async post(@Req() req: Request, @Res() res: Response) {
     const traceId = this.resolveTraceId(req);
-    const result = await this.llmRouterService.route(this.toBodyRaw(req.body), traceId);
+    const result = await this.llmRouterService.route(
+      this.toBodyRaw(req.body),
+      traceId,
+    );
 
     res.setHeader('X-Trace-Id', traceId);
     return res
@@ -52,7 +66,10 @@ export class LlmRouterController {
   }
 
   private resolveTraceId(req: Request): string {
-    return (req.header('x-trace-id') || req.header('X-Trace-Id') || '').trim() || randomUUID();
+    return (
+      (req.header('x-trace-id') || req.header('X-Trace-Id') || '').trim() ||
+      randomUUID()
+    );
   }
 
   private toBodyRaw(body: unknown): string | undefined {

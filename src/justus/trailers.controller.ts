@@ -55,7 +55,7 @@ function uniq<T>(arr: T[]) {
 
 function log(traceId: string | undefined, ...args: any[]) {
   const prefix = traceId ? `[trailers][${traceId}]` : `[trailers]`;
-  // eslint-disable-next-line no-console
+
   console.log(prefix, ...args);
 }
 
@@ -83,16 +83,20 @@ export class TrailersController {
 
     log(traceId, 'START', { limit });
 
-    const auth = (req.headers?.authorization ?? (req.headers as any)?.Authorization) as string | undefined;
+    const auth = (req.headers?.authorization ??
+      (req.headers as any)?.Authorization) as string | undefined;
 
     const proto =
-      (req.headers['x-forwarded-proto'] as string | undefined)?.split(',')[0]?.trim() ||
+      (req.headers['x-forwarded-proto'] as string | undefined)
+        ?.split(',')[0]
+        ?.trim() ||
       (req as any).protocol ||
       'http';
 
     const host =
-      (req.headers['x-forwarded-host'] as string | undefined)?.split(',')[0]?.trim() ||
-      (req as any).get?.('host');
+      (req.headers['x-forwarded-host'] as string | undefined)
+        ?.split(',')[0]
+        ?.trim() || (req as any).get?.('host');
 
     const base = `${proto}://${host}`;
     log(traceId, 'BASE', base);
@@ -101,7 +105,9 @@ export class TrailersController {
     const inRel = 'public/trailer_ids.json';
     const inAbs = path.join(process.cwd(), inRel);
 
-    type TrailerIdRow = { imdb_id?: unknown; imdbId?: unknown; id?: unknown } | string;
+    type TrailerIdRow =
+      | { imdb_id?: unknown; imdbId?: unknown; id?: unknown }
+      | string;
 
     let rawJson: unknown;
     try {
@@ -112,7 +118,9 @@ export class TrailersController {
       log(traceId, 'READ/PARSE FAIL', e?.message || e);
       return {
         statusCode: 500,
-        errors: [e?.message ? String(e.message) : `Failed to read/parse ${inRel}`],
+        errors: [
+          e?.message ? String(e.message) : `Failed to read/parse ${inRel}`,
+        ],
         latency: Date.now() - started,
         data: null,
       };
@@ -163,7 +171,9 @@ export class TrailersController {
       const detailUrl = `${base}/api/justus/titleDetail?imdbId=${encodeURIComponent(imdbId)}`;
 
       const t0 = Date.now();
-      log(traceId, `DETAIL ${i + 1}/${targetIds.length} -> FETCH start`, { imdbId });
+      log(traceId, `DETAIL ${i + 1}/${targetIds.length} -> FETCH start`, {
+        imdbId,
+      });
 
       try {
         const ac = new AbortController();
@@ -186,7 +196,8 @@ export class TrailersController {
         const hasErrors = Array.isArray(body?.errors) && body.errors.length > 0;
 
         // titleDetail often returns 206; treat 200/206 as success
-        const ok = (body?.statusCode === 200 || body?.statusCode === 206) && !hasErrors;
+        const ok =
+          (body?.statusCode === 200 || body?.statusCode === 206) && !hasErrors;
 
         log(traceId, `DETAIL ${i + 1}/${targetIds.length} <- FETCH done`, {
           imdbId,
@@ -202,7 +213,10 @@ export class TrailersController {
         log(traceId, `DETAIL ${i + 1}/${targetIds.length} FAIL`, {
           imdbId,
           ms,
-          err: e?.name === 'AbortError' ? 'AbortError (timeout)' : e?.message || String(e),
+          err:
+            e?.name === 'AbortError'
+              ? 'AbortError (timeout)'
+              : e?.message || String(e),
         });
       }
 
@@ -223,11 +237,17 @@ export class TrailersController {
     await fs.rename(tmpAbs, outAbs);
 
     const latency = Date.now() - started;
-    log(traceId, 'DONE', { requestedCount: targetIds.length, writtenCount: items.length, latencyMs: latency });
+    log(traceId, 'DONE', {
+      requestedCount: targetIds.length,
+      writtenCount: items.length,
+      latencyMs: latency,
+    });
 
     return {
       statusCode: 200,
-      errors: items.length ? [] : ['No items parsed; trailers_list.json written as empty array'],
+      errors: items.length
+        ? []
+        : ['No items parsed; trailers_list.json written as empty array'],
       latency,
       size: items.length,
       data: {

@@ -12,7 +12,10 @@ export class BearerTokenGuard implements CanActivate {
     const expected = process.env.API_BEARER_TOKEN;
     if (!expected) {
       // 500: server misconfigured
-      throw new HttpException('Server misconfigured: API_BEARER_TOKEN missing', 500);
+      throw new HttpException(
+        'Server misconfigured: API_BEARER_TOKEN missing',
+        500,
+      );
     }
 
     const req = ctx.switchToHttp().getRequest();

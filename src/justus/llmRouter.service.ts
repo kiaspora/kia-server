@@ -58,7 +58,10 @@ class HttpError extends Error {
 
 @Injectable()
 export class LlmRouterService {
-  async route(rawBody: string | undefined, traceId: string): Promise<LlmRouterResult> {
+  async route(
+    rawBody: string | undefined,
+    traceId: string,
+  ): Promise<LlmRouterResult> {
     try {
       const payload = this.parseJsonBody(rawBody);
       const request = this.validateRequestPayload(payload);
@@ -157,7 +160,10 @@ export class LlmRouterService {
     };
   }
 
-  private async callDeepseek(request: NormalizedRequest, traceId: string): Promise<ProviderResult> {
+  private async callDeepseek(
+    request: NormalizedRequest,
+    traceId: string,
+  ): Promise<ProviderResult> {
     const config = this.getDeepseekConfig();
     const messages = [
       ...(request.system ? [{ role: 'system', content: request.system }] : []),
@@ -185,10 +191,16 @@ export class LlmRouterService {
 
     const { json, text } = await this.readJsonSafe(response);
     if (!response.ok) {
-      throw new HttpError(502, `DeepSeek HTTP ${response.status}`, { body: json ?? text });
+      throw new HttpError(502, `DeepSeek HTTP ${response.status}`, {
+        body: json ?? text,
+      });
     }
 
-    const normalized = this.normalizeProviderResponse('deepseek', response, json ?? {});
+    const normalized = this.normalizeProviderResponse(
+      'deepseek',
+      response,
+      json ?? {},
+    );
     return {
       provider: 'deepseek',
       model: config.model,
@@ -197,7 +209,10 @@ export class LlmRouterService {
     };
   }
 
-  private async callOpenAi(request: NormalizedRequest, traceId: string): Promise<ProviderResult> {
+  private async callOpenAi(
+    request: NormalizedRequest,
+    traceId: string,
+  ): Promise<ProviderResult> {
     const config = this.getOpenAiConfig();
     const input = [
       ...(request.system ? [{ role: 'system', content: request.system }] : []),
@@ -225,10 +240,16 @@ export class LlmRouterService {
 
     const { json, text } = await this.readJsonSafe(response);
     if (!response.ok) {
-      throw new HttpError(502, `OpenAI HTTP ${response.status}`, { body: json ?? text });
+      throw new HttpError(502, `OpenAI HTTP ${response.status}`, {
+        body: json ?? text,
+      });
     }
 
-    const normalized = this.normalizeProviderResponse('openai', response, json ?? {});
+    const normalized = this.normalizeProviderResponse(
+      'openai',
+      response,
+      json ?? {},
+    );
     return {
       provider: 'openai',
       model: config.model,
@@ -255,7 +276,10 @@ export class LlmRouterService {
     const baseUrl = 'https://api.openai.com/v1/responses';
     const model = process.env.OPENAI_PROMPT_MODEL ?? 'gpt-4.1-mini';
     const temperature = this.parseNumber(process.env.OPENAI_TEMPERATURE, 0.7);
-    const maxOutputTokens = this.parseInteger(process.env.OPENAI_MAX_OUTPUT_TOKENS, 1024);
+    const maxOutputTokens = this.parseInteger(
+      process.env.OPENAI_MAX_OUTPUT_TOKENS,
+      1024,
+    );
 
     if (!key) throw new HttpError(500, 'OPENAI_KIA_API_KEY missing');
 
@@ -273,7 +297,10 @@ export class LlmRouterService {
       return await fetch(url, { ...options, signal: controller.signal });
     } catch (error: any) {
       if (error?.name === 'AbortError') {
-        throw new HttpError(504, `Provider request timed out after ${timeoutMs}ms`);
+        throw new HttpError(
+          504,
+          `Provider request timed out after ${timeoutMs}ms`,
+        );
       }
       throw error;
     } finally {
@@ -301,7 +328,10 @@ export class LlmRouterService {
   ) {
     const outputText = this.extractTextFromProviderBody(body);
     if (!outputText) {
-      throw new HttpError(502, `Provider ${provider} returned no recognizable text field`);
+      throw new HttpError(
+        502,
+        `Provider ${provider} returned no recognizable text field`,
+      );
     }
 
     return {
@@ -316,11 +346,14 @@ export class LlmRouterService {
     };
   }
 
-  private extractTextFromProviderBody(body: Record<string, unknown> | null): string | null {
+  private extractTextFromProviderBody(
+    body: Record<string, unknown> | null,
+  ): string | null {
     if (!body) return null;
 
     const outputText = body.output_text;
-    if (typeof outputText === 'string' && outputText.trim()) return outputText.trim();
+    if (typeof outputText === 'string' && outputText.trim())
+      return outputText.trim();
 
     const output = body.output;
     if (Array.isArray(output) && output.length > 0) {
@@ -336,12 +369,16 @@ export class LlmRouterService {
           if (typeof block.text === 'string') parts.push(block.text);
 
           const textObj = block.text as Record<string, unknown> | undefined;
-          if (textObj && typeof textObj.value === 'string') parts.push(textObj.value);
+          if (textObj && typeof textObj.value === 'string')
+            parts.push(textObj.value);
 
           if (typeof block.content === 'string') parts.push(block.content);
 
-          const contentObj = block.content as Record<string, unknown> | undefined;
-          if (contentObj && typeof contentObj.value === 'string') parts.push(contentObj.value);
+          const contentObj = block.content as
+            | Record<string, unknown>
+            | undefined;
+          if (contentObj && typeof contentObj.value === 'string')
+            parts.push(contentObj.value);
         }
 
         const joined = parts.join('').trim();
@@ -354,7 +391,8 @@ export class LlmRouterService {
       return chatCompletion.trim();
     }
 
-    const fallback = body.text ?? body.output ?? body.result ?? body.response ?? null;
+    const fallback =
+      body.text ?? body.output ?? body.result ?? body.response ?? null;
     if (typeof fallback === 'string' && fallback.trim()) return fallback.trim();
 
     return null;

@@ -161,7 +161,12 @@ export class GenerateReviewService {
       }
 
       if (!input.forceRefresh) {
-        const cached = this.findCachedReview(store, context.userKey, title.titleId, input.spoilerMode);
+        const cached = this.findCachedReview(
+          store,
+          context.userKey,
+          title.titleId,
+          input.spoilerMode,
+        );
         if (cached) return { statusCode: 200, errors: [], data: cached };
       }
 
@@ -213,7 +218,10 @@ export class GenerateReviewService {
     }
   }
 
-  private buildPrompts(evidence: TasteEvidence): { system: string; input: string } {
+  private buildPrompts(evidence: TasteEvidence): {
+    system: string;
+    input: string;
+  } {
     const spoilerPolicy =
       evidence.spoilerMode === 'spoiler'
         ? [
@@ -269,7 +277,9 @@ export class GenerateReviewService {
       tasteSnapshot: {
         version: input.tasteSnapshot.version,
         signals: input.tasteSnapshot.signals,
-        ...(input.tasteSnapshot.summary ? { summary: input.tasteSnapshot.summary } : {}),
+        ...(input.tasteSnapshot.summary
+          ? { summary: input.tasteSnapshot.summary }
+          : {}),
       },
       tasteAnchors: input.tasteAnchors,
       userRatings: input.userRatings,
@@ -319,7 +329,9 @@ export class GenerateReviewService {
       genres: Array.isArray(inputTitle.genres) ? inputTitle.genres : [],
       plot: inputTitle.plot ?? '',
       runtimeMinutes:
-        typeof inputTitle.runtimeMinutes === 'number' ? inputTitle.runtimeMinutes : null,
+        typeof inputTitle.runtimeMinutes === 'number'
+          ? inputTitle.runtimeMinutes
+          : null,
     };
 
     if (provided.title) return provided;
@@ -335,7 +347,10 @@ export class GenerateReviewService {
     };
   }
 
-  private async loadTitleEvidence(titleId: string, context: GenerateReviewContext): Promise<TitleEvidence> {
+  private async loadTitleEvidence(
+    titleId: string,
+    context: GenerateReviewContext,
+  ): Promise<TitleEvidence> {
     const url = `${this.baseUrl(context.baseUrl)}/api/justus/titleDetail?imdbId=${encodeURIComponent(
       titleId,
     )}`;
@@ -345,7 +360,9 @@ export class GenerateReviewService {
       response = await fetch(url, {
         method: 'GET',
         headers: {
-          ...(context.authorization ? { Authorization: context.authorization } : {}),
+          ...(context.authorization
+            ? { Authorization: context.authorization }
+            : {}),
           'x-trace-id': context.traceId,
         },
       });
@@ -356,7 +373,8 @@ export class GenerateReviewService {
     const payload = await this.readJsonSafe(response);
     const statusCode = this.readStatusCode(payload, response.status);
 
-    if (statusCode >= 500) throw new ServiceError(502, 'Failed to resolve title information');
+    if (statusCode >= 500)
+      throw new ServiceError(502, 'Failed to resolve title information');
     if (statusCode >= 400) throw new ServiceError(404, 'Title not found');
 
     const info = this.asObject(payload?.info);
@@ -390,7 +408,9 @@ export class GenerateReviewService {
         method: 'POST',
         headers: {
           'content-type': 'application/json',
-          ...(context.authorization ? { Authorization: context.authorization } : {}),
+          ...(context.authorization
+            ? { Authorization: context.authorization }
+            : {}),
           'x-trace-id': context.traceId,
         },
         body: JSON.stringify(payload),
@@ -404,17 +424,23 @@ export class GenerateReviewService {
       const errors = Array.isArray(parsed?.errors)
         ? parsed.errors.filter((item) => typeof item === 'string')
         : [];
-      throw new ServiceError(502, errors[0] || `llmRouter failed with status ${response.status}`);
+      throw new ServiceError(
+        502,
+        errors[0] || `llmRouter failed with status ${response.status}`,
+      );
     }
 
     const outputText =
-      this.asOptionalString(parsed?.output_text) || this.asOptionalString(parsed?.outputText);
-    if (!outputText) throw new ServiceError(502, 'llmRouter returned no output_text');
+      this.asOptionalString(parsed?.output_text) ||
+      this.asOptionalString(parsed?.outputText);
+    if (!outputText)
+      throw new ServiceError(502, 'llmRouter returned no output_text');
 
-    const providerRaw = this.asOptionalString(parsed?.provider)?.toLowerCase() ?? null;
+    const providerRaw =
+      this.asOptionalString(parsed?.provider)?.toLowerCase() ?? null;
     const provider =
       providerRaw === 'openai' || providerRaw === 'deepseek'
-        ? (providerRaw as ReviewProvider)
+        ? providerRaw
         : null;
 
     return { provider, outputText };
@@ -434,23 +460,33 @@ export class GenerateReviewService {
     if (!root) throw new ServiceError(502, 'Invalid model output shape');
 
     const decisionValue =
-      this.asOptionalString(root.decision_type) || this.asOptionalString(root.decisionType);
-    if (!decisionValue || !REVIEW_DECISIONS.includes(decisionValue as ReviewDecisionType)) {
+      this.asOptionalString(root.decision_type) ||
+      this.asOptionalString(root.decisionType);
+    if (
+      !decisionValue ||
+      !REVIEW_DECISIONS.includes(decisionValue as ReviewDecisionType)
+    ) {
       throw new ServiceError(502, 'Invalid decision_type in model output');
     }
 
     const confidence = this.asNumber(root.confidence);
-    if (confidence === null) throw new ServiceError(502, 'confidence must be a number');
+    if (confidence === null)
+      throw new ServiceError(502, 'confidence must be a number');
 
     const decisionType = decisionValue as ReviewDecisionType;
     const result: ReviewResult = { decisionType, confidence };
 
     if (decisionType === 'SPEAK') {
       const reviewText =
-        this.asOptionalString(root.review_text) || this.asOptionalString(root.reviewText);
-      if (!reviewText) throw new ServiceError(502, 'review_text is required for SPEAK');
+        this.asOptionalString(root.review_text) ||
+        this.asOptionalString(root.reviewText);
+      if (!reviewText)
+        throw new ServiceError(502, 'review_text is required for SPEAK');
       if (this.wordCount(reviewText) < 500) {
-        throw new ServiceError(502, 'review_text must be at least 500 words for SPEAK');
+        throw new ServiceError(
+          502,
+          'review_text must be at least 500 words for SPEAK',
+        );
       }
       result.reviewText = reviewText;
     }
@@ -460,7 +496,8 @@ export class GenerateReviewService {
         this.asOptionalString(root.silence_reason) ||
         this.asOptionalString(root.silenceReason) ||
         this.asOptionalString(root.reason);
-      if (!silenceReason) throw new ServiceError(502, 'silence_reason is required for SILENCE');
+      if (!silenceReason)
+        throw new ServiceError(502, 'silence_reason is required for SILENCE');
       result.silenceReason = silenceReason;
     }
 
@@ -469,16 +506,23 @@ export class GenerateReviewService {
         this.asOptionalString(root.conflict_explanation) ||
         this.asOptionalString(root.conflictExplanation);
       if (!conflictExplanation) {
-        throw new ServiceError(502, 'conflict_explanation is required for EXPLAIN_CONFLICT');
+        throw new ServiceError(
+          502,
+          'conflict_explanation is required for EXPLAIN_CONFLICT',
+        );
       }
       result.conflictExplanation = conflictExplanation;
     }
 
     if (decisionType === 'ASK_LIGHT_QUESTION') {
       const lightQuestion =
-        this.asOptionalString(root.light_question) || this.asOptionalString(root.lightQuestion);
+        this.asOptionalString(root.light_question) ||
+        this.asOptionalString(root.lightQuestion);
       if (!lightQuestion) {
-        throw new ServiceError(502, 'light_question is required for ASK_LIGHT_QUESTION');
+        throw new ServiceError(
+          502,
+          'light_question is required for ASK_LIGHT_QUESTION',
+        );
       }
       result.lightQuestion = lightQuestion;
     }
@@ -570,7 +614,9 @@ export class GenerateReviewService {
       const parsed = JSON.parse(raw) as Record<string, unknown>;
 
       const reviewGates = this.asObject(parsed.reviewGates) ?? {};
-      const generatedReviews = Array.isArray(parsed.generatedReviews) ? parsed.generatedReviews : [];
+      const generatedReviews = Array.isArray(parsed.generatedReviews)
+        ? parsed.generatedReviews
+        : [];
 
       const normalizedGates: Record<string, ReviewGate> = {};
       for (const [key, value] of Object.entries(reviewGates)) {
@@ -601,7 +647,9 @@ export class GenerateReviewService {
     }
   }
 
-  private normalizeGeneratedReview(item: unknown): GeneratedReviewRecord | null {
+  private normalizeGeneratedReview(
+    item: unknown,
+  ): GeneratedReviewRecord | null {
     const row = this.asObject(item);
     if (!row) return null;
 
@@ -615,10 +663,11 @@ export class GenerateReviewService {
     if (!userKey || !titleId || !traceId || !createdAt || !result) return null;
     if (spoilerMode !== 'spoiler' && spoilerMode !== 'non-spoiler') return null;
 
-    const providerRaw = this.asOptionalString(row.provider)?.toLowerCase() ?? null;
+    const providerRaw =
+      this.asOptionalString(row.provider)?.toLowerCase() ?? null;
     const provider =
       providerRaw === 'openai' || providerRaw === 'deepseek'
-        ? (providerRaw as ReviewProvider)
+        ? providerRaw
         : null;
 
     return {
@@ -641,7 +690,8 @@ export class GenerateReviewService {
     const decisionType = this.asOptionalString(root.decisionType);
     const confidence = this.asNumber(root.confidence);
     if (!decisionType || confidence === null) return null;
-    if (!REVIEW_DECISIONS.includes(decisionType as ReviewDecisionType)) return null;
+    if (!REVIEW_DECISIONS.includes(decisionType as ReviewDecisionType))
+      return null;
 
     const out: ReviewResult = {
       decisionType: decisionType as ReviewDecisionType,
@@ -688,9 +738,13 @@ export class GenerateReviewService {
     return join(process.cwd(), 'temp', 'generate-review-store.json');
   }
 
-  private readStatusCode(payload: Record<string, unknown> | null, fallback: number): number {
+  private readStatusCode(
+    payload: Record<string, unknown> | null,
+    fallback: number,
+  ): number {
     const statusRaw = payload?.statusCode;
-    if (typeof statusRaw === 'number' && Number.isFinite(statusRaw)) return Math.trunc(statusRaw);
+    if (typeof statusRaw === 'number' && Number.isFinite(statusRaw))
+      return Math.trunc(statusRaw);
     return fallback;
   }
 
@@ -699,7 +753,8 @@ export class GenerateReviewService {
   }
 
   private parseIntLike(value: unknown): number | null {
-    if (typeof value === 'number' && Number.isFinite(value)) return Math.trunc(value);
+    if (typeof value === 'number' && Number.isFinite(value))
+      return Math.trunc(value);
     if (typeof value !== 'string') return null;
     const m = value.match(/\d+/);
     if (!m) return null;
@@ -735,7 +790,8 @@ export class GenerateReviewService {
   }
 
   private asObject(value: unknown): Record<string, any> | null {
-    if (!value || typeof value !== 'object' || Array.isArray(value)) return null;
+    if (!value || typeof value !== 'object' || Array.isArray(value))
+      return null;
     return value as Record<string, any>;
   }
 
@@ -753,7 +809,9 @@ export class GenerateReviewService {
       .filter((token) => Boolean(token)).length;
   }
 
-  private async readJsonSafe(response: Response): Promise<Record<string, any> | null> {
+  private async readJsonSafe(
+    response: Response,
+  ): Promise<Record<string, any> | null> {
     const text = await response.text().catch(() => '');
     if (!text) return null;
     try {

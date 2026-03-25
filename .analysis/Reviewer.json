@@ -1,0 +1,859 @@
+{
+  "archetypeId": "Reviewer",
+  "contradictions": [],
+  "generatedAt": "2026-03-24T06:24:23.977053Z",
+  "missingEvidence": [],
+  "packetId": "packet-3f62ef0fdfd74a14dbf6891ad88012256ffe70fb54f271b7615dcfc7ea8a95a5",
+  "packetSummary": {
+    "contentHash": "8d1a249026e93baac14a3a890fdf59294f7147bb020073cedcc89bc529198ea9",
+    "createdAt": "2026-03-24T06:24:10.43327Z",
+    "estimatedTokens": 11992,
+    "formatterVersion": 1,
+    "omissions": [
+      "Task selector omitted src/generate-review/generate-review.service.spec.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/justus/titleSearch.controller.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted test/app.e2e-spec.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/main.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/parse/imdb-detail.controller.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted docs/.obsidian/plugins/obsidian-git/styles.css for Reviewer due to deterministic token budget.",
+      "Task selector omitted pnpm-lock.yaml for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/asunder/llmBridge.controller.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted docs/tmpl-api-pattern.md for Reviewer due to deterministic token budget.",
+      "Task selector omitted package.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/justus/titleDetail.controller.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/promptConfig.controller.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/promptConfig.service.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted test/jest-e2e.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted docs/.obsidian/themes/Shimmering Focus/theme.css for Reviewer due to deterministic token budget.",
+      "Task selector omitted docs/.obsidian/workspace.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/generate-review/dto/generate-review.dto.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/generate-review/generate-review.controller.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/generate-review/generate-review.service.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/justus/filmTrailer.service.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/justus/llmRouter.controller.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/justus/llmRouter.service.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/justus/trailers.controller.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/parse/imdb-search.controller.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/parse/parse.controller.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted temp/www.imdb.com-141e4bff2b137760.rendered.html for Reviewer due to deterministic token budget.",
+      "Task selector omitted temp/www.imdb.com-95bdba69f807c8c3.rendered.html for Reviewer due to deterministic token budget.",
+      "Task selector omitted .env for Reviewer due to deterministic token budget.",
+      "Task selector omitted .sidecar/shells.json.lock for Reviewer due to deterministic token budget.",
+      "Task selector omitted .todos/db.lock for Reviewer due to deterministic token budget.",
+      "Task selector omitted AGENTS.md for Reviewer due to deterministic token budget.",
+      "Task selector omitted README.md for Reviewer due to deterministic token budget.",
+      "Task selector omitted docs/.obsidian/app.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted docs/.obsidian/appearance.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted docs/.obsidian/community-plugins.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted docs/.obsidian/core-plugins.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted docs/.obsidian/graph.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted docs/.obsidian/hotkeys.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted docs/.obsidian/plugins/obsidian-git/manifest.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted docs/.obsidian/plugins/obsidian-git/obsidian_askpass.sh for Reviewer due to deterministic token budget.",
+      "Task selector omitted docs/.obsidian/themes/AnuPpuccin/manifest.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted docs/.obsidian/themes/Shimmering Focus/manifest.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted docs/parse.md for Reviewer due to deterministic token budget.",
+      "Task selector omitted docs/sop-setup.md for Reviewer due to deterministic token budget.",
+      "Task selector omitted docs/taste-engine.md for Reviewer due to deterministic token budget.",
+      "Task selector omitted eslint.config.mjs for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/app.controller.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/app.module.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/app.service.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/asunder/asunder.module.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/asunder/attachment.util.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/asunder/llmBridge.service.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/auth/bearer-token.guard.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/common/trace-id.interceptor.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/common/trace-id.middleware.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/generate-review/generate-review.module.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/justus/filmTrailer.controller.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/justus/justus.module.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/ffmpeg.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/googleSpeechToText.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/imageScan.controller.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/imageScan.module.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/imageScan.service.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/kiaspora.module.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/speechToText.controller.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/speechToText.module.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/speechToText.service.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/translationChat.controller.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/translationChat.module.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/translationChat.service.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/translationRouter.controller.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/translationRouter.service.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted src/meta/meta.controller.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted temp/repomix-kia-server-0.0.22.md for Reviewer due to deterministic token budget.",
+      "Task selector omitted temp/repomix-kia-server-0.0.23.md for Reviewer due to deterministic token budget.",
+      "Task selector omitted temp/repomix-kia-server-0.0.24.md for Reviewer due to deterministic token budget.",
+      "Task selector omitted temp/repomix-kia-server-0.0.25.md for Reviewer due to deterministic token budget.",
+      "Task selector omitted temp/repomix-kia-server-0.0.27.md for Reviewer due to deterministic token budget.",
+      "Task selector omitted tsconfig.build.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted tsconfig.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted .todos/command_usage.jsonl for Reviewer due to deterministic token budget.",
+      "Task selector omitted .prettierrc for Reviewer due to deterministic token budget.",
+      "Task selector omitted .todos/agent_errors.jsonl for Reviewer due to deterministic token budget.",
+      "Task selector omitted Makefile for Reviewer due to deterministic token budget.",
+      "Task selector omitted app.module.ts for Reviewer due to deterministic token budget.",
+      "Task selector omitted nest-cli.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted postman/Railway_JustUs.postman_collection.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted postman/Railway_Kiaspora.postman_collection.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted postman/Railway_Parse.postman_collection.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted postman/Railway_Server.postman_collection.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted postman/Railway_aSunder.postman_collection.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted public/calendarItems.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted public/trailer_ids.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted public/trailers_list.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted temp/generate-review-store.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted temp/trailers.html for Reviewer due to deterministic token budget.",
+      "Task selector omitted temp/trailers.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted temp/www.imdb.com-141e4bff2b137760.net.json for Reviewer due to deterministic token budget.",
+      "Task selector omitted temp/www.imdb.com-95bdba69f807c8c3.net.json for Reviewer due to deterministic token budget."
+    ],
+    "operationType": "artifact.generate",
+    "packetId": "packet-3f62ef0fdfd74a14dbf6891ad88012256ffe70fb54f271b7615dcfc7ea8a95a5",
+    "projectId": "project-20260324062406462561",
+    "rationale": "Reviewer packet built from intake-selected files, archetype relevance, structural edges, and explanation artifacts.",
+    "role": "Reviewer",
+    "runId": "run-20260324062406462598",
+    "selectedFileCount": 8,
+    "selectedSymbolCount": 2957,
+    "status": "complete",
+    "truncationNotes": [
+      "Task selector trimmed the Reviewer packet to 8 files and 11992 estimated tokens."
+    ]
+  },
+  "plainLanguage": {
+    "hotspotCount": 12,
+    "overview": "This file focuses on risk, fragility, and what deserves closer testing or security attention.",
+    "readingHint": "Start from the top summary, then inspect the selected files with the highest confidence and most repeated reasons.",
+    "selectedFileCount": 8
+  },
+  "projectId": "project-20260324062406462561",
+  "roleArtifact": {
+    "fragilitySignals": [
+      {
+        "chunkId": "evidence-331ef33c9f09651f17310e91b33c65251d4a277e515a9dbdb143e861bb24764f",
+        "chunkType": "gap",
+        "contentHash": "f04eb4800716f6e1159059eef55df7f10f3d9f7208edd5a7a2593bc8623c7252",
+        "evidence": [
+          "`);return e?r.pop():r.push(r.pop().slice(0,-1)),r}var te=bt(Hg()),is=require(\"obsidian\");p();function oA(t,e){let r=Object.assign({},t.lineAuthor,e.lineAuthor);return Object.assign({},t,e,{lineAuthor:r})}var Io=class extends Error{constructor(r){super(\"No network connection available\");this.originalError=r}};p();var lA=require(\"obsidian\"),V8={options:[],placeholder:\"\",allowEmpty:!1,onlySelection:!1,initialValue:void 0,obscure:!1},ze=class extends lA.SuggestModal{constructor(e,r){if(super(e.app),this.config={...V8,...r},this.setPlaceholder(this.config.placeholder),this.config.obscure){this.inputEl.type=\"password\";let n=this.containerEl.querySelector(\".prompt-input-container\");n.addClass(\"git-obscure-prompt\"),n.setAttr(\"git-is-obscured\",\"true\");let i=n==null?void 0:n.createDiv({cls:\"search-input-clear-button\"});i.style.marginRight=\"32px\",i.id=\"git-show-password\",i.addEventListener(\"click\",()=>{n.getAttr(\"git-is-obscured\")===\"true\"?(this.inputEl.type=\"text\",n.setAttr(\"git-is-obscured\",\"false\")):(this.inputEl.type=\"password\",n.setAttr(\"git-is-obscured\",\"true\"))})}}openAndGetResult(){return new Promise(e=>{this.resolve=e,this.open(),this.config.initialValue!=null&&(this.inputEl.value=this.config.initialValue,this.inputEl.dispatchEvent(new Event(\"input\")))})}onClose(){new Promise(e=>setTimeout(e,10)).then(()=>{this.resolve&&this.resolve(void 0)})}getSuggestions(e){return this.config.onlySelection?this.config.options:this.config.allowEmpty?[e.length>0?e:\" \",...this.config.options]:[e.length>0?e:\"...\",...this.config.options]}renderSuggestion(e,r){this.config.obscure?r.hide():r.setText(e)}onChooseSuggestion(e,r){if(this.resolve){let n;this.config.allowEmpty&&e===\" \"?n=\"\":e===\"...\"?n=void 0:n=e,this.resolve(n)}}};p();var V2=bt(AA()),W2=require(\"child_process\"),Y2=bt(z2()),Pi=require(\"obsidian\");function Md(t){throw new Error(`Unexpected object: ${t}`)}function Lc(t,e,r){return t===1?`${t} ${e}`:`${t} ${r!=null?r:e+\"s\"}`}var Kv=(t,e)=>t===\".\"||e==null||e.length===0||e===\".\"?!0:e.length>=t.length?e.startsWith(t):t.startsWith(e);function bn(t,e){let r;if(e){if(e.button===0||e.button===1){let n=Pi.Keymap.isModEvent(e);r=t.workspace.getLeaf(n)}}else r=t.workspace.getLeaf(!1);return r}function Qn(t,e,r,n,i){if(e.button==2){let a=t.vault.getAbstractFileByPath(r);if(a!=null){let s=new Pi.Menu;t.workspace.trigger(\"file-menu\",s,a,i,n),s.showAtPosition({x:e.pageX,y:e.pageY})}else{let s=new Pi.Menu;t.workspace.trigger(\"obsidian-git:menu\",s,r,i,n),s.showAtPosition({x:e.pageX,y:e.pageY})}}}function ba(t){throw new Error(\"Impossible branch: \"+t)}function Jv(t){return`rgb(${t.r},${t.g},${t.b})`}function X2(t){var a;let e=(a=V2.fromString(t))==null?void 0:a.toRgbaArray();if(e===void 0)return;let[r,n,i]=e;return{r,g:n,b:i}}function Z2(t){return t.diff(Pi.moment.unix(0),\"seconds\")}function K2(t){if(t.length!==0)return t.slice().sort()[Math.floor(t.length/2)]}function J2(t,e){return(0,Y2.default)(t,e,{strict:!0})}function Nc(t,e){return new Proxy(t,{get(r,n){return n===\"length\"?Math.min(e,r.length):r[n]}})}function Q2(t,e,r){return t.length<=e?new Array(e-t.length).fill(r).join(\"\")+t:t.substring(t.length-e)}function eP(t,e){if(e<=0)return t;let r=new Array(e).fill(\" \").join(\"\"),n=t.substring(e,t.length);return r+n}function Qv(t,e,r){return t<=e&&e<=r}function Ri(t){let[e,...r]=t.split(\"/\");return[e,r.length===0?void 0:r.join(\"/\")]}function ei(t){return t.endsWith(\"/\")?t:t.split(\"/\").last().replace(/\\.md$/,\"\")}function tP(t){return t===1?\"1 minute\":`${t} minutes`}function uU(t){let e=t.lastIndexOf(\".\");return t.substring(e+1)}function Do(t){if(t.endsWith(\".md\"))return!1;let e=uU(t);return aA.includes(e)}function ew(t){return(t.startsWith(\"https://github.com/\")||t.startsWith(\"https://gitlab.com/\"))&&(t.endsWith(\".git\")||(t=t+\".git\")),t}function Lo(t,e){let r=e.vault.getAbstractFileByPath(t);if(!(r instanceof Pi.TFile))return!1;try{return!!e.viewRegistry.getTypeByExtension(r.extension)}catch(n){return!0}}function rP({isFolder:t,gitRelativePath:e}){let r=\"/\";return r+=e,t&&(r+=\"/\"),r.replace(/([\\\\!#*?[\\]])/g,String.raw`\\$1`).replace(/\\s(?=\\s*$)/g,String.raw`\\ `)}function No(t,e,r,n){let i=e.target;t.workspace.trigger(\"hover-link\",{event:e,source:r.getViewType(),hoverParent:r,targetEl:i,linktext:n})}function Bc(t,e,r={}){return new Promise((n,i)=>{let a=(0,W2.spawn)(t,e,r),s=\"\",o=\"\";a.stdout.on(\"data\",l=>{s+=l.toString()}),a.stderr.on(\"data\",l=>{o+=l.toString()}),a.on(\"error\",l=>{n({error:new Error(l.message),stdout:s,stderr:s,code:1})}),a.on(\"close\",l=>{n({stdout:s,stderr:o,code:l!=null?l:1,error:void 0})})})}p();var nP=require(\"obsidian\"),Bo=class{constructor(e){this.plugin=e,this.app=e.app}getRelativeVaultPath(e){return this.plugin.settings.basePath?this.plugin.settings.basePath+\"/\"+e:e}getRelativeRepoPath(e,r=!0){return r&&this.plugin.settings.basePath.length>0?e.substring(this.plugin.settings.basePath.length+1):e}unload(){}_getTreeStructure(e,r=0){let n=[];for(e=[...e];e.length>0;){let i=e.first(),a=i.path.substring(r);if(a.contains(\"/\")){let s=a.substring(0,a.indexOf(\"/\")),o=e.filter(u=>u.path.substring(r).startsWith(s+\"/\"));o.forEach(u=>e.remove(u));let l=i.path.substring(0,a.indexOf(\"/\")+r);n.push({title:s,path:l,vaultPath:this.getRelativeVaultPath(l),children:this._getTreeStructure(o,(r>0?r+s.length:s.length)+1)})}else n.push({title:a,data:i,path:i.path,vaultPath:this.getRelativeVaultPath(i.path)}),e.remove(i)}return n}simplify(e){var r,n,i,a;for(let s of e){for(;;){let o=((r=s.children)==null?void 0:r.length)==1,l=((i=(n=s.children)==null?void 0:n.first())==null?void 0:i.data)==null;if(!(s.children!=null&&o&&l))break;let u=s.children.first();s.title+=\"/\"+u.title,s.data=u.data,s.path=u.path,s.vaultPath=u.vaultPath,s.children=u.children}s.children!=null&&this.simplify(s.children),(a=s.children)==null||a.sort((o,l)=>{let u=(l.data==null?1:0)-(o.data==null?1:0);return u!=0?u:o.title.localeCompare(l.title)})}return e.sort((s,o)=>{let l=(o.data==null?1:0)-(s.data==null?1:0);return l!=0?l:s.title.localeCompare(o.title)})}getTreeStructure(e){let r=this._getTreeStructure(e);return this.simplify(r)}async formatCommitMessage(e){let r;if(e.includes(\"{{numFiles}}\")){r=await this.status();let n=r.staged.length;e=e.replace(\"{{numFiles}}\",String(n))}if(e.includes(\"{{hostname}}\")){let n=this.plugin.localStorage.getHostname()||\"\";e=e.replace(\"{{hostname}}\",n)}if(e.includes(\"{{files}}\")){r=r!=null?r:await this.status();let n={},i=\"\";if(r.staged.length<100){r.staged.forEach(s=>{s.index in n?n[s.index].push(s.path):n[s.index]=[s.path]});let a=[];for(let[s,o]of Object.entries(n))a.push(s+\" \"+o.join(\" \"));i=a.join(\", \")}else i=\"Too many files to list\";e=e.replace(\"{{files}}\",i)}if(e=e.replace(\"{{date}}\",(0,nP.moment)().format(this.plugin.settings.commitDateFormat)),this.plugin.settings.listChangedFilesInMessageBody){let n=r!=null?r:await this.status(),i=\"\";n.staged.length<100?i=n.staged.map(a=>a.path).join(`"
+        ],
+        "fileId": "file-f86a57c58316921c28ae536ab7e12e223385ba5d68a3e311f2fe673cf45b5d69",
+        "label": "Potential execution gap",
+        "lineEnd": 138,
+        "lineStart": 138,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-331ef33c9f09651f17310e91b33c65251d4a277e515a9dbdb143e861bb24764f",
+        "chunkType": "gap",
+        "contentHash": "7da13280d1fb56bf9a941063ad7942da64a3ac4e8b89bb86104b3ffdeab8617f",
+        "evidence": [
+          "`+i}return e}};p();var _a=require(\"obsidian\"),Dd=class{constructor(e,r){this.plugin=r;this.promises={};this.adapter=e.adapter,this.vault=e,this.lastBasePath=this.plugin.settings.basePath,this.promises.readFile=this.readFile.bind(this),this.promises.writeFile=this.writeFile.bind(this),this.promises.readdir=this.readdir.bind(this),this.promises.mkdir=this.mkdir.bind(this),this.promises.rmdir=this.rmdir.bind(this),this.promises.stat=this.stat.bind(this),this.promises.unlink=this.unlink.bind(this),this.promises.lstat=this.lstat.bind(this),this.promises.readlink=this.readlink.bind(this),this.promises.symlink=this.symlink.bind(this)}async readFile(e,r){var n;if(this.maybeLog(\"Read: \"+e+JSON.stringify(r)),r==\"utf8\"||r.encoding==\"utf8\"){let i=this.vault.getAbstractFileByPath(e);return i instanceof _a.TFile?(this.maybeLog(\"Reuse\"),this.vault.read(i)):this.adapter.read(e)}else{if(e.endsWith(this.gitDir+\"/index\"))return this.plugin.settings.basePath!=this.lastBasePath?(this.clearIndex(),this.lastBasePath=this.plugin.settings.basePath,this.adapter.readBinary(e)):(n=this.index)!=null?n:this.adapter.readBinary(e);let i=this.vault.getAbstractFileByPath(e);return i instanceof _a.TFile?(this.maybeLog(\"Reuse\"),this.vault.readBinary(i)):this.adapter.readBinary(e)}}async writeFile(e,r){if(this.maybeLog(\"Write: \"+e),typeof r==\"string\"){let n=this.vault.getAbstractFileByPath(e);return n instanceof _a.TFile?this.vault.modify(n,r):this.adapter.write(e,r)}else if(e.endsWith(this.gitDir+\"/index\"))this.index=r,this.indexmtime=Date.now();else{let n=this.vault.getAbstractFileByPath(e);return n instanceof _a.TFile?this.vault.modifyBinary(n,r):this.adapter.writeBinary(e,r)}}async readdir(e){e===\".\"&&(e=\"/\");let r=await this.adapter.list(e),n=[...r.files,...r.folders],i;return e!==\"/\"?i=n.map(a=>(0,_a.normalizePath)(a.substring(e.length))):i=n,i}async mkdir(e){return this.adapter.mkdir(e)}async rmdir(e,r){var n,i;return this.adapter.rmdir(e,(i=(n=r==null?void 0:r.options)==null?void 0:n.recursive)!=null?i:!1)}async stat(e){if(e.endsWith(this.gitDir+\"/index\")){if(this.index!==void 0&&this.indexctime!=null&&this.indexmtime!=null)return{isFile:()=>!0,isDirectory:()=>!1,isSymbolicLink:()=>!1,size:this.index.byteLength,type:\"file\",ctimeMs:this.indexctime,mtimeMs:this.indexmtime};{let n=await this.adapter.stat(e);if(n==null)throw{code:\"ENOENT\"};return this.indexctime=n.ctime,this.indexmtime=n.mtime,{ctimeMs:n.ctime,mtimeMs:n.mtime,size:n.size,type:\"file\",isFile:()=>!0,isDirectory:()=>!1,isSymbolicLink:()=>!1}}}e===\".\"&&(e=\"/\");let r=this.vault.getAbstractFileByPath(e);if(this.maybeLog(\"Stat: \"+e),r instanceof _a.TFile)return this.maybeLog(\"Reuse stat\"),{ctimeMs:r.stat.ctime,mtimeMs:r.stat.mtime,size:r.stat.size,type:\"file\",isFile:()=>!0,isDirectory:()=>!1,isSymbolicLink:()=>!1};{let n=await this.adapter.stat(e);if(n)return{ctimeMs:n.ctime,mtimeMs:n.mtime,size:n.size,type:n.type===\"folder\"?\"directory\":n.type,isFile:()=>n.type===\"file\",isDirectory:()=>n.type===\"folder\",isSymbolicLink:()=>!1};throw{code:\"ENOENT\"}}}async unlink(e){return this.adapter.remove(e)}async lstat(e){return this.stat(e)}async readlink(e){throw new Error(`readlink of (${e}) is not implemented.`)}async symlink(e){throw new Error(`symlink of (${e}) is not implemented.`)}async saveAndClear(){this.index!==void 0&&await this.adapter.writeBinary(this.plugin.gitManager.getRelativeVaultPath(this.gitDir+\"/index\"),this.index,{ctime:this.indexctime,mtime:this.indexmtime}),this.clearIndex()}clearIndex(){this.index=void 0,this.indexctime=void 0,this.indexmtime=void 0}get gitDir(){return this.plugin.settings.gitDir||\".git\"}maybeLog(e){}};var cP=bt(lP()),_n=class extends Bo{constructor(r){super(r);this.FILE=0;this.HEAD=1;this.WORKDIR=2;this.STAGE=3;this.status_mapping={\"000\":\"  \",\"003\":\"AD\",\"020\":\"??\",\"022\":\"A \",\"023\":\"AM\",100:\"D \",101:\" D\",103:\"MD\",110:\"DA\",111:\"  \",113:\"MM\",120:\"DA\",121:\" M\",122:\"M \",123:\"MM\"};this.noticeLength=999999;this.fs=new Dd(this.app.vault,this.plugin)}getRepo(){return{fs:this.fs,dir:this.plugin.settings.basePath,gitdir:this.plugin.settings.gitDir||void 0,onAuth:()=>{var r,n;return{username:(r=this.plugin.localStorage.getUsername())!=null?r:void 0,password:(n=this.plugin.localStorage.getPassword())!=null?n:void 0}},onAuthFailure:async()=>{new is.Notice(\"Authentication failed. Please try with different credentials\");let r=await new ze(this.plugin,{placeholder:\"Specify your username\"}).openAndGetResult();if(r){let n=await new ze(this.plugin,{placeholder:\"Specify your password/personal access token\",obscure:!0}).openAndGetResult();if(n)return this.plugin.localStorage.setUsername(r),this.plugin.localStorage.setPassword(n),{username:r,password:n}}return{cancel:!0}},http:{async request({url:r,method:n,headers:i,body:a}){let s;a&&(s=await pU(a));let o=await(0,is.requestUrl)({url:r,method:n,headers:i,body:s,throw:!1});return{url:r,method:n,headers:o.headers,body:hU(o.arrayBuffer),statusCode:o.status,statusMessage:o.status.toString()}}}}}async wrapFS(r){try{let n=await r;return await this.fs.saveAndClear(),n}catch(n){throw await this.fs.saveAndClear(),n}}async status(r){let n,i=window.setTimeout(()=>{n=new is.Notice(\"This takes longer: Getting status\",this.noticeLength)},2e4);try{this.plugin.setPluginState({gitAction:1});let a={...this.getRepo()};(r==null?void 0:r.path)!=null&&(a.filepaths=[`${r.path}/`]);let s=(await this.wrapFS(te.default.statusMatrix(a))).map(f=>this.getFileStatusResult(f)),o=[],l=[],u=[];for(let f of s)f.workingDir!==\" \"&&o.push(f),f.index!==\" \"&&f.index!==\"U\"&&l.push(f),(f.index!=\" \"||f.workingDir!=\" \")&&u.push(f);let c=[];return window.clearTimeout(i),n==null||n.hide(),{all:u,changed:o,staged:l,conflicted:c}}catch(a){throw window.clearTimeout(i),n==null||n.hide(),this.plugin.displayError(a),a}}async commitAll({message:r,status:n,unstagedFiles:i}){try{return await this.checkAuthorInfo(),await this.stageAll({status:n,unstagedFiles:i}),this.commit({message:r})}catch(a){throw this.plugin.displayError(a),a}}async commit({message:r}){try{await this.checkAuthorInfo(),this.plugin.setPluginState({gitAction:4});let n=await this.formatCommitMessage(r),i=this.plugin.localStorage.getConflict(),a;if(i){let s=await this.branchInfo();a=[s.current,s.tracking]}await this.wrapFS(te.default.commit({...this.getRepo(),message:n,parent:a})),this.plugin.localStorage.setConflict(!1);return}catch(n){throw this.plugin.displayError(n),n}}async stage(r,n){let i=this.getRelativeRepoPath(r,n),a;n?a=r:a=this.getRelativeVaultPath(r);try{this.plugin.setPluginState({gitAction:3}),await this.app.vault.adapter.exists(a)?await this.wrapFS(te.default.add({...this.getRepo(),filepath:i})):await this.wrapFS(te.default.remove({...this.getRepo(),filepath:i}))}catch(s){throw this.plugin.displayError(s),s}}async stageAll({dir:r,status:n,unstagedFiles:i}){try{if(n)await Promise.all(n.changed.map(a=>a.workingDir!==\"D\"?this.wrapFS(te.default.add({...this.getRepo(),filepath:a.path})):te.default.remove({...this.getRepo(),filepath:a.path})));else{let a=i!=null?i:await this.getUnstagedFiles(r!=null?r:\".\");await Promise.all(a.map(({path:s,type:o})=>o==\"D\"?te.default.remove({...this.getRepo(),filepath:s}):this.wrapFS(te.default.add({...this.getRepo(),filepath:s}))))}}catch(a){throw this.plugin.displayError(a),a}}async unstage(r,n){try{this.plugin.setPluginState({gitAction:3}),r=this.getRelativeRepoPath(r,n),await this.wrapFS(te.default.resetIndex({...this.getRepo(),filepath:r}))}catch(i){throw this.plugin.displayError(i),i}}async unstageAll({dir:r,status:n}){try{let i;n?i=n.staged.map(a=>a.path):i=(await this.getStagedFiles(r!=null?r:\".\")).map(({path:s})=>s),await this.wrapFS(Promise.all(i.map(a=>te.default.resetIndex({...this.getRepo(),filepath:a}))))}catch(i){throw this.plugin.displayError(i),i}}async discard(r){try{this.plugin.setPluginState({gitAction:3}),await this.wrapFS(te.default.checkout({...this.getRepo(),filepaths:[r],force:!0}))}catch(n){throw this.plugin.displayError(n),n}}async discardAll({dir:r,status:n}){let i=[];n?r!=null?i=n.changed.filter(a=>a.workingDir!=\"U\"&&a.path.startsWith(r)).map(a=>a.path):i=n.changed.filter(a=>a.workingDir!=\"U\").map(a=>a.path):i=(await this.getUnstagedFiles(r)).filter(a=>a.type!=\"A\").map(({path:a})=>a);try{await this.wrapFS(te.default.checkout({...this.getRepo(),filepaths:i,force:!0}))}catch(a){throw this.plugin.displayError(a),a}}async getUntrackedPaths(r){let n=[];if(r.status)for(let i of r.status.changed)i.index==\"U\"&&i.workingDir===\"U\"&&i.path.startsWith(r.path!=null?`${r.path}/`:\"\")&&n.push(i.path);else{let i=await this.status({path:r==null?void 0:r.path});for(let a of i.changed)a.index===\"U\"&&a.workingDir===\"U\"&&n.push(a.path)}return n}getProgressText(r,n){let i=`${r} progress:`;return n.phase&&(i=`${i} ${n.phase}:`),n.loaded&&(i=`${i} ${n.loaded}`,n.total&&(i=`${i} of ${n.total}`)),i}resolveRef(r){return this.wrapFS(te.default.resolveRef({...this.getRepo(),ref:r}))}async pull(){let r=this.showNotice(\"Initializing pull\");try{this.plugin.setPluginState({gitAction:2});let n=await this.resolveRef(\"HEAD\");await this.fetch();let i=await this.branchInfo();await this.checkAuthorInfo(),(await this.wrapFS(te.default.merge({...this.getRepo(),ours:i.current,theirs:i.tracking,abortOnConflict:!1,mergeDriver:this.plugin.settings.mergeStrategy!==\"none\"?({contents:l})=>{var b,E,x;let u=l[0],c=l[1],f=l[2],d=/^.*(\\r?\\n|$)/gm,h=(b=c.match(d))!=null?b:[],m=(E=u.match(d))!=null?E:[],g=(x=f.match(d))!=null?x:[],v=(0,cP.default)(h,m,g),w=\"\";for(let k of v)k.ok&&(w+=k.ok.join(\"\")),k.conflict&&(w+=this.plugin.settings.mergeStrategy===\"ours\"?k.conflict.a.join(\"\"):k.conflict.b.join(\"\"));return{cleanMerge:!0,mergedText:w}}:void 0}))).alreadyMerged||await this.wrapFS(te.default.checkout({...this.getRepo(),ref:i.current,onProgress:l=>{r!==void 0&&(r.noticeEl.innerText=this.getProgressText(\"Checkout\",l))},remote:i.remote})),r==null||r.hide();let s=await this.resolveRef(\"HEAD\"),o=await this.getFileChangesCount(n,s);return this.showNotice(\"Finished pull\",!1),o.map(l=>({path:l.path,workingDir:\"P\",index:\"P\",vaultPath:this.getRelativeVaultPath(l.path)}))}catch(n){throw r==null||r.hide(),n instanceof te.Errors.MergeConflictError&&await this.plugin.handleConflict(n.data.filepaths.map(i=>this.getRelativeVaultPath(i))),this.plugin.displayError(n),n}}async push(){if(!await this.canPush())return 0;let r=this.showNotice(\"Initializing push\");try{this.plugin.setPluginState({gitAction:1});let n=await this.branchInfo(),i=n.tracking,a=n.current,s=(await this.getFileChangesCount(a,i)).length;this.plugin.setPluginState({gitAction:5});let o=await this.getCurrentRemote();return await this.wrapFS(te.default.push({...this.getRepo(),remote:o,onProgress:l=>{r!==void 0&&(r.noticeEl.innerText=this.getProgressText(\"Pushing\",l))}})),r==null||r.hide(),s}catch(n){throw r==null||r.hide(),this.plugin.displayError(n),n}}async getUnpushedCommits(){let r=await this.branchInfo(),n=r.tracking,i=r.current;if(n==null||i==null)return 0;let a=await this.resolveRef(i),s=await this.resolveRef(n);return(await this.getFileChangesCount(a,s)).length}async canPush(){let r=await this.branchInfo(),n=r.tracking,i=r.current,a=await this.resolveRef(i),s=await this.resolveRef(n);return a!=s}async checkRequirements(){return await this.plugin.app.vault.adapter.exists(`${this.getRepo().dir}/.git/HEAD`)?\"valid\":\"missing-repo\"}async branchInfo(){var r,n;try{let i=await te.default.currentBranch(this.getRepo())||\"\",a=await te.default.listBranches(this.getRepo()),s=(r=await this.getConfig(`branch.${i}.remote`))!=null?r:\"origin\",o=(n=await this.getConfig(`branch.${i}.merge`))==null?void 0:n.split(\"refs/heads\")[1],l=o?s+o:void 0;return{current:i,tracking:l,branches:a,remote:s}}catch(i){throw this.plugin.displayError(i),i}}async getCurrentRemote(){var i;let r=await te.default.currentBranch(this.getRepo())||\"\";return(i=await this.getConfig(`branch.${r}.remote`))!=null?i:\"origin\"}async checkout(r,n){try{return this.wrapFS(te.default.checkout({...this.getRepo(),ref:r,force:!!n,remote:n}))}catch(i){throw this.plugin.displayError(i),i}}async createBranch(r){try{await this.wrapFS(te.default.branch({...this.getRepo(),ref:r,checkout:!0}))}catch(n){throw this.plugin.displayError(n),n}}async deleteBranch(r){try{await this.wrapFS(te.default.deleteBranch({...this.getRepo(),ref:r}))}catch(n){throw this.plugin.displayError(n),n}}branchIsMerged(r){return Promise.resolve(!0)}async init(){try{await this.wrapFS(te.default.init(this.getRepo()))}catch(r){throw this.plugin.displayError(r),r}}async clone(r,n,i){let a=this.showNotice(\"Initializing clone\");try{await this.wrapFS(te.default.clone({...this.getRepo(),dir:n,url:r,depth:i,onProgress:s=>{a!==void 0&&(a.noticeEl.innerText=this.getProgressText(\"Cloning\",s))}})),a==null||a.hide()}catch(s){throw a==null||a.hide(),this.plugin.displayError(s),s}}async setConfig(r,n){try{return this.wrapFS(te.default.setConfig({...this.getRepo(),path:r,value:n}))}catch(i){throw this.plugin.displayError(i),i}}async getConfig(r){try{return this.wrapFS(te.default.getConfig({...this.getRepo(),path:r}))}catch(n){throw this.plugin.displayError(n),n}}async fetch(r){let n=this.showNotice(\"Initializing fetch\");try{let i={...this.getRepo(),onProgress:a=>{n!==void 0&&(n.noticeEl.innerText=this.getProgressText(\"Fetching\",a))},remote:r!=null?r:await this.getCurrentRemote()};await this.wrapFS(te.default.fetch(i)),n==null||n.hide()}catch(i){throw this.plugin.displayError(i),n==null||n.hide(),i}}async setRemote(r,n){try{await this.wrapFS(te.default.addRemote({...this.getRepo(),remote:r,url:n,force:!0}))}catch(i){throw this.plugin.displayError(i),i}}async getRemoteBranches(r){let n=[];return n.push(...await this.wrapFS(te.default.listBranches({...this.getRepo(),remote:r}))),n.remove(\"HEAD\"),n=n.map(i=>`${r}/${i}`),n}async getRemotes(){return(await this.wrapFS(te.default.listRemotes({...this.getRepo()}))).map(r=>r.remote)}async removeRemote(r){await this.wrapFS(te.default.deleteRemote({...this.getRepo(),remote:r}))}async getRemoteUrl(r){var n;return(n=(await this.wrapFS(te.default.listRemotes({...this.getRepo()}))).filter(i=>i.remote==r)[0])==null?void 0:n.url}async log(r,n=!0,i,a){let s=await this.wrapFS(te.default.log({...this.getRepo(),depth:i,ref:a}));return Promise.all(s.map(async o=>{let l=o.commit.message.split(`"
+        ],
+        "fileId": "file-f86a57c58316921c28ae536ab7e12e223385ba5d68a3e311f2fe673cf45b5d69",
+        "label": "Potential execution gap",
+        "lineEnd": 142,
+        "lineStart": 142,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-331ef33c9f09651f17310e91b33c65251d4a277e515a9dbdb143e861bb24764f",
+        "chunkType": "gap",
+        "contentHash": "f22e3e830649d11aed68f227fd1bd22fdb09ed8010a78cfed5656cb5e790bc76",
+        "evidence": [
+          "`).map(dq).filter(Boolean);e||r.sort(function(i,a){let s=i.split(\".\"),o=a.split(\".\");if(s.length===1||o.length===1)return fq(Ud(s[0]),Ud(o[0]));for(let l=0,u=Math.max(s.length,o.length);l<u;l++){let c=VI(Ud(s[l]),Ud(o[l]));if(c)return c}return 0});let n=e?r[0]:[...r].reverse().find(i=>i.indexOf(\".\")>=0);return new jP(r,n)}}}),YI={};ft(YI,{addAnnotatedTagTask:()=>gq,addTagTask:()=>mq,tagListTask:()=>pq});function pq(t=[]){let e=t.some(r=>/^--sort=/.test(r));return{format:\"utf-8\",commands:[\"tag\",\"-l\",...t],parser(r){return WI(r,e)}}}function mq(t){return{format:\"utf-8\",commands:[\"tag\",t],parser(){return{name:t}}}}function gq(t,e){return{format:\"utf-8\",commands:[\"tag\",\"-a\",\"-m\",e,t],parser(){return{name:t}}}}var vq=V({\"src/lib/tasks/tag.ts\"(){\"use strict\";hq()}}),wq=MU({\"src/git.js\"(t,e){\"use strict\";var{GitExecutor:r}=(bj(),it(UR)),{SimpleGitApi:n}=(wG(),it(_I)),{Scheduler:i}=(yG(),it(xI)),{configurationErrorTask:a}=(ut(),it(gw)),{asArray:s,filterArray:o,filterPrimitives:l,filterString:u,filterStringOrStringArray:c,filterType:f,getTrailingOptions:d,trailingFunctionArgument:h,trailingOptionsArgument:m}=(ue(),it(uR)),{applyPatchTask:g}=(_G(),it(kI)),{branchTask:v,branchLocalTask:w,deleteBranchesTask:b,deleteBranchTask:E}=($G(),it(II)),{checkIgnoreTask:x}=(MG(),it(OI)),{checkIsRepoTask:k}=(pR(),it(fR)),{cloneTask:A,cloneMirrorTask:y}=(NG(),it(MI)),{cleanWithOptionsTask:S,isCleanOptionsArray:_}=(kR(),it(SR)),{diffSummaryTask:T}=(jw(),it(eI)),{fetchTask:P}=(GG(),it(NI)),{moveTask:F}=(WG(),it(HI)),{pullTask:D}=(XG(),it(UI)),{pushTagsTask:M}=(mI(),it(pI)),{addRemoteTask:re,getRemotesTask:ye,listRemotesTask:me,remoteTask:fe,removeRemoteTask:Ge}=(iq(),it(GI)),{getResetMode:oe,resetTask:B}=(LR(),it(OR)),{stashListTask:Z}=(sq(),it(qI)),{addSubModuleTask:H,initSubModuleTask:Oe,subModuleTask:cr,updateSubModuleTask:Gt}=(uq(),it(zI)),{addAnnotatedTagTask:Y,addTagTask:Ie,tagListTask:Me}=(vq(),it(YI)),{straightThroughBufferTask:It,straightThroughStringTask:De}=(ut(),it(gw));function G(N,X){this._plugins=X,this._executor=new r(N.baseDir,new i(N.maxConcurrentProcesses),X),this._trimmed=N.trimmed}(G.prototype=Object.create(n.prototype)).constructor=G,G.prototype.customBinary=function(N){return this._plugins.reconfigure(\"binary\",N),this},G.prototype.env=function(N,X){return arguments.length===1&&typeof N==\"object\"?this._executor.env=N:(this._executor.env=this._executor.env||{})[N]=X,this},G.prototype.stashList=function(N){return this._runTask(Z(m(arguments)||{},o(N)&&N||[]),h(arguments))};function Je(N,X,Ee,We){return typeof Ee!=\"string\"?a(`git.${N}() requires a string 'repoPath'`):X(Ee,f(We,u),d(arguments))}G.prototype.clone=function(){return this._runTask(Je(\"clone\",A,...arguments),h(arguments))},G.prototype.mirror=function(){return this._runTask(Je(\"mirror\",y,...arguments),h(arguments))},G.prototype.mv=function(N,X){return this._runTask(F(N,X),h(arguments))},G.prototype.checkoutLatestTag=function(N){var X=this;return this.pull(function(){X.tags(function(Ee,We){X.checkout(We.latest,N)})})},G.prototype.pull=function(N,X,Ee,We){return this._runTask(D(f(N,u),f(X,u),d(arguments)),h(arguments))},G.prototype.fetch=function(N,X){return this._runTask(P(f(N,u),f(X,u),d(arguments)),h(arguments))},G.prototype.silent=function(N){return console.warn(\"simple-git deprecation notice: git.silent: logging should be configured using the `debug` library / `DEBUG` environment variable, this will be an error in version 3\"),this},G.prototype.tags=function(N,X){return this._runTask(Me(d(arguments)),h(arguments))},G.prototype.rebase=function(){return this._runTask(De([\"rebase\",...d(arguments)]),h(arguments))},G.prototype.reset=function(N){return this._runTask(B(oe(N),d(arguments)),h(arguments))},G.prototype.revert=function(N){let X=h(arguments);return typeof N!=\"string\"?this._runTask(a(\"Commit must be a string\"),X):this._runTask(De([\"revert\",...d(arguments,0,!0),N]),X)},G.prototype.addTag=function(N){let X=typeof N==\"string\"?Ie(N):a(\"Git.addTag requires a tag name\");return this._runTask(X,h(arguments))},G.prototype.addAnnotatedTag=function(N,X){return this._runTask(Y(N,X),h(arguments))},G.prototype.deleteLocalBranch=function(N,X,Ee){return this._runTask(E(N,typeof X==\"boolean\"?X:!1),h(arguments))},G.prototype.deleteLocalBranches=function(N,X,Ee){return this._runTask(b(N,typeof X==\"boolean\"?X:!1),h(arguments))},G.prototype.branch=function(N,X){return this._runTask(v(d(arguments)),h(arguments))},G.prototype.branchLocal=function(N){return this._runTask(w(),h(arguments))},G.prototype.raw=function(N){let X=!Array.isArray(N),Ee=[].slice.call(X?arguments:N,0);for(let $t=0;$t<Ee.length&&X;$t++)if(!l(Ee[$t])){Ee.splice($t,Ee.length-$t);break}Ee.push(...d(arguments,0,!0));var We=h(arguments);return Ee.length?this._runTask(De(Ee,this._trimmed),We):this._runTask(a(\"Raw: must supply one or more command to execute\"),We)},G.prototype.submoduleAdd=function(N,X,Ee){return this._runTask(H(N,X),h(arguments))},G.prototype.submoduleUpdate=function(N,X){return this._runTask(Gt(d(arguments,!0)),h(arguments))},G.prototype.submoduleInit=function(N,X){return this._runTask(Oe(d(arguments,!0)),h(arguments))},G.prototype.subModule=function(N,X){return this._runTask(cr(d(arguments)),h(arguments))},G.prototype.listRemote=function(){return this._runTask(me(d(arguments)),h(arguments))},G.prototype.addRemote=function(N,X,Ee){return this._runTask(re(N,X,d(arguments)),h(arguments))},G.prototype.removeRemote=function(N,X){return this._runTask(Ge(N),h(arguments))},G.prototype.getRemotes=function(N,X){return this._runTask(ye(N===!0),h(arguments))},G.prototype.remote=function(N,X){return this._runTask(fe(d(arguments)),h(arguments))},G.prototype.tag=function(N,X){let Ee=d(arguments);return Ee[0]!==\"tag\"&&Ee.unshift(\"tag\"),this._runTask(De(Ee),h(arguments))},G.prototype.updateServerInfo=function(N){return this._runTask(De([\"update-server-info\"]),h(arguments))},G.prototype.pushTags=function(N,X){let Ee=M({remote:f(N,u)},d(arguments));return this._runTask(Ee,h(arguments))},G.prototype.rm=function(N){return this._runTask(De([\"rm\",\"-f\",...s(N)]),h(arguments))},G.prototype.rmKeepLocal=function(N){return this._runTask(De([\"rm\",\"--cached\",...s(N)]),h(arguments))},G.prototype.catFile=function(N,X){return this._catFile(\"utf-8\",arguments)},G.prototype.binaryCatFile=function(){return this._catFile(\"buffer\",arguments)},G.prototype._catFile=function(N,X){var Ee=h(X),We=[\"cat-file\"],$t=X[0];if(typeof $t==\"string\")return this._runTask(a(\"Git.catFile: options must be supplied as an array of strings\"),Ee);Array.isArray($t)&&We.push.apply(We,$t);let Cl=N===\"buffer\"?It(We):De(We);return this._runTask(Cl,Ee)},G.prototype.diff=function(N,X){let Ee=u(N)?a(\"git.diff: supplying options as a single string is no longer supported, switch to an array of strings\"):De([\"diff\",...d(arguments)]);return this._runTask(Ee,h(arguments))},G.prototype.diffSummary=function(){return this._runTask(T(d(arguments,1)),h(arguments))},G.prototype.applyPatch=function(N){let X=c(N)?g(s(N),d([].slice.call(arguments,1))):a(\"git.applyPatch requires one or more string patches as the first argument\");return this._runTask(X,h(arguments))},G.prototype.revparse=function(){let N=[\"rev-parse\",...d(arguments,!0)];return this._runTask(De(N,!0),h(arguments))},G.prototype.clean=function(N,X,Ee){let We=_(N),$t=We&&N.join(\"\")||f(N,u)||\"\",Cl=d([].slice.call(arguments,We?1:0));return this._runTask(S($t,Cl),h(arguments))},G.prototype.exec=function(N){let X={commands:[],format:\"utf-8\",parser(){typeof N==\"function\"&&N()}};return this._runTask(X)},G.prototype.clearQueue=function(){return this},G.prototype.checkIgnore=function(N,X){return this._runTask(x(s(f(N,c,[]))),h(arguments))},G.prototype.checkIsRepo=function(N,X){return this._runTask(k(f(N,u)),h(arguments))},e.exports=G}});Gc();Sa();var yq=class extends br{constructor(t,e){super(void 0,e),this.config=t}};Sa();Sa();var Ii=class extends br{constructor(t,e,r){super(t,r),this.task=t,this.plugin=e,Object.setPrototypeOf(this,new.target.prototype)}};Vo();YP();pR();kR();CR();RR();FR();LR();function bq(t){return t?[{type:\"spawn.before\",action(n,i){t.aborted&&i.kill(new Ii(void 0,\"abort\",\"Abort already signaled\"))}},{type:\"spawn.after\",action(n,i){function a(){i.kill(new Ii(void 0,\"abort\",\"Abort signal received\"))}t.addEventListener(\"abort\",a),i.spawned.on(\"close\",()=>t.removeEventListener(\"abort\",a))}}]:void 0}function _q(t){return typeof t==\"string\"&&t.trim().toLowerCase()===\"-c\"}function xq(t,e){if(_q(t)&&/^\\s*protocol(.[a-z]+)?.allow/.test(e))throw new Ii(void 0,\"unsafe\",\"Configuring protocol.allow is not permitted without enabling allowUnsafeExtProtocol\")}function Sq(t,e){if(/^\\s*--(upload|receive)-pack/.test(t))throw new Ii(void 0,\"unsafe\",\"Use of --upload-pack or --receive-pack is not permitted without enabling allowUnsafePack\");if(e===\"clone\"&&/^\\s*-u\\b/.test(t))throw new Ii(void 0,\"unsafe\",\"Use of clone with option -u is not permitted without enabling allowUnsafePack\");if(e===\"push\"&&/^\\s*--exec\\b/.test(t))throw new Ii(void 0,\"unsafe\",\"Use of push with option --exec is not permitted without enabling allowUnsafePack\")}function Eq({allowUnsafeProtocolOverride:t=!1,allowUnsafePack:e=!1}={}){return{type:\"spawn.args\",action(r,n){return r.forEach((i,a)=>{let s=a<r.length?r[a+1]:\"\";t||xq(i,s),e||Sq(i,n.method)}),r}}}ue();function kq(t){let e=Uc(t,\"-c\");return{type:\"spawn.args\",action(r){return[...e,...r]}}}ue();var GP=(0,qo.deferred)().promise;function Aq({onClose:t=!0,onExit:e=50}={}){function r(){let i=-1,a={close:(0,qo.deferred)(),closeTimeout:(0,qo.deferred)(),exit:(0,qo.deferred)(),exitTimeout:(0,qo.deferred)()},s=Promise.race([t===!1?GP:a.closeTimeout.promise,e===!1?GP:a.exitTimeout.promise]);return n(t,a.close,a.closeTimeout),n(e,a.exit,a.exitTimeout),{close(o){i=o,a.close.done()},exit(o){i=o,a.exit.done()},get exitCode(){return i},result:s}}function n(i,a,s){i!==!1&&(i===!0?a.promise:a.promise.then(()=>uw(i))).then(s.done)}return{type:\"spawn.after\",async action(i,{spawned:a,close:s}){var c,f;let o=r(),l=!0,u=()=>void(l=!1);(c=a.stdout)==null||c.on(\"data\",u),(f=a.stderr)==null||f.on(\"data\",u),a.on(\"error\",u),a.on(\"close\",d=>o.close(d)),a.on(\"exit\",d=>o.exit(d));try{await o.result,l&&await uw(50),s(o.exitCode)}catch(d){s(o.exitCode,d)}}}}ue();var Tq=\"Invalid value supplied for custom binary, requires a single string or an array containing either one or two strings\",qP=\"Invalid value supplied for custom binary, restricted characters must be removed or supply the unsafe.allowUnsafeCustomBinary option\";function Cq(t){return!t||!/^([a-z]:)?([a-z0-9/.\\\\_-]+)$/i.test(t)}function zP(t,e){if(t.length<1||t.length>2)throw new Ii(void 0,\"binary\",Tq);if(t.some(Cq))if(e)console.warn(qP);else throw new Ii(void 0,\"binary\",qP);let[n,i]=t;return{binary:n,prefix:i}}function Pq(t,e=[\"git\"],r=!1){let n=zP(ti(e),r);t.on(\"binary\",i=>{n=zP(ti(i),r)}),t.append(\"spawn.binary\",()=>n.binary),t.append(\"spawn.args\",i=>n.prefix?[n.prefix,...i]:i)}Sa();function Rq(t){return!!(t.exitCode&&t.stdErr.length)}function Iq(t){return Buffer.concat([...t.stdOut,...t.stdErr])}function $q(t=!1,e=Rq,r=Iq){return(n,i)=>!t&&n||!e(i)?n:r(i)}function VP(t){return{type:\"task.error\",action(e,r){let n=t(e.error,{stdErr:r.stdErr,stdOut:r.stdOut,exitCode:r.exitCode});return Buffer.isBuffer(n)?{error:new br(void 0,n.toString(\"utf-8\"))}:{error:n}}}}ue();var Fq=class{constructor(){this.plugins=new Set,this.events=new XI.EventEmitter}on(t,e){this.events.on(t,e)}reconfigure(t,e){this.events.emit(t,e)}append(t,e){let r=Re(this.plugins,{type:t,action:e});return()=>this.plugins.delete(r)}add(t){let e=[];return ti(t).forEach(r=>r&&this.plugins.add(Re(e,r))),()=>{e.forEach(r=>this.plugins.delete(r))}}exec(t,e,r){let n=e,i=Object.freeze(Object.create(r));for(let a of this.plugins)a.type===t&&(n=a.action(n,i));return n}};ue();function Oq(t){let e=\"--progress\",r=[\"checkout\",\"clone\",\"fetch\",\"pull\",\"push\"];return[{type:\"spawn.args\",action(a,s){return r.includes(s.method)?eR(a,e):a}},{type:\"spawn.after\",action(a,s){var o;s.commands.includes(e)&&((o=s.spawned.stderr)==null||o.on(\"data\",l=>{let u=/^([\\s\\S]+?):\\s*(\\d+)% \\((\\d+)\\/(\\d+)\\)/.exec(l.toString(\"utf8\"));u&&t({method:s.method,stage:Mq(u[1]),progress:Ue(u[2]),processed:Ue(u[3]),total:Ue(u[4])})}))}}]}function Mq(t){return String(t.toLowerCase().split(\" \",1))||\"unknown\"}ue();function Dq(t){let e=nR(t,[\"uid\",\"gid\"]);return{type:\"spawn.options\",action(r){return{...e,...r}}}}function Lq({block:t,stdErr:e=!0,stdOut:r=!0}){if(t>0)return{type:\"spawn.after\",action(n,i){var u,c;let a;function s(){a&&clearTimeout(a),a=setTimeout(l,t)}function o(){var f,d;(f=i.spawned.stdout)==null||f.off(\"data\",s),(d=i.spawned.stderr)==null||d.off(\"data\",s),i.spawned.off(\"exit\",o),i.spawned.off(\"close\",o),a&&clearTimeout(a)}function l(){o(),i.kill(new Ii(void 0,\"timeout\",\"block timeout reached\"))}r&&((u=i.spawned.stdout)==null||u.on(\"data\",s)),e&&((c=i.spawned.stderr)==null||c.on(\"data\",s)),i.spawned.on(\"exit\",o),i.spawned.on(\"close\",o),s()}}}Gc();function Nq(){return{type:\"spawn.args\",action(t){let e=[],r;function n(i){(r=r||[]).push(...i)}for(let i=0;i<t.length;i++){let a=t[i];if(zd(a)){n(gP(a));continue}if(a===\"--\"){n(t.slice(i+1).flatMap(s=>zd(s)&&gP(s)||s));break}e.push(a)}return r?[...e,\"--\",...r.map(String)]:e}}}ue();var Bq=wq();function Hq(t,e){var i;let r=new Fq,n=lR(t&&(typeof t==\"string\"?{baseDir:t}:t)||{},e);if(!Aw(n.baseDir))throw new yq(n,\"Cannot use simple-git on a directory that does not exist\");return Array.isArray(n.config)&&r.add(kq(n.config)),r.add(Eq(n.unsafe)),r.add(Nq()),r.add(Aq(n.completion)),n.abort&&r.add(bq(n.abort)),n.progress&&r.add(Oq(n.progress)),n.timeout&&r.add(Lq(n.timeout)),n.spawnOptions&&r.add(Dq(n.spawnOptions)),r.add(VP($q(!0))),n.errors&&r.add(VP(n.errors)),Pq(r,n.binary,(i=n.unsafe)==null?void 0:i.allowUnsafeCustomBinary),new Bq(n,r)}Vo();var ZI=Hq;var _e=class extends Bo{constructor(r){super(r);this.useDefaultWindowsGitPath=!1}async setGitInstance(r=!1){var n;if(await this.isGitInstalled()){let i=this.app.vault.adapter,a=i.getBasePath(),s=a;this.plugin.settings.basePath&&(await i.exists((0,$i.normalizePath)(this.plugin.settings.basePath))?s=He.join(a,this.plugin.settings.basePath):r||new $i.Notice(\"ObsidianGit: Base path does not exist\")),this.absoluteRepoPath=s,this.git=ZI({baseDir:s,binary:this.plugin.localStorage.getGitPath()||(this.useDefaultWindowsGitPath?ad:void 0),config:[\"core.quotepath=off\"],unsafe:{allowUnsafeCustomBinary:!0}});let o=this.plugin.localStorage.getPATHPaths(),l=this.plugin.localStorage.getEnvVars(),u=this.plugin.settings.gitDir;if(o.length>0){let v=o.join(\":\")+\":\"+process.env.PATH;process.env.PATH=v}u&&(process.env.GIT_DIR=u);for(let v of l){let[w,b]=v.split(\"=\");process.env[w]=b}let c=\"simple-git\",f=\",\",h=((n=localStorage.debug)!=null?n:\"\").split(f);if(!h.includes(c)&&!h.includes(`-${c}`)&&(h.push(c),QI.default.enable(h.join(f))),await this.git.checkIsRepo()){let v=await this.git.revparse(\"--show-cdup\"),w=(0,Xc.resolve)(s+Xc.sep+v);this.absoluteRepoPath=w,await this.git.cwd(w)}let m=He.join(a,this.app.vault.configDir,\"plugins\",\"obsidian-git\"),g=He.join(m,rs);process.env.SSH_ASKPASS==null&&(process.env.SSH_ASKPASS=g),process.env.OBSIDIAN_GIT_CREDENTIALS_INPUT=He.join(m,sd),process.env.SSH_ASKPASS==g&&this.askpass().catch(v=>this.plugin.displayError(v))}}getRelativeVaultPath(r){let i=this.app.vault.adapter.getBasePath(),a=He.join(this.absoluteRepoPath,r),s=He.relative(i,a);return $i.Platform.isWin&&(s=s.replace(/\\\\/g,\"/\")),s}getRelativeRepoPath(r,n=!0){if(n){let a=this.plugin.app.vault.adapter.getBasePath(),s=this.absoluteRepoPath,o=He.join(a,r),l=He.relative(s,o);return $i.Platform.isWin&&(l=l.replace(/\\\\/g,\"/\")),l}return r}get absPluginConfigPath(){let n=this.app.vault.adapter.getBasePath();return He.join(n,this.app.vault.configDir,\"plugins\",\"obsidian-git\")}get relPluginConfigPath(){return He.join(this.app.vault.configDir,\"plugins\",\"obsidian-git\")}async askpass(){let r=this.app.vault.adapter,n=this.app.vault.configDir+\"/plugins/obsidian-git/\";await this.addAskPassScriptToExclude(),await Dr.writeFile(He.join(this.absPluginConfigPath,rs),iA),await Dr.chmod(He.join(this.absPluginConfigPath,rs),493),this.watchAbortController=new AbortController;let{signal:i}=this.watchAbortController;try{let a=Dr.watch(this.absPluginConfigPath,{signal:i});for await(let s of a){if(s.filename!=sd)continue;let o=n+sd;if(!await r.exists(o))continue;let l=await r.read(o),u;l.length>60&&(u=new $i.Notice(l,999999));let c=await new ze(this.plugin,{allowEmpty:!0,obscure:!0,placeholder:l.length>60?\"Enter a response to the message.\":l}).openAndGetResult();u==null||u.hide(),await r.exists(o)&&await r.write(`${o}.response`,c!=null?c:\"\")}}catch(a){this.plugin.displayError(a),await Dr.rm(He.join(this.absPluginConfigPath,rs),{force:!0}),await Dr.rm(He.join(this.absPluginConfigPath,`${rs}.response`),{force:!0}),await new Promise(s=>setTimeout(s,5e3)),this.plugin.log(\"Retry watch for ask pass\"),await this.askpass()}}async addAskPassScriptToExclude(){try{let r=await this.git.revparse([\"--path-format=absolute\",\"--git-path\",\"info/exclude\"]),n=He.join(this.app.vault.configDir,\"plugins\",\"obsidian-git\",rs),i=this.getRelativeRepoPath(n,!0);(await Dr.readFile(r,\"utf-8\")).split(`"
+        ],
+        "fileId": "file-f86a57c58316921c28ae536ab7e12e223385ba5d68a3e311f2fe673cf45b5d69",
+        "label": "Potential execution gap",
+        "lineEnd": 150,
+        "lineStart": 150,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-331ef33c9f09651f17310e91b33c65251d4a277e515a9dbdb143e861bb24764f",
+        "chunkType": "gap",
+        "contentHash": "e07eac0fe0885252f44518139ed4468f73222e3f21ca8013b5bc3ec7d9c336ed",
+        "evidence": [
+          "This also prevents auto ${i} while editing a file. If turned off, it's independent from the last file edit.`).addToggle(c=>c.setValue(n.settings.autoBackupAfterFileChange).onChange(async f=>{n.settings.autoBackupAfterFileChange=f,this.refreshDisplayWithDelay(),await n.saveSettings(),n.automaticsManager.reload(\"commit\")})),this.mayDisableSetting(s,n.settings.setLastSaveToLastCommit),s=new U.Setting(r).setName(`Auto ${i} after latest commit`).setDesc(`If turned on, sets last auto ${i} timestamp to the latest commit timestamp. This reduces the frequency of auto ${i} when doing manual commits.`).addToggle(c=>c.setValue(n.settings.setLastSaveToLastCommit).onChange(async f=>{n.settings.setLastSaveToLastCommit=f,await n.saveSettings(),n.automaticsManager.reload(\"commit\"),this.refreshDisplayWithDelay()})),this.mayDisableSetting(s,n.settings.autoBackupAfterFileChange),s=new U.Setting(r).setName(\"Auto push interval (minutes)\").setDesc(\"Push commits every X minutes. Set to 0 (default) to disable.\").addText(c=>{c.inputEl.type=\"number\",this.setNonDefaultValue({text:c,settingsProperty:\"autoPushInterval\"}),c.setPlaceholder(String(Xe.autoPushInterval)),c.onChange(async f=>{f!==\"\"?n.settings.autoPushInterval=Number(f):n.settings.autoPushInterval=Xe.autoPushInterval,await n.saveSettings(),n.automaticsManager.reload(\"push\")})}),this.mayDisableSetting(s,!n.settings.differentIntervalCommitAndPush),new U.Setting(r).setName(\"Auto pull interval (minutes)\").setDesc(\"Pull changes every X minutes. Set to 0 (default) to disable.\").addText(c=>{c.inputEl.type=\"number\",this.setNonDefaultValue({text:c,settingsProperty:\"autoPullInterval\"}),c.setPlaceholder(String(Xe.autoPullInterval)),c.onChange(async f=>{f!==\"\"?n.settings.autoPullInterval=Number(f):n.settings.autoPullInterval=Xe.autoPullInterval,await n.saveSettings(),n.automaticsManager.reload(\"pull\")})}),new U.Setting(r).setName(`Auto ${i} only staged files`).setDesc(`If turned on, only staged files are committed on ${i}. If turned off, all changed files are committed.`).addToggle(c=>c.setValue(n.settings.autoCommitOnlyStaged).onChange(async f=>{n.settings.autoCommitOnlyStaged=f,await n.saveSettings()})),new U.Setting(r).setName(`Specify custom commit message on auto ${i}`).setDesc(\"You will get a pop up to specify your message.\").addToggle(c=>c.setValue(n.settings.customMessageOnAutoBackup).onChange(async f=>{n.settings.customMessageOnAutoBackup=f,await n.saveSettings(),this.refreshDisplayWithDelay()})),s=new U.Setting(r).setName(`Commit message on auto ${i}`).setDesc(\"Available placeholders: {{date}} (see below), {{hostname}} (see below), {{numFiles}} (number of changed files in the commit) and {{files}} (changed files in commit message).\").addTextArea(c=>{c.setPlaceholder(Xe.autoCommitMessage).onChange(async f=>{f===\"\"?n.settings.autoCommitMessage=Xe.autoCommitMessage:n.settings.autoCommitMessage=f,await n.saveSettings()}),this.setNonDefaultValue({text:c,settingsProperty:\"autoCommitMessage\"})}),this.mayDisableSetting(s,n.settings.customMessageOnAutoBackup),new U.Setting(r).setName(\"Commit message\").setHeading(),new U.Setting(r).setName(\"Commit message on manual commit\").setDesc(\"Available placeholders: {{date}} (see below), {{hostname}} (see below), {{numFiles}} (number of changed files in the commit) and {{files}} (changed files in commit message).\").addTextArea(c=>{c.setPlaceholder(Xe.commitMessage).onChange(async f=>{f===\"\"?n.settings.commitMessage=Xe.commitMessage:n.settings.commitMessage=f,await n.saveSettings()}),this.setNonDefaultValue({text:c,settingsProperty:\"commitMessage\"})}),new U.Setting(r).setName(\"Commit message script\").setDesc(\"A script that is run using 'sh -c' to generate the commit message. May be used to generate commit messages using AI tools. Available placeholders: {{hostname}}, {{date}}.\").addText(c=>{c.onChange(async f=>{f===\"\"?n.settings.commitMessageScript=Xe.commitMessageScript:n.settings.commitMessageScript=f,await n.saveSettings()}),this.setNonDefaultValue({text:c,settingsProperty:\"commitMessageScript\"})});let u=new U.Setting(r).setName(\"{{date}} placeholder format\").addMomentFormat(c=>c.setDefaultFormat(n.settings.commitDateFormat).setValue(n.settings.commitDateFormat).onChange(async f=>{n.settings.commitDateFormat=f,await n.saveSettings()}));u.descEl.innerHTML=`"
+        ],
+        "fileId": "file-f86a57c58316921c28ae536ab7e12e223385ba5d68a3e311f2fe673cf45b5d69",
+        "label": "Potential execution gap",
+        "lineEnd": 159,
+        "lineStart": 159,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-331ef33c9f09651f17310e91b33c65251d4a277e515a9dbdb143e861bb24764f",
+        "chunkType": "gap",
+        "contentHash": "5a33bab3afeb577cefc062c4819e9bcf9d920db2e76122d3992e5c7b72c67af2",
+        "evidence": [
+          "Specify custom date format. E.g. \"${jg}. See <a href=\"https://momentjs.com\">Moment.js</a> for more formats.`,new U.Setting(r).setName(\"{{hostname}} placeholder replacement\").setDesc(\"Specify custom hostname for every device.\").addText(c=>{var f;return c.setValue((f=n.localStorage.getHostname())!=null?f:\"\").onChange(d=>{n.localStorage.setHostname(d)})}),new U.Setting(r).setName(\"Preview commit message\").addButton(c=>c.setButtonText(\"Preview\").onClick(async()=>{let f=await n.gitManager.formatCommitMessage(n.settings.commitMessage);new U.Notice(`${f}`)})),new U.Setting(r).setName(\"List filenames affected by commit in the commit body\").addToggle(c=>c.setValue(n.settings.listChangedFilesInMessageBody).onChange(async f=>{n.settings.listChangedFilesInMessageBody=f,await n.saveSettings()})),new U.Setting(r).setName(\"Pull\").setHeading(),n.gitManager instanceof _e&&new U.Setting(r).setName(\"Merge strategy\").setDesc(\"Decide how to integrate commits from your remote branch into your local branch.\").addDropdown(c=>{let f={merge:\"Merge\",rebase:\"Rebase\",reset:\"Other sync service (Only updates the HEAD without touching the working directory)\"};c.addOptions(f),c.setValue(n.settings.syncMethod),c.onChange(async d=>{n.settings.syncMethod=d,await n.saveSettings()})}),new U.Setting(r).setName(\"Merge strategy on conflicts\").setDesc(\"Decide how to solve conflicts when pulling remote changes. This can be used to favor your local changes or the remote changes automatically.\").addDropdown(c=>{let f={none:\"None (git default)\",ours:\"Our changes\",theirs:\"Their changes\"};c.addOptions(f),c.setValue(n.settings.mergeStrategy),c.onChange(async d=>{n.settings.mergeStrategy=d,await n.saveSettings()})}),new U.Setting(r).setName(\"Pull on startup\").setDesc(\"Automatically pull commits when Obsidian starts.\").addToggle(c=>c.setValue(n.settings.autoPullOnBoot).onChange(async f=>{n.settings.autoPullOnBoot=f,await n.saveSettings()})),new U.Setting(r).setName(\"Commit-and-sync\").setDesc(\"Commit-and-sync with default settings means staging everything -> committing -> pulling -> pushing. Ideally this is a single action that you do regularly to keep your local and remote repository in sync.\").setHeading(),s=new U.Setting(r).setName(\"Push on commit-and-sync\").setDesc(`Most of the time you want to push after committing. Turning this off turns a commit-and-sync action into commit ${n.settings.pullBeforePush?\"and pull \":\"\"}only. It will still be called commit-and-sync.`).addToggle(c=>c.setValue(!n.settings.disablePush).onChange(async f=>{n.settings.disablePush=!f,this.refreshDisplayWithDelay(),await n.saveSettings()})),new U.Setting(r).setName(\"Pull on commit-and-sync\").setDesc(`On commit-and-sync, pull commits as well. Turning this off turns a commit-and-sync action into commit ${n.settings.disablePush?\"\":\"and push \"}only.`).addToggle(c=>c.setValue(n.settings.pullBeforePush).onChange(async f=>{n.settings.pullBeforePush=f,this.refreshDisplayWithDelay(),await n.saveSettings()})),n.gitManager instanceof _e&&(new U.Setting(r).setName(\"Hunk management\").setDesc(\"Hunks are sections of grouped line changes right in your editor.\").setHeading(),new U.Setting(r).setName(\"Signs\").setDesc(\"This allows you to see your changes right in your editor via colored markers and stage/reset/preview individual hunks.\").addToggle(c=>c.setValue(n.settings.hunks.showSigns).onChange(async f=>{n.settings.hunks.showSigns=f,await n.saveSettings(),n.editorIntegration.refreshSignsSettings()})),new U.Setting(r).setName(\"Hunk commands\").setDesc(\"Adds commands to stage/reset individual Git diff hunks and navigate between them via 'Go to next/prev hunk' commands.\").addToggle(c=>c.setValue(n.settings.hunks.hunkCommands).onChange(async f=>{n.settings.hunks.hunkCommands=f,await n.saveSettings(),n.editorIntegration.refreshSignsSettings()})),new U.Setting(r).setName(\"Status bar with summary of line changes\").addDropdown(c=>c.addOptions({disabled:\"Disabled\",colored:\"Colored\",monochrome:\"Monochrome\"}).setValue(n.settings.hunks.statusBar).onChange(async f=>{n.settings.hunks.statusBar=f,await n.saveSettings(),n.editorIntegration.refreshSignsSettings()})),new U.Setting(r).setName(\"Line author information\").setHeading(),this.addLineAuthorInfoSettings())}new U.Setting(r).setName(\"History view\").setHeading(),new U.Setting(r).setName(\"Show Author\").setDesc(\"Show the author of the commit in the history view.\").addDropdown(u=>{let c={hide:\"Hide\",full:\"Full\",initials:\"Initials\"};u.addOptions(c),u.setValue(n.settings.authorInHistoryView),u.onChange(async f=>{n.settings.authorInHistoryView=f,await n.saveSettings(),await n.refresh()})}),new U.Setting(r).setName(\"Show Date\").setDesc(\"Show the date of the commit in the history view. The {{date}} placeholder format is used to display the date.\").addToggle(u=>u.setValue(n.settings.dateInHistoryView).onChange(async c=>{n.settings.dateInHistoryView=c,await n.saveSettings(),await n.refresh()})),new U.Setting(r).setName(\"Source control view\").setHeading(),new U.Setting(r).setName(\"Automatically refresh source control view on file changes\").setDesc(\"On slower machines this may cause lags. If so, just disable this option.\").addToggle(u=>u.setValue(n.settings.refreshSourceControl).onChange(async c=>{n.settings.refreshSourceControl=c,await n.saveSettings()})),new U.Setting(r).setName(\"Source control view refresh interval\").setDesc(\"Milliseconds to wait after file change before refreshing the Source Control View.\").addText(u=>{u.inputEl.type=\"number\",this.setNonDefaultValue({text:u,settingsProperty:\"refreshSourceControlTimer\"}),u.setPlaceholder(String(Xe.refreshSourceControlTimer)),u.onChange(async f=>{f!==\"\"&&Number.isInteger(Number(f))?n.settings.refreshSourceControlTimer=Math.max(Number(f),500):n.settings.refreshSourceControlTimer=Xe.refreshSourceControlTimer,await n.saveSettings(),n.setRefreshDebouncer()})}),new U.Setting(r).setName(\"Miscellaneous\").setHeading(),n.gitManager instanceof _e&&new U.Setting(r).setName(\"Diff view style\").setDesc('Set the style for the diff view. Note that the actual diff in \"Split\" mode is not generated by Git, but the editor itself instead so it may differ from the diff generated by Git. One advantage of this is that you can edit the text in that view.').addDropdown(u=>{let c={split:\"Split\",git_unified:\"Unified\"};u.addOptions(c),u.setValue(n.settings.diffStyle),u.onChange(async f=>{n.settings.diffStyle=f,await n.saveSettings()})}),new U.Setting(r).setName(\"Disable informative notifications\").setDesc(\"Disable informative notifications for git operations to minimize distraction (refer to status bar for updates).\").addToggle(u=>u.setValue(n.settings.disablePopups).onChange(async c=>{n.settings.disablePopups=c,this.refreshDisplayWithDelay(),await n.saveSettings()})),new U.Setting(r).setName(\"Disable error notifications\").setDesc(\"Disable error notifications of any kind to minimize distraction (refer to status bar for updates).\").addToggle(u=>u.setValue(!n.settings.showErrorNotices).onChange(async c=>{n.settings.showErrorNotices=!c,await n.saveSettings()})),n.settings.disablePopups||new U.Setting(r).setName(\"Hide notifications for no changes\").setDesc(\"Don't show notifications when there are no changes to commit or push.\").addToggle(u=>u.setValue(n.settings.disablePopupsForNoChanges).onChange(async c=>{n.settings.disablePopupsForNoChanges=c,await n.saveSettings()})),new U.Setting(r).setName(\"Show status bar\").setDesc(\"Obsidian must be restarted for the changes to take affect.\").addToggle(u=>u.setValue(n.settings.showStatusBar).onChange(async c=>{n.settings.showStatusBar=c,await n.saveSettings()})),new U.Setting(r).setName(\"File menu integration\").setDesc('Add \"Stage\", \"Unstage\" and \"Add to .gitignore\" actions to the file menu.').addToggle(u=>u.setValue(n.settings.showFileMenu).onChange(async c=>{n.settings.showFileMenu=c,await n.saveSettings()})),new U.Setting(r).setName(\"Show branch status bar\").setDesc(\"Obsidian must be restarted for the changes to take affect.\").addToggle(u=>u.setValue(n.settings.showBranchStatusBar).onChange(async c=>{n.settings.showBranchStatusBar=c,await n.saveSettings()})),new U.Setting(r).setName(\"Show the count of modified files in the status bar\").addToggle(u=>u.setValue(n.settings.changedFilesInStatusBar).onChange(async c=>{n.settings.changedFilesInStatusBar=c,await n.saveSettings()})),n.gitManager instanceof _n?new U.Setting(r).setName(\"Authentication/commit author\").setHeading():new U.Setting(r).setName(\"Commit author\").setHeading(),n.gitManager instanceof _n&&new U.Setting(r).setName(\"Username on your git server. E.g. your username on GitHub\").addText(u=>{var c;u.setValue((c=n.localStorage.getUsername())!=null?c:\"\"),u.onChange(f=>{n.localStorage.setUsername(f)})}),n.gitManager instanceof _n&&new U.Setting(r).setName(\"Password/Personal access token\").setDesc(\"Type in your password. You won't be able to see it again.\").addText(u=>{u.inputEl.autocapitalize=\"off\",u.inputEl.autocomplete=\"off\",u.inputEl.spellcheck=!1,u.onChange(c=>{n.localStorage.setPassword(c)})}),n.gitReady&&new U.Setting(r).setName(\"Author name for commit\").addText(async u=>{var c;u.setValue((c=await n.gitManager.getConfig(\"user.name\"))!=null?c:\"\"),u.onChange(async f=>{await n.gitManager.setConfig(\"user.name\",f==\"\"?void 0:f)})}),n.gitReady&&new U.Setting(r).setName(\"Author email for commit\").addText(async u=>{var c;u.setValue((c=await n.gitManager.getConfig(\"user.email\"))!=null?c:\"\"),u.onChange(async f=>{await n.gitManager.setConfig(\"user.email\",f==\"\"?void 0:f)})}),new U.Setting(r).setName(\"Advanced\").setDesc(\"These settings usually don't need to be changed, but may be required for special setups.\").setHeading(),n.gitManager instanceof _e&&(new U.Setting(r).setName(\"Update submodules\").setDesc('\"Commit-and-sync\" and \"pull\" takes care of submodules. Missing features: Conflicted files, count of pulled/pushed/committed files. Tracking branch needs to be set for each submodule.').addToggle(u=>u.setValue(n.settings.updateSubmodules).onChange(async c=>{n.settings.updateSubmodules=c,await n.saveSettings()})),n.settings.updateSubmodules&&new U.Setting(r).setName(\"Submodule recurse checkout/switch\").setDesc(\"Whenever a checkout happens on the root repository, recurse the checkout on the submodules (if the branches exist).\").addToggle(u=>u.setValue(n.settings.submoduleRecurseCheckout).onChange(async c=>{n.settings.submoduleRecurseCheckout=c,await n.saveSettings()}))),n.gitManager instanceof _e&&new U.Setting(r).setName(\"Custom Git binary path\").setDesc(\"Specify the path to the Git binary/executable. Git should already be in your PATH. Should only be necessary for a custom Git installation.\").addText(u=>{var c;u.setValue((c=n.localStorage.getGitPath())!=null?c:\"\"),u.setPlaceholder(\"git\"),u.onChange(f=>{n.localStorage.setGitPath(f),n.gitManager.updateGitPath(f||\"git\").catch(d=>n.displayError(d))})}),n.gitManager instanceof _e&&new U.Setting(r).setName(\"Additional environment variables\").setDesc(\"Use each line for a new environment variable in the format KEY=VALUE .\").addTextArea(u=>{u.setPlaceholder(\"GIT_DIR=/path/to/git/dir\"),u.setValue(n.localStorage.getEnvVars().join(`"
+        ],
+        "fileId": "file-f86a57c58316921c28ae536ab7e12e223385ba5d68a3e311f2fe673cf45b5d69",
+        "label": "Potential execution gap",
+        "lineEnd": 160,
+        "lineStart": 160,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-331ef33c9f09651f17310e91b33c65251d4a277e515a9dbdb143e861bb24764f",
+        "chunkType": "gap",
+        "contentHash": "05510b3550335d1f6e67191662fe2582c8205f81d6138a7f2d73e8d52ead393f",
+        "evidence": [
+          "`);return this.hoganUtils.render(su,\"wrapper\",{colorScheme:al(this.config.colorScheme),content:r})}makeFileDiffHtml(e,r){if(this.config.renderNothingWhenEmpty&&Array.isArray(e.blocks)&&e.blocks.length===0)return\"\";let n=this.hoganUtils.template(Kz,\"file-diff\"),i=this.hoganUtils.template(su,\"file-path\"),a=this.hoganUtils.template(Jz,\"file\"),s=this.hoganUtils.template(Qz,ol(e));return n.render({file:e,fileHtmlId:sl(e),diffs:r,filePath:i.render({fileDiffName:vs(e)},{fileIcon:a,fileTag:s})})}generateEmptyDiff(){return{right:\"\",left:this.hoganUtils.render(su,\"empty-diff\",{contentClass:\"d2h-code-side-line\",CSSLineClass:Lt})}}generateFileHtml(e){let r=nl(rl(n=>rn(n.content,e.isCombined).content));return e.blocks.map(n=>{let i={left:this.makeHeaderHtml(n.header,e),right:this.makeHeaderHtml(\"\")};return this.applyLineGroupping(n).forEach(([a,s,o])=>{if(s.length&&o.length&&!a.length)this.applyRematchMatching(s,o,r).map(([l,u])=>{let{left:c,right:f}=this.processChangedLines(e.isCombined,l,u);i.left+=c,i.right+=f});else if(a.length)a.forEach(l=>{let{prefix:u,content:c}=rn(l.content,e.isCombined),{left:f,right:d}=this.generateLineHtml({type:Lt.CONTEXT,prefix:u,content:c,number:l.oldNumber},{type:Lt.CONTEXT,prefix:u,content:c,number:l.newNumber});i.left+=f,i.right+=d});else if(s.length||o.length){let{left:l,right:u}=this.processChangedLines(e.isCombined,s,o);i.left+=l,i.right+=u}else console.error(\"Unknown state reached while processing groups of lines\",a,s,o)}),i}).reduce((n,i)=>({left:n.left+i.left,right:n.right+i.right}),{left:\"\",right:\"\"})}applyLineGroupping(e){let r=[],n=[],i=[];for(let a=0;a<e.lines.length;a++){let s=e.lines[a];(s.type!==Ze.INSERT&&i.length||s.type===Ze.CONTEXT&&n.length>0)&&(r.push([[],n,i]),n=[],i=[]),s.type===Ze.CONTEXT?r.push([[s],[],[]]):s.type===Ze.INSERT&&n.length===0?r.push([[],[],[s]]):s.type===Ze.INSERT&&n.length>0?i.push(s):s.type===Ze.DELETE&&n.push(s)}return(n.length||i.length)&&(r.push([[],n,i]),n=[],i=[]),r}applyRematchMatching(e,r,n){let i=e.length*r.length,a=Oh(e.concat(r).map(o=>o.content.length));return i<this.config.matchingMaxComparisons&&a<this.config.maxLineSizeInBlockForComparison&&(this.config.matching===\"lines\"||this.config.matching===\"words\")?n(e,r):[[e,r]]}makeHeaderHtml(e,r){return this.hoganUtils.render(su,\"block-header\",{CSSLineClass:Lt,blockHeader:r!=null&&r.isTooBig?e:ka(e),lineClass:\"d2h-code-side-linenumber\",contentClass:\"d2h-code-side-line\"})}processChangedLines(e,r,n){let i={right:\"\",left:\"\"},a=Math.max(r.length,n.length);for(let s=0;s<a;s++){let o=r[s],l=n[s],u=o!==void 0&&l!==void 0?Nh(o.content,l.content,e,this.config):void 0,c=o!==void 0&&o.oldNumber!==void 0?Object.assign(Object.assign({},u!==void 0?{prefix:u.oldLine.prefix,content:u.oldLine.content,type:Lt.DELETE_CHANGES}:Object.assign(Object.assign({},rn(o.content,e)),{type:il(o.type)})),{number:o.oldNumber}):void 0,f=l!==void 0&&l.newNumber!==void 0?Object.assign(Object.assign({},u!==void 0?{prefix:u.newLine.prefix,content:u.newLine.content,type:Lt.INSERT_CHANGES}:Object.assign(Object.assign({},rn(l.content,e)),{type:il(l.type)})),{number:l.newNumber}):void 0,{left:d,right:h}=this.generateLineHtml(c,f);i.left+=d,i.right+=h}return i}generateLineHtml(e,r){return{left:this.generateSingleHtml(e),right:this.generateSingleHtml(r)}}generateSingleHtml(e){let r=\"d2h-code-side-linenumber\",n=\"d2h-code-side-line\";return this.hoganUtils.render(su,\"line\",{type:(e==null?void 0:e.type)||`${Lt.CONTEXT} d2h-emptyplaceholder`,lineClass:e!==void 0?r:`${r} d2h-code-side-emptyplaceholder`,contentClass:e!==void 0?n:`${n} d2h-code-side-emptyplaceholder`,prefix:(e==null?void 0:e.prefix)===\" \"?\"&nbsp;\":e==null?void 0:e.prefix,content:e==null?void 0:e.content,lineNumber:e==null?void 0:e.number})}};p();var D0=bt(M0());p();var pt=bt(M0()),dt={};dt[\"file-summary-line\"]=new pt.Template({code:function(t,e,r){var n=this;return n.b(r=r||\"\"),n.b('<li class=\"d2h-file-list-line\">'),n.b(`"
+        ],
+        "fileId": "file-f86a57c58316921c28ae536ab7e12e223385ba5d68a3e311f2fe673cf45b5d69",
+        "label": "Potential execution gap",
+        "lineEnd": 238,
+        "lineStart": 238,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-331ef33c9f09651f17310e91b33c65251d4a277e515a9dbdb143e861bb24764f",
+        "chunkType": "gap",
+        "contentHash": "843932ced604690553c2812ec043bb1de0cbe39a340bad482f0745d522ad3511",
+        "evidence": [
+          "`,i=Uh(n,{colorScheme:zF.ColorSchemeType.AUTO,diffStyle:\"word\",drawFileList:!1}),a=new DOMParser().parseFromString(i,\"text/html\").querySelector(\".d2h-file-diff\"),s=document.createElement(\"div\"),o=document.createElement(\"div\");o.addClass(\"tooltip-toolbar\");let l=(h,m)=>{let g=document.createElement(\"div\");return(0,uu.setIcon)(g,h),g.setAttr(\"aria-label\",m),g.addClass(\"clickable-icon\"),g},u=l(\"x\",\"Close hunk\"),c=l(\"plus\",\"Stage hunk\"),f=l(\"undo\",\"Reset hunk\");o.appendChild(u),o.appendChild(c),o.appendChild(f),s.appendChild(o),s.appendChild(a),s.addClass(\"git-diff-tooltip\",\"git-diff\");let d=e.field(uu.editorEditorField);return u.onclick=()=>{ws(d,r)},c.onclick=()=>{let h=Zn.plugin;h&&(h.promiseQueue.addTask(()=>h.hunkActions.stageHunk(r)),ws(d,r))},f.onclick=()=>{let h=Zn.plugin;h&&(h.hunkActions.resetHunk(r),ws(d,r))},{dom:s,update:h=>{r=h.changes.mapPos(r)}}}function YF(t){let e=t.app;t.addCommand({id:\"edit-gitignore\",name:\"Edit .gitignore\",callback:async()=>{let r=t.gitManager.getRelativeVaultPath(\".gitignore\");await e.vault.adapter.exists(r)||await e.vault.adapter.write(r,\"\");let n=await e.vault.adapter.read(r),a=await new Eh(e,n).openAndGetReslt();a!==void 0&&(await e.vault.adapter.write(r,a),await t.refresh())}}),t.addCommand({id:\"open-git-view\",name:\"Open source control view\",callback:async()=>{var i;let r=e.workspace.getLeavesOfType(Dt.type),n;r.length===0?(n=(i=e.workspace.getRightLeaf(!1))!=null?i:e.workspace.getLeaf(),await n.setViewState({type:Dt.type})):n=r.first(),await e.workspace.revealLeaf(n),e.workspace.trigger(\"obsidian-git:refresh\")}}),t.addCommand({id:\"open-history-view\",name:\"Open history view\",callback:async()=>{var i;let r=e.workspace.getLeavesOfType(Qr.type),n;r.length===0?(n=(i=e.workspace.getRightLeaf(!1))!=null?i:e.workspace.getLeaf(),await n.setViewState({type:Qr.type})):n=r.first(),await e.workspace.revealLeaf(n),e.workspace.trigger(\"obsidian-git:refresh\")}}),t.addCommand({id:\"open-diff-view\",name:\"Open diff view\",checkCallback:r=>{let n=e.workspace.getActiveFile();if(r)return n!==null;{let i=t.gitManager.getRelativeRepoPath(n.path,!0);t.tools.openDiff({aFile:i,aRef:\"\"})}}}),t.addCommand({id:\"view-file-on-github\",name:\"Open file on GitHub\",editorCallback:(r,{file:n})=>{if(n)return C$(r,n,t.gitManager)}}),t.addCommand({id:\"view-history-on-github\",name:\"Open file history on GitHub\",editorCallback:(r,{file:n})=>{if(n)return P$(n,t.gitManager)}}),t.addCommand({id:\"pull\",name:\"Pull\",callback:()=>t.promiseQueue.addTask(()=>t.pullChangesFromRemote())}),t.addCommand({id:\"fetch\",name:\"Fetch\",callback:()=>t.promiseQueue.addTask(()=>t.fetch())}),t.addCommand({id:\"switch-to-remote-branch\",name:\"Switch to remote branch\",callback:()=>t.promiseQueue.addTask(()=>t.switchRemoteBranch())}),t.addCommand({id:\"add-to-gitignore\",name:\"Add file to .gitignore\",checkCallback:r=>{let n=e.workspace.getActiveFile();if(r)return n!==null;t.addFileToGitignore(n.path,n instanceof kn.TFolder).catch(i=>t.displayError(i))}}),t.addCommand({id:\"push\",name:\"Commit-and-sync\",callback:()=>t.promiseQueue.addTask(()=>t.commitAndSync({fromAutoBackup:!1}))}),t.addCommand({id:\"backup-and-close\",name:\"Commit-and-sync and then close Obsidian\",callback:()=>t.promiseQueue.addTask(async()=>{await t.commitAndSync({fromAutoBackup:!1}),window.close()})}),t.addCommand({id:\"commit-push-specified-message\",name:\"Commit-and-sync with specific message\",callback:()=>t.promiseQueue.addTask(()=>t.commitAndSync({fromAutoBackup:!1,requestCustomMessage:!0}))}),t.addCommand({id:\"commit\",name:\"Commit all changes\",callback:()=>t.promiseQueue.addTask(()=>t.commit({fromAuto:!1}))}),t.addCommand({id:\"commit-specified-message\",name:\"Commit all changes with specific message\",callback:()=>t.promiseQueue.addTask(()=>t.commit({fromAuto:!1,requestCustomMessage:!0}))}),t.addCommand({id:\"commit-smart\",name:\"Commit\",callback:()=>t.promiseQueue.addTask(async()=>{let n=(await t.updateCachedStatus()).staged.length>0;return t.commit({fromAuto:!1,requestCustomMessage:!1,onlyStaged:n})})}),t.addCommand({id:\"commit-staged\",name:\"Commit staged\",checkCallback:function(r){if(r)return!1;t.promiseQueue.addTask(async()=>t.commit({fromAuto:!1,requestCustomMessage:!1}))}}),kn.Platform.isDesktopApp&&t.addCommand({id:\"commit-amend-staged-specified-message\",name:\"Amend staged\",callback:()=>t.promiseQueue.addTask(()=>t.commit({fromAuto:!1,requestCustomMessage:!0,onlyStaged:!0,amend:!0}))}),t.addCommand({id:\"commit-smart-specified-message\",name:\"Commit with specific message\",callback:()=>t.promiseQueue.addTask(async()=>{let n=(await t.updateCachedStatus()).staged.length>0;return t.commit({fromAuto:!1,requestCustomMessage:!0,onlyStaged:n})})}),t.addCommand({id:\"commit-staged-specified-message\",name:\"Commit staged with specific message\",checkCallback:function(r){return r?!1:t.promiseQueue.addTask(()=>t.commit({fromAuto:!1,requestCustomMessage:!0,onlyStaged:!0}))}}),t.addCommand({id:\"push2\",name:\"Push\",callback:()=>t.promiseQueue.addTask(()=>t.push())}),t.addCommand({id:\"stage-current-file\",name:\"Stage current file\",checkCallback:r=>{let n=e.workspace.getActiveFile();if(r)return n!==null;t.promiseQueue.addTask(()=>t.stageFile(n))}}),t.addCommand({id:\"unstage-current-file\",name:\"Unstage current file\",checkCallback:r=>{let n=e.workspace.getActiveFile();if(r)return n!==null;t.promiseQueue.addTask(()=>t.unstageFile(n))}}),t.addCommand({id:\"edit-remotes\",name:\"Edit remotes\",callback:()=>t.editRemotes().catch(r=>t.displayError(r))}),t.addCommand({id:\"remove-remote\",name:\"Remove remote\",callback:()=>t.removeRemote().catch(r=>t.displayError(r))}),t.addCommand({id:\"set-upstream-branch\",name:\"Set upstream branch\",callback:()=>t.setUpstreamBranch().catch(r=>t.displayError(r))}),t.addCommand({id:\"delete-repo\",name:\"CAUTION: Delete repository\",callback:async()=>{await e.vault.adapter.exists(`${t.settings.basePath}/.git`)?await new ze(t,{options:[\"NO\",\"YES\"],placeholder:\"Do you really want to delete the repository (.git directory)? plugin action cannot be undone.\",onlySelection:!0}).openAndGetResult()===\"YES\"&&(await e.vault.adapter.rmdir(`${t.settings.basePath}/.git`,!0),new kn.Notice(\"Successfully deleted repository. Reloading plugin...\"),t.unloadPlugin(),await t.init({fromReload:!0})):new kn.Notice(\"No repository found\")}}),t.addCommand({id:\"init-repo\",name:\"Initialize a new repo\",callback:()=>t.createNewRepo().catch(r=>t.displayError(r))}),t.addCommand({id:\"clone-repo\",name:\"Clone an existing remote repo\",callback:()=>t.cloneNewRepo().catch(r=>t.displayError(r))}),t.addCommand({id:\"list-changed-files\",name:\"List changed files\",callback:async()=>{if(await t.isAllInitialized())try{let r=await t.updateCachedStatus();if(r.changed.length+r.staged.length>500){t.displayError(\"Too many changes to display\");return}new Sh(t,r.all).open()}catch(r){t.displayError(r)}}}),t.addCommand({id:\"switch-branch\",name:\"Switch branch\",callback:()=>{t.switchBranch().catch(r=>t.displayError(r))}}),t.addCommand({id:\"create-branch\",name:\"Create new branch\",callback:()=>{t.createBranch().catch(r=>t.displayError(r))}}),t.addCommand({id:\"delete-branch\",name:\"Delete branch\",callback:()=>{t.deleteBranch().catch(r=>t.displayError(r))}}),t.addCommand({id:\"discard-all\",name:\"CAUTION: Discard all changes\",callback:async()=>{let r=await t.discardAll();switch(r){case\"discard\":new kn.Notice(\"Discarded all changes in tracked files.\");break;case\"delete\":new kn.Notice(\"Discarded all files.\");break;case!1:break;default:Md(r)}}}),t.addCommand({id:\"pause-automatic-routines\",name:\"Pause/Resume automatic routines\",callback:()=>{let r=!t.localStorage.getPausedAutomatics();t.localStorage.setPausedAutomatics(r),r?(t.automaticsManager.unload(),new kn.Notice(\"Paused automatic routines.\")):(t.automaticsManager.reload(\"commit\",\"push\",\"pull\"),new kn.Notice(\"Resumed automatic routines.\"))}}),t.addCommand({id:\"raw-command\",name:\"Raw command\",checkCallback:r=>{let n=t.gitManager;if(r)return n instanceof _e;t.tools.runRawCommand().catch(i=>t.displayError(i))}}),t.addCommand({id:\"toggle-line-author-info\",name:\"Toggle line author information\",callback:()=>{var r;return(r=t.settingsTab)==null?void 0:r.configureLineAuthorShowStatus(!t.settings.lineAuthor.show)}}),t.addCommand({id:\"reset-hunk\",name:\"Reset hunk\",editorCheckCallback(r,n,i){if(r)return t.settings.hunks.hunkCommands&&t.hunkActions.editor!==void 0;t.hunkActions.resetHunk()}}),t.addCommand({id:\"stage-hunk\",name:\"Stage hunk\",editorCheckCallback:(r,n,i)=>{if(r)return t.settings.hunks.hunkCommands&&t.hunkActions.editor!==void 0;t.promiseQueue.addTask(()=>t.hunkActions.stageHunk())}}),t.addCommand({id:\"preview-hunk\",name:\"Preview hunk\",editorCheckCallback:(r,n,i)=>{if(r)return t.settings.hunks.hunkCommands&&t.hunkActions.editor!==void 0;let a=t.hunkActions.editor.editor;ws(a)}}),t.addCommand({id:\"next-hunk\",name:\"Go to next hunk\",editorCheckCallback:(r,n,i)=>{if(r)return t.settings.hunks.hunkCommands&&t.hunkActions.editor!==void 0;t.hunkActions.goToHunk(\"next\")}}),t.addCommand({id:\"prev-hunk\",name:\"Go to previous hunk\",editorCheckCallback:(r,n,i)=>{if(r)return t.settings.hunks.hunkCommands&&t.hunkActions.editor!==void 0;t.hunkActions.goToHunk(\"prev\")}})}p();var qh=class{constructor(e){this.plugin=e;this.prefix=this.plugin.manifest.id+\":\",this.app=e.app}migrate(){let e=[\"password\",\"hostname\",\"conflict\",\"lastAutoPull\",\"lastAutoBackup\",\"lastAutoPush\",\"gitPath\",\"pluginDisabled\"];for(let r of e){let n=localStorage.getItem(this.prefix+r);this.app.loadLocalStorage(this.prefix+r)==null&&n!=null&&n!=null&&(this.app.saveLocalStorage(this.prefix+r,n),localStorage.removeItem(this.prefix+r))}}getPassword(){return this.app.loadLocalStorage(this.prefix+\"password\")}setPassword(e){return this.app.saveLocalStorage(this.prefix+\"password\",e)}getUsername(){return this.app.loadLocalStorage(this.prefix+\"username\")}setUsername(e){return this.app.saveLocalStorage(this.prefix+\"username\",e)}getHostname(){return this.app.loadLocalStorage(this.prefix+\"hostname\")}setHostname(e){return this.app.saveLocalStorage(this.prefix+\"hostname\",e)}getConflict(){return this.app.loadLocalStorage(this.prefix+\"conflict\")==\"true\"}setConflict(e){return this.app.saveLocalStorage(this.prefix+\"conflict\",`${e}`)}getLastAutoPull(){return this.app.loadLocalStorage(this.prefix+\"lastAutoPull\")}setLastAutoPull(e){return this.app.saveLocalStorage(this.prefix+\"lastAutoPull\",e)}getLastAutoBackup(){return this.app.loadLocalStorage(this.prefix+\"lastAutoBackup\")}setLastAutoBackup(e){return this.app.saveLocalStorage(this.prefix+\"lastAutoBackup\",e)}getLastAutoPush(){return this.app.loadLocalStorage(this.prefix+\"lastAutoPush\")}setLastAutoPush(e){return this.app.saveLocalStorage(this.prefix+\"lastAutoPush\",e)}getGitPath(){return this.app.loadLocalStorage(this.prefix+\"gitPath\")}setGitPath(e){return this.app.saveLocalStorage(this.prefix+\"gitPath\",e)}getPATHPaths(){var e,r;return(r=(e=this.app.loadLocalStorage(this.prefix+\"PATHPaths\"))==null?void 0:e.split(\":\"))!=null?r:[]}setPATHPaths(e){return this.app.saveLocalStorage(this.prefix+\"PATHPaths\",e.join(\":\"))}getEnvVars(){var e;return JSON.parse((e=this.app.loadLocalStorage(this.prefix+\"envVars\"))!=null?e:\"[]\")}setEnvVars(e){return this.app.saveLocalStorage(this.prefix+\"envVars\",JSON.stringify(e))}getPluginDisabled(){return this.app.loadLocalStorage(this.prefix+\"pluginDisabled\")==\"true\"}setPluginDisabled(e){return this.app.saveLocalStorage(this.prefix+\"pluginDisabled\",`${e}`)}getPausedAutomatics(){return this.app.loadLocalStorage(this.prefix+\"pausedAutomatics\")==\"true\"}setPausedAutomatics(e){return this.app.saveLocalStorage(this.prefix+\"pausedAutomatics\",`${e}`)}};p();var ll=require(\"obsidian\");var fu=class{constructor(e){this.plugin=e}async hasTooBigFiles(e){let r=await this.plugin.gitManager.branchInfo(),n=r.tracking?Ri(r.tracking)[0]:null;if(!n)return!1;let i=await this.plugin.gitManager.getRemoteUrl(n);if(i!=null&&i.includes(\"github.com\")){let a=[],s=this.plugin.gitManager;for(let o of e){let l=this.plugin.app.vault.getAbstractFileByPath(o.vaultPath),u=!1;if(l instanceof ll.TFile)l.stat.size>=1e8&&(u=!0);else{let c=await this.plugin.app.vault.adapter.stat(o.vaultPath);c&&c.size>=1e8&&(u=!0)}if(u){let c=!1;s instanceof _e&&(c=await s.isFileTrackedByLFS(o.path)),c||a.push(o)}}if(a.length>0)return this.plugin.displayError(`Aborted commit, because the following files are too big:"
+        ],
+        "fileId": "file-f86a57c58316921c28ae536ab7e12e223385ba5d68a3e311f2fe673cf45b5d69",
+        "label": "Potential execution gap",
+        "lineEnd": 340,
+        "lineStart": 340,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-331ef33c9f09651f17310e91b33c65251d4a277e515a9dbdb143e861bb24764f",
+        "chunkType": "gap",
+        "contentHash": "74d1f9caa5021677c2ea6d5cef1efef768cb48775242eaff47431386218b1c43",
+        "evidence": [
+          "Please remove them or add to .gitignore.`),!0}return!1}async writeAndOpenFile(e){e!==void 0&&await this.plugin.app.vault.adapter.write(Ro,e);let r=!1;this.plugin.app.workspace.iterateAllLeaves(n=>{n.getDisplayText()!=\"\"&&Ro.startsWith(n.getDisplayText())&&(r=!0)}),r||await this.plugin.app.workspace.openLinkText(Ro,\"/\",!0)}openDiff({aFile:e,bFile:r,aRef:n,bRef:i,event:a}){var l,u;let s=this.plugin.settings.diffStyle;ll.Platform.isMobileApp&&(s=\"git_unified\");let o={aFile:e,bFile:r!=null?r:e,aRef:n,bRef:i};s==\"split\"?(l=bn(this.plugin.app,a))==null||l.setViewState({type:ma.type,active:!0,state:o}):s==\"git_unified\"&&((u=bn(this.plugin.app,a))==null||u.setViewState({type:ga.type,active:!0,state:o}))}async runRawCommand(){let e=this.plugin.gitManager;if(!(e instanceof _e))return;let n=await new ze(this.plugin,{placeholder:\"push origin master\",allowEmpty:!1}).openAndGetResult();n!==void 0&&this.plugin.promiseQueue.addTask(async()=>{let i=new ll.Notice(`Running '${n}'...`,999999);try{let a=await e.rawCommand(n);a?(i.setMessage(a),window.setTimeout(()=>i.hide(),5e3)):i.hide()}catch(a){throw i.hide(),a}})}};p();var zh=require(\"obsidian\");var ys=class extends zh.ItemView{constructor(r,n){super(r);this.plugin=n;this.gettingDiff=!1;this.parser=new DOMParser,this.navigation=!0,this.contentEl.addClass(\"git-diff\"),this.gitRefreshRef=this.app.workspace.on(\"obsidian-git:status-changed\",()=>{this.refresh().catch(console.error)})}getViewType(){return ga.type}getDisplayText(){var r;if(((r=this.state)==null?void 0:r.bFile)!=null){let n=this.state.bFile.split(\"/\").last();return n!=null&&n.endsWith(\".md\")&&(n=n.slice(0,-3)),`Diff: ${n}`}return ga.name}getIcon(){return ga.icon}async setState(r,n){this.state=r,zh.Platform.isMobile&&(this.leaf.view.titleEl.textContent=this.getDisplayText()),await this.refresh()}getState(){return this.state}onClose(){return this.app.workspace.offref(this.gitRefreshRef),this.app.workspace.offref(this.gitViewRefreshRef),super.onClose()}async onOpen(){return await this.refresh(),super.onOpen()}async refresh(){var r;if((r=this.state)!=null&&r.bFile&&!this.gettingDiff&&this.plugin.gitManager){this.gettingDiff=!0;try{let n=await this.plugin.gitManager.getDiffString(this.state.bFile,this.state.aRef==\"HEAD\",this.state.bRef);this.contentEl.empty();let i=this.plugin.gitManager.getRelativeVaultPath(this.state.bFile);if(!n){if(this.plugin.gitManager instanceof _e&&await this.plugin.gitManager.isTracked(this.state.bFile))n=[`--- ${this.state.aFile}`,`+++ ${this.state.bFile}`,\"\"].join(`"
+        ],
+        "fileId": "file-f86a57c58316921c28ae536ab7e12e223385ba5d68a3e311f2fe673cf45b5d69",
+        "label": "Potential execution gap",
+        "lineEnd": 343,
+        "lineStart": 343,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-331ef33c9f09651f17310e91b33c65251d4a277e515a9dbdb143e861bb24764f",
+        "chunkType": "gap",
+        "contentHash": "70e2e581d1e3ce14e8b810f570c7adacc883a7f1cc984d3cc0f1aa69ed9d4010",
+        "evidence": [
+          "${e.log.message}`},()=>({\"is-collapsed\":R(i)})]),ie(t,o),rt()}gt([\"click\"]);function IW(t,e){e().catch(console.error)}var $W=(t,e,r,n)=>{ne(e,!R(e)),(0,Ly.setIcon)(r[0],R(e)?\"list\":\"folder\"),n(n().settings.treeStructure=R(e),!0),n().saveSettings()},FW=ce('<div class=\"tree-item nav-folder mod-root\"></div>'),OW=ce('<main class=\"git-view\"><div class=\"nav-header\"><div class=\"nav-buttons-container\"><div id=\"layoutChange\" class=\"clickable-icon nav-action-button\" aria-label=\"Change Layout\"></div> <div id=\"refresh\" data-icon=\"refresh-cw\" aria-label=\"Refresh\"></div></div></div> <div class=\"nav-files-container\" style=\"position: relative;\"><!> <div id=\"sentinel\"></div> <div style=\"margin-bottom:40px\"></div></div></main>'),MW={hash:\"svelte-45h\",code:\"\"};function Ny(t,e){tt(e,!0),$n(t,MW);let r=dn(e,\"plugin\",15),n=Ce(!1),i=Ne([]),a=Ce(void 0),s=Ce(Ne(r().settings.treeStructure)),o,l;Jt(()=>{l&&l.empty()}),o=e.view.app.workspace.on(\"obsidian-git:head-change\",()=>void u().catch(console.error)),Jt(()=>{i.forEach(x=>(0,Ly.setIcon)(x,x.getAttr(\"data-icon\")))}),nM(()=>{e.view.app.workspace.offref(o)}),xy(()=>{let x=new IntersectionObserver(A=>{A[0].isIntersecting&&!R(n)&&c().catch(console.error)}),k=document.querySelector(\"#sentinel\");return k&&x.observe(k),()=>{x.disconnect()}}),u().catch(console.error);function u(){return Ds(this,void 0,void 0,function*(){var x;if(!r().gitReady){ne(a,void 0);return}ne(n,!0);let k=r().gitManager instanceof _e,A;((x=R(a)===null||R(a)===void 0?void 0:R(a).length)!==null&&x!==void 0?x:0)==0?A=k?50:10:A=R(a).length,ne(a,yield r().gitManager.log(void 0,!1,A),!0),ne(n,!1)})}function c(){return Ds(this,void 0,void 0,function*(){var x;if(!r().gitReady||R(a)===void 0)return;ne(n,!0);let A=r().gitManager instanceof _e?50:10,y=yield r().gitManager.log(void 0,!1,A,(x=R(a).last())===null||x===void 0?void 0:x.hash);R(a).push(...y.slice(1)),ne(n,!1)})}var f=OW(),d=q(f),h=q(d),m=q(h);m.__click=[$W,s,i,r],Ke(m,x=>i[0]=x,()=>i==null?void 0:i[0]);var g=ee(m,2);let v;g.__click=[IW,u],Ke(g,x=>i[1]=x,()=>i==null?void 0:i[1]),j(h),j(d);var w=ee(d,2),b=q(w);{var E=x=>{var k=FW();Wr(k,21,()=>R(a),Vr,(A,y)=>{Dy(A,{get view(){return e.view},get showTree(){return R(s)},get log(){return R(y)},get plugin(){return r()}})}),j(k),ie(x,k)};xe(b,x=>{R(a)&&x(E)})}pl(4),j(w),j(f),Fe(x=>{ge(m,\"data-icon\",R(s)?\"list\":\"folder\"),v=ot(g,1,\"clickable-icon nav-action-button\",null,v,x)},[()=>({loading:R(n)})]),ie(t,f),rt()}gt([\"click\"]);var Nu=class extends yM.ItemView{constructor(e,r){super(e),this.plugin=r,this.hoverPopover=null}getViewType(){return Qr.type}getDisplayText(){return Qr.name}getIcon(){return Qr.icon}onClose(){return this._view&&Vi(this._view),super.onClose()}reload(){this._view&&Vi(this._view),this._view=Ma(Ny,{target:this.contentEl,props:{plugin:this.plugin,view:this}})}onOpen(){return this.reload(),super.onOpen()}};p();var bM=require(\"obsidian\"),Pp=class extends bM.FuzzySuggestModal{constructor(r,n){super(r.app);this.branches=n;this.setPlaceholder(\"Select branch to checkout\")}getItems(){return this.branches}getItemText(r){return r}onChooseItem(r,n){this.resolve(r)}openAndGetReslt(){return new Promise(r=>{this.resolve=r,this.open()})}onClose(){new Promise(r=>setTimeout(r,10)).then(()=>{this.resolve&&this.resolve(void 0)})}};p();var kM=require(\"obsidian\");p();var Bs=require(\"obsidian\");p();var Bu=require(\"obsidian\");p();var _M=require(\"obsidian\");var Al=class extends _M.Modal{constructor({app:r,path:n,filesToDeleteCount:i,filesToDiscardCount:a}){super(r);this.resolve=null;this.path=n,this.deleteCount=i,this.discardCount=a}openAndGetResult(){return this.open(),new Promise(r=>{this.resolve=r})}onOpen(){let r=this.deleteCount+this.discardCount,{contentEl:n,titleEl:i}=this,a=\"\";this.path!=\"\"&&(r>1?a=`files in \"${this.path}\"`:a=`\"${this.path}\"`),i.setText(`${this.discardCount==0?\"Delete\":\"Discard\"} ${a}`),this.deleteCount>0&&n.createEl(\"p\").setText(`Are you sure you want to DELETE the ${Lc(this.deleteCount,\"untracked file\")}? They are deleted according to your Obsidian trash settting.`),this.discardCount>0&&n.createEl(\"p\").setText(`Are you sure you want to discard ALL changes in ${Lc(this.discardCount,\"tracked file\")}?`);let s=n.createDiv({cls:\"modal-button-container\"});if(this.deleteCount>0){let l=s.createEl(\"button\",{cls:\"mod-warning\",text:`${this.discardCount>0?\"Discard\":\"Delete\"} all ${Lc(r,\"file\")}`});l.addEventListener(\"click\",()=>{this.resolve&&this.resolve(\"delete\"),this.close()}),l.addEventListener(\"keypress\",()=>{this.resolve&&this.resolve(\"delete\"),this.close()})}if(this.discardCount>0){let l=s.createEl(\"button\",{cls:\"mod-warning\",text:`Discard all ${Lc(this.discardCount,\"tracked file\")}`});l.addEventListener(\"click\",()=>{this.resolve&&this.resolve(\"discard\"),this.close()}),l.addEventListener(\"keypress\",()=>{this.resolve&&this.resolve(\"discard\"),this.close()})}let o=s.createEl(\"button\",{text:\"Cancel\"});o.addEventListener(\"click\",()=>(this.resolve&&this.resolve(!1),this.close())),o.addEventListener(\"keypress\",()=>(this.resolve&&this.resolve(!1),this.close()))}onClose(){let{contentEl:r}=this;r.empty()}};function DW(t,e){e.view.app.vault.getAbstractFileByPath(e.change.vaultPath)&&No(e.view.app,t,e.view,e.change.vaultPath)}function LW(t,e){t.stopPropagation(),e.manager.stage(e.change.path,!1).catch(r=>e.view.plugin.displayError(r)).finally(()=>{e.view.app.workspace.trigger(\"obsidian-git:refresh\")})}function NW(t,e){t.stopPropagation();let r=e.change.workingDir==\"U\";new Al({app:e.view.app,filesToDeleteCount:r?1:0,filesToDiscardCount:r?0:1,path:e.change.vaultPath}).openAndGetResult().then(n=>Ds(this,void 0,void 0,function*(){if(n==\"delete\"){let i=e.view.app.vault.getAbstractFileByPath(e.change.vaultPath);i instanceof Bu.TFile?yield e.view.app.fileManager.trashFile(i):yield e.view.app.vault.adapter.remove(e.change.vaultPath)}else n==\"discard\"&&(yield e.manager.discard(e.change.path).finally(()=>{e.view.app.workspace.trigger(\"obsidian-git:refresh\")}));e.view.app.workspace.trigger(\"obsidian-git:refresh\")}),n=>e.view.plugin.displayError(n))}var BW=ce('<div data-icon=\"go-to-file\" aria-label=\"Open File\" class=\"clickable-icon\"></div>'),HW=ce('<main class=\"tree-item nav-file\"><div class=\"tree-item-self is-clickable nav-file-title\"><div class=\"tree-item-inner nav-file-title-content\"> </div> <div class=\"git-tools\"><div class=\"buttons\"><!> <div data-icon=\"undo\" aria-label=\"Discard\" class=\"clickable-icon\"></div> <div data-icon=\"plus\" aria-label=\"Stage\" class=\"clickable-icon\"></div></div> <div class=\"type\"> </div></div></div></main>');function Hu(t,e){tt(e,!0);let r=Ne([]),n=Rt(()=>e.view.leaf.getRoot().side==\"left\"?\"right\":\"left\");Jt(()=>{for(let E of r)E&&(0,Bu.setIcon)(E,E.getAttr(\"data-icon\"))});function i(E){E.stopPropagation(),Do(e.change.path)?a(E):s(E)}function a(E){var x;E.stopPropagation();let k=e.view.app.vault.getAbstractFileByPath(e.change.vaultPath);k instanceof Bu.TFile&&((x=bn(e.view.app,E))===null||x===void 0||x.openFile(k).catch(A=>e.view.plugin.displayError(A)))}function s(E){E.stopPropagation(),e.view.plugin.tools.openDiff({aFile:e.change.path,aRef:\"\",event:E})}var o=HW();o.__mouseover=[DW,e],o.__click=i;var l=q(o),u=q(l),c=q(u,!0);j(u);var f=ee(u,2),d=q(f),h=q(d);{var m=E=>{var x=BW();x.__click=a,Ke(x,k=>r[0]=k,()=>r==null?void 0:r[0]),zr(\"auxclick\",x,a),ie(E,x)};xe(h,E=>{Lo(e.change.vaultPath,e.view.app)&&E(m)})}var g=ee(h,2);g.__click=[NW,e],Ke(g,E=>r[1]=E,()=>r==null?void 0:r[1]);var v=ee(g,2);v.__click=[LW,e],Ke(v,E=>r[2]=E,()=>r==null?void 0:r[2]),j(d);var w=ee(d,2),b=q(w,!0);j(w),j(f),j(l),j(o),Fe(E=>{ge(l,\"data-path\",e.change.vaultPath),ge(l,\"data-tooltip-position\",R(n)),ge(l,\"aria-label\",e.change.vaultPath),Be(c,E),ge(w,\"data-type\",e.change.workingDir),Be(b,e.change.workingDir)},[()=>ei(e.change.vaultPath)]),zr(\"auxclick\",o,E=>{E.stopPropagation(),E.button==2?Qn(e.view.app,E,e.change.vaultPath,e.view.leaf,\"git-source-control\"):i(E)}),ie(t,o),rt()}gt([\"mouseover\",\"click\"]);p();var xM=require(\"obsidian\");function UW(t,e){e.view.app.vault.getAbstractFileByPath(e.change.vaultPath)&&No(e.view.app,t,e.view,e.change.vaultPath)}var jW=ce('<main class=\"tree-item nav-file\"><div class=\"tree-item-self is-clickable nav-file-title\"><div class=\"tree-item-inner nav-file-title-content\"> </div> <div class=\"git-tools\"><span class=\"type\"> </span></div></div></main>');function Uu(t,e){tt(e,!0);let r=Rt(()=>e.view.leaf.getRoot().side==\"left\"?\"right\":\"left\");function n(f){var d;f.stopPropagation();let h=e.view.app.vault.getAbstractFileByPath(e.change.vaultPath);h instanceof xM.TFile&&((d=bn(e.view.app,f))===null||d===void 0||d.openFile(h).catch(m=>e.view.plugin.displayError(m)))}var i=jW();i.__mouseover=[UW,e],i.__click=n;var a=q(i),s=q(a),o=q(s,!0);j(s);var l=ee(s,2),u=q(l),c=q(u,!0);j(u),j(l),j(a),j(i),Fe(f=>{ge(a,\"data-path\",e.change.vaultPath),ge(a,\"data-tooltip-position\",R(r)),ge(a,\"aria-label\",e.change.vaultPath),Be(o,f),ge(u,\"data-type\",e.change.workingDir),Be(c,e.change.workingDir)},[()=>ei(e.change.vaultPath)]),zr(\"auxclick\",i,f=>{f.stopPropagation(),f.button==2?Qn(e.view.app,f,e.change.vaultPath,e.view.leaf,\"git-source-control\"):n(f)}),ie(t,i),rt()}gt([\"mouseover\",\"click\"]);p();var Rp=require(\"obsidian\");function GW(t,e){e.view.app.vault.getFileByPath(e.change.vaultPath)&&No(e.view.app,t,e.view,e.change.vaultPath)}function qW(t,e){t.stopPropagation(),e.manager.unstage(e.change.path,!1).catch(r=>e.view.plugin.displayError(r)).finally(()=>{e.view.app.workspace.trigger(\"obsidian-git:refresh\")})}var zW=ce('<div data-icon=\"go-to-file\" aria-label=\"Open File\" class=\"clickable-icon\"></div>'),VW=ce('<main class=\"tree-item nav-file\"><div class=\"tree-item-self is-clickable nav-file-title\"><div class=\"tree-item-inner nav-file-title-content\"> </div> <div class=\"git-tools\"><div class=\"buttons\"><!> <div data-icon=\"minus\" aria-label=\"Unstage\" class=\"clickable-icon\"></div></div> <div class=\"type\"> </div></div></div></main>');function ju(t,e){tt(e,!0);let r=Ne([]),n=Rt(()=>e.view.leaf.getRoot().side==\"left\"?\"right\":\"left\");Jt(()=>{for(let b of r)b&&(0,Rp.setIcon)(b,b.getAttr(\"data-icon\"))});function i(b){b.stopPropagation(),Do(e.change.path)?a(b):s(b)}function a(b){var E;b.stopPropagation();let x=e.view.app.vault.getAbstractFileByPath(e.change.vaultPath);x instanceof Rp.TFile&&((E=bn(e.view.app,b))===null||E===void 0||E.openFile(x).catch(k=>e.view.plugin.displayError(k)))}function s(b){var E;b.stopPropagation(),e.view.plugin.tools.openDiff({aFile:(E=e.change.from)!==null&&E!==void 0?E:e.change.path,bFile:e.change.path,aRef:\"HEAD\",bRef:\"\",event:b})}var o=VW();o.__mouseover=[GW,e],o.__click=i;var l=q(o),u=q(l),c=q(u,!0);j(u);var f=ee(u,2),d=q(f),h=q(d);{var m=b=>{var E=zW();E.__click=a,Ke(E,x=>r[0]=x,()=>r==null?void 0:r[0]),ie(b,E)};xe(h,b=>{Lo(e.change.vaultPath,e.view.app)&&b(m)})}var g=ee(h,2);g.__click=[qW,e],Ke(g,b=>r[1]=b,()=>r==null?void 0:r[1]),j(d);var v=ee(d,2),w=q(v,!0);j(v),j(f),j(l),j(o),Fe(b=>{ge(l,\"data-path\",e.change.vaultPath),ge(l,\"data-tooltip-position\",R(n)),ge(l,\"aria-label\",e.change.vaultPath),Be(c,b),ge(v,\"data-type\",e.change.index),Be(w,e.change.index)},[()=>ei(e.change.vaultPath)]),zr(\"auxclick\",o,b=>{b.stopPropagation(),b.button==2?Qn(e.view.app,b,e.change.vaultPath,e.view.leaf,\"git-source-control\"):i(b)}),ie(t,o),rt()}gt([\"mouseover\",\"click\"]);p();p();var WW=ce('<div class=\"tree-item nav-file\"><div class=\"tree-item-self nav-file-title\"><div class=\"tree-item-inner nav-file-title-content\"> </div></div></div>'),YW=ce(\"<main><!></main>\");function Ls(t,e){tt(e,!0);var r=YW(),n=q(r);{var i=a=>{var s=WW(),o=q(s),l=q(o),u=q(l,!0);j(l),j(o),j(s),Fe(()=>{ge(o,\"aria-label\",\"And \"+(e.files.length-500)+\" more files\"),Be(u,\"And \"+(e.files.length-500)+\" more files\")}),ie(a,s)};xe(n,a=>{e.files.length>500&&a(i)})}j(r),ie(t,r),rt()}var ZW=ce(\"<div><!></div>\"),KW=(t,e,r)=>e(t,R(r)),JW=(t,e,r)=>e(t,R(r).path),QW=ce('<div data-icon=\"minus\" aria-label=\"Unstage\" class=\"clickable-icon\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-minus\"><line x1=\"4\" y1=\"9\" x2=\"14\" y2=\"9\"></line></svg></div>'),e9=(t,e,r)=>e(t,R(r)),t9=(t,e,r)=>e(t,R(r).path),r9=ce('<div data-icon=\"undo\" aria-label=\"Discard\" class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-undo\"><path d=\"M3 7v6h6\"></path><path d=\"M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13\"></path></svg></div> <div data-icon=\"plus\" aria-label=\"Stage\" class=\"clickable-icon\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-plus\"><line x1=\"9\" y1=\"4\" x2=\"9\" y2=\"14\"></line><line x1=\"4\" y1=\"9\" x2=\"14\" y2=\"9\"></line></svg></div>',1),n9=ce('<div class=\"tree-item-children nav-folder-children\"><!></div>'),i9=ce('<div><div class=\"tree-item-self is-clickable nav-folder-title\"><div data-icon=\"folder\" style=\"padding-right: 5px; display: flex; \"></div> <div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon right-triangle\"><path d=\"M3 8L12 17L21 8\"></path></svg></div> <div class=\"tree-item-inner nav-folder-title-content\"> </div> <div class=\"git-tools\"><div class=\"buttons\"><!> <div style=\"width:11px\"></div></div></div></div> <!></div>'),a9=ce(\"<main><!> <!></main>\");function Ns(t,e){tt(e,!0);var r,n;let i=dn(e,\"topLevel\",3,!1),a=dn(e,\"closed\",15);for(let g of e.hierarchy.children)((n=(r=g.children)===null||r===void 0?void 0:r.length)!==null&&n!==void 0?n:0)>100&&a(a()[g.title]=!0,!0);let s=Rt(()=>e.view.leaf.getRoot().side==\"left\"?\"right\":\"left\");function o(g,v){g.stopPropagation(),e.plugin.gitManager.stageAll({dir:v}).catch(w=>e.plugin.displayError(w)).finally(()=>{e.view.app.workspace.trigger(\"obsidian-git:refresh\")})}function l(g,v){g.stopPropagation(),e.plugin.gitManager.unstageAll({dir:v}).catch(w=>e.plugin.displayError(w)).finally(()=>{e.view.app.workspace.trigger(\"obsidian-git:refresh\")})}function u(g,v){g.stopPropagation(),e.plugin.discardAll(v.vaultPath)}function c(g,v){g.stopPropagation(),a(a()[v.path]=!a()[v.path],!0)}var f=a9();let d;var h=q(f);Wr(h,17,()=>Nc(e.hierarchy.children,500),Vr,(g,v)=>{var w=zi(),b=Cr(w);{var E=k=>{var A=ZW(),y=q(A);{var S=T=>{ju(T,{get change(){return R(v).data},get manager(){return e.plugin.gitManager},get view(){return e.view}})},_=T=>{var P=zi(),F=Cr(P);{var D=re=>{Hu(re,{get change(){return R(v).data},get manager(){return e.plugin.gitManager},get view(){return e.view}})},M=re=>{var ye=zi(),me=Cr(ye);{var fe=Ge=>{Uu(Ge,{get change(){return R(v).data},get view(){return e.view}})};xe(me,Ge=>{e.fileType==2&&Ge(fe)},!0)}ie(re,ye)};xe(F,re=>{e.fileType==1?re(D):re(M,!1)},!0)}ie(T,P)};xe(y,T=>{e.fileType==0?T(S):T(_,!1)})}j(A),ie(k,A)},x=k=>{var A=i9();A.__click=[KW,c,v];let y;var S=q(A),_=ee(q(S),2);let T;var P=ee(_,2),F=q(P,!0);j(P);var D=ee(P,2),M=q(D),re=q(M);{var ye=oe=>{var B=QW();B.__click=[JW,l,v],ie(oe,B)},me=oe=>{var B=r9(),Z=Cr(B);Z.__click=[e9,u,v];var H=ee(Z,2);H.__click=[t9,o,v],ie(oe,B)};xe(re,oe=>{e.fileType==0?oe(ye):oe(me,!1)})}pl(2),j(M),j(D),j(S);var fe=ee(S,2);{var Ge=oe=>{var B=n9(),Z=q(B);Ns(Z,{get hierarchy(){return R(v)},get plugin(){return e.plugin},get view(){return e.view},get fileType(){return e.fileType},get closed(){return a()},set closed(H){a(H)}}),j(B),On(3,B,()=>mi,()=>({duration:150})),ie(oe,B)};xe(fe,oe=>{a()[R(v).path]||oe(Ge)})}j(A),Fe((oe,B)=>{y=ot(A,1,\"tree-item nav-folder\",null,y,oe),ge(S,\"data-tooltip-position\",R(s)),ge(S,\"aria-label\",R(v).vaultPath),T=ot(_,1,\"tree-item-icon nav-folder-collapse-indicator collapse-icon\",null,T,B),Be(F,R(v).title)},[()=>({\"is-collapsed\":a()[R(v).path]}),()=>({\"is-collapsed\":a()[R(v).path]})]),zr(\"auxclick\",A,oe=>Qn(e.view.app,oe,R(v).vaultPath,e.view.leaf,\"git-source-control\")),ie(k,A)};xe(b,k=>{R(v).data?k(E):k(x,!1)})}ie(g,w)});var m=ee(h,2);Ls(m,{get files(){return e.hierarchy.children}}),j(f),Fe(g=>d=ot(f,1,\"\",null,d,g),[()=>({topLevel:i()})]),ie(t,f),rt()}gt([\"click\"]);function s9(t,e,r,n,i,a){if(ne(e,!0),R(r)){let s=R(r).staged.length>0;n().promiseQueue.addTask(()=>n().commit({fromAuto:!1,commitMessage:R(i),onlyStaged:s}).then(()=>ne(i,n().settings.commitMessage,!0)).finally(a))}}function SM(t,e,r,n,i){t.stopPropagation(),ne(e,!0),r().promiseQueue.addTask(()=>r().gitManager.stageAll({status:R(n)}).finally(i))}function EM(t,e,r,n,i){t.stopPropagation(),ne(e,!0),r().promiseQueue.addTask(()=>r().gitManager.unstageAll({status:R(n)}).finally(i))}function o9(t,e,r,n){ne(e,!0),r().promiseQueue.addTask(()=>r().push().finally(n))}function l9(t,e,r,n){ne(e,!0),r().promiseQueue.addTask(()=>r().pullChangesFromRemote().finally(n))}function c9(t,e){t.stopPropagation(),e().discardAll()}var u9=(t,e,r,n)=>{ne(e,!R(e)),(0,Bs.setIcon)(r[6],R(e)?\"list\":\"folder\"),n().settings.treeStructure=R(e),n().saveSettings()},f9=(t,e)=>ne(e,\"\"),d9=ce('<div class=\"git-commit-msg-clear-button svelte-11adhly\"></div>'),h9=(t,e)=>ne(e,!R(e)),p9=ce(\"<!> <!>\",1),m9=ce('<div class=\"tree-item-children nav-folder-children\"><!></div>'),g9=(t,e)=>ne(e,!R(e)),v9=ce(\"<!> <!>\",1),w9=ce('<div class=\"tree-item-children nav-folder-children\"><!></div>'),y9=(t,e)=>ne(e,!R(e)),b9=ce(\"<!> <!>\",1),_9=ce('<div class=\"tree-item-children nav-folder-children\"><!></div>'),x9=ce('<div><div class=\"tree-item-self is-clickable nav-folder-title svelte-11adhly\"><div class=\"tree-item-icon nav-folder-collapse-indicator collapse-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon right-triangle\"><path d=\"M3 8L12 17L21 8\"></path></svg></div> <div class=\"tree-item-inner nav-folder-title-content\">Recently Pulled Files</div> <span class=\"tree-item-flair\"> </span></div> <!></div>'),S9=ce('<div class=\"tree-item nav-folder mod-root\"><div><div class=\"tree-item-self is-clickable nav-folder-title svelte-11adhly\"><div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon right-triangle\"><path d=\"M3 8L12 17L21 8\"></path></svg></div> <div class=\"tree-item-inner nav-folder-title-content\">Staged Changes</div> <div class=\"git-tools svelte-11adhly\"><div class=\"buttons\"><div data-icon=\"minus\" aria-label=\"Unstage\" class=\"clickable-icon\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 18 18\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-minus\"><line x1=\"4\" y1=\"9\" x2=\"14\" y2=\"9\"></line></svg></div></div> <div class=\"files-count svelte-11adhly\"> </div></div></div> <!></div> <div><div class=\"tree-item-self is-clickable nav-folder-title svelte-11adhly\"><div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon right-triangle\"><path d=\"M3 8L12 17L21 8\"></path></svg></div> <div class=\"tree-item-inner nav-folder-title-content\">Changes</div> <div class=\"git-tools svelte-11adhly\"><div class=\"buttons\"><div data-icon=\"undo\" aria-label=\"Discard\" class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-undo\"><path d=\"M3 7v6h6\"></path><path d=\"M21 17a9 9 0 0 0-9-9 9 9 0 0 0-6 2.3L3 13\"></path></svg></div> <div data-icon=\"plus\" aria-label=\"Stage\" class=\"clickable-icon\"><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"svg-icon lucide-plus\"><line x1=\"12\" y1=\"5\" x2=\"12\" y2=\"19\"></line><line x1=\"5\" y1=\"12\" x2=\"19\" y2=\"12\"></line></svg></div></div> <div class=\"files-count svelte-11adhly\"> </div></div></div> <!></div> <!></div>'),E9=ce('<main class=\"git-view svelte-11adhly\"><div class=\"nav-header\"><div class=\"nav-buttons-container\"><div id=\"backup-btn\" data-icon=\"arrow-up-circle\" class=\"clickable-icon nav-action-button\" aria-label=\"Commit-and-sync\"></div> <div id=\"commit-btn\" data-icon=\"check\" class=\"clickable-icon nav-action-button\" aria-label=\"Commit\"></div> <div id=\"stage-all\" class=\"clickable-icon nav-action-button\" data-icon=\"plus-circle\" aria-label=\"Stage all\"></div> <div id=\"unstage-all\" class=\"clickable-icon nav-action-button\" data-icon=\"minus-circle\" aria-label=\"Unstage all\"></div> <div id=\"push\" class=\"clickable-icon nav-action-button\" data-icon=\"upload\" aria-label=\"Push\"></div> <div id=\"pull\" class=\"clickable-icon nav-action-button\" data-icon=\"download\" aria-label=\"Pull\"></div> <div id=\"layoutChange\" class=\"clickable-icon nav-action-button\" aria-label=\"Change Layout\"></div> <div id=\"refresh\" data-icon=\"refresh-cw\" aria-label=\"Refresh\"></div></div></div> <div class=\"git-commit-msg svelte-11adhly\"><textarea class=\"commit-msg-input svelte-11adhly\" spellcheck=\"true\" placeholder=\"Commit Message\"></textarea> <!></div> <div class=\"nav-files-container\" style=\"position: relative;\"><!></div></main>'),k9={hash:\"svelte-11adhly\",code:`.commit-msg-input.svelte-11adhly {width:100%;overflow:hidden;resize:none;padding:7px 5px;background-color:var(--background-modifier-form-field);}.git-commit-msg.svelte-11adhly {position:relative;padding:0;width:calc(100% - var(--size-4-8));margin:4px auto;}main.svelte-11adhly .git-tools:where(.svelte-11adhly) .files-count:where(.svelte-11adhly) {padding-left:var(--size-2-1);width:11px;display:flex;align-items:center;justify-content:center;}.nav-folder-title.svelte-11adhly {align-items:center;}.git-commit-msg-clear-button.svelte-11adhly {position:absolute;background:transparent;border-radius:50%;color:var(--search-clear-button-color);cursor:var(--cursor);top:-4px;right:2px;bottom:0px;line-height:0;height:var(--input-height);width:28px;margin:auto;padding:0 0;text-align:center;display:flex;justify-content:center;align-items:center;transition:color 0.15s ease-in-out;}.git-commit-msg-clear-button.svelte-11adhly:after {content:\"\";height:var(--search-clear-button-size);width:var(--search-clear-button-size);display:block;background-color:currentColor;mask-image:url(\"data:image/svg+xml,<svg viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M6 12C9.31371 12 12 9.31371 12 6C12 2.68629 9.31371 0 6 0C2.68629 0 0 2.68629 0 6C0 9.31371 2.68629 12 6 12ZM3.8705 3.09766L6.00003 5.22718L8.12955 3.09766L8.9024 3.8705L6.77287 6.00003L8.9024 8.12955L8.12955 8.9024L6.00003 6.77287L3.8705 8.9024L3.09766 8.12955L5.22718 6.00003L3.09766 3.8705L3.8705 3.09766Z' fill='currentColor'/></svg>\");mask-repeat:no-repeat;-webkit-mask-image:url(\"data:image/svg+xml,<svg viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M6 12C9.31371 12 12 9.31371 12 6C12 2.68629 9.31371 0 6 0C2.68629 0 0 2.68629 0 6C0 9.31371 2.68629 12 6 12ZM3.8705 3.09766L6.00003 5.22718L8.12955 3.09766L8.9024 3.8705L6.77287 6.00003L8.9024 8.12955L8.12955 8.9024L6.00003 6.77287L3.8705 8.9024L3.09766 8.12955L5.22718 6.00003L3.09766 3.8705L3.8705 3.09766Z' fill='currentColor'/></svg>\");-webkit-mask-repeat:no-repeat;}`};function By(t,e){tt(e,!0),$n(t,k9);let r=dn(e,\"plugin\",7),n=dn(e,\"view\",7),i=Ce(!1),a=Ce(void 0),s=Ce(Ne([])),o=Ce(Ne(r().settings.commitMessage)),l=Ne([]),u=Ce(void 0),c=Ce(void 0),f=Ce(void 0),d=Ce(!0),h=Ce(!0),m=Ce(!0),g=Ce(0),v=Ce(Ne({})),w=Ce(Ne({})),b=Ce(Ne({})),E=Ce(Ne(r().settings.treeStructure));n().registerEvent(n().app.workspace.on(\"obsidian-git:loading-status\",()=>ne(i,!0))),n().registerEvent(n().app.workspace.on(\"obsidian-git:status-changed\",()=>void k().catch(console.error))),n().plugin.cachedStatus==null?n().plugin.refresh().catch(console.error):k().catch(console.error),Jt(()=>{l.forEach(Y=>(0,Bs.setIcon)(Y,Y.getAttr(\"data-icon\")))}),Jt(()=>{l.forEach(Y=>{var Ie,Me;!Y||Y.id!=\"push\"||(Bs.Platform.isMobile?(Y.removeClass(\"button-border\"),R(g)>0&&Y.addClass(\"button-border\")):((Ie=Y.firstElementChild)===null||Ie===void 0||Ie.removeAttribute(\"color\"),R(g)>0&&((Me=Y.firstElementChild)===null||Me===void 0||Me.setAttr(\"color\",\"var(--text-accent)\"))))})}),n().scope=new Bs.Scope(r().app.scope),n().scope.register([\"Ctrl\"],\"Enter\",Y=>x());function x(){if(ne(i,!0),R(a)){let Y=R(a).staged.length>0;r().promiseQueue.addTask(()=>r().commitAndSync({fromAutoBackup:!1,commitMessage:R(o),onlyStaged:Y}).then(()=>{ne(o,r().settings.commitMessage,!0)}).finally(A))}}function k(){return Ds(this,void 0,void 0,function*(){if(!r().gitReady){ne(a,void 0);return}if(ne(g,yield r().gitManager.getUnpushedCommits(),!0),ne(a,r().cachedStatus,!0),ne(i,!1),r().lastPulledFiles&&r().lastPulledFiles!=R(s)&&(ne(s,r().lastPulledFiles,!0),ne(f,{title:\"\",path:\"\",vaultPath:\"\",children:r().gitManager.getTreeStructure(R(s))},!0)),R(a)){let Y=(Ie,Me)=>Ie.vaultPath.split(\"/\").last().localeCompare(ei(Me.vaultPath));R(a).changed.sort(Y),R(a).staged.sort(Y),ne(u,{title:\"\",path:\"\",vaultPath:\"\",children:r().gitManager.getTreeStructure(R(a).changed)},!0),ne(c,{title:\"\",path:\"\",vaultPath:\"\",children:r().gitManager.getTreeStructure(R(a).staged)},!0)}else ne(u,void 0),ne(c,void 0)})}function A(){n().app.workspace.trigger(\"obsidian-git:refresh\")}let y=Rt(()=>(R(o).match(/\\n/g)||[]).length+1||1);var S=E9(),_=q(S),T=q(_),P=q(T);P.__click=x,Ke(P,Y=>l[0]=Y,()=>l==null?void 0:l[0]);var F=ee(P,2);F.__click=[s9,i,a,r,o,A],Ke(F,Y=>l[1]=Y,()=>l==null?void 0:l[1]);var D=ee(F,2);D.__click=[SM,i,r,a,A],Ke(D,Y=>l[2]=Y,()=>l==null?void 0:l[2]);var M=ee(D,2);M.__click=[EM,i,r,a,A],Ke(M,Y=>l[3]=Y,()=>l==null?void 0:l[3]);var re=ee(M,2);re.__click=[o9,i,r,A],Ke(re,Y=>l[4]=Y,()=>l==null?void 0:l[4]);var ye=ee(re,2);ye.__click=[l9,i,r,A],Ke(ye,Y=>l[5]=Y,()=>l==null?void 0:l[5]);var me=ee(ye,2);me.__click=[u9,E,l,r],Ke(me,Y=>l[6]=Y,()=>l==null?void 0:l[6]);var fe=ee(me,2);let Ge;fe.__click=A,Ke(fe,Y=>l[7]=Y,()=>l==null?void 0:l[7]),j(T),j(_);var oe=ee(_,2),B=q(oe);gy(B);var Z=ee(B,2);{var H=Y=>{var Ie=d9();Ie.__click=[f9,o],ge(Ie,\"aria-label\",\"Clear\"),ie(Y,Ie)};xe(Z,Y=>{R(o)&&Y(H)})}j(oe);var Oe=ee(oe,2),cr=q(Oe);{var Gt=Y=>{var Ie=S9(),Me=q(Ie);let It;var De=q(Me);De.__click=[h9,h];var G=q(De);let Je;var N=ee(G,4),X=q(N),Ee=q(X);Ee.__click=[EM,i,r,a,A],Ke(Ee,Ft=>l[8]=Ft,()=>l==null?void 0:l[8]),j(X);var We=ee(X,2),$t=q(We,!0);j(We),j(N),j(De);var Cl=ee(De,2);{var OM=Ft=>{var qt=m9(),Yi=q(qt);{var Mn=Qt=>{Ns(Qt,{get hierarchy(){return R(c)},get plugin(){return r()},get view(){return n()},get fileType(){return 0},topLevel:!0,get closed(){return R(v)},set closed(pn){ne(v,pn,!0)}})},js=Qt=>{var pn=p9(),Da=Cr(pn);Wr(Da,17,()=>Nc(R(a).staged,500),Vr,(Xi,Pl)=>{ju(Xi,{get change(){return R(Pl)},get view(){return n()},get manager(){return r().gitManager}})});var gi=ee(Da,2);Ls(gi,{get files(){return R(a).staged}}),ie(Qt,pn)};xe(Yi,Qt=>{R(E)?Qt(Mn):Qt(js,!1)})}j(qt),On(3,qt,()=>mi,()=>({duration:150})),ie(Ft,qt)};xe(Cl,Ft=>{R(h)&&Ft(OM)})}j(Me);var qu=ee(Me,2);let qy;var zu=q(qu);zu.__click=[g9,d];var zy=q(zu);let Vy;var Wy=ee(zy,4),jp=q(Wy),Yy=q(jp);Yy.__click=[c9,r];var Xy=ee(Yy,2);Xy.__click=[SM,i,r,a,A],Ke(Xy,Ft=>l[9]=Ft,()=>l==null?void 0:l[9]),j(jp);var Zy=ee(jp,2),MM=q(Zy,!0);j(Zy),j(Wy),j(zu);var DM=ee(zu,2);{var LM=Ft=>{var qt=w9(),Yi=q(qt);{var Mn=Qt=>{Ns(Qt,{get hierarchy(){return R(u)},get plugin(){return r()},get view(){return n()},get fileType(){return 1},topLevel:!0,get closed(){return R(w)},set closed(pn){ne(w,pn,!0)}})},js=Qt=>{var pn=v9(),Da=Cr(pn);Wr(Da,17,()=>Nc(R(a).changed,500),Vr,(Xi,Pl)=>{Hu(Xi,{get change(){return R(Pl)},get view(){return n()},get manager(){return r().gitManager}})});var gi=ee(Da,2);Ls(gi,{get files(){return R(a).changed}}),ie(Qt,pn)};xe(Yi,Qt=>{R(E)?Qt(Mn):Qt(js,!1)})}j(qt),On(3,qt,()=>mi,()=>({duration:150})),ie(Ft,qt)};xe(DM,Ft=>{R(d)&&Ft(LM)})}j(qu);var NM=ee(qu,2);{var BM=Ft=>{var qt=x9();let Yi;var Mn=q(qt);Mn.__click=[y9,m];var js=ee(q(Mn),4),Qt=q(js,!0);j(js),j(Mn);var pn=ee(Mn,2);{var Da=gi=>{var Xi=_9(),Pl=q(Xi);{var HM=Gs=>{Ns(Gs,{get hierarchy(){return R(f)},get plugin(){return r()},get view(){return n()},get fileType(){return 2},topLevel:!0,get closed(){return R(b)},set closed(Vu){ne(b,Vu,!0)}})},UM=Gs=>{var Vu=b9(),Ky=Cr(Vu);Wr(Ky,17,()=>R(s),Vr,(GM,qM)=>{Uu(GM,{get change(){return R(qM)},get view(){return n()}})});var jM=ee(Ky,2);Ls(jM,{get files(){return R(s)}}),ie(Gs,Vu)};xe(Pl,Gs=>{R(E)?Gs(HM):Gs(UM,!1)})}j(Xi),On(3,Xi,()=>mi,()=>({duration:150})),ie(gi,Xi)};xe(pn,gi=>{R(m)&&gi(Da)})}j(qt),Fe(gi=>{Yi=ot(qt,1,\"pulled nav-folder\",null,Yi,gi),Be(Qt,R(s).length)},[()=>({\"is-collapsed\":!R(m)})]),ie(Ft,qt)};xe(NM,Ft=>{R(s).length>0&&R(f)&&Ft(BM)})}j(Ie),Fe((Ft,qt,Yi,Mn)=>{It=ot(Me,1,\"staged tree-item nav-folder\",null,It,Ft),Je=ot(G,1,\"tree-item-icon nav-folder-collapse-indicator collapse-icon\",null,Je,qt),Be($t,R(a).staged.length),qy=ot(qu,1,\"changes tree-item nav-folder\",null,qy,Yi),Vy=ot(zy,1,\"tree-item-icon nav-folder-collapse-indicator collapse-icon\",null,Vy,Mn),Be(MM,R(a).changed.length)},[()=>({\"is-collapsed\":!R(h)}),()=>({\"is-collapsed\":!R(h)}),()=>({\"is-collapsed\":!R(d)}),()=>({\"is-collapsed\":!R(d)})]),ie(Y,Ie)};xe(cr,Y=>{R(a)&&R(c)&&R(u)&&Y(Gt)})}j(Oe),j(S),Fe(Y=>{ge(S,\"data-type\",Dt.type),ge(me,\"data-icon\",R(E)?\"list\":\"folder\"),Ge=ot(fe,1,\"clickable-icon nav-action-button\",null,Ge,Y),ge(B,\"rows\",R(y))},[()=>({loading:R(i)})]),Py(B,()=>R(o),Y=>ne(o,Y)),ie(t,S),rt()}gt([\"click\"]);var Gu=class extends kM.ItemView{constructor(e,r){super(e),this.plugin=r,this.hoverPopover=null}getViewType(){return Dt.type}getDisplayText(){return Dt.name}getIcon(){return Dt.icon}onClose(){return this._view&&Vi(this._view),super.onClose()}reload(){this._view&&Vi(this._view),this._view=Ma(By,{target:this.contentEl,props:{plugin:this.plugin,view:this}})}onOpen(){return this.reload(),super.onOpen()}};p();var Ip=class{constructor(e,r){this.statusBarEl=e;this.plugin=r;this.statusBarEl.addClass(\"mod-clickable\"),this.statusBarEl.onClickEvent(n=>{this.plugin.switchBranch().catch(i=>r.displayError(i))})}async display(){if(this.plugin.gitReady){let e=await this.plugin.gitManager.branchInfo();e.current!=null?this.statusBarEl.setText(e.current):this.statusBarEl.empty()}else this.statusBarEl.empty()}remove(){this.statusBarEl.remove()}};p();var AM=require(\"obsidian\");var $p=class{constructor(e){this.plugin=e}get editor(){var n;let e=(n=this.plugin.app.workspace.activeEditor)==null?void 0:n.editor,r=e==null?void 0:e.cm;if(!(!e||!Sn.hasHunksData(r.state)))return{editor:r,obEditor:e}}get gitManager(){return this.plugin.gitManager}resetHunk(e){if(!this.editor)return;let{editor:r,obEditor:n}=this.editor,i=Sn.getHunk(r.state,!1,e);if(i){let a,s;i.type===\"delete\"?(a=i.added.start+1,s=i.added.start+1):(a=i.added.start-0,s=i.added.start-1+i.added.count);let o=r.state.doc.line(a).from,l=i.type===\"delete\"?r.state.doc.line(s).from:r.state.doc.line(s).to+1,u=i.removed.lines.join(`"
+        ],
+        "fileId": "file-f86a57c58316921c28ae536ab7e12e223385ba5d68a3e311f2fe673cf45b5d69",
+        "label": "Potential execution gap",
+        "lineEnd": 395,
+        "lineStart": 395,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-331ef33c9f09651f17310e91b33c65251d4a277e515a9dbdb143e861bb24764f",
+        "chunkType": "gap",
+        "contentHash": "6fc47fdb3c60267cc51d55ab12756e8428a05d4ba29278b4f6c5c9c5e7eb57b7",
+        "evidence": [
+          "`+a),this.app.workspace.trigger(\"obsidian-git:refresh\")}handleFileMenu(r,n,i,a){if(!this.gitReady||!this.settings.showFileMenu||!n)return;let s;if(typeof n==\"string\"?s=n:s=n.path,i==\"file-explorer-context-menu\"&&(r.addItem(o=>{o.setTitle(\"Git: Stage\").setIcon(\"plus-circle\").setSection(\"action\").onClick(l=>{this.promiseQueue.addTask(async()=>{n instanceof we.TFile?await this.stageFile(n):(await this.gitManager.stageAll({dir:this.gitManager.getRelativeRepoPath(s,!0)}),this.app.workspace.trigger(\"obsidian-git:refresh\"))})})}),r.addItem(o=>{o.setTitle(\"Git: Unstage\").setIcon(\"minus-circle\").setSection(\"action\").onClick(l=>{this.promiseQueue.addTask(async()=>{n instanceof we.TFile?await this.unstageFile(n):(await this.gitManager.unstageAll({dir:this.gitManager.getRelativeRepoPath(s,!0)}),this.app.workspace.trigger(\"obsidian-git:refresh\"))})})}),r.addItem(o=>{o.setTitle(\"Git: Add to .gitignore\").setIcon(\"file-x\").setSection(\"action\").onClick(l=>{this.addFileToGitignore(s,n instanceof we.TFolder).catch(u=>this.displayError(u))})})),i==\"git-source-control\"){r.addItem(l=>{l.setTitle(\"Git: Add to .gitignore\").setIcon(\"file-x\").setSection(\"action\").onClick(u=>{this.addFileToGitignore(s,n instanceof we.TFolder).catch(c=>this.displayError(c))})});let o=this.app.vault.adapter;a===\"obsidian-git:menu\"&&o instanceof we.FileSystemAdapter&&(r.addItem(l=>{l.setTitle(\"Open in default app\").setIcon(\"arrow-up-right\").setSection(\"action\").onClick(u=>{this.app.openWithDefaultApp(s)})}),r.addItem(l=>{l.setTitle(\"Show in system explorer\").setIcon(\"arrow-up-right\").setSection(\"action\").onClick(u=>{window.electron.shell.showItemInFolder(FM.join(o.getBasePath(),s))})}))}}async migrateSettings(){this.settings.mergeOnPull!=null&&(this.settings.syncMethod=this.settings.mergeOnPull?\"merge\":\"rebase\",this.settings.mergeOnPull=void 0,await this.saveSettings()),this.settings.autoCommitMessage===void 0&&(this.settings.autoCommitMessage=this.settings.commitMessage,await this.saveSettings()),this.settings.gitPath!=null&&(this.localStorage.setGitPath(this.settings.gitPath),this.settings.gitPath=void 0,await this.saveSettings()),this.settings.username!=null&&(this.localStorage.setPassword(this.settings.username),this.settings.username=void 0,await this.saveSettings())}unloadPlugin(){var r,n;this.gitReady=!1,this.editorIntegration.onUnloadPlugin(),this.automaticsManager.unload(),(r=this.branchBar)==null||r.remove(),(n=this.statusBar)==null||n.remove(),this.statusBar=void 0,this.branchBar=void 0,this.gitManager.unload(),this.promiseQueue.clear();for(let i of this.intervalsToClear)window.clearInterval(i);this.intervalsToClear=[],this.debRefresh.cancel()}onunload(){this.unloadPlugin(),console.log(\"unloading \"+this.manifest.name+\" plugin\")}async loadSettings(){let r=await this.loadData();r==null&&(r={showedMobileNotice:!0}),this.settings=oA(Xe,r)}async saveSettings(){var r;(r=this.settingsTab)==null||r.beforeSaveSettings(),await this.saveData(this.settings)}get useSimpleGit(){return we.Platform.isDesktopApp}async init({fromReload:r=!1}){var n;if(this.settings.showStatusBar&&!this.statusBar){let i=this.addStatusBarItem();this.statusBar=new bh(i,this),this.intervalsToClear.push(window.setInterval(()=>{var a;return(a=this.statusBar)==null?void 0:a.display()},1e3))}try{this.useSimpleGit?(this.gitManager=new _e(this),await this.gitManager.setGitInstance()):this.gitManager=new _n(this);let i=await this.gitManager.checkRequirements(),a=this.localStorage.getPausedAutomatics();switch(i){case\"missing-git\":this.displayError(`Cannot run git command. Trying to run: '${this.localStorage.getGitPath()||\"git\"}' .`);break;case\"missing-repo\":new we.Notice(\"Can't find a valid git repository. Please create one via the given command or clone an existing repo.\",1e4);break;case\"valid\":if(this.gitReady=!0,this.setPluginState({gitAction:0}),we.Platform.isDesktop&&this.settings.showBranchStatusBar&&!this.branchBar){let s=this.addStatusBarItem();this.branchBar=new Ip(s,this),this.intervalsToClear.push(window.setInterval(()=>{var o;return void((o=this.branchBar)==null?void 0:o.display().catch(console.error))},6e4))}await((n=this.branchBar)==null?void 0:n.display()),this.editorIntegration.onReady(),this.app.workspace.trigger(\"obsidian-git:refresh\"),this.app.workspace.trigger(\"obsidian-git:head-change\"),!r&&this.settings.autoPullOnBoot&&!a&&this.promiseQueue.addTask(()=>this.pullChangesFromRemote()),a||await this.automaticsManager.init(),a&&new we.Notice(\"Automatic routines are currently paused.\");break;default:this.log(\"Something weird happened. The 'checkRequirements' result is \"+i)}}catch(i){this.displayError(i),console.error(i)}}async createNewRepo(){try{await this.gitManager.init(),new we.Notice(\"Initialized new repo\"),await this.init({fromReload:!0})}catch(r){this.displayError(r)}}async cloneNewRepo(){let n=await new ze(this,{placeholder:\"Enter remote URL\"}).openAndGetResult();if(n){let i=\"Vault Root\",a=await new ze(this,{options:this.gitManager instanceof _n?[i]:[],placeholder:\"Enter directory for clone. It needs to be empty or not existent.\",allowEmpty:this.gitManager instanceof _n}).openAndGetResult();if(a==null)return;if(a===i&&(a=\".\"),a=(0,we.normalizePath)(a),a===\"/\"&&(a=\".\"),a===\".\"){let f=await new ze(this,{options:[\"NO\",\"YES\"],placeholder:`Does your remote repo contain a ${this.app.vault.configDir} directory at the root?`,onlySelection:!0}).openAndGetResult();if(f===void 0){new we.Notice(\"Aborted clone\");return}else if(f===\"YES\"){let d=\"DELETE ALL YOUR LOCAL CONFIG AND PLUGINS\";if(await new ze(this,{options:[\"Abort clone\",d],placeholder:`To avoid conflicts, the local ${this.app.vault.configDir} directory needs to be deleted.`,onlySelection:!0}).openAndGetResult()===d)await this.app.vault.adapter.rmdir(this.app.vault.configDir,!0);else{new we.Notice(\"Aborted clone\");return}}}let s=await new ze(this,{placeholder:\"Specify depth of clone. Leave empty for full clone.\",allowEmpty:!0}).openAndGetResult(),o;if(s===void 0){new we.Notice(\"Aborted clone\");return}if(s!==\"\"&&(o=parseInt(s),isNaN(o))){new we.Notice(\"Invalid depth. Aborting clone.\");return}new we.Notice(`Cloning new repo into \"${a}\"`);let l=this.settings.basePath,u=a&&a!==\".\";u&&(this.settings.basePath=a);try{await this.gitManager.clone(ew(n),a,o),new we.Notice(\"Cloned new repo.\"),new we.Notice(\"Please restart Obsidian\"),u&&await this.saveSettings()}catch(c){this.displayError(c),this.settings.basePath=l,await this.saveSettings()}}}async isAllInitialized(){return this.gitReady||await this.init({fromReload:!0}),this.gitReady}async pullChangesFromRemote(){if(!await this.isAllInitialized())return;let r=await this.pull();if(r!==!1){if(r||this.displayMessage(\"Pull: Everything is up-to-date\"),this.gitManager instanceof _e){let n=await this.updateCachedStatus();n.conflicted.length>0&&(this.displayError(`You have conflicts in ${n.conflicted.length} ${n.conflicted.length==1?\"file\":\"files\"}`),await this.handleConflict(n.conflicted))}this.app.workspace.trigger(\"obsidian-git:refresh\"),this.setPluginState({gitAction:0})}}async commitAndSync({fromAutoBackup:r,requestCustomMessage:n=!1,commitMessage:i,onlyStaged:a=!1}){!await this.isAllInitialized()||(this.settings.syncMethod==\"reset\"&&this.settings.pullBeforePush&&await this.pull(),!await this.commit({fromAuto:r,requestCustomMessage:n,commitMessage:i,onlyStaged:a}))||(this.settings.syncMethod!=\"reset\"&&this.settings.pullBeforePush&&await this.pull(),this.settings.disablePush||(await this.remotesAreSet()&&await this.gitManager.canPush()?await this.push():this.displayMessage(\"No commits to push\")),this.setPluginState({gitAction:0}))}async commit({fromAuto:r,requestCustomMessage:n=!1,onlyStaged:i=!1,commitMessage:a,amend:s=!1}){if(!await this.isAllInitialized())return!1;try{let o=this.localStorage.getConflict(),l,u=[],c=[];if(this.gitManager instanceof _e){if(await this.mayDeleteConflictFile(),l=await this.updateCachedStatus(),l.conflicted.length==0&&(o=!1),r&&l.conflicted.length>0)return this.displayError(`Did not commit, because you have conflicts in ${l.conflicted.length} ${l.conflicted.length==1?\"file\":\"files\"}. Please resolve them and commit per command.`),await this.handleConflict(l.conflicted),!1;u=l.staged,c=l.changed}else{if(r&&o)return this.displayError(\"Did not commit, because you have conflicts. Please resolve them and commit per command.\"),!1;{o&&await this.mayDeleteConflictFile();let f=this.gitManager;i?u=await f.getStagedFiles():c=(await f.getUnstagedFiles()).map(({path:h,type:m})=>({vaultPath:this.gitManager.getRelativeVaultPath(h),path:h,type:m}))}}if(await this.tools.hasTooBigFiles(i?u:[...u,...c]))return this.setPluginState({gitAction:0}),!1;if(c.length+u.length!==0||o){let f=a!=null?a:a=r?this.settings.autoCommitMessage:this.settings.commitMessage;if(r&&this.settings.customMessageOnAutoBackup||n){!this.settings.disablePopups&&r&&new we.Notice(\"Auto backup: Please enter a custom commit message. Leave empty to abort\");let m=await new _h(this).openAndGetResult();if(m!=null&&m!=\"\"&&m!=\"...\")f=m;else return this.setPluginState({gitAction:0}),!1}else if(this.gitManager instanceof _e&&this.settings.commitMessageScript){let m=this.settings.commitMessageScript,g=this.localStorage.getHostname()||\"\",v=m.replace(\"{{hostname}}\",g);v=v.replace(\"{{date}}\",(0,we.moment)().format(this.settings.commitDateFormat));let w=await Bc(\"sh\",[\"-c\",v],{cwd:this.gitManager.absoluteRepoPath});w.code!=0?this.displayError(w.stderr):w.stdout.trim().length==0?this.displayMessage(\"Stdout from commit message script is empty. Using default message.\"):f=w.stdout}let d;i?d=await this.gitManager.commit({message:f,amend:s}):d=await this.gitManager.commitAll({message:f,status:l,unstagedFiles:c,amend:s}),this.gitManager instanceof _e&&await this.updateCachedStatus();let h=!1;d===void 0&&(h=!0,d=c.length+u.length||0),this.displayMessage(`Committed${h?\" approx.\":\"\"} ${d} ${d==1?\"file\":\"files\"}`)}else this.displayMessage(\"No changes to commit\");return this.app.workspace.trigger(\"obsidian-git:refresh\"),!0}catch(o){return this.displayError(o),!1}}async push(){if(!await this.isAllInitialized()||!await this.remotesAreSet())return!1;let r=this.localStorage.getConflict();try{this.gitManager instanceof _e&&await this.mayDeleteConflictFile();let n;if(this.gitManager instanceof _e&&(n=await this.updateCachedStatus()).conflicted.length>0)return this.displayError(`Cannot push. You have conflicts in ${n.conflicted.length} ${n.conflicted.length==1?\"file\":\"files\"}`),await this.handleConflict(n.conflicted),!1;if(this.gitManager instanceof _n&&r)return this.displayError(\"Cannot push. You have conflicts\"),!1;this.log(\"Pushing....\");let i=await this.gitManager.push();return i!==void 0&&(i>0?this.displayMessage(`Pushed ${i} ${i==1?\"file\":\"files\"} to remote`):this.displayMessage(\"No commits to push\")),this.setPluginState({offlineMode:!1}),this.app.workspace.trigger(\"obsidian-git:refresh\"),!0}catch(n){return n instanceof Io?this.handleNoNetworkError(n):this.displayError(n),!1}}async pull(){if(!await this.remotesAreSet())return!1;try{this.log(\"Pulling....\");let r=await this.gitManager.pull()||[];return this.setPluginState({offlineMode:!1}),r.length>0&&(this.displayMessage(`Pulled ${r.length} ${r.length==1?\"file\":\"files\"} from remote`),this.lastPulledFiles=r),r.length}catch(r){return this.displayError(r),!1}}async fetch(){if(await this.remotesAreSet())try{await this.gitManager.fetch(),this.displayMessage(\"Fetched from remote\"),this.setPluginState({offlineMode:!1}),this.app.workspace.trigger(\"obsidian-git:refresh\")}catch(r){this.displayError(r)}}async mayDeleteConflictFile(){let r=this.app.vault.getAbstractFileByPath(Ro);r&&(this.app.workspace.iterateAllLeaves(n=>{var i;n.view instanceof we.MarkdownView&&((i=n.view.file)==null?void 0:i.path)==r.path&&n.detach()}),await this.app.vault.delete(r))}async stageFile(r){return await this.isAllInitialized()?(await this.gitManager.stage(r.path,!0),this.app.workspace.trigger(\"obsidian-git:refresh\"),this.setPluginState({gitAction:0}),!0):!1}async unstageFile(r){return await this.isAllInitialized()?(await this.gitManager.unstage(r.path,!0),this.app.workspace.trigger(\"obsidian-git:refresh\"),this.setPluginState({gitAction:0}),!0):!1}async switchBranch(){var i;if(!await this.isAllInitialized())return;let r=await this.gitManager.branchInfo(),n=await new Pp(this,r.branches).openAndGetReslt();if(n!=null)return await this.gitManager.checkout(n),this.displayMessage(`Switched to ${n}`),this.app.workspace.trigger(\"obsidian-git:refresh\"),await((i=this.branchBar)==null?void 0:i.display()),n}async switchRemoteBranch(){var a;if(!await this.isAllInitialized())return;let r=await this.selectRemoteBranch()||\"\",[n,i]=Ri(r);if(i!=null&&n!=null)return await this.gitManager.checkout(i,n),this.displayMessage(`Switched to ${r}`),await((a=this.branchBar)==null?void 0:a.display()),r}async createBranch(){var n;if(!await this.isAllInitialized())return;let r=await new ze(this,{placeholder:\"Create new branch\"}).openAndGetResult();if(r!=null)return await this.gitManager.createBranch(r),this.displayMessage(`Created new branch ${r}`),await((n=this.branchBar)==null?void 0:n.display()),r}async deleteBranch(){var i;if(!await this.isAllInitialized())return;let r=await this.gitManager.branchInfo();r.current&&r.branches.remove(r.current);let n=await new ze(this,{options:r.branches,placeholder:\"Delete branch\",onlySelection:!0}).openAndGetResult();if(n!=null){let a=!1;if(!await this.gitManager.branchIsMerged(n)){let o=await new ze(this,{options:[\"YES\",\"NO\"],placeholder:\"This branch isn't merged into HEAD. Force delete?\",onlySelection:!0}).openAndGetResult();if(o!==\"YES\")return;a=o===\"YES\"}return await this.gitManager.deleteBranch(n,a),this.displayMessage(`Deleted branch ${n}`),await((i=this.branchBar)==null?void 0:i.display()),n}}async remotesAreSet(){return this.settings.updateSubmodules||(await this.gitManager.branchInfo()).tracking?!0:(new we.Notice(\"No upstream branch is set. Please select one.\"),await this.setUpstreamBranch())}async setUpstreamBranch(){let r=await this.selectRemoteBranch();return r==null?(this.displayError(\"Aborted. No upstream-branch is set!\",1e4),this.setPluginState({gitAction:0}),!1):(await this.gitManager.updateUpstreamBranch(r),this.displayMessage(`Set upstream branch to ${r}`),this.setPluginState({gitAction:0}),!0)}async discardAll(r){if(!await this.isAllInitialized())return!1;let n=await this.gitManager.status({path:r}),i=0,a=0;for(let o of n.changed)o.workingDir==\"U\"?i++:a++;if(i+a==0)return!1;let s=await new Al({app:this.app,filesToDeleteCount:i,filesToDiscardCount:a,path:r!=null?r:\"\"}).openAndGetResult();switch(s){case!1:return s;case\"discard\":await this.gitManager.discardAll({dir:r,status:this.cachedStatus});break;case\"delete\":{await this.gitManager.discardAll({dir:r,status:this.cachedStatus});let o=await this.gitManager.getUntrackedPaths({path:r,status:this.cachedStatus});for(let l of o){let u=this.gitManager.getRelativeVaultPath(l),c=this.app.vault.getAbstractFileByPath(u);c?await this.app.fileManager.trashFile(c):l.endsWith(\"/\")?await this.app.vault.adapter.rmdir(u,!0):await this.app.vault.adapter.remove(u)}break}default:Md(s)}return this.app.workspace.trigger(\"obsidian-git:refresh\"),s}async handleConflict(r){this.localStorage.setConflict(!0);let n;r!==void 0&&(n=[\"# Conflicts\",\"Please resolve them and commit them using the commands `Git: Commit all changes` followed by `Git: Push`\",\"(This file will automatically be deleted before commit)\",\"[[#Additional Instructions]] available below file list\",\"\",...r.map(i=>{let a=this.app.vault.getAbstractFileByPath(i);return a instanceof we.TFile?`- [[${this.app.metadataCache.fileToLinktext(a,\"/\")}]]`:`- Not a file: ${i}`}),`"
+        ],
+        "fileId": "file-f86a57c58316921c28ae536ab7e12e223385ba5d68a3e311f2fe673cf45b5d69",
+        "label": "Potential execution gap",
+        "lineEnd": 400,
+        "lineStart": 400,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-331ef33c9f09651f17310e91b33c65251d4a277e515a9dbdb143e861bb24764f",
+        "chunkType": "gap",
+        "contentHash": "03348c2a090e4b1b1d2068cf00b2687b434b4ffd3ff0257a8acc5c36b31c1b73",
+        "evidence": [
+          "`))}async editRemotes(){if(!await this.isAllInitialized())return;let r=await this.gitManager.getRemotes(),i=await new ze(this,{options:r,placeholder:\"Select or create a new remote by typing its name and selecting it\"}).openAndGetResult();if(i){let a=await this.gitManager.getRemoteUrl(i),o=await new ze(this,{initialValue:a,placeholder:\"Enter remote URL\"}).openAndGetResult();if(o)return await this.gitManager.setRemote(i,ew(o)),i}}async selectRemoteBranch(){let r=await this.gitManager.getRemotes(),n;r.length===0&&(n=await this.editRemotes(),n==null&&(r=await this.gitManager.getRemotes()));let i=new ze(this,{options:r,placeholder:\"Select or create a new remote by typing its name and selecting it\"}),a=n!=null?n:await i.openAndGetResult();if(a){this.displayMessage(\"Fetching remote branches\"),await this.gitManager.fetch(a);let s=await this.gitManager.getRemoteBranches(a),l=await new ze(this,{options:s,placeholder:\"Select or create a new remote branch by typing its name and selecting it\"}).openAndGetResult();return l==null?void 0:l.startsWith(a+\"/\")?l:`${a}/${l}`}}async removeRemote(){if(!await this.isAllInitialized())return;let r=await this.gitManager.getRemotes(),i=await new ze(this,{options:r,placeholder:\"Select a remote\"}).openAndGetResult();i&&await this.gitManager.removeRemote(i)}onActiveLeafChange(r){var s,o;let n=r==null?void 0:r.view;if(!(n!=null&&n.getState().file)&&!(n instanceof ys||n instanceof bs))return;let i=this.app.workspace.getLeavesOfType(Dt.type).first(),a=this.app.workspace.getLeavesOfType(Qr.type).first();if((s=i==null?void 0:i.view.containerEl.querySelector(\"div.tree-item-self.is-active\"))==null||s.removeClass(\"is-active\"),(o=a==null?void 0:a.view.containerEl.querySelector(\"div.tree-item-self.is-active\"))==null||o.removeClass(\"is-active\"),(r==null?void 0:r.view)instanceof ys||(r==null?void 0:r.view)instanceof bs){let u=r.view.state.bFile.replace(/[\"\\\\]/g,\"\\\\$&\");this.lastDiffViewState=r.view.getState();let c;i&&r.view.state.aRef==\"HEAD\"?c=i.view.containerEl.querySelector(`div.staged div.tree-item-self[data-path=\"${u}\"]`):i&&r.view.state.aRef==\"\"?c=i.view.containerEl.querySelector(`div.changes div.tree-item-self[data-path=\"${u}\"]`):a&&(c=a.view.containerEl.querySelector(`div.tree-item-self[data-path='${u}']`)),c==null||c.addClass(\"is-active\")}else this.lastDiffViewState=void 0}handleNoNetworkError(r){this.state.offlineMode?this.log(\"Encountered network error, but already in offline mode\"):this.displayError(\"Git: Going into offline mode. Future network errors will no longer be displayed.\",2e3),this.setPluginState({gitAction:0,offlineMode:!0})}displayMessage(r,n=4*1e3){var i;(i=this.statusBar)==null||i.displayMessage(r.toLowerCase(),n),this.settings.disablePopups||(!this.settings.disablePopupsForNoChanges||!r.startsWith(\"No changes\"))&&new we.Notice(r,5*1e3),this.log(r)}displayError(r,n=10*1e3){var a;if(r instanceof $M.Errors.UserCanceledError){new we.Notice(\"Aborted\");return}let i;r instanceof Error?i=r:i=new Error(String(r)),this.setPluginState({gitAction:0}),this.settings.showErrorNotices&&new we.Notice(i.message,n),console.error(`${this.manifest.id}:`,i.stack),(a=this.statusBar)==null||a.displayMessage(i.message.toLowerCase(),n)}log(...r){console.log(`${this.manifest.id}:`,...r)}};"
+        ],
+        "fileId": "file-f86a57c58316921c28ae536ab7e12e223385ba5d68a3e311f2fe673cf45b5d69",
+        "label": "Potential execution gap",
+        "lineEnd": 411,
+        "lineStart": 411,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-c7d628044d8b1b2b6ba54c79df090e434b6808677f5fc23e8f7acd271bd6684f",
+        "chunkType": "gap",
+        "contentHash": "7d0d27ae9ca82b70b78ee07d7b840d6e20a4f6a4dc9ba5c6e8fd164fc5a95c9d",
+        "evidence": [
+          ".canvas-node-placeholder {"
+        ],
+        "fileId": "file-b352561233aaa373ed07c5a2fe68ffa3a12ace31ecb8c0ec03edbddc1677ec49",
+        "label": "Potential execution gap",
+        "lineEnd": 3759,
+        "lineStart": 3759,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/themes/AnuPpuccin/theme.css",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-c7d628044d8b1b2b6ba54c79df090e434b6808677f5fc23e8f7acd271bd6684f",
+        "chunkType": "gap",
+        "contentHash": "bb6bc9fc89c5ea2eb7d232b52aaeee280b580e61b7ef33b60bcdc830f7805288",
+        "evidence": [
+          ".canvas-node-placeholder::after {"
+        ],
+        "fileId": "file-b352561233aaa373ed07c5a2fe68ffa3a12ace31ecb8c0ec03edbddc1677ec49",
+        "label": "Potential execution gap",
+        "lineEnd": 3762,
+        "lineStart": 3762,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/themes/AnuPpuccin/theme.css",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-c7d628044d8b1b2b6ba54c79df090e434b6808677f5fc23e8f7acd271bd6684f",
+        "chunkType": "gap",
+        "contentHash": "96a5f1510bcc73e6de8028a1d27f8f564d999d612516cf0919e0ece71ea27c0a",
+        "evidence": [
+          ".anuppuccin-accent-toggle .canvas-placeholder-message {"
+        ],
+        "fileId": "file-b352561233aaa373ed07c5a2fe68ffa3a12ace31ecb8c0ec03edbddc1677ec49",
+        "label": "Potential execution gap",
+        "lineEnd": 3769,
+        "lineStart": 3769,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/themes/AnuPpuccin/theme.css",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-c7d628044d8b1b2b6ba54c79df090e434b6808677f5fc23e8f7acd271bd6684f",
+        "chunkType": "gap",
+        "contentHash": "b760500e8f5e0d9496a532ad6a7997c09016319b9467407500cfd07323d79352",
+        "evidence": [
+          ".excalidraw .ExcTextField__input input::placeholder {"
+        ],
+        "fileId": "file-b352561233aaa373ed07c5a2fe68ffa3a12ace31ecb8c0ec03edbddc1677ec49",
+        "label": "Potential execution gap",
+        "lineEnd": 8335,
+        "lineStart": 8335,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/themes/AnuPpuccin/theme.css",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-c7d628044d8b1b2b6ba54c79df090e434b6808677f5fc23e8f7acd271bd6684f",
+        "chunkType": "gap",
+        "contentHash": "6bc03638babc572b526796ce865fc61a1ae4502fd7d6e24f84e3520dc9548800",
+        "evidence": [
+          ".kanban-plugin__lane-wrapper .kanban-plugin__lane-items > .kanban-plugin__placeholder {"
+        ],
+        "fileId": "file-b352561233aaa373ed07c5a2fe68ffa3a12ace31ecb8c0ec03edbddc1677ec49",
+        "label": "Potential execution gap",
+        "lineEnd": 8867,
+        "lineStart": 8867,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/themes/AnuPpuccin/theme.css",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-c7d628044d8b1b2b6ba54c79df090e434b6808677f5fc23e8f7acd271bd6684f",
+        "chunkType": "gap",
+        "contentHash": "eedbb3bb93014f0c7712ff06b927c4d94b44b9498a8f0f2aa703e24c2ded608d",
+        "evidence": [
+          ".kanban-plugin__lane-wrapper .kanban-plugin__lane-items > .kanban-plugin__placeholder:not(:only-child) {"
+        ],
+        "fileId": "file-b352561233aaa373ed07c5a2fe68ffa3a12ace31ecb8c0ec03edbddc1677ec49",
+        "label": "Potential execution gap",
+        "lineEnd": 8872,
+        "lineStart": 8872,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/themes/AnuPpuccin/theme.css",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-c7d628044d8b1b2b6ba54c79df090e434b6808677f5fc23e8f7acd271bd6684f",
+        "chunkType": "gap",
+        "contentHash": "0199c7016fa4c29d5d07d31a7fad5b2354057da09763dff617d301776a07e4fe",
+        "evidence": [
+          ".kanban-plugin__lane-wrapper.is-sorting .kanban-plugin__lane-items > .kanban-plugin__placeholder {"
+        ],
+        "fileId": "file-b352561233aaa373ed07c5a2fe68ffa3a12ace31ecb8c0ec03edbddc1677ec49",
+        "label": "Potential execution gap",
+        "lineEnd": 8875,
+        "lineStart": 8875,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/themes/AnuPpuccin/theme.css",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-c7d628044d8b1b2b6ba54c79df090e434b6808677f5fc23e8f7acd271bd6684f",
+        "chunkType": "gap",
+        "contentHash": "af88920fe9b7e95867907180f3f475ea7cceb7f771cc73135eabf442baf4e8b9",
+        "evidence": [
+          ".kanban-plugin__item-form)) .kanban-plugin__placeholder:only-child,"
+        ],
+        "fileId": "file-b352561233aaa373ed07c5a2fe68ffa3a12ace31ecb8c0ec03edbddc1677ec49",
+        "label": "Potential execution gap",
+        "lineEnd": 8993,
+        "lineStart": 8993,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/themes/AnuPpuccin/theme.css",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-c7d628044d8b1b2b6ba54c79df090e434b6808677f5fc23e8f7acd271bd6684f",
+        "chunkType": "gap",
+        "contentHash": "2f043aedf694ce72201eec814282ae82cf4c189732efe5b93f7547bbaeecdff5",
+        "evidence": [
+          ".kanban-plugin__item-form)) ~ .kanban-plugin__lane-wrapper:has(.kanban-plugin__lane[data-count=\"0\"]) .kanban-plugin__placeholder:only-child,"
+        ],
+        "fileId": "file-b352561233aaa373ed07c5a2fe68ffa3a12ace31ecb8c0ec03edbddc1677ec49",
+        "label": "Potential execution gap",
+        "lineEnd": 8996,
+        "lineStart": 8996,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/themes/AnuPpuccin/theme.css",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-c7d628044d8b1b2b6ba54c79df090e434b6808677f5fc23e8f7acd271bd6684f",
+        "chunkType": "gap",
+        "contentHash": "af88920fe9b7e95867907180f3f475ea7cceb7f771cc73135eabf442baf4e8b9",
+        "evidence": [
+          ".kanban-plugin__item-form)) .kanban-plugin__placeholder:only-child,"
+        ],
+        "fileId": "file-b352561233aaa373ed07c5a2fe68ffa3a12ace31ecb8c0ec03edbddc1677ec49",
+        "label": "Potential execution gap",
+        "lineEnd": 8999,
+        "lineStart": 8999,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/themes/AnuPpuccin/theme.css",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-c7d628044d8b1b2b6ba54c79df090e434b6808677f5fc23e8f7acd271bd6684f",
+        "chunkType": "gap",
+        "contentHash": "13bdb7ce4459727169344a4fd97deb94adbb00ab01c5ee20e524e442f8cc2f49",
+        "evidence": [
+          ".kanban-plugin__item-form)) ~ .kanban-plugin__lane-wrapper:has(.kanban-plugin__lane[data-count=\"0\"]) .kanban-plugin__placeholder:only-child {"
+        ],
+        "fileId": "file-b352561233aaa373ed07c5a2fe68ffa3a12ace31ecb8c0ec03edbddc1677ec49",
+        "label": "Potential execution gap",
+        "lineEnd": 9002,
+        "lineStart": 9002,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/themes/AnuPpuccin/theme.css",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      },
+      {
+        "chunkId": "evidence-c7d628044d8b1b2b6ba54c79df090e434b6808677f5fc23e8f7acd271bd6684f",
+        "chunkType": "gap",
+        "contentHash": "bb01ca1361dda4d86b813a73ce71a106485b5d2273d3b137f8f16d60dfcfb911",
+        "evidence": [
+          ".anp-kanban-collapse-lanes.anp-kanban-uncollapse-lanes .kanban-plugin__drag-container[style*=\"width: 54px;\"] .kanban-plugin__lane-wrapper .kanban-plugin__placeholder:only-child {"
+        ],
+        "fileId": "file-b352561233aaa373ed07c5a2fe68ffa3a12ace31ecb8c0ec03edbddc1677ec49",
+        "label": "Potential execution gap",
+        "lineEnd": 9054,
+        "lineStart": 9054,
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/themes/AnuPpuccin/theme.css",
+        "summary": "This line suggests a placeholder, panic path, or incomplete implementation."
+      }
+    ],
+    "missingTestAreas": [
+      "docs/.obsidian/plugins/obsidian-git/main.js",
+      "docs/.obsidian/themes/AnuPpuccin/theme.css",
+      "src/kiaspora/promptConfig.module.ts"
+    ],
+    "riskRegister": [
+      "docs/.obsidian/plugins/obsidian-git/main.js: infra failure-path (This file has explicit error or failure handling paths.)",
+      "docs/.obsidian/plugins/obsidian-git/main.js: infra runtime-route (This file declares runtime command or HTTP route surfaces.)",
+      "src/app.controller.spec.ts: infra runtime-route (This file declares runtime command or HTTP route surfaces.)",
+      "src/asunder/llmBridge.service.spec.ts: infra failure-path (This file has explicit error or failure handling paths.)",
+      "src/generate-review/dto/generate-review.dto.spec.ts: infra failure-path (This file has explicit error or failure handling paths.)",
+      "src/meta/meta.controller.spec.ts: infra runtime-route (This file declares runtime command or HTTP route surfaces.)"
+    ]
+  },
+  "runId": "run-20260324062406462598",
+  "schemaVersion": "cutr.archetype.v1",
+  "selectedFiles": [
+    {
+      "category": "source",
+      "fileId": "file-f86a57c58316921c28ae536ab7e12e223385ba5d68a3e311f2fe673cf45b5d69",
+      "language": "JavaScript",
+      "matchedRuleIds": [
+        "selection-rule-cd3797ccec616aa858ed21e4d92337af364428cbf235679510743302e0a309e3"
+      ],
+      "ownerSummary": "An automated test surface for part of the repository. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to runtime routes.",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js",
+      "roleRelevance": 160.8000030517578,
+      "whySelected": [
+        "docs/.obsidian/plugins/obsidian-git/main.js: config environment (This file reads values from the environment.)",
+        "docs/.obsidian/plugins/obsidian-git/main.js: infra failure-path (This file has explicit error or failure handling paths.)",
+        "docs/.obsidian/plugins/obsidian-git/main.js: infra runtime-route (This file declares runtime command or HTTP route surfaces.)",
+        "docs/.obsidian/plugins/obsidian-git/main.js: ui jsx-view (This file renders JSX or TSX user interface.)"
+      ]
+    },
+    {
+      "category": "source",
+      "fileId": "file-b352561233aaa373ed07c5a2fe68ffa3a12ace31ecb8c0ec03edbddc1677ec49",
+      "language": "CSS",
+      "matchedRuleIds": [
+        "selection-rule-cd3797ccec616aa858ed21e4d92337af364428cbf235679510743302e0a309e3"
+      ],
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "relativePath": "docs/.obsidian/themes/AnuPpuccin/theme.css",
+      "roleRelevance": 14.399999618530273,
+      "whySelected": []
+    },
+    {
+      "category": "source",
+      "fileId": "file-bbc8b4e9f8b329f999b013aaedf36a1db25e79e7020f73125dd7d3e75ae27161",
+      "language": "TypeScript",
+      "matchedRuleIds": [
+        "selection-rule-b34bc2936ac8693547f8edec0077a43651d3fd3cd314ac825b182a15e05e9843",
+        "selection-rule-e9793a1d9b7bdd2fb5db6d843af9348bc8bfa35e4006b6cbee9fc773f23fad47"
+      ],
+      "ownerSummary": "An automated test surface for part of the repository. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to ./app.controller, ./app.service.",
+      "relativePath": "src/app.controller.spec.ts",
+      "roleRelevance": 8.100000381469727,
+      "whySelected": [
+        "src/app.controller.spec.ts: infra runtime-route (This file declares runtime command or HTTP route surfaces.)"
+      ]
+    },
+    {
+      "category": "source",
+      "fileId": "file-de73f98cecdbc085c69a0293ca152b010d3039098064e43c5458a4e58ef242ff",
+      "language": "TypeScript",
+      "matchedRuleIds": [
+        "selection-rule-b34bc2936ac8693547f8edec0077a43651d3fd3cd314ac825b182a15e05e9843",
+        "selection-rule-e9793a1d9b7bdd2fb5db6d843af9348bc8bfa35e4006b6cbee9fc773f23fad47"
+      ],
+      "ownerSummary": "An automated test surface for part of the repository. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to ./llmBridge.controller, ./llmBridge.service.",
+      "relativePath": "src/asunder/llmBridge.controller.spec.ts",
+      "roleRelevance": 6.0,
+      "whySelected": [
+        "src/asunder/llmBridge.controller.spec.ts: config environment (This file reads values from the environment.)"
+      ]
+    },
+    {
+      "category": "source",
+      "fileId": "file-066adf71a0fc6081aba0b3f7758132e530226dad170be21441854907e45e4b33",
+      "language": "TypeScript",
+      "matchedRuleIds": [
+        "selection-rule-b34bc2936ac8693547f8edec0077a43651d3fd3cd314ac825b182a15e05e9843",
+        "selection-rule-e9793a1d9b7bdd2fb5db6d843af9348bc8bfa35e4006b6cbee9fc773f23fad47"
+      ],
+      "ownerSummary": "An automated test surface for part of the repository. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to ./llmBridge.service.",
+      "relativePath": "src/asunder/llmBridge.service.spec.ts",
+      "roleRelevance": 7.300000190734863,
+      "whySelected": [
+        "src/asunder/llmBridge.service.spec.ts: config environment (This file reads values from the environment.)",
+        "src/asunder/llmBridge.service.spec.ts: infra failure-path (This file has explicit error or failure handling paths.)"
+      ]
+    },
+    {
+      "category": "source",
+      "fileId": "file-c8f0de064c2199359a77906695a0b275659ddc8b03e22ebfc52053ea045e44d3",
+      "language": "TypeScript",
+      "matchedRuleIds": [
+        "selection-rule-b34bc2936ac8693547f8edec0077a43651d3fd3cd314ac825b182a15e05e9843",
+        "selection-rule-e9793a1d9b7bdd2fb5db6d843af9348bc8bfa35e4006b6cbee9fc773f23fad47"
+      ],
+      "ownerSummary": "An automated test surface for part of the repository. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to ./generate-review.dto.",
+      "relativePath": "src/generate-review/dto/generate-review.dto.spec.ts",
+      "roleRelevance": 7.300000190734863,
+      "whySelected": [
+        "src/generate-review/dto/generate-review.dto.spec.ts: infra failure-path (This file has explicit error or failure handling paths.)"
+      ]
+    },
+    {
+      "category": "source",
+      "fileId": "file-1a92399186df2c62e4f7a93c6023ecb264312da3c62d743fcb870ba7165634a6",
+      "language": "TypeScript",
+      "matchedRuleIds": [
+        "selection-rule-e9793a1d9b7bdd2fb5db6d843af9348bc8bfa35e4006b6cbee9fc773f23fad47",
+        "selection-rule-dfc60b90be7c63cbff6f8a0c7fba2a3193e6f4b85e577b4d0d025b9b17a4c2d6"
+      ],
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 1 named symbols that other files rely on. It currently talks to ./promptConfig.controller, ./promptConfig.service.",
+      "relativePath": "src/kiaspora/promptConfig.module.ts",
+      "roleRelevance": 0.0,
+      "whySelected": []
+    },
+    {
+      "category": "source",
+      "fileId": "file-7206763f61069b33b44fced85ca50398a883554352d0cf4cd883255a0fa4aa4d",
+      "language": "TypeScript",
+      "matchedRuleIds": [
+        "selection-rule-b34bc2936ac8693547f8edec0077a43651d3fd3cd314ac825b182a15e05e9843",
+        "selection-rule-e9793a1d9b7bdd2fb5db6d843af9348bc8bfa35e4006b6cbee9fc773f23fad47"
+      ],
+      "ownerSummary": "An automated test surface for part of the repository. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to ./meta.controller.",
+      "relativePath": "src/meta/meta.controller.spec.ts",
+      "roleRelevance": 8.100000381469727,
+      "whySelected": [
+        "src/meta/meta.controller.spec.ts: infra runtime-route (This file declares runtime command or HTTP route surfaces.)"
+      ]
+    }
+  ],
+  "selectedSymbols": [
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "Jy",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "ZM",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "KM",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "I",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "JM",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "Qy",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "callable",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "bt",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "QM",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "callable",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "vt",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "Gp",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "callable",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "le",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "callable",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "wt",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "Ot",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "callable",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "vi",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "callable",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "rb",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "function",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "tb",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "function",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "tD",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "function",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "rD",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "function",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "nD",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "function",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "iD",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "function",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "aD",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "function",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "sD",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "callable",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "nb",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "callable",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "em",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    }
+  ]
+}

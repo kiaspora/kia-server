@@ -14,6 +14,7 @@ import { JustUsModule } from './justus/justus.module';
 import { AsunderModule } from './asunder/asunder.module';
 
 import { KiasporaModule } from './kiaspora/kiaspora.module';
+import { CutrModule } from './cutr/cutr.module';
 
 import { TraceIdMiddleware } from './common/trace-id.middleware';
 import { TraceIdInterceptor } from './common/trace-id.interceptor';
@@ -28,6 +29,7 @@ import { TraceIdInterceptor } from './common/trace-id.interceptor';
     KiasporaModule,
     JustUsModule,
     AsunderModule,
+    CutrModule,
   ],
   controllers: [
     MetaController,
@@ -35,9 +37,7 @@ import { TraceIdInterceptor } from './common/trace-id.interceptor';
     ImdbSearchController,
     ImdbDetailController,
   ],
-  providers: [
-    { provide: APP_INTERCEPTOR, useClass: TraceIdInterceptor },
-  ],
+  providers: [{ provide: APP_INTERCEPTOR, useClass: TraceIdInterceptor }],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {

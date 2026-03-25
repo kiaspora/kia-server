@@ -1,4 +1,12 @@
-import { All, Controller, Options, Post, Req, Res, UseGuards } from '@nestjs/common';
+import {
+  All,
+  Controller,
+  Options,
+  Post,
+  Req,
+  Res,
+  UseGuards,
+} from '@nestjs/common';
 import type { Request, Response as ExpressResponse } from 'express';
 import { randomUUID } from 'node:crypto';
 import { BearerTokenGuard } from '../auth/bearer-token.guard';
@@ -17,11 +25,16 @@ const CORS_HEADERS = {
 const ALLOW_HEADER = 'POST, OPTIONS';
 
 function isMultipart(req: Request): boolean {
-  return (req.headers['content-type'] || '').toString().toLowerCase().includes('multipart/form-data');
+  return (req.headers['content-type'] || '')
+    .toString()
+    .toLowerCase()
+    .includes('multipart/form-data');
 }
 
 function isJson(req: Request): boolean {
-  const contentType = (req.headers['content-type'] || '').toString().toLowerCase();
+  const contentType = (req.headers['content-type'] || '')
+    .toString()
+    .toLowerCase();
   return contentType === '' || contentType.includes('application/json');
 }
 
@@ -33,14 +46,20 @@ export class LlmBridgeController {
   options(@Req() req: Request, @Res() res: ExpressResponse) {
     const traceId = this.resolveTraceId(req);
     res.setHeader('X-Trace-Id', traceId);
-    return res.status(204).set({ ...CORS_HEADERS, Allow: ALLOW_HEADER }).send();
+    return res
+      .status(204)
+      .set({ ...CORS_HEADERS, Allow: ALLOW_HEADER })
+      .send();
   }
 
   @Options('openPrompt')
   openPromptOptions(@Req() req: Request, @Res() res: ExpressResponse) {
     const traceId = this.resolveTraceId(req);
     res.setHeader('X-Trace-Id', traceId);
-    return res.status(204).set({ ...CORS_HEADERS, Allow: ALLOW_HEADER }).send();
+    return res
+      .status(204)
+      .set({ ...CORS_HEADERS, Allow: ALLOW_HEADER })
+      .send();
   }
 
   @Post('llmBridge')
@@ -55,7 +74,8 @@ export class LlmBridgeController {
       if (!isJson(req) && !multipart) {
         throw new LlmBridgeError(415, 'Unsupported media type', {
           error: {
-            message: 'Unsupported media type. Use application/json or multipart/form-data',
+            message:
+              'Unsupported media type. Use application/json or multipart/form-data',
             type: 'invalid_request_error',
           },
           trace_id: traceId,
@@ -187,7 +207,8 @@ export class LlmBridgeController {
     traceId: string,
   ) {
     const text = await upstream.text().catch(() => '');
-    const contentType = upstream.headers.get('content-type') || JSON_HEADERS['content-type'];
+    const contentType =
+      upstream.headers.get('content-type') || JSON_HEADERS['content-type'];
     const xRequestId = upstream.headers.get('x-request-id');
     const headers: Record<string, string> = {
       ...CORS_HEADERS,
@@ -201,7 +222,11 @@ export class LlmBridgeController {
     return res.status(upstream.status).set(headers).send(text);
   }
 
-  private sendLocalError(res: ExpressResponse, traceId: string, error: unknown) {
+  private sendLocalError(
+    res: ExpressResponse,
+    traceId: string,
+    error: unknown,
+  ) {
     if (error instanceof LlmBridgeError) {
       const body =
         error.body && typeof error.body === 'object'
@@ -221,7 +246,11 @@ export class LlmBridgeController {
     }
 
     const details =
-      error instanceof Error ? error.message : typeof error === 'string' ? error : 'Unexpected failure';
+      error instanceof Error
+        ? error.message
+        : typeof error === 'string'
+          ? error
+          : 'Unexpected failure';
     const body = {
       error: {
         message: 'Internal server error',
@@ -248,7 +277,8 @@ export class LlmBridgeController {
     }
 
     const body = value as Record<string, unknown>;
-    const promptId = typeof body.promptId === 'string' ? body.promptId.trim() : '';
+    const promptId =
+      typeof body.promptId === 'string' ? body.promptId.trim() : '';
     const promptVersionValue = body.promptVersion ?? body.prompytVersion;
     const input = typeof body.input === 'string' ? body.input : undefined;
     const stream = body.stream ?? false;
@@ -272,13 +302,20 @@ export class LlmBridgeController {
       });
     }
 
-    if (!Number.isInteger(promptVersionValue) || Number(promptVersionValue) < 1) {
-      throw new LlmBridgeError(400, 'promptVersion must be a positive integer', {
-        error: {
-          message: 'promptVersion must be a positive integer',
-          type: 'invalid_request_error',
+    if (
+      !Number.isInteger(promptVersionValue) ||
+      Number(promptVersionValue) < 1
+    ) {
+      throw new LlmBridgeError(
+        400,
+        'promptVersion must be a positive integer',
+        {
+          error: {
+            message: 'promptVersion must be a positive integer',
+            type: 'invalid_request_error',
+          },
         },
-      });
+      );
     }
 
     if (typeof input !== 'string' || !input.trim()) {
@@ -309,6 +346,9 @@ export class LlmBridgeController {
   }
 
   private resolveTraceId(req: Request): string {
-    return (req.header('x-trace-id') || req.header('X-Trace-Id') || '').trim() || randomUUID();
+    return (
+      (req.header('x-trace-id') || req.header('X-Trace-Id') || '').trim() ||
+      randomUUID()
+    );
   }
 }

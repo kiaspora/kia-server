@@ -25,10 +25,15 @@ describe('LlmBridgeController', () => {
   it('maps openPrompt requests onto llm bridge payloads using OPENAI_ACTIVE_MODEL', async () => {
     process.env.OPENAI_ACTIVE_MODEL = 'gpt-5';
 
-    const forward = jest
-      .fn()
-      .mockResolvedValue(new Response('{}', { status: 200, headers: { 'content-type': 'application/json' } }));
-    const controller = new LlmBridgeController({ forward } as unknown as LlmBridgeService);
+    const forward = jest.fn().mockResolvedValue(
+      new Response('{}', {
+        status: 200,
+        headers: { 'content-type': 'application/json' },
+      }),
+    );
+    const controller = new LlmBridgeController({
+      forward,
+    } as unknown as LlmBridgeService);
     const req = {
       body: {
         promptId: 'prompt-123',
@@ -36,7 +41,10 @@ describe('LlmBridgeController', () => {
         input: 'hello',
         stream: false,
       },
-      headers: { 'content-type': 'application/json', authorization: 'Bearer test' },
+      headers: {
+        'content-type': 'application/json',
+        authorization: 'Bearer test',
+      },
       header: jest.fn().mockReturnValue('trace-open-prompt'),
     };
     const res = createResponseMock();
@@ -59,10 +67,15 @@ describe('LlmBridgeController', () => {
   it('accepts prompytVersion as an alias for promptVersion', async () => {
     process.env.OPENAI_ACTIVE_MODEL = 'gpt-5-mini';
 
-    const forward = jest
-      .fn()
-      .mockResolvedValue(new Response('{}', { status: 200, headers: { 'content-type': 'application/json' } }));
-    const controller = new LlmBridgeController({ forward } as unknown as LlmBridgeService);
+    const forward = jest.fn().mockResolvedValue(
+      new Response('{}', {
+        status: 200,
+        headers: { 'content-type': 'application/json' },
+      }),
+    );
+    const controller = new LlmBridgeController({
+      forward,
+    } as unknown as LlmBridgeService);
     const req = {
       body: {
         promptId: 'prompt-xyz',
@@ -70,7 +83,10 @@ describe('LlmBridgeController', () => {
         input: 'hello alias',
         stream: false,
       },
-      headers: { 'content-type': 'application/json', authorization: 'Bearer test' },
+      headers: {
+        'content-type': 'application/json',
+        authorization: 'Bearer test',
+      },
       header: jest.fn().mockReturnValue('trace-open-prompt-alias'),
     };
     const res = createResponseMock();
@@ -93,7 +109,9 @@ describe('LlmBridgeController', () => {
     delete process.env.OPENAI_ACTIVE_MODEL;
 
     const forward = jest.fn();
-    const controller = new LlmBridgeController({ forward } as unknown as LlmBridgeService);
+    const controller = new LlmBridgeController({
+      forward,
+    } as unknown as LlmBridgeService);
     const req = {
       body: {
         promptId: 'prompt-xyz',
@@ -101,7 +119,10 @@ describe('LlmBridgeController', () => {
         input: 'hello alias',
         stream: false,
       },
-      headers: { 'content-type': 'application/json', authorization: 'Bearer test' },
+      headers: {
+        'content-type': 'application/json',
+        authorization: 'Bearer test',
+      },
       header: jest.fn().mockReturnValue('trace-open-prompt-missing-model'),
     };
     const res = createResponseMock();

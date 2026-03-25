@@ -95,12 +95,16 @@ export class ParseController {
       }
 
       // 3️⃣ Wait for app boot
-      await page.waitForLoadState('networkidle', {
-        timeout: 15000,
-      }).catch(() => {});
+      await page
+        .waitForLoadState('networkidle', {
+          timeout: 15000,
+        })
+        .catch(() => {});
 
       // 4️⃣ Click "Most Anticipated"
-      const anticipatedTab = page.locator('[data-testid="trailer-most-anticipated"]').first();
+      const anticipatedTab = page
+        .locator('[data-testid="trailer-most-anticipated"]')
+        .first();
       if (await anticipatedTab.isVisible().catch(() => false)) {
         await anticipatedTab.click().catch(() => {});
         await page.waitForTimeout(1000);
@@ -120,7 +124,10 @@ export class ParseController {
       const screenshot = await page.screenshot({ fullPage: true });
 
       const safeHost = url.host.replace(/[^a-zA-Z0-9.-]/g, '_');
-      const hash = createHash('sha1').update(url.toString()).digest('hex').slice(0, 16);
+      const hash = createHash('sha1')
+        .update(url.toString())
+        .digest('hex')
+        .slice(0, 16);
 
       const outDir = path.join(process.cwd(), 'temp');
       await mkdir(outDir, { recursive: true });
@@ -131,7 +138,10 @@ export class ParseController {
 
       await writeFile(path.join(outDir, htmlName), html, 'utf8');
       await writeFile(path.join(outDir, shotName), screenshot);
-      await writeFile(path.join(outDir, netName), JSON.stringify(networkLog, null, 2));
+      await writeFile(
+        path.join(outDir, netName),
+        JSON.stringify(networkLog, null, 2),
+      );
 
       await context.close();
 

@@ -3,7 +3,10 @@ import type { Request } from 'express';
 import { Pool } from 'pg';
 
 class HttpError extends Error {
-  constructor(public readonly status: number, message: string) {
+  constructor(
+    public readonly status: number,
+    message: string,
+  ) {
     super(message);
   }
 }
@@ -19,7 +22,10 @@ function requireEnv(name: string): string {
 }
 
 function parsePromptName(promptNameRaw: any, allowDefault = true) {
-  const promptName = (promptNameRaw || (allowDefault ? 'global' : '')).toString().trim().toLowerCase();
+  const promptName = (promptNameRaw || (allowDefault ? 'global' : ''))
+    .toString()
+    .trim()
+    .toLowerCase();
   if (!promptName) throw new HttpError(400, '"prompt_name" is required');
   return promptName;
 }
@@ -31,7 +37,15 @@ function parseIncludeGlobal(req: Request) {
 
 function parsePromptId(req: Request, body: any) {
   const q: any = req.query || {};
-  const pid = (q.prompt_id || q.promptId || body?.prompt_id || body?.promptId || '').toString().trim();
+  const pid = (
+    q.prompt_id ||
+    q.promptId ||
+    body?.prompt_id ||
+    body?.promptId ||
+    ''
+  )
+    .toString()
+    .trim();
   if (!pid) throw new HttpError(400, '"prompt_id" is required');
   return pid;
 }
@@ -58,7 +72,7 @@ function getPool(): Pool {
   const NEON_DB = requireEnv('NEON_DB');
   const NEON_HOST = requireEnv('NEON_HOST');
 
-  const QUERY_FLAGS = "sslmode=verify-full";
+  const QUERY_FLAGS = 'sslmode=verify-full';
 
   const connectionString = `postgresql://${NEON_USER}:${encodeURIComponent(
     NEON_PASSWORD,
@@ -80,7 +94,9 @@ export class PromptConfigService {
   async handleGet(req: Request) {
     const q: any = req.query || {};
     const promptNameRaw = q.prompt_name || q.promptName || q.scope;
-    const promptName = promptNameRaw ? parsePromptName(promptNameRaw, false) : null;
+    const promptName = promptNameRaw
+      ? parsePromptName(promptNameRaw, false)
+      : null;
     const includeGlobal = parseIncludeGlobal(req);
 
     const promptNames: string[] = [];
@@ -172,14 +188,18 @@ export class PromptConfigService {
       body.enabled === undefined ? undefined : Boolean(body.enabled);
 
     const rawPromptNameProvided =
-      body.prompt_name !== undefined || body.promptName !== undefined || body.scope !== undefined;
+      body.prompt_name !== undefined ||
+      body.promptName !== undefined ||
+      body.scope !== undefined;
 
     const rawPromptName = rawPromptNameProvided
       ? pick(body, 'prompt_name', 'promptName', 'scope')
       : undefined;
 
     const promptName =
-      rawPromptName === undefined ? undefined : parsePromptName(rawPromptName, false);
+      rawPromptName === undefined
+        ? undefined
+        : parsePromptName(rawPromptName, false);
 
     if (prompt !== undefined && !prompt.trim()) {
       throw new HttpError(400, '"prompt" cannot be empty');
@@ -206,7 +226,10 @@ export class PromptConfigService {
     }
 
     if (sets.length === 0) {
-      throw new HttpError(400, 'No fields to update (provide prompt, prompt_name, or enabled)');
+      throw new HttpError(
+        400,
+        'No fields to update (provide prompt, prompt_name, or enabled)',
+      );
     }
 
     vals.push(prompt_id);

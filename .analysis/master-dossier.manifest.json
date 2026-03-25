@@ -1,0 +1,85 @@
+{
+  "artifactId": "artifact-run-20260324062406462598-manifest",
+  "dossierHash": "41fa42c49e23ba652aea2fe8da21088a042448f6296aac923b1d95dbe8a8e6af",
+  "exports": [
+    "master-dossier.json",
+    "master-dossier.manifest.json",
+    "master-dossier-implementation-prompt.md",
+    "repo-map.json",
+    "file-explanations.json",
+    "archetype-relevance.json",
+    "archetype-manifest.json",
+    "Builder.json",
+    "Operator.json",
+    "Truth-Teller.json",
+    "Reviewer.json",
+    "Strategist.json",
+    "Facilitator.json"
+  ],
+  "generatedAt": "2026-03-24T06:24:24.044991Z",
+  "projectId": "project-20260324062406462561",
+  "repomixArtifacts": [
+    {
+      "artifactId": "repomix-metadata-only-20260324062413753587",
+      "generatedAt": "2026-03-24T06:24:13.753616Z",
+      "isPrimary": true,
+      "kind": "metadata-only",
+      "label": "Metadata Only",
+      "path": "/Users/novelbamboo/Desktop/github/kia-server/.analysis/repomix-kia-server-0-0-29-metadata-only.md"
+    },
+    {
+      "artifactId": "repomix-file-map-20260324062416356768",
+      "generatedAt": "2026-03-24T06:24:16.356797Z",
+      "isPrimary": false,
+      "kind": "file-map",
+      "label": "File Map",
+      "path": "/Users/novelbamboo/Desktop/github/kia-server/.analysis/repomix-kia-server-0-0-29-file-map.md"
+    },
+    {
+      "artifactId": "repomix-full-file-20260324062419280059",
+      "generatedAt": "2026-03-24T06:24:19.280088Z",
+      "isPrimary": false,
+      "kind": "full-file",
+      "label": "Full File",
+      "path": "/Users/novelbamboo/Desktop/github/kia-server/.analysis/repomix-kia-server-0-0-29-full-file.md"
+    },
+    {
+      "artifactId": "repomix-maximum-20260324062423125565",
+      "generatedAt": "2026-03-24T06:24:23.125595Z",
+      "isPrimary": false,
+      "kind": "maximum",
+      "label": "Maximum",
+      "path": "/Users/novelbamboo/Desktop/github/kia-server/.analysis/repomix-kia-server-0-0-29-maximum.md"
+    }
+  ],
+  "runId": "run-20260324062406462598",
+  "summary": {
+    "archetypeCount": 5,
+    "callEdgeCount": 16494,
+    "configFiles": [
+      "tsconfig.json"
+    ],
+    "dependencyManifests": [
+      "package.json",
+      "pnpm-lock.yaml"
+    ],
+    "directoryCount": 21,
+    "entrypoints": [
+      "src/main.ts"
+    ],
+    "fileCount": 116,
+    "internalImportCount": 76,
+    "languages": [
+      "TypeScript",
+      "JSON",
+      "Other",
+      "Markdown",
+      "CSS",
+      "HTML",
+      "JavaScript",
+      "YAML"
+    ],
+    "routeCount": 201,
+    "symbolCount": 3380
+  }
+}

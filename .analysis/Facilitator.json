@@ -1,0 +1,914 @@
+{
+  "archetypeId": "Facilitator",
+  "contradictions": [],
+  "generatedAt": "2026-03-24T06:24:24.039898Z",
+  "missingEvidence": [],
+  "packetId": "packet-d0a977d417eeba79fb8e1ebdda72ba571d262e853c7e2dd80b7c1bb469fcb7db",
+  "packetSummary": {
+    "contentHash": "b4f84eb4122fb8d816ebfdf91162809d523190fef1683c05778941c75fd66dc7",
+    "createdAt": "2026-03-24T06:24:10.830872Z",
+    "estimatedTokens": 11980,
+    "formatterVersion": 1,
+    "omissions": [
+      "Task selector omitted docs/.obsidian/plugins/obsidian-git/styles.css for Facilitator due to deterministic token budget.",
+      "Task selector omitted docs/.obsidian/themes/AnuPpuccin/theme.css for Facilitator due to deterministic token budget.",
+      "Task selector omitted docs/.obsidian/themes/Shimmering Focus/theme.css for Facilitator due to deterministic token budget.",
+      "Task selector omitted docs/sop-setup.md for Facilitator due to deterministic token budget.",
+      "Task selector omitted docs/taste-engine.md for Facilitator due to deterministic token budget.",
+      "Task selector omitted docs/tmpl-api-pattern.md for Facilitator due to deterministic token budget.",
+      "Task selector omitted pnpm-lock.yaml for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/asunder/llmBridge.controller.spec.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/asunder/llmBridge.service.spec.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/generate-review/generate-review.controller.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/meta/meta.controller.spec.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted package.json for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/promptConfig.controller.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/promptConfig.service.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/asunder/llmBridge.controller.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/generate-review/dto/generate-review.dto.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/generate-review/generate-review.module.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/generate-review/generate-review.service.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/justus/filmTrailer.controller.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/justus/trailers.controller.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted test/app.e2e-spec.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted .env for Facilitator due to deterministic token budget.",
+      "Task selector omitted .sidecar/shells.json.lock for Facilitator due to deterministic token budget.",
+      "Task selector omitted .todos/db.lock for Facilitator due to deterministic token budget.",
+      "Task selector omitted eslint.config.mjs for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/app.controller.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/app.module.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/app.service.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/asunder/asunder.module.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/asunder/attachment.util.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/asunder/llmBridge.service.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/auth/bearer-token.guard.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/common/trace-id.interceptor.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/common/trace-id.middleware.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/justus/filmTrailer.service.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/justus/justus.module.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/justus/llmRouter.controller.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/justus/llmRouter.service.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/justus/titleDetail.controller.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/justus/titleSearch.controller.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/ffmpeg.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/googleSpeechToText.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/imageScan.controller.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/imageScan.module.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/imageScan.service.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/kiaspora.module.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/speechToText.controller.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/speechToText.module.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/speechToText.service.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/translationChat.controller.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/translationChat.module.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/translationChat.service.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/translationRouter.controller.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/kiaspora/translationRouter.service.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/meta/meta.controller.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/parse/imdb-detail.controller.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/parse/imdb-search.controller.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted src/parse/parse.controller.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted temp/generate-review-store.json for Facilitator due to deterministic token budget.",
+      "Task selector omitted temp/repomix-kia-server-0.0.22.md for Facilitator due to deterministic token budget.",
+      "Task selector omitted temp/repomix-kia-server-0.0.23.md for Facilitator due to deterministic token budget.",
+      "Task selector omitted temp/repomix-kia-server-0.0.24.md for Facilitator due to deterministic token budget.",
+      "Task selector omitted temp/repomix-kia-server-0.0.25.md for Facilitator due to deterministic token budget.",
+      "Task selector omitted temp/repomix-kia-server-0.0.27.md for Facilitator due to deterministic token budget.",
+      "Task selector omitted test/jest-e2e.json for Facilitator due to deterministic token budget.",
+      "Task selector omitted tsconfig.build.json for Facilitator due to deterministic token budget.",
+      "Task selector omitted tsconfig.json for Facilitator due to deterministic token budget.",
+      "Task selector omitted .prettierrc for Facilitator due to deterministic token budget.",
+      "Task selector omitted .todos/agent_errors.jsonl for Facilitator due to deterministic token budget.",
+      "Task selector omitted .todos/command_usage.jsonl for Facilitator due to deterministic token budget.",
+      "Task selector omitted Makefile for Facilitator due to deterministic token budget.",
+      "Task selector omitted app.module.ts for Facilitator due to deterministic token budget.",
+      "Task selector omitted nest-cli.json for Facilitator due to deterministic token budget.",
+      "Task selector omitted postman/Railway_JustUs.postman_collection.json for Facilitator due to deterministic token budget.",
+      "Task selector omitted postman/Railway_Kiaspora.postman_collection.json for Facilitator due to deterministic token budget.",
+      "Task selector omitted postman/Railway_Parse.postman_collection.json for Facilitator due to deterministic token budget.",
+      "Task selector omitted postman/Railway_Server.postman_collection.json for Facilitator due to deterministic token budget.",
+      "Task selector omitted postman/Railway_aSunder.postman_collection.json for Facilitator due to deterministic token budget.",
+      "Task selector omitted public/calendarItems.json for Facilitator due to deterministic token budget.",
+      "Task selector omitted public/trailer_ids.json for Facilitator due to deterministic token budget.",
+      "Task selector omitted public/trailers_list.json for Facilitator due to deterministic token budget.",
+      "Task selector omitted temp/trailers.html for Facilitator due to deterministic token budget.",
+      "Task selector omitted temp/trailers.json for Facilitator due to deterministic token budget.",
+      "Task selector omitted temp/www.imdb.com-141e4bff2b137760.net.json for Facilitator due to deterministic token budget.",
+      "Task selector omitted temp/www.imdb.com-141e4bff2b137760.rendered.html for Facilitator due to deterministic token budget.",
+      "Task selector omitted temp/www.imdb.com-95bdba69f807c8c3.net.json for Facilitator due to deterministic token budget.",
+      "Task selector omitted temp/www.imdb.com-95bdba69f807c8c3.rendered.html for Facilitator due to deterministic token budget."
+    ],
+    "operationType": "artifact.generate",
+    "packetId": "packet-d0a977d417eeba79fb8e1ebdda72ba571d262e853c7e2dd80b7c1bb469fcb7db",
+    "projectId": "project-20260324062406462561",
+    "rationale": "Facilitator packet built from intake-selected files, archetype relevance, structural edges, and explanation artifacts.",
+    "role": "Facilitator",
+    "runId": "run-20260324062406462598",
+    "selectedFileCount": 20,
+    "selectedSymbolCount": 2959,
+    "status": "complete",
+    "truncationNotes": [
+      "Task selector trimmed the Facilitator packet to 20 files and 11980 estimated tokens."
+    ]
+  },
+  "plainLanguage": {
+    "hotspotCount": 12,
+    "overview": "This file translates codebase truth into the simplest explanation path for a human reader.",
+    "readingHint": "Start from the top summary, then inspect the selected files with the highest confidence and most repeated reasons.",
+    "selectedFileCount": 20
+  },
+  "projectId": "project-20260324062406462561",
+  "roleArtifact": {
+    "glossary": [
+      "docs/.obsidian/plugins/obsidian-git/main.js: ui jsx-view (This file renders JSX or TSX user interface.)"
+    ],
+    "learningPath": [
+      {
+        "ownerSummary": "A documentation file that explains repository behavior or rules. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+        "relativePath": "AGENTS.md",
+        "whatItIs": "A documentation file that explains repository behavior or rules."
+      },
+      {
+        "ownerSummary": "A documentation file that explains repository behavior or rules. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+        "relativePath": "README.md",
+        "whatItIs": "A documentation file that explains repository behavior or rules."
+      },
+      {
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "relativePath": "docs/.obsidian/app.json",
+        "whatItIs": "A source file that contributes to repository behavior."
+      },
+      {
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "relativePath": "docs/.obsidian/appearance.json",
+        "whatItIs": "A source file that contributes to repository behavior."
+      },
+      {
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "relativePath": "docs/.obsidian/community-plugins.json",
+        "whatItIs": "A source file that contributes to repository behavior."
+      },
+      {
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "relativePath": "docs/.obsidian/core-plugins.json",
+        "whatItIs": "A source file that contributes to repository behavior."
+      },
+      {
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "relativePath": "docs/.obsidian/graph.json",
+        "whatItIs": "A source file that contributes to repository behavior."
+      },
+      {
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "relativePath": "docs/.obsidian/hotkeys.json",
+        "whatItIs": "A source file that contributes to repository behavior."
+      },
+      {
+        "ownerSummary": "An automated test surface for part of the repository. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to runtime routes.",
+        "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js",
+        "whatItIs": "An automated test surface for part of the repository."
+      },
+      {
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "relativePath": "docs/.obsidian/plugins/obsidian-git/manifest.json",
+        "whatItIs": "A source file that contributes to repository behavior."
+      },
+      {
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "relativePath": "docs/.obsidian/plugins/obsidian-git/obsidian_askpass.sh",
+        "whatItIs": "A source file that contributes to repository behavior."
+      },
+      {
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "relativePath": "docs/.obsidian/themes/AnuPpuccin/manifest.json",
+        "whatItIs": "A source file that contributes to repository behavior."
+      }
+    ],
+    "plainLanguageWalkthrough": [
+      {
+        "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+        "contentHash": "5de07e48d6928758d87f7a9dc3800ac3202155fd80f64b476906eddd5929b60f",
+        "explanationId": "explanation-47f3507a47bad0183e80d1cf9fdb5a0fc51f8e43e5e186aa2f5b52eb2b7036c8",
+        "fileId": "file-a54ff182c7e8acf56acfd6e4b9c3ff41e2c41a31c9b211b2deb9df75d9a478f9",
+        "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+        "ownerSummary": "A documentation file that explains repository behavior or rules. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+        "projectId": "project-20260324062406462561",
+        "relativePath": "AGENTS.md",
+        "talksTo": [],
+        "whatItIs": "A documentation file that explains repository behavior or rules.",
+        "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+      },
+      {
+        "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+        "contentHash": "44178c3bf611c936a16a9bb1a6807f42b149e86870c89d4923397f87e69d96f9",
+        "explanationId": "explanation-3c1353805d5c2311988eb8fe4decd7552f63eeea5d4b8cbb88e02980fa95390d",
+        "fileId": "file-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5",
+        "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+        "ownerSummary": "A documentation file that explains repository behavior or rules. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+        "projectId": "project-20260324062406462561",
+        "relativePath": "README.md",
+        "talksTo": [],
+        "whatItIs": "A documentation file that explains repository behavior or rules.",
+        "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+      },
+      {
+        "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+        "contentHash": "7b5594ab00301932b4475bae9f7f0bda11ba77f9e37a1824ed2b044541f59381",
+        "explanationId": "explanation-657bab6f30c1ecca2c3f89ac1449747aa0540e5f093ac5d3e1a67358acdc1aa3",
+        "fileId": "file-70a1317ca03b71cf52fc8a92067c96b2fb6da178ae15f7fdbcb165f02812bc5a",
+        "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/app.json",
+        "talksTo": [],
+        "whatItIs": "A source file that contributes to repository behavior.",
+        "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+      },
+      {
+        "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+        "contentHash": "c96d0371bb1591e9fa53af5a6945f5961db1e174f141d1ffc3fe03432a2b40c1",
+        "explanationId": "explanation-fc956ce26148ed60b2a731f727b25ae6aedea047361e49702499caae57ae4524",
+        "fileId": "file-ad10d98b5ab41c43ba078b164aa4a085a8a12a940ef0c72e9a99fed11d50bc2f",
+        "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/appearance.json",
+        "talksTo": [],
+        "whatItIs": "A source file that contributes to repository behavior.",
+        "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+      },
+      {
+        "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+        "contentHash": "144e9c656373add40df8892d91c2b15d21c34f9c702fed41dad8ecb848326622",
+        "explanationId": "explanation-b086f48ee1373484d9e8e36050315d24c1ad3ca921f3ba83224541dd0d00c98b",
+        "fileId": "file-6dab216578b026eaf14c5de576aa593b96e3ad526bbbc76ee52f16c08b55b42d",
+        "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/community-plugins.json",
+        "talksTo": [],
+        "whatItIs": "A source file that contributes to repository behavior.",
+        "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+      },
+      {
+        "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+        "contentHash": "abd4dd7247dba678eb1f70dce32ae5d5ad66098a640c8adb01261efb0bbb91c4",
+        "explanationId": "explanation-609ce8a7a25bd82213956335cb83b749ed363287fb7c6229829cef158f5ee44b",
+        "fileId": "file-643fae5e0e18bc92bf1b8771e266bea7efd2793ee0e9ae47bbf88779c43337b0",
+        "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/core-plugins.json",
+        "talksTo": [],
+        "whatItIs": "A source file that contributes to repository behavior.",
+        "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+      },
+      {
+        "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+        "contentHash": "d21cedcbad31f2b26193e7de2dcbd98a4c4b4bac65007ff6c12a25eb070a5d58",
+        "explanationId": "explanation-ed8415f3041e75ed04e4e237de3974eb84bc861a8b62157794d278148b79e26a",
+        "fileId": "file-591be99fa548d6cb7969b3a9f5fab48be08edccd97864637e26c3e30858bc5c4",
+        "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/graph.json",
+        "talksTo": [],
+        "whatItIs": "A source file that contributes to repository behavior.",
+        "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+      },
+      {
+        "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+        "contentHash": "3f0759d1b9b0f2635eaa8db261e813053b66e1cceda0ee6947f729be14c1285b",
+        "explanationId": "explanation-02f0ed70fd7395860087e0cad8bfdbc0088fdc678ef3e0eb29ecf39a9868e291",
+        "fileId": "file-df16598ad110901cf008efba3608f2c3ed80574a734ee93a1b36a88595f711c0",
+        "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/hotkeys.json",
+        "talksTo": [],
+        "whatItIs": "A source file that contributes to repository behavior.",
+        "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+      },
+      {
+        "breakRisk": "Changing this file can break runtime entrypoints or cross-boundary execution paths.",
+        "contentHash": "5ce41e71417149ce6741ebe4b473e133a034d82951ee3db06899583f382cc63d",
+        "explanationId": "explanation-a5caad44052d01de4caa6f5a3d4a6adaeac5df5efad0a5a3a072c47dccc7c80b",
+        "fileId": "file-f86a57c58316921c28ae536ab7e12e223385ba5d68a3e311f2fe673cf45b5d69",
+        "metaphor": "This is a control panel: it turns structured state into something a person can use.",
+        "ownerSummary": "An automated test surface for part of the repository. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to runtime routes.",
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js",
+        "talksTo": [
+          "runtime routes"
+        ],
+        "whatItIs": "An automated test surface for part of the repository.",
+        "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+      },
+      {
+        "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+        "contentHash": "c6af93ae6640c58fbe0bf17ecbc48f71ec6a514579a8f6c9c4915766d49e35a0",
+        "explanationId": "explanation-78ab22f45b165ad55fc8d4c7a4ce1787f53f4f3b2dbcc5b42fab5dcfcab398b6",
+        "fileId": "file-642fcd0aab0ab08aaccd15ee6d8097d92e95648971d37ce37622d1fe879454e0",
+        "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/plugins/obsidian-git/manifest.json",
+        "talksTo": [],
+        "whatItIs": "A source file that contributes to repository behavior.",
+        "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+      },
+      {
+        "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+        "contentHash": "a27d1d1334bdd30130aee341c12eae77811b79620af8cb785b2a0a08d7d0134a",
+        "explanationId": "explanation-2fec1c4bbbc74feba259658d5234d8c82646d1740a3e8a5c3c176677a3d7b913",
+        "fileId": "file-fbe366be90ecedbc08b8bbe2a3c9c02d6760de78803097cd073c07b84fb44dc2",
+        "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/plugins/obsidian-git/obsidian_askpass.sh",
+        "talksTo": [],
+        "whatItIs": "A source file that contributes to repository behavior.",
+        "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+      },
+      {
+        "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+        "contentHash": "eb9da8bb3bb43f30e7419b44b3cafd493634f340df980a6d3339e51dfc071133",
+        "explanationId": "explanation-4d2cc1ebc107818b76e8d578051e98e3af55e095812b6f13086aa724e39b9d24",
+        "fileId": "file-f540efd2fffc569ff6e3293a165f6ee96338bf3d3340f4e511169cf8c307028d",
+        "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/themes/AnuPpuccin/manifest.json",
+        "talksTo": [],
+        "whatItIs": "A source file that contributes to repository behavior.",
+        "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+      },
+      {
+        "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+        "contentHash": "1257c794de4ca5d97a907f3733ff7b1dc4cdacbe29111d3c165b716790dcaad0",
+        "explanationId": "explanation-4ca441fe0739030e7639c5351c0013461caa49e2e81cc6e2ba6d0af2539f07ca",
+        "fileId": "file-0f9e93b370b577ecf90db7461f44b42fb5354213543bbd59b6f0501f2adaf971",
+        "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/themes/Shimmering Focus/manifest.json",
+        "talksTo": [],
+        "whatItIs": "A source file that contributes to repository behavior.",
+        "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+      },
+      {
+        "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+        "contentHash": "966c4a29d1adb3231deb7c77d3037eaab688659473af6c5a60d2b466b5bac645",
+        "explanationId": "explanation-3a1fb5890ee0b8b14a6e6076783aedbfa67f0ceb422d4e6fbae63a80bc15e054",
+        "fileId": "file-6f166d7548e8b46d3ca41de1ccdb7b6280ca27bad992d27569752cc0496bda53",
+        "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+        "ownerSummary": "A boundary or infrastructure file that touches runtime execution. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to no clearly detected internal dependency edges.",
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/.obsidian/workspace.json",
+        "talksTo": [],
+        "whatItIs": "A boundary or infrastructure file that touches runtime execution.",
+        "whyItExists": "It owns a boundary that should stay centralized instead of being copied into feature code."
+      },
+      {
+        "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+        "contentHash": "c705961c0309e72323383a1e48bcef55e6dc1fc54458bd01c198c21f8e7a2d11",
+        "explanationId": "explanation-e599977a67ed98aab49f183f4dadcd300d88d3e7dfeba4427c95034e366af696",
+        "fileId": "file-01652ac7cad7f30be3db924fc913e3c4ee8137c36938b87391055f8d907b7ee9",
+        "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+        "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+        "projectId": "project-20260324062406462561",
+        "relativePath": "docs/parse.md",
+        "talksTo": [],
+        "whatItIs": "A source file that contributes to repository behavior.",
+        "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+      },
+      {
+        "breakRisk": "Changing this file can break runtime entrypoints or cross-boundary execution paths.",
+        "contentHash": "3d44911e0d520336f94ed4d67e8d5340730496714a71a6039aaca69209c48995",
+        "explanationId": "explanation-b5bdeea74f7a2a2b15c2750da96b1dcbaf2416a8eeac6f10048efb14890dfa3c",
+        "fileId": "file-bbc8b4e9f8b329f999b013aaedf36a1db25e79e7020f73125dd7d3e75ae27161",
+        "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+        "ownerSummary": "An automated test surface for part of the repository. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to ./app.controller, ./app.service.",
+        "projectId": "project-20260324062406462561",
+        "relativePath": "src/app.controller.spec.ts",
+        "talksTo": [
+          "./app.controller",
+          "./app.service"
+        ],
+        "whatItIs": "An automated test surface for part of the repository.",
+        "whyItExists": "It owns a boundary that should stay centralized instead of being copied into feature code."
+      }
+    ]
+  },
+  "runId": "run-20260324062406462598",
+  "schemaVersion": "cutr.archetype.v1",
+  "selectedFiles": [
+    {
+      "category": "doc",
+      "fileId": "file-a54ff182c7e8acf56acfd6e4b9c3ff41e2c41a31c9b211b2deb9df75d9a478f9",
+      "language": "Markdown",
+      "matchedRuleIds": [
+        "selection-rule-cd3797ccec616aa858ed21e4d92337af364428cbf235679510743302e0a309e3"
+      ],
+      "ownerSummary": "A documentation file that explains repository behavior or rules. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+      "relativePath": "AGENTS.md",
+      "roleRelevance": 4.0,
+      "whySelected": [
+        "AGENTS.md: config AGENTS.md (Documentation file informs architecture or onboarding.)"
+      ]
+    },
+    {
+      "category": "doc",
+      "fileId": "file-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5",
+      "language": "Markdown",
+      "matchedRuleIds": [
+        "selection-rule-cd3797ccec616aa858ed21e4d92337af364428cbf235679510743302e0a309e3"
+      ],
+      "ownerSummary": "A documentation file that explains repository behavior or rules. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+      "relativePath": "README.md",
+      "roleRelevance": 4.0,
+      "whySelected": [
+        "README.md: config README.md (Documentation file informs architecture or onboarding.)"
+      ]
+    },
+    {
+      "category": "source",
+      "fileId": "file-70a1317ca03b71cf52fc8a92067c96b2fb6da178ae15f7fdbcb165f02812bc5a",
+      "language": "JSON",
+      "matchedRuleIds": [
+        "selection-rule-cd3797ccec616aa858ed21e4d92337af364428cbf235679510743302e0a309e3"
+      ],
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "relativePath": "docs/.obsidian/app.json",
+      "roleRelevance": 4.0,
+      "whySelected": []
+    },
+    {
+      "category": "source",
+      "fileId": "file-ad10d98b5ab41c43ba078b164aa4a085a8a12a940ef0c72e9a99fed11d50bc2f",
+      "language": "JSON",
+      "matchedRuleIds": [
+        "selection-rule-cd3797ccec616aa858ed21e4d92337af364428cbf235679510743302e0a309e3"
+      ],
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "relativePath": "docs/.obsidian/appearance.json",
+      "roleRelevance": 4.0,
+      "whySelected": []
+    },
+    {
+      "category": "source",
+      "fileId": "file-6dab216578b026eaf14c5de576aa593b96e3ad526bbbc76ee52f16c08b55b42d",
+      "language": "JSON",
+      "matchedRuleIds": [
+        "selection-rule-cd3797ccec616aa858ed21e4d92337af364428cbf235679510743302e0a309e3"
+      ],
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "relativePath": "docs/.obsidian/community-plugins.json",
+      "roleRelevance": 4.0,
+      "whySelected": []
+    },
+    {
+      "category": "source",
+      "fileId": "file-643fae5e0e18bc92bf1b8771e266bea7efd2793ee0e9ae47bbf88779c43337b0",
+      "language": "JSON",
+      "matchedRuleIds": [
+        "selection-rule-cd3797ccec616aa858ed21e4d92337af364428cbf235679510743302e0a309e3"
+      ],
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "relativePath": "docs/.obsidian/core-plugins.json",
+      "roleRelevance": 4.0,
+      "whySelected": []
+    },
+    {
+      "category": "source",
+      "fileId": "file-591be99fa548d6cb7969b3a9f5fab48be08edccd97864637e26c3e30858bc5c4",
+      "language": "JSON",
+      "matchedRuleIds": [
+        "selection-rule-cd3797ccec616aa858ed21e4d92337af364428cbf235679510743302e0a309e3"
+      ],
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "relativePath": "docs/.obsidian/graph.json",
+      "roleRelevance": 4.0,
+      "whySelected": []
+    },
+    {
+      "category": "source",
+      "fileId": "file-df16598ad110901cf008efba3608f2c3ed80574a734ee93a1b36a88595f711c0",
+      "language": "JSON",
+      "matchedRuleIds": [
+        "selection-rule-cd3797ccec616aa858ed21e4d92337af364428cbf235679510743302e0a309e3"
+      ],
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "relativePath": "docs/.obsidian/hotkeys.json",
+      "roleRelevance": 4.0,
+      "whySelected": []
+    },
+    {
+      "category": "source",
+      "fileId": "file-f86a57c58316921c28ae536ab7e12e223385ba5d68a3e311f2fe673cf45b5d69",
+      "language": "JavaScript",
+      "matchedRuleIds": [
+        "selection-rule-cd3797ccec616aa858ed21e4d92337af364428cbf235679510743302e0a309e3"
+      ],
+      "ownerSummary": "An automated test surface for part of the repository. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to runtime routes.",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js",
+      "roleRelevance": 7.0,
+      "whySelected": [
+        "docs/.obsidian/plugins/obsidian-git/main.js: config environment (This file reads values from the environment.)",
+        "docs/.obsidian/plugins/obsidian-git/main.js: infra failure-path (This file has explicit error or failure handling paths.)",
+        "docs/.obsidian/plugins/obsidian-git/main.js: infra runtime-route (This file declares runtime command or HTTP route surfaces.)",
+        "docs/.obsidian/plugins/obsidian-git/main.js: ui jsx-view (This file renders JSX or TSX user interface.)"
+      ]
+    },
+    {
+      "category": "source",
+      "fileId": "file-642fcd0aab0ab08aaccd15ee6d8097d92e95648971d37ce37622d1fe879454e0",
+      "language": "JSON",
+      "matchedRuleIds": [
+        "selection-rule-cd3797ccec616aa858ed21e4d92337af364428cbf235679510743302e0a309e3"
+      ],
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/manifest.json",
+      "roleRelevance": 4.0,
+      "whySelected": []
+    },
+    {
+      "category": "source",
+      "fileId": "file-fbe366be90ecedbc08b8bbe2a3c9c02d6760de78803097cd073c07b84fb44dc2",
+      "language": "Other",
+      "matchedRuleIds": [
+        "selection-rule-cd3797ccec616aa858ed21e4d92337af364428cbf235679510743302e0a309e3"
+      ],
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/obsidian_askpass.sh",
+      "roleRelevance": 4.0,
+      "whySelected": []
+    },
+    {
+      "category": "source",
+      "fileId": "file-f540efd2fffc569ff6e3293a165f6ee96338bf3d3340f4e511169cf8c307028d",
+      "language": "JSON",
+      "matchedRuleIds": [
+        "selection-rule-cd3797ccec616aa858ed21e4d92337af364428cbf235679510743302e0a309e3"
+      ],
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "relativePath": "docs/.obsidian/themes/AnuPpuccin/manifest.json",
+      "roleRelevance": 4.0,
+      "whySelected": []
+    },
+    {
+      "category": "source",
+      "fileId": "file-0f9e93b370b577ecf90db7461f44b42fb5354213543bbd59b6f0501f2adaf971",
+      "language": "JSON",
+      "matchedRuleIds": [
+        "selection-rule-cd3797ccec616aa858ed21e4d92337af364428cbf235679510743302e0a309e3"
+      ],
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "relativePath": "docs/.obsidian/themes/Shimmering Focus/manifest.json",
+      "roleRelevance": 4.0,
+      "whySelected": []
+    },
+    {
+      "category": "source",
+      "fileId": "file-6f166d7548e8b46d3ca41de1ccdb7b6280ca27bad992d27569752cc0496bda53",
+      "language": "JSON",
+      "matchedRuleIds": [
+        "selection-rule-cd3797ccec616aa858ed21e4d92337af364428cbf235679510743302e0a309e3"
+      ],
+      "ownerSummary": "A boundary or infrastructure file that touches runtime execution. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to no clearly detected internal dependency edges.",
+      "relativePath": "docs/.obsidian/workspace.json",
+      "roleRelevance": 4.0,
+      "whySelected": [
+        "docs/.obsidian/workspace.json: infra database-boundary (This file interacts with the local index database.)"
+      ]
+    },
+    {
+      "category": "source",
+      "fileId": "file-01652ac7cad7f30be3db924fc913e3c4ee8137c36938b87391055f8d907b7ee9",
+      "language": "Markdown",
+      "matchedRuleIds": [
+        "selection-rule-cd3797ccec616aa858ed21e4d92337af364428cbf235679510743302e0a309e3"
+      ],
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "relativePath": "docs/parse.md",
+      "roleRelevance": 4.0,
+      "whySelected": []
+    },
+    {
+      "category": "source",
+      "fileId": "file-bbc8b4e9f8b329f999b013aaedf36a1db25e79e7020f73125dd7d3e75ae27161",
+      "language": "TypeScript",
+      "matchedRuleIds": [
+        "selection-rule-b34bc2936ac8693547f8edec0077a43651d3fd3cd314ac825b182a15e05e9843",
+        "selection-rule-e9793a1d9b7bdd2fb5db6d843af9348bc8bfa35e4006b6cbee9fc773f23fad47"
+      ],
+      "ownerSummary": "An automated test surface for part of the repository. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to ./app.controller, ./app.service.",
+      "relativePath": "src/app.controller.spec.ts",
+      "roleRelevance": 1.0,
+      "whySelected": [
+        "src/app.controller.spec.ts: infra runtime-route (This file declares runtime command or HTTP route surfaces.)"
+      ]
+    },
+    {
+      "category": "source",
+      "fileId": "file-c8f0de064c2199359a77906695a0b275659ddc8b03e22ebfc52053ea045e44d3",
+      "language": "TypeScript",
+      "matchedRuleIds": [
+        "selection-rule-b34bc2936ac8693547f8edec0077a43651d3fd3cd314ac825b182a15e05e9843",
+        "selection-rule-e9793a1d9b7bdd2fb5db6d843af9348bc8bfa35e4006b6cbee9fc773f23fad47"
+      ],
+      "ownerSummary": "An automated test surface for part of the repository. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to ./generate-review.dto.",
+      "relativePath": "src/generate-review/dto/generate-review.dto.spec.ts",
+      "roleRelevance": 2.799999952316284,
+      "whySelected": [
+        "src/generate-review/dto/generate-review.dto.spec.ts: infra failure-path (This file has explicit error or failure handling paths.)"
+      ]
+    },
+    {
+      "category": "source",
+      "fileId": "file-7a812de6454dfe6edb3eda53a378996b50332e1f1e2582db5be94188f1d22068",
+      "language": "TypeScript",
+      "matchedRuleIds": [
+        "selection-rule-b34bc2936ac8693547f8edec0077a43651d3fd3cd314ac825b182a15e05e9843",
+        "selection-rule-e9793a1d9b7bdd2fb5db6d843af9348bc8bfa35e4006b6cbee9fc773f23fad47"
+      ],
+      "ownerSummary": "An automated test surface for part of the repository. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to ./dto/generate-review.dto, ./generate-review.service.",
+      "relativePath": "src/generate-review/generate-review.service.spec.ts",
+      "roleRelevance": 2.799999952316284,
+      "whySelected": [
+        "src/generate-review/generate-review.service.spec.ts: config environment (This file reads values from the environment.)",
+        "src/generate-review/generate-review.service.spec.ts: infra failure-path (This file has explicit error or failure handling paths.)"
+      ]
+    },
+    {
+      "category": "source",
+      "fileId": "file-1a92399186df2c62e4f7a93c6023ecb264312da3c62d743fcb870ba7165634a6",
+      "language": "TypeScript",
+      "matchedRuleIds": [
+        "selection-rule-e9793a1d9b7bdd2fb5db6d843af9348bc8bfa35e4006b6cbee9fc773f23fad47",
+        "selection-rule-dfc60b90be7c63cbff6f8a0c7fba2a3193e6f4b85e577b4d0d025b9b17a4c2d6"
+      ],
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 1 named symbols that other files rely on. It currently talks to ./promptConfig.controller, ./promptConfig.service.",
+      "relativePath": "src/kiaspora/promptConfig.module.ts",
+      "roleRelevance": 0.0,
+      "whySelected": []
+    },
+    {
+      "category": "entrypoint",
+      "fileId": "file-4fab5baaca5c14d2de62d8d2fceef376ddddcc8e9509d86cfa5643f51b89ce3d",
+      "language": "TypeScript",
+      "matchedRuleIds": [
+        "selection-rule-2316ca0af473716773134753b9ea9f2d6a274270fdd8872ad02919c4d10bc610",
+        "selection-rule-e9793a1d9b7bdd2fb5db6d843af9348bc8bfa35e4006b6cbee9fc773f23fad47"
+      ],
+      "ownerSummary": "A source file that contributes to repository behavior. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to ./app.module.",
+      "relativePath": "src/main.ts",
+      "roleRelevance": 0.0,
+      "whySelected": [
+        "src/main.ts: config environment (This file reads values from the environment.)"
+      ]
+    }
+  ],
+  "selectedSymbols": [
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "Jy",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "ZM",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "KM",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "I",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "JM",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "Qy",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "callable",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "bt",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "QM",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "callable",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "vt",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "Gp",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "callable",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "le",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "callable",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "wt",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "component",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "Ot",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "callable",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "vi",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "callable",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "rb",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "function",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "tb",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "function",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "tD",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "function",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "rD",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "function",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "nD",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "function",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "iD",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "function",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "aD",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "function",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "sD",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "callable",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "nb",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    },
+    {
+      "isExported": false,
+      "kind": "callable",
+      "lines": [
+        6,
+        6
+      ],
+      "name": "em",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js"
+    }
+  ]
+}

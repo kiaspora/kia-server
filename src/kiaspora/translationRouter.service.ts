@@ -12,11 +12,11 @@ type NormalizedRequest = {
 };
 
 type ProviderResult200 = {
-  translation: string;              // canonical JSON string
-  detected_source_lang: string;     // best-effort, else "auto"
-  provider: Provider;               // who produced it
+  translation: string; // canonical JSON string
+  detected_source_lang: string; // best-effort, else "auto"
+  provider: Provider; // who produced it
   latency_ms: number;
-  raw_provider_meta: any;           // raw-ish metadata for debugging
+  raw_provider_meta: any; // raw-ish metadata for debugging
 };
 
 class HttpError extends Error {
@@ -52,11 +52,19 @@ function getBodyField(body: any, camel: string, snake: string) {
 function normalizeProvider(raw: any): Provider | null {
   if (raw == null) return null;
   if (typeof raw !== 'string') {
-    throw new HttpError(400, 'provider must be a string when provided', 'INVALID_PROVIDER');
+    throw new HttpError(
+      400,
+      'provider must be a string when provided',
+      'INVALID_PROVIDER',
+    );
   }
   const lower = raw.toLowerCase().trim();
   if (lower !== 'deepseek' && lower !== 'groq' && lower !== 'openai') {
-    throw new HttpError(400, 'provider must be "deepseek", "groq", or "openai" when provided', 'INVALID_PROVIDER');
+    throw new HttpError(
+      400,
+      'provider must be "deepseek", "groq", or "openai" when provided',
+      'INVALID_PROVIDER',
+    );
   }
   return lower;
 }
@@ -64,7 +72,8 @@ function normalizeProvider(raw: any): Provider | null {
 function mergeContext(rawContext: any, rawUserMessage: any): string | null {
   const parts: string[] = [];
   if (isNonEmptyString(rawContext)) parts.push(rawContext.trim());
-  if (isNonEmptyString(rawUserMessage)) parts.push(`userMessage: ${rawUserMessage.trim()}`);
+  if (isNonEmptyString(rawUserMessage))
+    parts.push(`userMessage: ${rawUserMessage.trim()}`);
   const merged = parts.filter(Boolean).join('\n\n');
   return merged.trim() ? merged : null;
 }
@@ -75,7 +84,10 @@ function mergeContext(rawContext: any, rawUserMessage: any): string | null {
  * - If it’s parseable JSON, re-stringify compactly.
  * - Otherwise wrap into the required keys (best-effort).
  */
-function toCanonicalTranslationJsonString(raw: string, sourceText: string): string {
+function toCanonicalTranslationJsonString(
+  raw: string,
+  sourceText: string,
+): string {
   const stripped = String(raw ?? '')
     .trim()
     .replace(/^```(?:json)?/i, '')
@@ -196,10 +208,18 @@ export class TranslationRouterService {
     const customPrompt = getBodyField(body, 'customPrompt', 'custom_prompt');
 
     if (!isNonEmptyString(sourceText)) {
-      throw new HttpError(400, 'Missing required field: sourceText/source_text', 'MISSING_SOURCE_TEXT');
+      throw new HttpError(
+        400,
+        'Missing required field: sourceText/source_text',
+        'MISSING_SOURCE_TEXT',
+      );
     }
     if (!isNonEmptyString(targetLang)) {
-      throw new HttpError(400, 'Missing required field: targetLang/target_lang', 'MISSING_TARGET_LANG');
+      throw new HttpError(
+        400,
+        'Missing required field: targetLang/target_lang',
+        'MISSING_TARGET_LANG',
+      );
     }
 
     const normalizedProvider = normalizeProvider(providerRaw);
@@ -220,18 +240,28 @@ export class TranslationRouterService {
   // ---------- Providers ----------
 
   private async callOpenAI(
-    payload: { sourceText: string; sourceLang: string; targetLang: string; context: string | null; customPrompt: string | null },
+    payload: {
+      sourceText: string;
+      sourceLang: string;
+      targetLang: string;
+      context: string | null;
+      customPrompt: string | null;
+    },
     traceId: string,
   ): Promise<ProviderResult200> {
     // IMPORTANT: use the correct env var name
     const apiKey = pickFirstEnv(
-      'OPENAI_KIA_API_KEY',          // ✅ correct
-      'OPENAI_API_KEY',              // fallback if used elsewhere
-      'OPENAI_KIASPORA_API_KEY',     // legacy safety net
+      'OPENAI_KIA_API_KEY', // ✅ correct
+      'OPENAI_API_KEY', // fallback if used elsewhere
+      'OPENAI_KIASPORA_API_KEY', // legacy safety net
     );
 
     if (!apiKey) {
-      throw new HttpError(500, 'Missing OPENAI_KIA_API_KEY', 'MISSING_OPENAI_KIA_API_KEY');
+      throw new HttpError(
+        500,
+        'Missing OPENAI_KIA_API_KEY',
+        'MISSING_OPENAI_KIA_API_KEY',
+      );
     }
 
     const model = pickFirstEnv('OPENAI_TRANSLATION_MODEL') || 'gpt-4o-mini';
@@ -244,7 +274,9 @@ export class TranslationRouterService {
       `Source language: ${payload.sourceLang}`,
       `Target language: ${payload.targetLang}`,
       `Text:\n${payload.sourceText}`,
-      payload.customPrompt ? `Output format rules:\n${payload.customPrompt}` : null,
+      payload.customPrompt
+        ? `Output format rules:\n${payload.customPrompt}`
+        : null,
     ]
       .filter(Boolean)
       .join('\n\n');
@@ -277,14 +309,22 @@ export class TranslationRouterService {
     }
 
     if (!resp.ok) {
-      throw new HttpError(502, `OpenAI HTTP ${resp.status} ${resp.statusText || ''}`.trim(), 'OPENAI_HTTP_ERROR', {
-        status: resp.status,
-        bodySnippet: rawText.slice(0, 800),
-      });
+      throw new HttpError(
+        502,
+        `OpenAI HTTP ${resp.status} ${resp.statusText || ''}`.trim(),
+        'OPENAI_HTTP_ERROR',
+        {
+          status: resp.status,
+          bodySnippet: rawText.slice(0, 800),
+        },
+      );
     }
 
     const content = parsed?.choices?.[0]?.message?.content ?? '';
-    const translation = toCanonicalTranslationJsonString(String(content), payload.sourceText);
+    const translation = toCanonicalTranslationJsonString(
+      String(content),
+      payload.sourceText,
+    );
 
     return {
       translation,
@@ -300,11 +340,22 @@ export class TranslationRouterService {
   }
 
   private async callDeepSeek(
-    payload: { sourceText: string; sourceLang: string; targetLang: string; context: string | null; customPrompt: string | null },
+    payload: {
+      sourceText: string;
+      sourceLang: string;
+      targetLang: string;
+      context: string | null;
+      customPrompt: string | null;
+    },
     traceId: string,
   ): Promise<ProviderResult200> {
     const apiKey = pickFirstEnv('DEEPSEEK_API_KEY', 'DEEPSEEK_API_KEY');
-    if (!apiKey) throw new HttpError(500, 'Missing DEEPSEEK_API_KEY', 'MISSING_DEEPSEEK_API_KEY');
+    if (!apiKey)
+      throw new HttpError(
+        500,
+        'Missing DEEPSEEK_API_KEY',
+        'MISSING_DEEPSEEK_API_KEY',
+      );
 
     const model = pickFirstEnv('DEEPSEEK_TRANSLATION_MODEL') || 'deepseek-chat';
     const started = Date.now();
@@ -314,7 +365,9 @@ export class TranslationRouterService {
       `Source language: ${payload.sourceLang}`,
       `Target language: ${payload.targetLang}`,
       `Text:\n${payload.sourceText}`,
-      payload.customPrompt ? `Output format rules:\n${payload.customPrompt}` : null,
+      payload.customPrompt
+        ? `Output format rules:\n${payload.customPrompt}`
+        : null,
     ]
       .filter(Boolean)
       .join('\n\n');
@@ -341,32 +394,56 @@ export class TranslationRouterService {
     } catch {}
 
     if (!resp.ok) {
-      throw new HttpError(502, `DeepSeek HTTP ${resp.status} ${resp.statusText || ''}`.trim(), 'DEEPSEEK_HTTP_ERROR', {
-        status: resp.status,
-        bodySnippet: rawText.slice(0, 800),
-      });
+      throw new HttpError(
+        502,
+        `DeepSeek HTTP ${resp.status} ${resp.statusText || ''}`.trim(),
+        'DEEPSEEK_HTTP_ERROR',
+        {
+          status: resp.status,
+          bodySnippet: rawText.slice(0, 800),
+        },
+      );
     }
 
     const content = parsed?.choices?.[0]?.message?.content ?? '';
-    const translation = toCanonicalTranslationJsonString(String(content), payload.sourceText);
+    const translation = toCanonicalTranslationJsonString(
+      String(content),
+      payload.sourceText,
+    );
 
     return {
       translation,
       detected_source_lang: payload.sourceLang || 'auto',
       provider: 'deepseek',
       latency_ms,
-      raw_provider_meta: { model, usage: parsed?.usage ?? null, id: parsed?.id ?? null },
+      raw_provider_meta: {
+        model,
+        usage: parsed?.usage ?? null,
+        id: parsed?.id ?? null,
+      },
     };
   }
 
   private async callGroq(
-    payload: { sourceText: string; sourceLang: string; targetLang: string; context: string | null; customPrompt: string | null },
+    payload: {
+      sourceText: string;
+      sourceLang: string;
+      targetLang: string;
+      context: string | null;
+      customPrompt: string | null;
+    },
     traceId: string,
   ): Promise<ProviderResult200> {
     const apiKey = pickFirstEnv('GROQ_KIA_API_KEY', 'GROQ_API_KEY');
-    if (!apiKey) throw new HttpError(500, 'Missing GROQ_KIA_API_KEY', 'MISSING_GROQ_KIA_API_KEY');
+    if (!apiKey)
+      throw new HttpError(
+        500,
+        'Missing GROQ_KIA_API_KEY',
+        'MISSING_GROQ_KIA_API_KEY',
+      );
 
-    const model = pickFirstEnv('GROQ_TRANSLATION_MODEL') || 'llama-3.1-8b-instant';
+    const model =
+      pickFirstEnv('GROQ_TRANSLATION_MODEL') || 'llama-3.1-8b-instant';
     const started = Date.now();
 
     const user = [
@@ -374,24 +451,29 @@ export class TranslationRouterService {
       `Source language: ${payload.sourceLang}`,
       `Target language: ${payload.targetLang}`,
       `Text:\n${payload.sourceText}`,
-      payload.customPrompt ? `Output format rules:\n${payload.customPrompt}` : null,
+      payload.customPrompt
+        ? `Output format rules:\n${payload.customPrompt}`
+        : null,
     ]
       .filter(Boolean)
       .join('\n\n');
 
-    const resp = await fetch('https://api.groq.com/openai/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        authorization: `Bearer ${apiKey}`,
-        'content-type': 'application/json',
-        'x-trace-id': traceId,
+    const resp = await fetch(
+      'https://api.groq.com/openai/v1/chat/completions',
+      {
+        method: 'POST',
+        headers: {
+          authorization: `Bearer ${apiKey}`,
+          'content-type': 'application/json',
+          'x-trace-id': traceId,
+        },
+        body: JSON.stringify({
+          model,
+          messages: [{ role: 'user', content: user }],
+          temperature: 0.2,
+        }),
       },
-      body: JSON.stringify({
-        model,
-        messages: [{ role: 'user', content: user }],
-        temperature: 0.2,
-      }),
-    });
+    );
 
     const latency_ms = Date.now() - started;
     const rawText = await resp.text().catch(() => '');
@@ -401,21 +483,33 @@ export class TranslationRouterService {
     } catch {}
 
     if (!resp.ok) {
-      throw new HttpError(502, `Groq HTTP ${resp.status} ${resp.statusText || ''}`.trim(), 'GROQ_HTTP_ERROR', {
-        status: resp.status,
-        bodySnippet: rawText.slice(0, 800),
-      });
+      throw new HttpError(
+        502,
+        `Groq HTTP ${resp.status} ${resp.statusText || ''}`.trim(),
+        'GROQ_HTTP_ERROR',
+        {
+          status: resp.status,
+          bodySnippet: rawText.slice(0, 800),
+        },
+      );
     }
 
     const content = parsed?.choices?.[0]?.message?.content ?? '';
-    const translation = toCanonicalTranslationJsonString(String(content), payload.sourceText);
+    const translation = toCanonicalTranslationJsonString(
+      String(content),
+      payload.sourceText,
+    );
 
     return {
       translation,
       detected_source_lang: payload.sourceLang || 'auto',
       provider: 'groq',
       latency_ms,
-      raw_provider_meta: { model, usage: parsed?.usage ?? null, id: parsed?.id ?? null },
+      raw_provider_meta: {
+        model,
+        usage: parsed?.usage ?? null,
+        id: parsed?.id ?? null,
+      },
     };
   }
 }

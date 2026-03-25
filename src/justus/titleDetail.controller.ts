@@ -112,30 +112,38 @@ function hasPartialInfo(info: TitleDetailInfo) {
 }
 
 function hasRequiredTitleYear(info: TitleDetailInfo) {
-  return Boolean(String(info.title || '').trim()) && Boolean(String(info.year || '').trim());
+  return (
+    Boolean(String(info.title || '').trim()) &&
+    Boolean(String(info.year || '').trim())
+  );
 }
 
 function hasAnyInfoValue(info: TitleDetailInfo) {
   return Boolean(
     String(info.title || '').trim() ||
-      String(info.year || '').trim() ||
-      String(info.rated || '').trim() ||
-      String(info.released || '').trim() ||
-      String(info.runtime || '').trim() ||
-      String(info.genre || '').trim() ||
-      String(info.director || '').trim() ||
-      String(info.writers || '').trim() ||
-      String(info.actors || '').trim() ||
-      String(info.plot || '').trim() ||
-      String(info.language || '').trim() ||
-      String(info.country || '').trim() ||
-      String(info.poster || '').trim(),
+    String(info.year || '').trim() ||
+    String(info.rated || '').trim() ||
+    String(info.released || '').trim() ||
+    String(info.runtime || '').trim() ||
+    String(info.genre || '').trim() ||
+    String(info.director || '').trim() ||
+    String(info.writers || '').trim() ||
+    String(info.actors || '').trim() ||
+    String(info.plot || '').trim() ||
+    String(info.language || '').trim() ||
+    String(info.country || '').trim() ||
+    String(info.poster || '').trim(),
   );
 }
 
-function toTitleDetailInfoFromFallback(raw: any, imdbId: string): TitleDetailInfo {
+function toTitleDetailInfoFromFallback(
+  raw: any,
+  imdbId: string,
+): TitleDetailInfo {
   const runtimeRaw = cleanText(raw?.runtime);
-  const runtime = /^\d+$/.test(runtimeRaw) ? runtimeRaw : parseRuntimeMinutes(runtimeRaw);
+  const runtime = /^\d+$/.test(runtimeRaw)
+    ? runtimeRaw
+    : parseRuntimeMinutes(runtimeRaw);
 
   return {
     title: cleanText(raw?.title),
@@ -157,7 +165,9 @@ function toTitleDetailInfoFromFallback(raw: any, imdbId: string): TitleDetailInf
 
 function buildLocalBaseUrl(req: Request) {
   const proto =
-    (req.header('x-forwarded-proto') || '').split(',')[0]?.trim() || req.protocol || 'http';
+    (req.header('x-forwarded-proto') || '').split(',')[0]?.trim() ||
+    req.protocol ||
+    'http';
   const host =
     (req.header('x-forwarded-host') || '').split(',')[0]?.trim() ||
     req.get('host') ||
@@ -176,7 +186,8 @@ export class TitleDetailController {
     @Query('imdbId') imdbIdRaw: string | undefined,
   ) {
     const traceId =
-      (req.header('x-trace-id') || req.header('X-Trace-Id'))?.trim() || randomUUID();
+      (req.header('x-trace-id') || req.header('X-Trace-Id'))?.trim() ||
+      randomUUID();
 
     const imdbId = String(imdbIdRaw ?? '').trim();
     const baseInfo: TitleDetailInfo = {
@@ -268,7 +279,8 @@ export class TitleDetailController {
           omdbErrors.push(
             makeError({
               source: 'omdb',
-              message: `OMDb HTTP ${upstream.status} ${upstream.statusText || ''}`.trim(),
+              message:
+                `OMDb HTTP ${upstream.status} ${upstream.statusText || ''}`.trim(),
               code: upstream.status,
               details: { bodySnippet: truncate(raw) },
             }),
@@ -349,7 +361,8 @@ export class TitleDetailController {
       );
     } else {
       const fallbackUrl = `${base.replace(/\/$/, '')}/api/parse/imdbDetail?imdbId=${encodeURIComponent(imdbId)}`;
-      const authHeader = req.header('authorization') || req.header('Authorization');
+      const authHeader =
+        req.header('authorization') || req.header('Authorization');
 
       try {
         const fallbackResp = await fetch(fallbackUrl, {
@@ -381,7 +394,8 @@ export class TitleDetailController {
           fallbackErrors.push(
             makeError({
               source: 'imdbDetailFallback',
-              message: `Fallback HTTP ${fallbackResp.status} ${fallbackResp.statusText || ''}`.trim(),
+              message:
+                `Fallback HTTP ${fallbackResp.status} ${fallbackResp.statusText || ''}`.trim(),
               code: fallbackResp.status,
               details: { bodySnippet: truncate(raw), fallbackUrl },
             }),
@@ -434,7 +448,11 @@ export class TitleDetailController {
         .send(JSON.stringify(body));
     }
 
-    const fallbackFailedStatus = hasAnyInfoValue(omdbInfo) ? 206 : omdbStatus >= 400 ? omdbStatus : 502;
+    const fallbackFailedStatus = hasAnyInfoValue(omdbInfo)
+      ? 206
+      : omdbStatus >= 400
+        ? omdbStatus
+        : 502;
     const fallbackFailedInfo = hasAnyInfoValue(omdbInfo) ? omdbInfo : baseInfo;
     const body = {
       requestId: traceId,

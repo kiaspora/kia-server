@@ -67,8 +67,13 @@ function parseImdbFindHtml(html: string): ImdbSearchItem[] {
 export class ImdbSearchController {
   @UseGuards(BearerTokenGuard)
   @Get('imdbSearch')
-  async imdbSearch(@Query('query') query: string | undefined, @Req() req: TraceRequest) {
-    const auth = (req.headers?.authorization ?? req.headers?.Authorization) as string | undefined;
+  async imdbSearch(
+    @Query('query') query: string | undefined,
+    @Req() req: TraceRequest,
+  ) {
+    const auth = (req.headers?.authorization ?? req.headers?.Authorization) as
+      | string
+      | undefined;
     const started = Date.now();
 
     const q = (query ?? '').trim();
@@ -91,24 +96,27 @@ export class ImdbSearchController {
     const imdbUrl = `https://www.imdb.com/find/?q=${encodeURIComponent(q)}`;
 
     const proto =
-      (req.headers['x-forwarded-proto'] as string | undefined)?.split(',')[0]?.trim() ||
+      (req.headers['x-forwarded-proto'] as string | undefined)
+        ?.split(',')[0]
+        ?.trim() ||
       req.protocol ||
       'http';
 
     const host =
-      (req.headers['x-forwarded-host'] as string | undefined)?.split(',')[0]?.trim() ||
-      req.get('host');
+      (req.headers['x-forwarded-host'] as string | undefined)
+        ?.split(',')[0]
+        ?.trim() || req.get('host');
 
     const base = `${proto}://${host}`;
     const localParseUrl = `${base}/api/parse/html?url=${encodeURIComponent(imdbUrl)}`;
 
     let parseResp: ParseHtmlResponse;
     try {
-      const r = await fetch(localParseUrl, { 
+      const r = await fetch(localParseUrl, {
         redirect: 'follow',
         headers: {
-            ...(auth ? { Authorization: auth } : {}),
-            ...(req.traceId ? { 'x-trace-id': req.traceId } : {}),
+          ...(auth ? { Authorization: auth } : {}),
+          ...(req.traceId ? { 'x-trace-id': req.traceId } : {}),
         },
       });
       parseResp = (await r.json()) as ParseHtmlResponse;
@@ -119,7 +127,9 @@ export class ImdbSearchController {
         query: q,
         url: imdbUrl,
         filePath: null,
-        errors: [e?.message ? String(e.message) : 'Failed to call /api/parse/html'],
+        errors: [
+          e?.message ? String(e.message) : 'Failed to call /api/parse/html',
+        ],
         latency,
         size: 0,
         results: [],
@@ -133,7 +143,9 @@ export class ImdbSearchController {
         query: q,
         url: parseResp.url || imdbUrl,
         filePath: parseResp.filePath ?? null,
-        errors: parseResp.errors?.length ? parseResp.errors : ['No filePath returned'],
+        errors: parseResp.errors?.length
+          ? parseResp.errors
+          : ['No filePath returned'],
         latency,
         size: parseResp.size ?? 0,
         results: [],
@@ -167,7 +179,9 @@ export class ImdbSearchController {
         query: q,
         url: parseResp.url || imdbUrl,
         filePath: parseResp.filePath,
-        errors: [e?.message ? String(e.message) : 'Failed to read saved HTML file'],
+        errors: [
+          e?.message ? String(e.message) : 'Failed to read saved HTML file',
+        ],
         latency,
         size: 0,
         results: [],

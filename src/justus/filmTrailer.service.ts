@@ -88,7 +88,9 @@ export class FilmTrailerService {
         });
       }
 
-      const parsed = rawBody ? (JSON.parse(rawBody) as { items?: unknown[] }) : { items: [] };
+      const parsed = rawBody
+        ? (JSON.parse(rawBody) as { items?: unknown[] })
+        : { items: [] };
       videos = this.extractVideos(parsed.items);
     } catch (error: any) {
       upstreamStatus = 500;
@@ -107,7 +109,9 @@ export class FilmTrailerService {
     });
   }
 
-  private pickQuery(rawParams: Record<string, string | string[] | undefined>): string {
+  private pickQuery(
+    rawParams: Record<string, string | string[] | undefined>,
+  ): string {
     const fromQuery = this.firstValue(rawParams.query);
     if (fromQuery.trim()) return fromQuery.trim();
 
@@ -125,7 +129,11 @@ export class FilmTrailerService {
     return Math.max(0, Math.min(50, parsed));
   }
 
-  private buildYoutubeUrl(query: string, maxResults: number, apiKey: string): string {
+  private buildYoutubeUrl(
+    query: string,
+    maxResults: number,
+    apiKey: string,
+  ): string {
     const params = new URLSearchParams({
       part: 'snippet',
       q: query,
@@ -142,7 +150,7 @@ export class FilmTrailerService {
 
     const out: FilmTrailerVideo[] = [];
     for (const item of items) {
-      const source = item as any;
+      const source = item;
       const videoId = source?.id?.videoId;
       const snippet = source?.snippet;
 
@@ -167,7 +175,10 @@ export class FilmTrailerService {
     return value ?? '';
   }
 
-  private buildResult(statusCode: number, body: FilmTrailerBody): FilmTrailerResult {
+  private buildResult(
+    statusCode: number,
+    body: FilmTrailerBody,
+  ): FilmTrailerResult {
     return { statusCode, body };
   }
 }

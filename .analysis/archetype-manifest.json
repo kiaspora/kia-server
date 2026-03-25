@@ -1,0 +1,70 @@
+{
+  "dependencyGraphHash": "7a3d5d8b8aa3673dd1e9ceb9805f48dc8cedba731d3a0af75136f2b37c438974",
+  "files": [
+    {
+      "archetypeId": "Builder",
+      "artifactId": "artifact-run-20260324062406462598-archetype-builder",
+      "exportFileName": "Builder.json",
+      "packetHash": "5ede1bc194b05902ca93c7a23425e870e057ab44714e20b1f05d61b946fbfc67",
+      "packetId": "packet-391d80cc686ef025ece1497cbb8248f738d37594fd3f48183ceac2dad04e8eec",
+      "primaryFileCount": 82,
+      "selectedFileCount": 7,
+      "selectedSymbolCount": 3008
+    },
+    {
+      "archetypeId": "Operator",
+      "artifactId": "artifact-run-20260324062406462598-archetype-operator",
+      "exportFileName": "Operator.json",
+      "packetHash": "c39c5bde4b7f20014a43fb0a3c4ccd8d667209fa6fe12aebb221df385262619d",
+      "packetId": "packet-435a5f0ddb15cd8482f1a4418d1edf24223184912c3ea290303e52c2e0d46975",
+      "primaryFileCount": 3,
+      "selectedFileCount": 8,
+      "selectedSymbolCount": 2997
+    },
+    {
+      "archetypeId": "Truth-Teller",
+      "artifactId": "artifact-run-20260324062406462598-archetype-truth-teller",
+      "exportFileName": "Truth-Teller.json",
+      "packetHash": "1d3028d413f9bd1cd9ac9066026be2caf4553bd8898ef44349d586ba29b70272",
+      "packetId": "packet-1ef79656d666064bde7df6a4e264ef5bdff97ad40ca5b2005ea48e9b056616d6",
+      "primaryFileCount": 9,
+      "selectedFileCount": 3,
+      "selectedSymbolCount": 2954
+    },
+    {
+      "archetypeId": "Reviewer",
+      "artifactId": "artifact-run-20260324062406462598-archetype-reviewer",
+      "exportFileName": "Reviewer.json",
+      "packetHash": "8d1a249026e93baac14a3a890fdf59294f7147bb020073cedcc89bc529198ea9",
+      "packetId": "packet-3f62ef0fdfd74a14dbf6891ad88012256ffe70fb54f271b7615dcfc7ea8a95a5",
+      "primaryFileCount": 4,
+      "selectedFileCount": 8,
+      "selectedSymbolCount": 2957
+    },
+    {
+      "archetypeId": "Strategist",
+      "artifactId": "artifact-run-20260324062406462598-archetype-strategist",
+      "exportFileName": "Strategist.json",
+      "packetHash": "5a1e3fa7b53b807a4f00abc22700a0e6fa90cb52c243aca77c07152f5b64786c",
+      "packetId": "packet-c0b2c22d4ffa7c76f80143426edf90978ce693a1285034fa03848d604539b9ff",
+      "primaryFileCount": 18,
+      "selectedFileCount": 16,
+      "selectedSymbolCount": 3000
+    },
+    {
+      "archetypeId": "Facilitator",
+      "artifactId": "artifact-run-20260324062406462598-archetype-facilitator",
+      "exportFileName": "Facilitator.json",
+      "packetHash": "b4f84eb4122fb8d816ebfdf91162809d523190fef1683c05778941c75fd66dc7",
+      "packetId": "packet-d0a977d417eeba79fb8e1ebdda72ba571d262e853c7e2dd80b7c1bb469fcb7db",
+      "primaryFileCount": 0,
+      "selectedFileCount": 20,
+      "selectedSymbolCount": 2959
+    }
+  ],
+  "generatedAt": "2026-03-24T06:24:24.075527Z",
+  "projectId": "project-20260324062406462561",
+  "repoMapHash": "2559a7fe023ee271f4f5269c816019eb59fa71280c7880a2ce9f57acc57c39b6",
+  "runId": "run-20260324062406462598",
+  "schemaVersion": "cutr.archetype-manifest.v1"
+}

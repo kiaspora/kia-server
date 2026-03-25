@@ -11,7 +11,8 @@ async function bootstrap() {
   app.use(express.urlencoded({ limit: '30mb', extended: true }));
 
   const env = process.env.NODE_ENV ?? 'development';
-  const enableSwagger = process.env.ENABLE_SWAGGER === 'true' || env !== 'production';
+  const enableSwagger =
+    process.env.ENABLE_SWAGGER === 'true' || env !== 'production';
 
   if (enableSwagger) {
     const config = new DocumentBuilder()

@@ -93,7 +93,20 @@ function isoDateToDMY(s: string): string {
   // input: "2024-10-04"
   const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s.trim());
   if (!m) return '';
-  const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const months = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec',
+  ];
   const monthIdx = Number(m[2]) - 1;
   if (monthIdx < 0 || monthIdx > 11) return '';
   return `${m[3]} ${months[monthIdx]} ${m[1]}`;
@@ -113,12 +126,18 @@ function textOf($: cheerio.CheerioAPI, sel: string): string {
   return $(sel).first().text().replace(/\s+/g, ' ').trim();
 }
 
-function firstLinkTextByHrefIncludes($: cheerio.CheerioAPI, hrefIncludes: string): string {
+function firstLinkTextByHrefIncludes(
+  $: cheerio.CheerioAPI,
+  hrefIncludes: string,
+): string {
   const a = $(`a[href*="${hrefIncludes}"]`).first();
   return a.text().replace(/\s+/g, ' ').trim();
 }
 
-function linkTextsByHrefIncludes($: cheerio.CheerioAPI, hrefIncludes: string): string[] {
+function linkTextsByHrefIncludes(
+  $: cheerio.CheerioAPI,
+  hrefIncludes: string,
+): string[] {
   return $(`a[href*="${hrefIncludes}"]`)
     .map((_, a) => $(a).text().replace(/\s+/g, ' ').trim())
     .get()
@@ -146,7 +165,10 @@ function firstMovieJsonLd($: cheerio.CheerioAPI): ImdbJsonLd | null {
 
   const isMovieType = (t: unknown): boolean => {
     if (typeof t === 'string') return t.toLowerCase() === 'movie';
-    if (Array.isArray(t)) return t.some((x) => typeof x === 'string' && x.toLowerCase() === 'movie');
+    if (Array.isArray(t))
+      return t.some(
+        (x) => typeof x === 'string' && x.toLowerCase() === 'movie',
+      );
     return false;
   };
 
@@ -166,7 +188,10 @@ function firstMovieJsonLd($: cheerio.CheerioAPI): ImdbJsonLd | null {
   return null;
 }
 
-function listLinkTexts($root: cheerio.Cheerio<Element>, $: cheerio.CheerioAPI): string[] {
+function listLinkTexts(
+  $root: cheerio.Cheerio<Element>,
+  $: cheerio.CheerioAPI,
+): string[] {
   return $root
     .find('a')
     .map((_, a) => $(a).text().replace(/\s+/g, ' ').trim())
@@ -174,10 +199,7 @@ function listLinkTexts($root: cheerio.Cheerio<Element>, $: cheerio.CheerioAPI): 
     .filter(Boolean);
 }
 
-function findPeopleByLabel(
-  $: cheerio.CheerioAPI,
-  label: string,
-): string {
+function findPeopleByLabel($: cheerio.CheerioAPI, label: string): string {
   // In title-pc-list, label is usually a <span> with exact text like "Director" or "Writer"
   const $list = $('[data-testid="title-pc-list"]').first();
   if (!$list.length) return '';
@@ -185,7 +207,11 @@ function findPeopleByLabel(
   const $li = $list
     .find('li[data-testid="title-pc-principal-credit"]')
     .filter((_, li) => {
-      const t = $(li).find('span.ipc-metadata-list-item__label').first().text().trim();
+      const t = $(li)
+        .find('span.ipc-metadata-list-item__label')
+        .first()
+        .text()
+        .trim();
       return t === label;
     })
     .first();
@@ -204,7 +230,11 @@ function findStars($: cheerio.CheerioAPI): string {
   const $li = $list
     .find('li[data-testid="title-pc-principal-credit"]')
     .filter((_, li) => {
-      const t = $(li).find('a.ipc-metadata-list-item__label').first().text().trim();
+      const t = $(li)
+        .find('a.ipc-metadata-list-item__label')
+        .first()
+        .text()
+        .trim();
       return t === 'Stars';
     })
     .first();
@@ -219,7 +249,10 @@ function findStars($: cheerio.CheerioAPI): string {
 @UseGuards(BearerTokenGuard)
 export class ImdbDetailController {
   @Get('imdbDetail')
-  async imdbDetail(@Query('imdbId') imdbIdRaw: string | undefined, @Req() req: TraceRequest) {
+  async imdbDetail(
+    @Query('imdbId') imdbIdRaw: string | undefined,
+    @Req() req: TraceRequest,
+  ) {
     const requestId =
       (req.traceId ||
         (req.headers['x-trace-id'] as string | undefined) ||
@@ -262,12 +295,16 @@ export class ImdbDetailController {
 
     // Build local base URL (supports proxies)
     const proto =
-      (req.headers['x-forwarded-proto'] as string | undefined)?.split(',')[0]?.trim() ||
+      (req.headers['x-forwarded-proto'] as string | undefined)
+        ?.split(',')[0]
+        ?.trim() ||
       (req as any).protocol ||
       'http';
 
     const host =
-      (req.headers['x-forwarded-host'] as string | undefined)?.split(',')[0]?.trim() ||
+      (req.headers['x-forwarded-host'] as string | undefined)
+        ?.split(',')[0]
+        ?.trim() ||
       (req as any).get?.('host') ||
       req.headers.host;
 
@@ -276,9 +313,8 @@ export class ImdbDetailController {
     const targetUrl = `https://www.imdb.com/title/${imdbId}`;
     const localParseUrl = `${base}/api/parse/html?url=${encodeURIComponent(targetUrl)}`;
 
-    const auth = (req.headers?.authorization ?? (req.headers as any)?.Authorization) as
-      | string
-      | undefined;
+    const auth = (req.headers?.authorization ??
+      (req.headers as any)?.Authorization) as string | undefined;
 
     let parseResp: ParseHtmlResponse;
     try {
@@ -302,7 +338,9 @@ export class ImdbDetailController {
       return {
         ...blank,
         statusCode: parseResp.statusCode || 500,
-        errors: parseResp.errors?.length ? parseResp.errors : ['No filePath returned'],
+        errors: parseResp.errors?.length
+          ? parseResp.errors
+          : ['No filePath returned'],
       };
     }
 
@@ -338,10 +376,14 @@ export class ImdbDetailController {
     const yearRaw =
       firstLinkTextByHrefIncludes($, '/releaseinfo/?ref_=tt_ov_rdat') ||
       firstLinkTextByHrefIncludes($, '/releaseinfo/');
-    const year = yearRaw || (jsonLd?.datePublished ? jsonLd.datePublished.slice(0, 4) : '');
+    const year =
+      yearRaw ||
+      (jsonLd?.datePublished ? jsonLd.datePublished.slice(0, 4) : '');
     const ratedRaw =
-      firstLinkTextByHrefIncludes($, '/parentalguide/?ref_=tt_ov_pg#certificates') ||
-      firstLinkTextByHrefIncludes($, '/parentalguide/');
+      firstLinkTextByHrefIncludes(
+        $,
+        '/parentalguide/?ref_=tt_ov_pg#certificates',
+      ) || firstLinkTextByHrefIncludes($, '/parentalguide/');
     const rated = /^[A-Z0-9-]{1,10}$/.test(ratedRaw)
       ? ratedRaw
       : /^[A-Z0-9-]{1,10}$/.test(jsonLd?.contentRating ?? '')
@@ -357,14 +399,18 @@ export class ImdbDetailController {
       .filter(Boolean);
 
     let runtimeText =
-      heroItems.find((x) => /\b\d+\s*h(?:\s*\d+\s*m)?\b/i.test(x) || /^\d+\s*m$/i.test(x)) || '';
+      heroItems.find(
+        (x) => /\b\d+\s*h(?:\s*\d+\s*m)?\b/i.test(x) || /^\d+\s*m$/i.test(x),
+      ) || '';
 
     if (!runtimeText && jsonLd?.duration) {
       runtimeText = isoDurationToRuntimeText(jsonLd.duration);
     }
 
     if (!runtimeText) {
-      const runtimeMatch = bodyText.match(/\bRuntime\b[^A-Za-z0-9]*(\d+\s*h(?:\s*\d+\s*m)?|\d+\s*m)\b/i);
+      const runtimeMatch = bodyText.match(
+        /\bRuntime\b[^A-Za-z0-9]*(\d+\s*h(?:\s*\d+\s*m)?|\d+\s*m)\b/i,
+      );
       runtimeText = runtimeMatch?.[1]?.trim() ?? '';
     }
 
@@ -381,10 +427,16 @@ export class ImdbDetailController {
       : typeof jsonLd?.genre === 'string'
         ? [jsonLd.genre]
         : [];
-    const genre = [...new Set((genreParts.length ? genreParts : genreFromJsonLd).filter(Boolean))].join(', ');
+    const genre = [
+      ...new Set(
+        (genreParts.length ? genreParts : genreFromJsonLd).filter(Boolean),
+      ),
+    ].join(', ');
 
     // ---- plot (Storyline section) ----
-    let plot = $('[data-testid="storyline-plot-summary"] .ipc-html-content-inner-div')
+    let plot = $(
+      '[data-testid="storyline-plot-summary"] .ipc-html-content-inner-div',
+    )
       .first()
       .text()
       .replace(/\s+/g, ' ')
@@ -413,27 +465,39 @@ export class ImdbDetailController {
       .get()
       .filter(Boolean);
     const releaseText =
-      releaseTexts.find((t) => /\b[A-Z][a-z]+\s+\d{1,2},\s*\d{4}\b/.test(t)) || '';
+      releaseTexts.find((t) => /\b[A-Z][a-z]+\s+\d{1,2},\s*\d{4}\b/.test(t)) ||
+      '';
     if (releaseText) {
       released = usDateToDMY(releaseText);
     } else if (jsonLd?.datePublished) {
       released = isoDateToDMY(jsonLd.datePublished);
     }
 
-    const country = textOf($, '[data-testid="title-details-origin"] a.ipc-metadata-list-item__list-content-item');
-    const language = textOf($, '[data-testid="title-details-languages"] a.ipc-metadata-list-item__list-content-item');
+    const country = textOf(
+      $,
+      '[data-testid="title-details-origin"] a.ipc-metadata-list-item__list-content-item',
+    );
+    const language = textOf(
+      $,
+      '[data-testid="title-details-languages"] a.ipc-metadata-list-item__list-content-item',
+    );
 
     // ---- people: director/creator, writers, actors ----
-    const director = findPeopleByLabel($, 'Director') || findPeopleByLabel($, 'Creator');
+    const director =
+      findPeopleByLabel($, 'Director') || findPeopleByLabel($, 'Creator');
     // IMDB sometimes uses Writer singular; return joined names regardless.
-    const writers = findPeopleByLabel($, 'Writers') || findPeopleByLabel($, 'Writer');
+    const writers =
+      findPeopleByLabel($, 'Writers') || findPeopleByLabel($, 'Writer');
     const actors = findStars($);
 
     // ---- poster ----
     const poster =
       $('meta[property="og:image"]').attr('content')?.trim() ||
       jsonLd?.image?.trim() ||
-      $('img.ipc-image[src*="m.media-amazon.com/images"]').first().attr('src')?.trim() ||
+      $('img.ipc-image[src*="m.media-amazon.com/images"]')
+        .first()
+        .attr('src')
+        ?.trim() ||
       '';
 
     // ---- enforce “must be found in HTML” ----

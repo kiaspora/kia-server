@@ -105,7 +105,9 @@ export function validateGenerateReviewDto(
 
   const spoilerModeRaw = pick(body, ['spoilerMode', 'spoiler_mode']);
   const spoilerMode =
-    typeof spoilerModeRaw === 'string' ? spoilerModeRaw.trim().toLowerCase() : '';
+    typeof spoilerModeRaw === 'string'
+      ? spoilerModeRaw.trim().toLowerCase()
+      : '';
   if (!SPOILER_MODES.includes(spoilerMode as SpoilerMode)) {
     errors.push('spoiler_mode must be "spoiler" or "non-spoiler"');
   }
@@ -144,8 +146,12 @@ export function validateGenerateReviewDto(
   const drift = validateDrift(body, errors);
   const interactions = validateInteractions(body, errors);
 
-  const rationaleRaw = pick(body, ['wantToWatchRationale', 'want_to_watch_rationale']);
-  const wantToWatchRationale = typeof rationaleRaw === 'string' ? rationaleRaw.trim() : '';
+  const rationaleRaw = pick(body, [
+    'wantToWatchRationale',
+    'want_to_watch_rationale',
+  ]);
+  const wantToWatchRationale =
+    typeof rationaleRaw === 'string' ? rationaleRaw.trim() : '';
 
   if (errors.length) return { value: null, errors };
 
@@ -231,7 +237,9 @@ function validateGateState(
 
   const canSpeakRaw = pick(gateObj, ['canSpeak', 'can_speak']);
   if (typeof canSpeakRaw !== 'boolean') {
-    errors.push('gate_state.can_speak must be a boolean when gate_state is provided');
+    errors.push(
+      'gate_state.can_speak must be a boolean when gate_state is provided',
+    );
     return undefined;
   }
 
@@ -309,7 +317,8 @@ function validateTasteAnchors(
 
     if (!anchorId) errors.push(`taste_anchors[${idx}].anchor_id is required`);
     if (!label) errors.push(`taste_anchors[${idx}].label is required`);
-    if (weight === null) errors.push(`taste_anchors[${idx}].weight must be a number`);
+    if (weight === null)
+      errors.push(`taste_anchors[${idx}].weight must be a number`);
 
     if (anchorId && label && weight !== null) {
       anchors.push({ anchorId, label, weight, evidence });
@@ -346,7 +355,8 @@ function validateUserRatings(
     const ratedAt = asTrimmedString(pick(row, ['ratedAt', 'rated_at']));
 
     if (!titleId) errors.push(`user_ratings[${idx}].title_id is required`);
-    if (rating === null) errors.push(`user_ratings[${idx}].rating must be a number`);
+    if (rating === null)
+      errors.push(`user_ratings[${idx}].rating must be a number`);
 
     if (titleId && rating !== null) {
       ratings.push({
@@ -370,10 +380,15 @@ function validateContradictions(
     return null;
   }
 
-  const unresolvedCountRaw = pick(contradictionsObj, ['unresolvedCount', 'unresolved_count']);
+  const unresolvedCountRaw = pick(contradictionsObj, [
+    'unresolvedCount',
+    'unresolved_count',
+  ]);
   const unresolvedCount = asInteger(unresolvedCountRaw);
   if (unresolvedCount === null || unresolvedCount < 0) {
-    errors.push('contradictions.unresolved_count must be a non-negative integer');
+    errors.push(
+      'contradictions.unresolved_count must be a non-negative integer',
+    );
   }
 
   const examplesRaw = pick(contradictionsObj, ['examples']);
@@ -382,23 +397,27 @@ function validateContradictions(
     return null;
   }
 
-  const examples = examplesRaw.filter(
-    (item): item is Record<string, unknown> =>
-      Boolean(item && typeof item === 'object' && !Array.isArray(item)),
+  const examples = examplesRaw.filter((item): item is Record<string, unknown> =>
+    Boolean(item && typeof item === 'object' && !Array.isArray(item)),
   );
   if (examples.length !== examplesRaw.length) {
     errors.push('contradictions.examples entries must be objects');
   }
 
   if (unresolvedCount !== null && unresolvedCount !== examples.length) {
-    errors.push('contradictions.unresolved_count must match contradictions.examples.length');
+    errors.push(
+      'contradictions.unresolved_count must match contradictions.examples.length',
+    );
   }
 
   if (unresolvedCount === null) return null;
   return { unresolvedCount, examples };
 }
 
-function validateDrift(body: Record<string, unknown>, errors: string[]): ValidatedDrift | null {
+function validateDrift(
+  body: Record<string, unknown>,
+  errors: string[],
+): ValidatedDrift | null {
   const driftObj = asObject(pick(body, ['drift']));
   if (!driftObj) {
     errors.push('drift is required');
@@ -414,9 +433,8 @@ function validateDrift(body: Record<string, unknown>, errors: string[]): Validat
     return null;
   }
 
-  const signals = signalsRaw.filter(
-    (item): item is Record<string, unknown> =>
-      Boolean(item && typeof item === 'object' && !Array.isArray(item)),
+  const signals = signalsRaw.filter((item): item is Record<string, unknown> =>
+    Boolean(item && typeof item === 'object' && !Array.isArray(item)),
   );
   if (signals.length !== signalsRaw.length) {
     errors.push('drift.signals entries must be objects');
@@ -443,23 +461,41 @@ function validateInteractions(
   const skips = nonNegativeInt(pick(interactionsObj, ['skips']));
   const saves = nonNegativeInt(pick(interactionsObj, ['saves']));
   const likes = nonNegativeInt(pick(interactionsObj, ['likes']));
-  const listAdds = nonNegativeInt(pick(interactionsObj, ['listAdds', 'list_adds']));
+  const listAdds = nonNegativeInt(
+    pick(interactionsObj, ['listAdds', 'list_adds']),
+  );
   const totalReviewInteractionsRaw = pick(interactionsObj, [
     'totalReviewInteractions',
     'total_review_interactions',
   ]);
   const totalReviewInteractions = nonNegativeInt(totalReviewInteractionsRaw);
 
-  if (views === null) errors.push('interactions.views must be a non-negative integer');
-  if (skips === null) errors.push('interactions.skips must be a non-negative integer');
-  if (saves === null) errors.push('interactions.saves must be a non-negative integer');
-  if (likes === null) errors.push('interactions.likes must be a non-negative integer');
-  if (listAdds === null) errors.push('interactions.listAdds must be a non-negative integer');
-  if (totalReviewInteractionsRaw !== undefined && totalReviewInteractions === null) {
-    errors.push('interactions.totalReviewInteractions must be a non-negative integer when provided');
+  if (views === null)
+    errors.push('interactions.views must be a non-negative integer');
+  if (skips === null)
+    errors.push('interactions.skips must be a non-negative integer');
+  if (saves === null)
+    errors.push('interactions.saves must be a non-negative integer');
+  if (likes === null)
+    errors.push('interactions.likes must be a non-negative integer');
+  if (listAdds === null)
+    errors.push('interactions.listAdds must be a non-negative integer');
+  if (
+    totalReviewInteractionsRaw !== undefined &&
+    totalReviewInteractions === null
+  ) {
+    errors.push(
+      'interactions.totalReviewInteractions must be a non-negative integer when provided',
+    );
   }
 
-  if (views === null || skips === null || saves === null || likes === null || listAdds === null) {
+  if (
+    views === null ||
+    skips === null ||
+    saves === null ||
+    likes === null ||
+    listAdds === null
+  ) {
     return null;
   }
 

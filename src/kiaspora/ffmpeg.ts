@@ -10,9 +10,13 @@ export async function transcode(job: TranscodeArgs): Promise<void> {
   const ffmpegBin = (process.env.FFMPEG_PATH || 'ffmpeg').trim();
 
   await new Promise<void>((resolve, reject) => {
-    const p = spawn(ffmpegBin, ['-y', '-i', job.input, ...job.args, job.output], {
-      stdio: ['ignore', 'pipe', 'pipe'],
-    });
+    const p = spawn(
+      ffmpegBin,
+      ['-y', '-i', job.input, ...job.args, job.output],
+      {
+        stdio: ['ignore', 'pipe', 'pipe'],
+      },
+    );
 
     let stderr = '';
     p.stderr.on('data', (d) => (stderr += d.toString()));

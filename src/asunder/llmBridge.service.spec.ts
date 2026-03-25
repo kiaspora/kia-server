@@ -19,7 +19,9 @@ describe('LlmBridgeService', () => {
     process.env.OPENAI_API_KEY = 'test-key';
     process.env.ASUNDER_LLM_PROMPT_ID = 'env-prompt';
 
-    const fetchMock = jest.fn().mockResolvedValue(new Response('{}', { status: 200 }));
+    const fetchMock = jest
+      .fn()
+      .mockResolvedValue(new Response('{}', { status: 200 }));
     global.fetch = fetchMock as typeof fetch;
 
     const service = new LlmBridgeService();
@@ -44,7 +46,9 @@ describe('LlmBridgeService', () => {
     process.env.OPENAI_API_KEY = 'test-key';
     process.env.ASUNDER_LLM_PROMPT_ID = 'env-prompt';
 
-    const fetchMock = jest.fn().mockResolvedValue(new Response('{}', { status: 200 }));
+    const fetchMock = jest
+      .fn()
+      .mockResolvedValue(new Response('{}', { status: 200 }));
     global.fetch = fetchMock as typeof fetch;
 
     const service = new LlmBridgeService();
@@ -66,7 +70,9 @@ describe('LlmBridgeService', () => {
   it('maps top-level promptVersion onto prompt.version without requiring prompt object', async () => {
     process.env.OPENAI_API_KEY = 'test-key';
 
-    const fetchMock = jest.fn().mockResolvedValue(new Response('{}', { status: 200 }));
+    const fetchMock = jest
+      .fn()
+      .mockResolvedValue(new Response('{}', { status: 200 }));
     global.fetch = fetchMock as typeof fetch;
 
     const service = new LlmBridgeService();
@@ -91,7 +97,9 @@ describe('LlmBridgeService', () => {
     process.env.OPENAI_API_KEY = 'test-key';
     process.env.ASUNDER_LLM_PROMPT_ID = 'env-prompt';
 
-    const fetchMock = jest.fn().mockResolvedValue(new Response('{}', { status: 200 }));
+    const fetchMock = jest
+      .fn()
+      .mockResolvedValue(new Response('{}', { status: 200 }));
     global.fetch = fetchMock as typeof fetch;
 
     const service = new LlmBridgeService();
@@ -134,7 +142,9 @@ describe('LlmBridgeService', () => {
     process.env.OPENAI_API_KEY = 'test-key';
     process.env.ASUNDER_LLM_PROMPT_ID = 'env-prompt';
 
-    const fetchMock = jest.fn().mockResolvedValue(new Response('{}', { status: 200 }));
+    const fetchMock = jest
+      .fn()
+      .mockResolvedValue(new Response('{}', { status: 200 }));
     global.fetch = fetchMock as typeof fetch;
 
     const service = new LlmBridgeService();
@@ -180,7 +190,9 @@ describe('LlmBridgeService', () => {
 
   it('normalizes path attachments into data URLs', async () => {
     process.env.OPENAI_API_KEY = 'test-key';
-    const fetchMock = jest.fn().mockResolvedValue(new Response('{}', { status: 200 }));
+    const fetchMock = jest
+      .fn()
+      .mockResolvedValue(new Response('{}', { status: 200 }));
     global.fetch = fetchMock as typeof fetch;
     const fixturePath = '/tmp/kia-server-llm-bridge-notes.md';
     await fs.writeFile(fixturePath, 'hello path');

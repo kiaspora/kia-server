@@ -1,0 +1,1544 @@
+{
+  "files": [
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "0ccabf9232651e4f84abe500ff022126c0446390133990a8d68c1a81c015d3e6",
+      "explanationId": "explanation-0300c09377fcd0083a0240b8c2e31c1410bef191ae909165adf843bb97b38083",
+      "fileId": "file-e9cbb0224c4a3d23a6019ba557e0cd568c1ad5e1582ff1e335fb7d99b7a1055d",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": ".env",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "832292d8b5d8ee81c7f0b388c364ed9ecead603d02cb0567bb526626ed2cee1b",
+      "explanationId": "explanation-af9c79bfaa016416ddb2bcc632b52451261319dd42811eb12634dd41716bda54",
+      "fileId": "file-663ade211b3a1552162de21c4031fcd16be99407aae5ceecbb491a2efc43d5d2",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": ".prettierrc",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "2f771fa355aab0f138b32dce15ac01b293d60e98f54927c0c412c8262722bf7f",
+      "explanationId": "explanation-db5a68f04242c69030b38aa5a4d9d584c5aa2ffbe055501a9c1b44014d1ae948",
+      "fileId": "file-fbbb61178e8feb1ccad837b6d374e6e212dd6c5c22796d8b04b7e01ac3e72284",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": ".sidecar/shells.json.lock",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "080416db3296852923df1c3a6099a5277da9e4fce7f269aed0ef68644e9155cf",
+      "explanationId": "explanation-7950abe570a613813d5c138fc475dcef3653f9964674cee6bd674f8a16b1f362",
+      "fileId": "file-e1ef1aceb094e2d8641b04a22141bc03ba3b7cbbd6516fffb40749c7abcaf27d",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": ".todos/agent_errors.jsonl",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "afb4f0cc2c2636ba6e41f0269e094a2afba0071e93589eeefb8f7160c6037402",
+      "explanationId": "explanation-5ac0b6bc5a1d9aaabf0273ddea16283fc4de18334b48aa2899a8ff28e8aa6e18",
+      "fileId": "file-e28493cc34841ddcc14156e6cb07972e882c029d256b4f1575a200e8798495b0",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": ".todos/command_usage.jsonl",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "b2a4888aec70365f3365bb63df9f76c1e45dea8db1ea5e4d5a64fb6a9a5cb3b4",
+      "explanationId": "explanation-c0f05fc985b1c436d80b0ee4693cdce107cf597c3f486fbcacfa025bffb3cebb",
+      "fileId": "file-1ecb319e313583d320c28102d18908f5fd93912dfdf083f1d1a31c28425e6313",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": ".todos/db.lock",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "5de07e48d6928758d87f7a9dc3800ac3202155fd80f64b476906eddd5929b60f",
+      "explanationId": "explanation-47f3507a47bad0183e80d1cf9fdb5a0fc51f8e43e5e186aa2f5b52eb2b7036c8",
+      "fileId": "file-a54ff182c7e8acf56acfd6e4b9c3ff41e2c41a31c9b211b2deb9df75d9a478f9",
+      "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+      "ownerSummary": "A documentation file that explains repository behavior or rules. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "AGENTS.md",
+      "talksTo": [],
+      "whatItIs": "A documentation file that explains repository behavior or rules.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "b1da5595289704ede7ad8cdda607cab6098cc7b6121eaf918a985f11226f4ec7",
+      "explanationId": "explanation-ca05c5d6908762fbe3b7c512f41d2cdec5d0ce14bdceaac94715f5391bcdd82e",
+      "fileId": "file-76ed074a9305c04054cdebb9e9aad2d818052b07091de1f20cad0bbac34ffb52",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "Makefile",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "44178c3bf611c936a16a9bb1a6807f42b149e86870c89d4923397f87e69d96f9",
+      "explanationId": "explanation-3c1353805d5c2311988eb8fe4decd7552f63eeea5d4b8cbb88e02980fa95390d",
+      "fileId": "file-b335630551682c19a781afebcf4d07bf978fb1f8ac04c6bf87428ed5106870f5",
+      "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+      "ownerSummary": "A documentation file that explains repository behavior or rules. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "README.md",
+      "talksTo": [],
+      "whatItIs": "A documentation file that explains repository behavior or rules.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "346488090447b0b08cce3bd2862823876dfd8e7108d9ba30f85b3396184c4ad7",
+      "explanationId": "explanation-a697e6976a1888755fd29ef0aa05bcb6f387ca28e66e869a00f00590cba3ff0f",
+      "fileId": "file-c2bf025edd210f54d4e974e4e4727faaf893a05bb03ced99cfcd4b301b3cfac7",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 1 named symbols that other files rely on. It currently talks to neighbor modules.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "app.module.ts",
+      "talksTo": [
+        "neighbor modules"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 1 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "7b5594ab00301932b4475bae9f7f0bda11ba77f9e37a1824ed2b044541f59381",
+      "explanationId": "explanation-657bab6f30c1ecca2c3f89ac1449747aa0540e5f093ac5d3e1a67358acdc1aa3",
+      "fileId": "file-70a1317ca03b71cf52fc8a92067c96b2fb6da178ae15f7fdbcb165f02812bc5a",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/.obsidian/app.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "c96d0371bb1591e9fa53af5a6945f5961db1e174f141d1ffc3fe03432a2b40c1",
+      "explanationId": "explanation-fc956ce26148ed60b2a731f727b25ae6aedea047361e49702499caae57ae4524",
+      "fileId": "file-ad10d98b5ab41c43ba078b164aa4a085a8a12a940ef0c72e9a99fed11d50bc2f",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/.obsidian/appearance.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "144e9c656373add40df8892d91c2b15d21c34f9c702fed41dad8ecb848326622",
+      "explanationId": "explanation-b086f48ee1373484d9e8e36050315d24c1ad3ca921f3ba83224541dd0d00c98b",
+      "fileId": "file-6dab216578b026eaf14c5de576aa593b96e3ad526bbbc76ee52f16c08b55b42d",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/.obsidian/community-plugins.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "abd4dd7247dba678eb1f70dce32ae5d5ad66098a640c8adb01261efb0bbb91c4",
+      "explanationId": "explanation-609ce8a7a25bd82213956335cb83b749ed363287fb7c6229829cef158f5ee44b",
+      "fileId": "file-643fae5e0e18bc92bf1b8771e266bea7efd2793ee0e9ae47bbf88779c43337b0",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/.obsidian/core-plugins.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "d21cedcbad31f2b26193e7de2dcbd98a4c4b4bac65007ff6c12a25eb070a5d58",
+      "explanationId": "explanation-ed8415f3041e75ed04e4e237de3974eb84bc861a8b62157794d278148b79e26a",
+      "fileId": "file-591be99fa548d6cb7969b3a9f5fab48be08edccd97864637e26c3e30858bc5c4",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/.obsidian/graph.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "3f0759d1b9b0f2635eaa8db261e813053b66e1cceda0ee6947f729be14c1285b",
+      "explanationId": "explanation-02f0ed70fd7395860087e0cad8bfdbc0088fdc678ef3e0eb29ecf39a9868e291",
+      "fileId": "file-df16598ad110901cf008efba3608f2c3ed80574a734ee93a1b36a88595f711c0",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/.obsidian/hotkeys.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "Changing this file can break runtime entrypoints or cross-boundary execution paths.",
+      "contentHash": "5ce41e71417149ce6741ebe4b473e133a034d82951ee3db06899583f382cc63d",
+      "explanationId": "explanation-a5caad44052d01de4caa6f5a3d4a6adaeac5df5efad0a5a3a072c47dccc7c80b",
+      "fileId": "file-f86a57c58316921c28ae536ab7e12e223385ba5d68a3e311f2fe673cf45b5d69",
+      "metaphor": "This is a control panel: it turns structured state into something a person can use.",
+      "ownerSummary": "An automated test surface for part of the repository. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to runtime routes.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/main.js",
+      "talksTo": [
+        "runtime routes"
+      ],
+      "whatItIs": "An automated test surface for part of the repository.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "c6af93ae6640c58fbe0bf17ecbc48f71ec6a514579a8f6c9c4915766d49e35a0",
+      "explanationId": "explanation-78ab22f45b165ad55fc8d4c7a4ce1787f53f4f3b2dbcc5b42fab5dcfcab398b6",
+      "fileId": "file-642fcd0aab0ab08aaccd15ee6d8097d92e95648971d37ce37622d1fe879454e0",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/manifest.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "a27d1d1334bdd30130aee341c12eae77811b79620af8cb785b2a0a08d7d0134a",
+      "explanationId": "explanation-2fec1c4bbbc74feba259658d5234d8c82646d1740a3e8a5c3c176677a3d7b913",
+      "fileId": "file-fbe366be90ecedbc08b8bbe2a3c9c02d6760de78803097cd073c07b84fb44dc2",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/obsidian_askpass.sh",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "086a8e2308311a27555dc3a0d6bf80d6187f0b937805da9faf4db8ea3facc7f0",
+      "explanationId": "explanation-5193a5ca2dd097abaa22b3b28033472d061ebd881cfa958c79971bfd377c9d1c",
+      "fileId": "file-70cdbc23c9b378488a6f4106a309be44206b38fb86abc381edd942420e86d180",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/.obsidian/plugins/obsidian-git/styles.css",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "eb9da8bb3bb43f30e7419b44b3cafd493634f340df980a6d3339e51dfc071133",
+      "explanationId": "explanation-4d2cc1ebc107818b76e8d578051e98e3af55e095812b6f13086aa724e39b9d24",
+      "fileId": "file-f540efd2fffc569ff6e3293a165f6ee96338bf3d3340f4e511169cf8c307028d",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/.obsidian/themes/AnuPpuccin/manifest.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "734f3ae4fc06724e7d6d4a398a8e6ec3764819bb47b783fb8edf969c2da49a64",
+      "explanationId": "explanation-8ffa961c7d4054e28e3ab51eacb3e17e78aff6a4570a191bc12e9bb62aad38b3",
+      "fileId": "file-b352561233aaa373ed07c5a2fe68ffa3a12ace31ecb8c0ec03edbddc1677ec49",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/.obsidian/themes/AnuPpuccin/theme.css",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "1257c794de4ca5d97a907f3733ff7b1dc4cdacbe29111d3c165b716790dcaad0",
+      "explanationId": "explanation-4ca441fe0739030e7639c5351c0013461caa49e2e81cc6e2ba6d0af2539f07ca",
+      "fileId": "file-0f9e93b370b577ecf90db7461f44b42fb5354213543bbd59b6f0501f2adaf971",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/.obsidian/themes/Shimmering Focus/manifest.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "5064377a59d2dc8f60fb5947acf2b0ed390af84a2572dfafa362e7571bcc02ea",
+      "explanationId": "explanation-efefdada9b36d48808b95d4661ba998de62a53782842c224f196567c6bad0386",
+      "fileId": "file-838124180f5e192864457e48ca4c7fa089713d854c812edfa649fa3bcbef4c8b",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/.obsidian/themes/Shimmering Focus/theme.css",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "966c4a29d1adb3231deb7c77d3037eaab688659473af6c5a60d2b466b5bac645",
+      "explanationId": "explanation-3a1fb5890ee0b8b14a6e6076783aedbfa67f0ceb422d4e6fbae63a80bc15e054",
+      "fileId": "file-6f166d7548e8b46d3ca41de1ccdb7b6280ca27bad992d27569752cc0496bda53",
+      "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+      "ownerSummary": "A boundary or infrastructure file that touches runtime execution. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/.obsidian/workspace.json",
+      "talksTo": [],
+      "whatItIs": "A boundary or infrastructure file that touches runtime execution.",
+      "whyItExists": "It owns a boundary that should stay centralized instead of being copied into feature code."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "c705961c0309e72323383a1e48bcef55e6dc1fc54458bd01c198c21f8e7a2d11",
+      "explanationId": "explanation-e599977a67ed98aab49f183f4dadcd300d88d3e7dfeba4427c95034e366af696",
+      "fileId": "file-01652ac7cad7f30be3db924fc913e3c4ee8137c36938b87391055f8d907b7ee9",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/parse.md",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "dbcd6b16e3b7ee983461e425100158936a2a2f4c706fc1a8f98389ccf8bbc0ca",
+      "explanationId": "explanation-c785937be866a5950332531d689da8a110b59396338d1a55ee41d2bc19d76e7e",
+      "fileId": "file-fe5c10e4c21323f13c634b8b3352df21ebb72520f4c4353e66c2323e43aabc0f",
+      "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+      "ownerSummary": "A source file that contributes to repository behavior. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/sop-setup.md",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "dffe2a3792ce02c89af81222c561ae79802c1d6ea70dc0f97ab422b74c1cb2c9",
+      "explanationId": "explanation-0927d9a7b1c0bfbf81a6bf2739b92263769cfe5e0361bc2e96c9f0c7d15c78cb",
+      "fileId": "file-fa537227578a3e156d1d6aafead27d4ac1cb6fe1dee5f05d648826f851fbac90",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/taste-engine.md",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "9c95837b4d350406c28eb5a8b4bfe4ea81db9d52c17c443ba03a1dcc180a4468",
+      "explanationId": "explanation-b0f314c4c8937c8fe293d2b3ee22c2d1372e4c1bc8a65dd9d977d87c4af2fc0a",
+      "fileId": "file-023d0b355f4d8949189d1ee0a1bb89ee9618a0b63710706bf548335fc80fd689",
+      "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+      "ownerSummary": "A source file that contributes to repository behavior. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "docs/tmpl-api-pattern.md",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "e24d7ffab6d6cb7951418a349979ab9dd42583eea8b53ab4382c198340e64ec3",
+      "explanationId": "explanation-0f289d7f42bf5521febe3a5273de6e09d69cbf0b9a875871a259126d57c598b5",
+      "fileId": "file-9601a8f6c734c2001be34a2361f76946d19a39a709b5e8c624a2a5a0aade05f2",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "eslint.config.mjs",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "b2d398cbdae470fabdda88b865f748a9bf3bf98f31a0ae887561edad74a3011a",
+      "explanationId": "explanation-1ee46f4b955db15dc7950e2a46463a092c57af4fc1443ada42f2d85f2b5e8f7b",
+      "fileId": "file-60ea9de40113a3a4ed477e9e032d53d100d4b5bdc1ce2316b14fdd5af7a78413",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "nest-cli.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "5a46e57fc010fb9a960f5a093aeb8f7b621d45c90518841585598d79e351eb66",
+      "explanationId": "explanation-132544854b05fad731438f3b8bd6c86691300d7cb5d97415d7b7c68699698a36",
+      "fileId": "file-7ae45ad102eab3b6d7e7896acd08c427a9b25b346470d7bc6507b6481575d519",
+      "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+      "ownerSummary": "A configuration or manifest file that shapes tooling or runtime defaults. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "package.json",
+      "talksTo": [],
+      "whatItIs": "A configuration or manifest file that shapes tooling or runtime defaults.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "ec0bd8acf694b1c09966cd82f56d3d49d34aded995d5ac0af4244504fad864e6",
+      "explanationId": "explanation-a99aa44aa552c7b8dc63567eb2e2206b0bed8ed0122dad183961f6ddea790224",
+      "fileId": "file-32824c984905bb02bc7ffcef96a77addd1f1602cff71a11fbbfdd7f53ee026bb",
+      "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+      "ownerSummary": "A configuration or manifest file that shapes tooling or runtime defaults. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "pnpm-lock.yaml",
+      "talksTo": [],
+      "whatItIs": "A configuration or manifest file that shapes tooling or runtime defaults.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "9070f366d47925de74698140a0126838216d2e60e1243eb8b84ba37d1400fb40",
+      "explanationId": "explanation-3fbc08d7aa9f0fb75f53fb9524ba5df97001ae8514479cc6b05eae2e60d39dc5",
+      "fileId": "file-37f80f667ffc5ba93d1323ec5811618d55acd68850f6960ef85feee0a332b311",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "postman/Railway_JustUs.postman_collection.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "8f0de9828a66e314445171cbcacbd26877484011893452d27c6daafd7a436ea1",
+      "explanationId": "explanation-453cf863f2e8a7920405e8600b914abff4adb00129d3a8a0ffc2e746f91dc9c8",
+      "fileId": "file-d65d3a8393e79d710059d4b859bce9d0521f25a35e6c8b491cb69ab92506a6cd",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "postman/Railway_Kiaspora.postman_collection.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "93646ed5287eb66d28c9c168888fbe656ad2057fa5ea8c7468abbe5676ef10b8",
+      "explanationId": "explanation-c59b073e345349674211b6c6ea97bb14e1404d6172ba37567420ef1c94b7b5e0",
+      "fileId": "file-e4f7c4b3625bdf467e150590ea97dcd6f15d641754773a2aec8f6dbf5da6fe57",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "postman/Railway_Parse.postman_collection.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "33255f1545bee31f37b259b0e80c950534176e1cad8925dbe78356600c679d02",
+      "explanationId": "explanation-9d236f9cfd1b2faebad09ff3acdac7ac80b99b8ef06910019cc33a9950282f22",
+      "fileId": "file-64c33dc14bda4f5b659dace1f400526feea0b18b43a02131fe41b4e0e882bde2",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "postman/Railway_Server.postman_collection.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "aef1e5920c65b06b7d172276957b3d242938011cbd1d327956284a4e29247a0b",
+      "explanationId": "explanation-4d08f803e0548dbef4a49f01a17ae9f2aafc9b7043e3a35ec0e5ab7a2168c48b",
+      "fileId": "file-d132b1c2bbc981db20eb89b62b7ef87ef1461b6d8277bebd1e636dfeac2cf53e",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "postman/Railway_aSunder.postman_collection.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "9368b618dd049ac7ca3174cddde72332e9723a3399126cc0341a2616f3d2d74c",
+      "explanationId": "explanation-517a10db9b9fb17fd8f031ce17b5e7c9c0153b14ee88f2698eda6d019047c4eb",
+      "fileId": "file-7500ee9cf30446a15ea05d50482310d03eeff287b24b9ae513f5814a9cc05bf8",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "public/calendarItems.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "e7db21492432452cfb540f32d0ef0e07fc9268d18dc5933f116f26a24b4b7359",
+      "explanationId": "explanation-ac4c2af6509f8e665b239e254e2ea35f288c14954ffb4873f55e39183e57f09c",
+      "fileId": "file-8fadd71ee2c70bdda5f7d4307fe8f323d28154abd7023b8e43a68bec2636cf5c",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "public/trailer_ids.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "6a9ea907f4c2e6c3e6a0ba47728db1c1dd36549e3693a0d50fbbebadc456cc9c",
+      "explanationId": "explanation-516824029f68fe8578399c5ba716bbe4428bbb72265f2964a9183b5326af2f70",
+      "fileId": "file-a43d1f427a447c02f8c80c4f2c5ac7e03067c9ae0c62313b2f5bd34ed53be9c7",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "public/trailers_list.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "Changing this file can break runtime entrypoints or cross-boundary execution paths.",
+      "contentHash": "3d44911e0d520336f94ed4d67e8d5340730496714a71a6039aaca69209c48995",
+      "explanationId": "explanation-b5bdeea74f7a2a2b15c2750da96b1dcbaf2416a8eeac6f10048efb14890dfa3c",
+      "fileId": "file-bbc8b4e9f8b329f999b013aaedf36a1db25e79e7020f73125dd7d3e75ae27161",
+      "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+      "ownerSummary": "An automated test surface for part of the repository. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to ./app.controller, ./app.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/app.controller.spec.ts",
+      "talksTo": [
+        "./app.controller",
+        "./app.service"
+      ],
+      "whatItIs": "An automated test surface for part of the repository.",
+      "whyItExists": "It owns a boundary that should stay centralized instead of being copied into feature code."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "b9a761b5487abf767a3c8d0a9e51a00a50b3b826ab295d4600df74f891ebd663",
+      "explanationId": "explanation-23180a88788867cfb0f8f3c853b9a8b64668e877e43b3b4244e51f2d43760427",
+      "fileId": "file-ef0ff0ca9442bda67ad0810654d636991173ecd7c1abcd6da09288b8815759ff",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 3 named symbols that other files rely on. It currently talks to ./app.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/app.controller.ts",
+      "talksTo": [
+        "./app.service"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 3 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "This file is a dependency hub, so edits can fan out into multiple modules.",
+      "contentHash": "09c4124e0433398f9d8034e81d6986dcfd4f24ed476d66637be3bdba3d5843a7",
+      "explanationId": "explanation-33de9f8425b796e882e87bf83f7744a8483693b935e7f481eb450b207ee4dc71",
+      "fileId": "file-089f4f2474b64391c42b6e66aed33977e132058d92108f0a63234a7862e1f8b8",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 2 named symbols that other files rely on. It currently talks to ./asunder/asunder.module, ./common/trace-id.interceptor, ./common/trace-id.middleware, ./generate-review/generate-review.module.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/app.module.ts",
+      "talksTo": [
+        "./asunder/asunder.module",
+        "./common/trace-id.interceptor",
+        "./common/trace-id.middleware",
+        "./generate-review/generate-review.module",
+        "./justus/justus.module",
+        "./kiaspora/kiaspora.module",
+        "./meta/meta.controller",
+        "./parse/imdb-detail.controller",
+        "./parse/imdb-search.controller",
+        "./parse/parse.controller"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 2 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "6b0f8660642f4e4f2efee869833778a447ea51852e5ba30a667ab370a4fd3e07",
+      "explanationId": "explanation-64799602870b3dffdf2aa343f41dfa3076e12a8037cbd4dc1f0a27b463bc41bd",
+      "fileId": "file-a4ac7efdbcfcdcc01a90d433ec3dabf1d88ab4bffbe3dc88f13db54db2e051f5",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 2 named symbols that other files rely on. It currently talks to neighbor modules.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/app.service.ts",
+      "talksTo": [
+        "neighbor modules"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 2 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "c977390849f8338670f7a058d647ec8cfb8b4c3e286774bf189793669a6d8119",
+      "explanationId": "explanation-57392395df56d95ca16ec5479b830db02f9563ba35525d6b795467fa4fa4eba1",
+      "fileId": "file-9250d5a1a9fa1c76d8c8718164d66ffa9b9d46ed5b8264714f66c8c26bb8d9a9",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 1 named symbols that other files rely on. It currently talks to ./llmBridge.controller, ./llmBridge.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/asunder/asunder.module.ts",
+      "talksTo": [
+        "./llmBridge.controller",
+        "./llmBridge.service"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 1 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "95be41e8e95f857a9cc3a91da531bed7f792082e312bb03572546354d7beb8fd",
+      "explanationId": "explanation-4623a1546b2c0c41679f063b67b57a3c2fe1f687e79cad31c5eb6437f719d153",
+      "fileId": "file-040fcbc5a772cfff06755ad5c8d16adaa222b5c53022394dfc51e73defc9980c",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 3 named symbols that other files rely on. It currently talks to neighbor modules.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/asunder/attachment.util.ts",
+      "talksTo": [
+        "neighbor modules"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 3 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "Changes here mostly weaken coverage signals rather than user-facing behavior.",
+      "contentHash": "5cebdf2f4ef3d30a0128579c0ca4279dec4e08f2e5ef583394ae52538928d963",
+      "explanationId": "explanation-eebd6c171d119c8a7a7b998a496bfa4e14d5054036203333fda240d7b52f4450",
+      "fileId": "file-de73f98cecdbc085c69a0293ca152b010d3039098064e43c5458a4e58ef242ff",
+      "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+      "ownerSummary": "An automated test surface for part of the repository. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to ./llmBridge.controller, ./llmBridge.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/asunder/llmBridge.controller.spec.ts",
+      "talksTo": [
+        "./llmBridge.controller",
+        "./llmBridge.service"
+      ],
+      "whatItIs": "An automated test surface for part of the repository.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Changing this file can break runtime entrypoints or cross-boundary execution paths.",
+      "contentHash": "3f99bf558526235795146a4fb865a279949d4ad7e075d14d4137abac134d76e8",
+      "explanationId": "explanation-9df55ca29e7a9664a95d66fc0a236d5015f6ca5e2cb9ceafa74db314661c7000",
+      "fileId": "file-c5c8ff14ce81c50e32e4829766ce236bc2fc3d87f5c6d4049e4743aaf9bdea7b",
+      "metaphor": "This is a control panel: it turns structured state into something a person can use.",
+      "ownerSummary": "A frontend presentation or interaction file. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to ../auth/bearer-token.guard, ./llmBridge.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/asunder/llmBridge.controller.ts",
+      "talksTo": [
+        "../auth/bearer-token.guard",
+        "./llmBridge.service"
+      ],
+      "whatItIs": "A frontend presentation or interaction file.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Changes here mostly weaken coverage signals rather than user-facing behavior.",
+      "contentHash": "299d29bc294160d11e53a38139fcc5f270ebd3ecbac0ebb4166494b51a51648e",
+      "explanationId": "explanation-a22ebe0abc140e424b17960f492fbde779378996144d65ade4b7fdc5347440e7",
+      "fileId": "file-066adf71a0fc6081aba0b3f7758132e530226dad170be21441854907e45e4b33",
+      "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+      "ownerSummary": "An automated test surface for part of the repository. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to ./llmBridge.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/asunder/llmBridge.service.spec.ts",
+      "talksTo": [
+        "./llmBridge.service"
+      ],
+      "whatItIs": "An automated test surface for part of the repository.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "cdb089747fabbe54f00bee3ec82ac487211579a7fda313736fc2c4e05ab5fda7",
+      "explanationId": "explanation-b4624bed20804d8917b1a15e279c9badb234e150cfed3d6c6b2f621ccc518e90",
+      "fileId": "file-4ae94efa2da1d0b90ae253813b5f4769c953b089484bc968b7260ffca3211f83",
+      "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+      "ownerSummary": "A source file that contributes to repository behavior. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to ./attachment.util.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/asunder/llmBridge.service.ts",
+      "talksTo": [
+        "./attachment.util"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "9ff2e54916883fb6d5c086da380656b2cb2a73454601d86849ebebd722fa6a90",
+      "explanationId": "explanation-84eb73c9ad88e068b40c10059ee7e4d227efa12ffeda253853713cf8bdef69a5",
+      "fileId": "file-cf24769aa2d3607201131e9f6d1e4dc4ae10d594c59f57783f14be0a3f7c4263",
+      "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+      "ownerSummary": "A source file that contributes to repository behavior. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to neighbor modules.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/auth/bearer-token.guard.ts",
+      "talksTo": [
+        "neighbor modules"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "This file is a dependency hub, so edits can fan out into multiple modules.",
+      "contentHash": "f705ec21ebfe14792531e4bf1ed7e91e5daf7a069f24da44f425f856a876296d",
+      "explanationId": "explanation-695bc41c5c09368499fd6677a7c41d6f2a2ce8669ea835b61c083c3a176ade07",
+      "fileId": "file-00b1ca2b03e13a1036e9ca4c785e70866b7883334126b127c2eaaaa38de5dea6",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 2 named symbols that other files rely on. It currently talks to ./trace-id.middleware.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/common/trace-id.interceptor.ts",
+      "talksTo": [
+        "./trace-id.middleware"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 2 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "This file is a dependency hub, so edits can fan out into multiple modules.",
+      "contentHash": "786d93cd05c6bf128dddcc8f8f5a57673218de49787bddfaff7c7b8dfe735360",
+      "explanationId": "explanation-6debec1cfe8e00285207e62ffd783cb7b8e1f58960cb76d07d76b0b599834b98",
+      "fileId": "file-2d11e287c653eb058cfee55ec383690cb7d28f80c3ecb693e00507bcc2967aeb",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 4 named symbols that other files rely on. It currently talks to neighbor modules.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/common/trace-id.middleware.ts",
+      "talksTo": [
+        "neighbor modules"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 4 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "Changes here mostly weaken coverage signals rather than user-facing behavior.",
+      "contentHash": "6891c727e19ee857f4466cbe8bd4933baf25fede9dc613e70ed3cfa3795931ca",
+      "explanationId": "explanation-d4cf6b62a0bdcbc98139ba6ba625790406fe4f5238fdd0f5e58f58e055698399",
+      "fileId": "file-c8f0de064c2199359a77906695a0b275659ddc8b03e22ebfc52053ea045e44d3",
+      "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+      "ownerSummary": "An automated test surface for part of the repository. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to ./generate-review.dto.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/generate-review/dto/generate-review.dto.spec.ts",
+      "talksTo": [
+        "./generate-review.dto"
+      ],
+      "whatItIs": "An automated test surface for part of the repository.",
+      "whyItExists": "It owns a boundary that should stay centralized instead of being copied into feature code."
+    },
+    {
+      "breakRisk": "This file is a dependency hub, so edits can fan out into multiple modules.",
+      "contentHash": "79a020a2c6140f64a470e1f55bc7eb22974290f1b3f0c07c443bece4fe5d4ce0",
+      "explanationId": "explanation-b4a2f906c0bfc06ac7d336ce30aa22688154a5edac408c2167dd7183ffc8966c",
+      "fileId": "file-727800579f79236ce6fae07acfb6cb4c0e3c7ca9c38b326ffe28fbf85adfbc73",
+      "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+      "ownerSummary": "A boundary or infrastructure file that touches runtime execution. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to neighbor modules.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/generate-review/dto/generate-review.dto.ts",
+      "talksTo": [
+        "neighbor modules"
+      ],
+      "whatItIs": "A boundary or infrastructure file that touches runtime execution.",
+      "whyItExists": "It owns a boundary that should stay centralized instead of being copied into feature code."
+    },
+    {
+      "breakRisk": "Changing this file can break runtime entrypoints or cross-boundary execution paths.",
+      "contentHash": "497a719e4e86ce7fb88e0f3560dd8706dd525bff33dc3157959ada88d183a449",
+      "explanationId": "explanation-4512becaa30e26246c491660b64b54852a35ff22b996b58197265a1fd7e70a9a",
+      "fileId": "file-c695b94e931c4f9f672c7a06a182d3eea6a7fdc337af749e76cb1c621a020d3e",
+      "metaphor": "This is a control panel: it turns structured state into something a person can use.",
+      "ownerSummary": "A frontend presentation or interaction file. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to ../auth/bearer-token.guard, ../common/trace-id.middleware.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/generate-review/generate-review.controller.ts",
+      "talksTo": [
+        "../auth/bearer-token.guard",
+        "../common/trace-id.middleware"
+      ],
+      "whatItIs": "A frontend presentation or interaction file.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "337acc581f1830c8e96ff17ff2985525b2f0329194e74e6857aac1150ca78bd7",
+      "explanationId": "explanation-3c48a2add0944e63e3ad7bb2b4c9a0542a5ca830c00fda229ee22123e4f2c738",
+      "fileId": "file-ca8642d374ea3e0c1f9134b482526232847bc9fd7a3761ef368579ff64486b23",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 1 named symbols that other files rely on. It currently talks to ./generate-review.controller, ./generate-review.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/generate-review/generate-review.module.ts",
+      "talksTo": [
+        "./generate-review.controller",
+        "./generate-review.service"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 1 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "Changes here mostly weaken coverage signals rather than user-facing behavior.",
+      "contentHash": "212cb81af46a78dc43683fe9470045458b952bcbf6e093bb36c88c4d7d85e9ef",
+      "explanationId": "explanation-b20083130b85ba98b8292b3a844e0902b1a1272277a8a00a82688ca75bb4e314",
+      "fileId": "file-7a812de6454dfe6edb3eda53a378996b50332e1f1e2582db5be94188f1d22068",
+      "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+      "ownerSummary": "An automated test surface for part of the repository. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to ./dto/generate-review.dto, ./generate-review.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/generate-review/generate-review.service.spec.ts",
+      "talksTo": [
+        "./dto/generate-review.dto",
+        "./generate-review.service"
+      ],
+      "whatItIs": "An automated test surface for part of the repository.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "b0680859f4829a80a56059a12ace336bff9ee228b65ea6f81a3c216a7bcc3599",
+      "explanationId": "explanation-c6323b65a809ec169f911ce07b5508942caf7b21796189c6bce07e052e1c7bc7",
+      "fileId": "file-09cc819ffb20212216196a0382bf047d51fb7cb6f1893ddb422d6a2d1bf6d1ae",
+      "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+      "ownerSummary": "A boundary or infrastructure file that touches runtime execution. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to neighbor modules.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/generate-review/generate-review.service.ts",
+      "talksTo": [
+        "neighbor modules"
+      ],
+      "whatItIs": "A boundary or infrastructure file that touches runtime execution.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "7a295fa16ebaa705ba40a9b4ffb7941b67c5aa5fe9d786a313be9af6fcd8ad45",
+      "explanationId": "explanation-49e295c2eaf4e5e0546d4e160aa136ba742bd2fc4806e2091221cc5c6c09effa",
+      "fileId": "file-6855d8027d25ba4794a78c614d381aaa7382bbf7891129b31dc7ebca659dbb8f",
+      "metaphor": "This is a control panel: it turns structured state into something a person can use.",
+      "ownerSummary": "A frontend presentation or interaction file. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to ./filmTrailer.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/justus/filmTrailer.controller.ts",
+      "talksTo": [
+        "./filmTrailer.service"
+      ],
+      "whatItIs": "A frontend presentation or interaction file.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "e948da505113544d675b520d237fad829e1d907674994c3977bbfdcf99c95ab6",
+      "explanationId": "explanation-aca274d3fe081ee5a9fcd8637e9a061b37221c66161c2b9a5e16fcfb69a7c8ef",
+      "fileId": "file-c67d029b8ebf815beaf542c1163baacba0911c22bef6b017178eb3997c30a510",
+      "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+      "ownerSummary": "A boundary or infrastructure file that touches runtime execution. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to neighbor modules.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/justus/filmTrailer.service.ts",
+      "talksTo": [
+        "neighbor modules"
+      ],
+      "whatItIs": "A boundary or infrastructure file that touches runtime execution.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "This file is a dependency hub, so edits can fan out into multiple modules.",
+      "contentHash": "0ee173cc24865c4b33074de7bb4144c1dceb017c6868a87d995cb96e32aed310",
+      "explanationId": "explanation-8fa44043ff852cdb6efdf9fd56965cd3c7291c9a9d9641f96fdfa185774705e0",
+      "fileId": "file-b5241d4cbcbeaa4a238dfab9a7b9a7517a58a9b9566cb74a1ae0e35192abb53f",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 1 named symbols that other files rely on. It currently talks to ./filmTrailer.controller, ./filmTrailer.service, ./llmRouter.controller, ./llmRouter.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/justus/justus.module.ts",
+      "talksTo": [
+        "./filmTrailer.controller",
+        "./filmTrailer.service",
+        "./llmRouter.controller",
+        "./llmRouter.service",
+        "./titleDetail.controller",
+        "./titleSearch.controller",
+        "./trailers.controller"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 1 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "Changing this file can break runtime entrypoints or cross-boundary execution paths.",
+      "contentHash": "2486ce8786336cb86bc64cdf5a5c8216125f0d10ee021eaef715948518a1b97c",
+      "explanationId": "explanation-91e60fdf5f7b69638b8e6bd60d014f8bcbfe3e6b8615e7e1ae9bbd2fb46e1281",
+      "fileId": "file-486d54b06e54e9668241a4ef8afbbd0af47b9bb17ac82cddce851fa6157536b2",
+      "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+      "ownerSummary": "A boundary or infrastructure file that touches runtime execution. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to ../auth/bearer-token.guard, ./llmRouter.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/justus/llmRouter.controller.ts",
+      "talksTo": [
+        "../auth/bearer-token.guard",
+        "./llmRouter.service"
+      ],
+      "whatItIs": "A boundary or infrastructure file that touches runtime execution.",
+      "whyItExists": "It owns a boundary that should stay centralized instead of being copied into feature code."
+    },
+    {
+      "breakRisk": "Changing this file can break runtime entrypoints or cross-boundary execution paths.",
+      "contentHash": "ba8f66b24cf023a1ea4f6043dcc525e97fade43a5010860d3c9a6ac0b92ca856",
+      "explanationId": "explanation-4f6ab03ad02a4d8f1ac1773f20e8424848ded2bc4ac33d28c36c81b819572de7",
+      "fileId": "file-074d50318c13b282dff41b5cc4c7cf0c17dbc4553de676241776ff5e4bb3f519",
+      "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+      "ownerSummary": "A boundary or infrastructure file that touches runtime execution. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to runtime routes.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/justus/llmRouter.service.ts",
+      "talksTo": [
+        "runtime routes"
+      ],
+      "whatItIs": "A boundary or infrastructure file that touches runtime execution.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Changing this file can break runtime entrypoints or cross-boundary execution paths.",
+      "contentHash": "91de99156f8492e9c9d922e8dce89b15aa7da673e61b53c372c9d6888e029457",
+      "explanationId": "explanation-ea6c798267ec9477cd0dcae29104bbbf349611a5998466521fa2a5b42caa33c5",
+      "fileId": "file-beaf92cb8648a7803563ce8f75c5846a8a04e70bc3f34d25765cf36a6e0f4542",
+      "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+      "ownerSummary": "A boundary or infrastructure file that touches runtime execution. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to ../auth/bearer-token.guard.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/justus/titleDetail.controller.ts",
+      "talksTo": [
+        "../auth/bearer-token.guard"
+      ],
+      "whatItIs": "A boundary or infrastructure file that touches runtime execution.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Changing this file can break runtime entrypoints or cross-boundary execution paths.",
+      "contentHash": "8906b994ab15228505724872387a94c2c6aa5be536571f0d10ee448fbb16ec1f",
+      "explanationId": "explanation-7296606c5a95534a2309b99ebd7090e914a0cb219db0131ef53d0efcf03b6d14",
+      "fileId": "file-71836a40c835a2de58f3cfb98a03b8d6eda20d4c01e44ab54faace41e6f1f7e5",
+      "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+      "ownerSummary": "A boundary or infrastructure file that touches runtime execution. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to ../auth/bearer-token.guard.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/justus/titleSearch.controller.ts",
+      "talksTo": [
+        "../auth/bearer-token.guard"
+      ],
+      "whatItIs": "A boundary or infrastructure file that touches runtime execution.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Changing this file can break runtime entrypoints or cross-boundary execution paths.",
+      "contentHash": "fff70e011cfdb64a761651407cea6215a2705415e35253dcccaa1d432adfe00f",
+      "explanationId": "explanation-cb552a0247ece4ef101f30af5b24458581d2f9fa7b8e1980a69967052ee33758",
+      "fileId": "file-13ffc196c8d677f0e729c7b348d5dd41b9183e5d52a5943637908281372eafe6",
+      "metaphor": "This is a control panel: it turns structured state into something a person can use.",
+      "ownerSummary": "A frontend presentation or interaction file. It turns backend truth into a screen, controller, or reusable UI surface. It currently talks to ../auth/bearer-token.guard.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/justus/trailers.controller.ts",
+      "talksTo": [
+        "../auth/bearer-token.guard"
+      ],
+      "whatItIs": "A frontend presentation or interaction file.",
+      "whyItExists": "It turns backend truth into a screen, controller, or reusable UI surface."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "474d249ec1dca406ae7576086a4ed500e6a0d873c82579f317b2a6eddace6834",
+      "explanationId": "explanation-8a9aa280fcd93ef1c870cdc2df5c07b639539d2c544027eb72dfa89e837473e0",
+      "fileId": "file-1639236abe46314ccdf42b7f235a9e7918788652997ba0fc402f5dcee7edf53a",
+      "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+      "ownerSummary": "A source file that contributes to repository behavior. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to neighbor modules.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/kiaspora/ffmpeg.ts",
+      "talksTo": [
+        "neighbor modules"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "65513eaf6b5f487a7e17a2f3f949cd498f91f96905bc3304c7aa3c768d0723f6",
+      "explanationId": "explanation-692e17ceb7e593fe4d069002cbd8c757929dee9f0a9126d99a97b9d4cbb2057c",
+      "fileId": "file-43b96c15447ccb530cad1c23707fda2f0dfc559e61402d409fea5f22e3e46dc5",
+      "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+      "ownerSummary": "A source file that contributes to repository behavior. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to ./ffmpeg.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/kiaspora/googleSpeechToText.ts",
+      "talksTo": [
+        "./ffmpeg"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "This file is a dependency hub, so edits can fan out into multiple modules.",
+      "contentHash": "0e45fd174aa0e635f947c5be1c99383fb498d169e3febab469a1c2f82bfc1973",
+      "explanationId": "explanation-641f82d0eb9ea7364cfff6e272216a9cb995336e34a9ee2fdae67f7d0c4b06c2",
+      "fileId": "file-8021ca2d14bb8ebfd15047dadd5bd38fe6c70626c3475307bde055bdcfcc5bae",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 6 named symbols that other files rely on. It currently talks to ../auth/bearer-token.guard, ./imageScan.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/kiaspora/imageScan.controller.ts",
+      "talksTo": [
+        "../auth/bearer-token.guard",
+        "./imageScan.service"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 6 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "1da7d86e2e10f10c39f1f4128b115958cf195c0ead74d7a62f759621c98026e9",
+      "explanationId": "explanation-e884b4b4f171dd3b3d20aa2dc8d4f7b938107439eb1ac737dbf930ef5a142a6d",
+      "fileId": "file-ba9c17d172eebce4d941467965f41ea1af82a70da09864ea2353f769cba68bd7",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 1 named symbols that other files rely on. It currently talks to ./imageScan.controller, ./imageScan.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/kiaspora/imageScan.module.ts",
+      "talksTo": [
+        "./imageScan.controller",
+        "./imageScan.service"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 1 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "094e8415c91637609c59f9041bd5fd3283948bbe73d556f02682b0e4e5f1adf2",
+      "explanationId": "explanation-cdd477a8ddbca9c9d2c6ac7f44ff6cdf636f36addd6c72dff9a16322092484e0",
+      "fileId": "file-78234327211cb9e847edd5b4bea4edaa00e6232fb804db67e6ad6b06667a590f",
+      "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+      "ownerSummary": "A source file that contributes to repository behavior. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to neighbor modules.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/kiaspora/imageScan.service.ts",
+      "talksTo": [
+        "neighbor modules"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "e1881832e87d282d0506c6aa9c3899c82c9546d642c364cbc33cba8ffb45cf00",
+      "explanationId": "explanation-c5bd5e107bab2cd37319b8edeaf1bd9cb3659b69d785f45862314445688cfc7a",
+      "fileId": "file-d6c0abbd14d087f98eb802895d6dbacc2780054608b8df83481ed17aa09949f8",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 1 named symbols that other files rely on. It currently talks to ./imageScan.module, ./promptConfig.module, ./speechToText.module, ./translationChat.module.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/kiaspora/kiaspora.module.ts",
+      "talksTo": [
+        "./imageScan.module",
+        "./promptConfig.module",
+        "./speechToText.module",
+        "./translationChat.module",
+        "./translationRouter.controller",
+        "./translationRouter.service"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 1 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "This file is a dependency hub, so edits can fan out into multiple modules.",
+      "contentHash": "0f891cd9a3fb8bf8f16e73c200136037583edb4d0a1b4e3e60dca2d8800ac240",
+      "explanationId": "explanation-71287af1d4534b85bcaf178c48ee85dcc498a6278ba8e145ee5537d537a36652",
+      "fileId": "file-e05b8ccde4479e5f21e07e34a3d2970566caf750d49a884360532f16177e862f",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 13 named symbols that other files rely on. It currently talks to ../auth/bearer-token.guard, ./promptConfig.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/kiaspora/promptConfig.controller.ts",
+      "talksTo": [
+        "../auth/bearer-token.guard",
+        "./promptConfig.service"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 13 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "0bd21dcd15eb4801f4ebc46188ad8a7c9ec23938fd41fb56e2124968d80d9bef",
+      "explanationId": "explanation-414e5ee9756be823c9908bd7f6b5c8a94dbaa2342cf1ae1e535e7a657925e7ce",
+      "fileId": "file-1a92399186df2c62e4f7a93c6023ecb264312da3c62d743fcb870ba7165634a6",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 1 named symbols that other files rely on. It currently talks to ./promptConfig.controller, ./promptConfig.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/kiaspora/promptConfig.module.ts",
+      "talksTo": [
+        "./promptConfig.controller",
+        "./promptConfig.service"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 1 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "12c97dfa425332f3ec1a1b55654e5756f97c79ae7326a9bb98ac10c3a0b7feb4",
+      "explanationId": "explanation-d511a64ec2d34b247c2a3e9350c541e0c794fdb35eff4c078fcc7f04d48f4603",
+      "fileId": "file-91e5722e61970875faab671291613174ba9eea7e8541f84926f5eda4ba7c37e9",
+      "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+      "ownerSummary": "A source file that contributes to repository behavior. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to neighbor modules.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/kiaspora/promptConfig.service.ts",
+      "talksTo": [
+        "neighbor modules"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "This file is a dependency hub, so edits can fan out into multiple modules.",
+      "contentHash": "5063840b07c40e07b228c7ed8f5145847832d8d0e8c22eb4b2d70362abdf7c60",
+      "explanationId": "explanation-dbcb316a612e59c0d8f914a19d9854473448b88acb074597a16e3180b15b35e0",
+      "fileId": "file-60b8cde361e9c9548db0c9da294bd7039a9244be024314aff44a5471c04766cb",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 6 named symbols that other files rely on. It currently talks to ../auth/bearer-token.guard, ./speechToText.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/kiaspora/speechToText.controller.ts",
+      "talksTo": [
+        "../auth/bearer-token.guard",
+        "./speechToText.service"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 6 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "22cefe3eff8d1bf8d5af9e785d26832fc3ddd2bf2fdc34a772d38b9618b1bf9c",
+      "explanationId": "explanation-d7293fd014f045b7c826813b55e31ad932d5996fb86ea5dd7d1eb931e1d79da2",
+      "fileId": "file-db2b47de68450611048a9703a6b997865479ea70533635f778ac0803074a2afe",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 1 named symbols that other files rely on. It currently talks to ./speechToText.controller, ./speechToText.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/kiaspora/speechToText.module.ts",
+      "talksTo": [
+        "./speechToText.controller",
+        "./speechToText.service"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 1 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "This file is a dependency hub, so edits can fan out into multiple modules.",
+      "contentHash": "d0775c689caeb32fac0c98fb0d1e2f0d38e30444e8ff20cee7ab1c2d115bd85a",
+      "explanationId": "explanation-973422c34b0e11ff827f040257ed6af933348140fea6bd55639f9f5d03ea9e8e",
+      "fileId": "file-e766c6f4712f4d61e1b645725a965d3504d82770e5400b560d3fd8e41e2de261",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 8 named symbols that other files rely on. It currently talks to ./googleSpeechToText.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/kiaspora/speechToText.service.ts",
+      "talksTo": [
+        "./googleSpeechToText"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 8 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "This file is a dependency hub, so edits can fan out into multiple modules.",
+      "contentHash": "a9f440f001101a92b37ea20c6e541c6b0e6d861bc5af3fd697d877b3897d0742",
+      "explanationId": "explanation-b045d74c51800d0edd1f2801e23fa00505495b643667c2c59716fb0bbc3162d0",
+      "fileId": "file-fbd4313a2aea699f46163b2778ea56474e1f572e9a524ed7f90f837cee4252b9",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 5 named symbols that other files rely on. It currently talks to ../auth/bearer-token.guard, ./translationChat.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/kiaspora/translationChat.controller.ts",
+      "talksTo": [
+        "../auth/bearer-token.guard",
+        "./translationChat.service"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 5 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "df6c2d930208fe598d52a31e76da9bce4ae101e112336d9ba2f3ee331e2d8313",
+      "explanationId": "explanation-2aadac08d71e1a18f22449a46da2fcbc80109073569e0e1bf7e237571e5bda87",
+      "fileId": "file-ccd4a79afc66e13c219249565d993e179c5bbe582278353f6aa80f7f09da8ea3",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 1 named symbols that other files rely on. It currently talks to ./translationChat.controller, ./translationChat.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/kiaspora/translationChat.module.ts",
+      "talksTo": [
+        "./translationChat.controller",
+        "./translationChat.service"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 1 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "b4c944a31d19e8b62e3c36433cc707f179139dc0d06f2aeff15b735c32ffff80",
+      "explanationId": "explanation-2166fb4e815ba8fbdf51ce43335b249db2fc29e373b09b407ebc690de315c867",
+      "fileId": "file-5cf1f44ef5664f4b2f4d8d8e44c238e35b6b605ddc3f6c9fa6df80874a256321",
+      "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+      "ownerSummary": "A source file that contributes to repository behavior. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to neighbor modules.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/kiaspora/translationChat.service.ts",
+      "talksTo": [
+        "neighbor modules"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "This file is a dependency hub, so edits can fan out into multiple modules.",
+      "contentHash": "69c2f2b3a3ab15cf2b41473d9cf20b5f50d892da5f3fb83be9ea8b44793d8d8f",
+      "explanationId": "explanation-4512e0559bf64f8bfabd5af2585d1b678e6e76f6c97610e75c891a5278039fec",
+      "fileId": "file-ac71a62535c1085af91cb00436ccac7dd846a2e6236481ff954c04dc03c771d9",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It defines 4 named symbols that other files rely on. It currently talks to ../auth/bearer-token.guard, ./translationRouter.service.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/kiaspora/translationRouter.controller.ts",
+      "talksTo": [
+        "../auth/bearer-token.guard",
+        "./translationRouter.service"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It defines 4 named symbols that other files rely on."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "92c3ea9944da0252fcff304cc34fd139531ab5cd7fde3f3ee62ae4662d2fb3c0",
+      "explanationId": "explanation-49d4d5722d8607c880eec84cc7716004d410375544a51bb5cdfd40fd37eae804",
+      "fileId": "file-f835f8a80729de6ecef84dd16ec6089d5387edb1f24a46c17e97176019360c76",
+      "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+      "ownerSummary": "A source file that contributes to repository behavior. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to neighbor modules.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/kiaspora/translationRouter.service.ts",
+      "talksTo": [
+        "neighbor modules"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "ce2bc970c353edd28e77ed04cbcb0164728242e7edd17698f7035e147e6cd645",
+      "explanationId": "explanation-f86d767465ddea2822b4d1b79916e182462c2ca681e13f4c66be0001270dee11",
+      "fileId": "file-4fab5baaca5c14d2de62d8d2fceef376ddddcc8e9509d86cfa5643f51b89ce3d",
+      "metaphor": "This is a front door: traffic enters here before spreading into the rest of the system.",
+      "ownerSummary": "A source file that contributes to repository behavior. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to ./app.module.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/main.ts",
+      "talksTo": [
+        "./app.module"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Changing this file can break runtime entrypoints or cross-boundary execution paths.",
+      "contentHash": "8947664be308b34845f67fca0768c7b1cadd17bfe6a264a77c7a8c7bcbc80c3b",
+      "explanationId": "explanation-fc0680262427af763ce3399804b25a4f1ecbcd3dcdaa6dd580d8d39f0df30b30",
+      "fileId": "file-7206763f61069b33b44fced85ca50398a883554352d0cf4cd883255a0fa4aa4d",
+      "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+      "ownerSummary": "An automated test surface for part of the repository. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to ./meta.controller.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/meta/meta.controller.spec.ts",
+      "talksTo": [
+        "./meta.controller"
+      ],
+      "whatItIs": "An automated test surface for part of the repository.",
+      "whyItExists": "It owns a boundary that should stay centralized instead of being copied into feature code."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "d1cb9308b24fdd3b5ddbbc9814447d7ddea45713181c7fcdcefbdb752a9df01f",
+      "explanationId": "explanation-611f6a4da7f37d4c7a8e47a59720b94860476a5aa25c59e5c2c87383fa7326ce",
+      "fileId": "file-f1a8ccacacada2164f70228756e6c1592ae33823c817f3ea76e59c41b642de16",
+      "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+      "ownerSummary": "A source file that contributes to repository behavior. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to neighbor modules.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/meta/meta.controller.ts",
+      "talksTo": [
+        "neighbor modules"
+      ],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Changing this file can break runtime entrypoints or cross-boundary execution paths.",
+      "contentHash": "d66caef43d1c57b535c86465af6eae36d4268ed29aa294ac76747046ae94cb69",
+      "explanationId": "explanation-8d36a88b698c37d9346915ac86a92e1115f4516d5b34a2cc8de25b1cf021a7ab",
+      "fileId": "file-19e46288f4c768c5936b3ae3374f5a0a30b6d4087328f80a32118bc4474ba283",
+      "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+      "ownerSummary": "A boundary or infrastructure file that touches runtime execution. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to ../auth/bearer-token.guard, ../common/trace-id.middleware.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/parse/imdb-detail.controller.ts",
+      "talksTo": [
+        "../auth/bearer-token.guard",
+        "../common/trace-id.middleware"
+      ],
+      "whatItIs": "A boundary or infrastructure file that touches runtime execution.",
+      "whyItExists": "It owns a boundary that should stay centralized instead of being copied into feature code."
+    },
+    {
+      "breakRisk": "Changing this file can break runtime entrypoints or cross-boundary execution paths.",
+      "contentHash": "23714744bd191b3f320feb674218c487df1c8689ef46982a46590ec48283b0e9",
+      "explanationId": "explanation-884ed2b962b812f013bef193881f3ffb0a21a0e2f9c3c499207c25deb86c51c7",
+      "fileId": "file-9bf2628aa891f494213916fad5f62a69c25555b725549272d8f7804b6ef04527",
+      "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+      "ownerSummary": "A boundary or infrastructure file that touches runtime execution. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to ../auth/bearer-token.guard, ../common/trace-id.middleware.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/parse/imdb-search.controller.ts",
+      "talksTo": [
+        "../auth/bearer-token.guard",
+        "../common/trace-id.middleware"
+      ],
+      "whatItIs": "A boundary or infrastructure file that touches runtime execution.",
+      "whyItExists": "It owns a boundary that should stay centralized instead of being copied into feature code."
+    },
+    {
+      "breakRisk": "This file is a dependency hub, so edits can fan out into multiple modules.",
+      "contentHash": "72b01250b81782ebeaea329c6236efb4994f6325f8cf025898100b1869f23217",
+      "explanationId": "explanation-f490ef89e87285b0d2af560a3ae784d31dcd3b12ec66ba359cfcd2a658f255bb",
+      "fileId": "file-71e63907c534f175e38c342253c55f6d3d5aef5e63725466777021647ba45d18",
+      "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+      "ownerSummary": "A boundary or infrastructure file that touches runtime execution. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to ../auth/bearer-token.guard.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "src/parse/parse.controller.ts",
+      "talksTo": [
+        "../auth/bearer-token.guard"
+      ],
+      "whatItIs": "A boundary or infrastructure file that touches runtime execution.",
+      "whyItExists": "It owns a boundary that should stay centralized instead of being copied into feature code."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "40c23938231f1df7fde341f0abbe9fd06e4d2d6045069961a1fb3c0b064395b9",
+      "explanationId": "explanation-7954481d1289dea71f4dd201511eac5512f01aca0d6bbaedd559d3f36f89115b",
+      "fileId": "file-7c533107e06a797ea404c01eb5a681fb0ccec247b4702e96a8d6b04ec048b89e",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "temp/generate-review-store.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "9654a330b29325f200acfb405b218e57dabc16cea81f7debaa57e6478d1a03e3",
+      "explanationId": "explanation-b7def528cdc73775425e653f0b9932c3df060dff2e2dab73300f1a37897bc079",
+      "fileId": "file-f74524ec323cf1076d2c6cfac9aecd621573e8fe7c3e2928ab0c6a72a6b47a16",
+      "metaphor": "This is a control panel: it turns structured state into something a person can use.",
+      "ownerSummary": "A frontend presentation or interaction file. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "temp/repomix-kia-server-0.0.22.md",
+      "talksTo": [],
+      "whatItIs": "A frontend presentation or interaction file.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "742acbcc610869716b922640336aa218d608532a6b9a6b51cf9d9b201364386d",
+      "explanationId": "explanation-369fb5585704538e48fc6de15d5cb135f78143d141d2f641fdfc7a12dacc7645",
+      "fileId": "file-f7360da64b20a1d31290eacab371c6f369505f6d8208e474fa18106c3c8fd491",
+      "metaphor": "This is a control panel: it turns structured state into something a person can use.",
+      "ownerSummary": "A frontend presentation or interaction file. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "temp/repomix-kia-server-0.0.23.md",
+      "talksTo": [],
+      "whatItIs": "A frontend presentation or interaction file.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "9542f3efb52672350f6c7c728918e41138f6c9ab2d51ca2e730a0c25ff8609d2",
+      "explanationId": "explanation-a195145ab70af744f3dd405c65a2550666b1153e9a00debfcd0038818a6f0669",
+      "fileId": "file-a2f08d763433bc2b452872c690d64b42203cb4c8b736035679215bcd9f3eac22",
+      "metaphor": "This is a control panel: it turns structured state into something a person can use.",
+      "ownerSummary": "A frontend presentation or interaction file. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "temp/repomix-kia-server-0.0.24.md",
+      "talksTo": [],
+      "whatItIs": "A frontend presentation or interaction file.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "22c44206de7d1c07f647a45a963d8b48fbccc92c77aaa680ed1a9e1a72d51d3c",
+      "explanationId": "explanation-0e9803aa23aada93c07e9d13fec37062adff2f210951f8403060163372ea7266",
+      "fileId": "file-c80cef1a9fde7e5750bb3a4e68abed1a33589a763510913cf5727725b399890c",
+      "metaphor": "This is a control panel: it turns structured state into something a person can use.",
+      "ownerSummary": "A frontend presentation or interaction file. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "temp/repomix-kia-server-0.0.25.md",
+      "talksTo": [],
+      "whatItIs": "A frontend presentation or interaction file.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "26481ee2aaae6ac9eebcd63dd3211afb0a59c2c648c9a7aab8804dc7b2320794",
+      "explanationId": "explanation-7cd6c480658e0c8c7fd368d1991432cc2dbf583c8faf03991ee2504965c3802e",
+      "fileId": "file-8bc3110b8b82c83b7e1072803c70cd0cb049ac35206cd7a73ecfbdaab908a38a",
+      "metaphor": "This is a control panel: it turns structured state into something a person can use.",
+      "ownerSummary": "A frontend presentation or interaction file. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "temp/repomix-kia-server-0.0.27.md",
+      "talksTo": [],
+      "whatItIs": "A frontend presentation or interaction file.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "a96cc270ad3c3521c7e9d467bf4bd1d72e811d8b144806e42020f08404875230",
+      "explanationId": "explanation-8b685e08b9b492c95689976607974243788d0f67b7ee6347c230bcd628de7a0d",
+      "fileId": "file-8d65689ab7e13ff27a38a228fee633f1f7a448af24ed5acebfbcc87f021ff6ac",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "temp/trailers.html",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "e09cc4d6e63f4b812420bbcc0d9e5fbc7d82ba79b0204813e374c45905f9736c",
+      "explanationId": "explanation-74f5ad2e883039be72b37f682489bd2eeffb0a35f0663df17c4238c5acc6d96d",
+      "fileId": "file-bcb75ed5c1c224aebf8bf24addcb367c7310d1d883e19fa471a030dfd1c22656",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "temp/trailers.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "205e8b5b2f414ce375f79e5cb86fdc84e2eb2915131ad7ea91a92798ae316b85",
+      "explanationId": "explanation-5f2f517128aa5418024409d45f3c183836471ba3bf278b83b0acf30f47722033",
+      "fileId": "file-5d52ccfb71ddf04112eafea3b51f90668e536b744a2d9c618adbc60b2c58120f",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "temp/www.imdb.com-141e4bff2b137760.net.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "d047c7d7663d9bfb6e0c9b6a775cfc9cd4f126bb2daed976e02eaa8266473898",
+      "explanationId": "explanation-345bad4f204f82fbd32e64135147f96acc904cf4e32d6f36ae247d6a25b4a1d8",
+      "fileId": "file-2cb1d1b1dd155eae793c833b06639f3eceb8730399562ec1dae05702742905f7",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "temp/www.imdb.com-141e4bff2b137760.rendered.html",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "8e27632c01ef7c1378c256b0b342afbeab8d0ddb44a0ed690dec1138e5b67137",
+      "explanationId": "explanation-75211eacf6389ef96d883f7df198937bf4b54664446e838648e8dda1254bcbf9",
+      "fileId": "file-d883259450887ca5023ec3c58fcfb15112e265fd3656e2a5cca1e255c11e85d6",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "temp/www.imdb.com-95bdba69f807c8c3.net.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "be3605cb5fe50e81ae4604da37501de1c0f007dc762dd913e10685faa0744032",
+      "explanationId": "explanation-7ab0442bbcebce8e24eb2d93ca495a707908a2f32d4ee857e481b30b84a11c72",
+      "fileId": "file-f9410e03cc1433d4ed5a25d5daabf0e4ac49b08fff7f05e8550f59d4b6d62880",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "temp/www.imdb.com-95bdba69f807c8c3.rendered.html",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "Changing this file can break runtime entrypoints or cross-boundary execution paths.",
+      "contentHash": "2a6df2bf079827894453295b54ae7dede005949e33c5f6263b2a086d3d161a02",
+      "explanationId": "explanation-cdd26de2082fdfeb0daed8fff4f9136970d2be1242e71f96537dea369abbfaaf",
+      "fileId": "file-07ba1bf8da11808769647b7432dec5d598253fc945127dedb101c705f6343034",
+      "metaphor": "This is plumbing: people do not stare at it, but the whole house depends on it flowing correctly.",
+      "ownerSummary": "An automated test surface for part of the repository. It owns a boundary that should stay centralized instead of being copied into feature code. It currently talks to ./../src/app.module.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "test/app.e2e-spec.ts",
+      "talksTo": [
+        "./../src/app.module"
+      ],
+      "whatItIs": "An automated test surface for part of the repository.",
+      "whyItExists": "It owns a boundary that should stay centralized instead of being copied into feature code."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "a0c3301bb5b2d5513c78c22c33a791577c0b39c5624bfc7c5f9ef41585165a5c",
+      "explanationId": "explanation-17627d1e9844ce0406b3efbe4d05b4280a8896456c6f6b609ed476dce3e06fa0",
+      "fileId": "file-7f0c2ea6142234d2f6988ec1469ed8e1febda2e739cb1cbd3ae688bf683c95b1",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "test/jest-e2e.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "The blast radius appears local, but dependent modules may still need updates.",
+      "contentHash": "a0ffdb95f4f32eec067c88d609d409b3e74e9621d6f04d6a4084e3dfe35c1ce0",
+      "explanationId": "explanation-f88fda66eae10787fca20be1a37a753c191a997d49588a13e009662169a420e9",
+      "fileId": "file-3ae20d611c1c7263a9c1bce0449291ebfea1c5d578b3fcdbb596353ad885db25",
+      "metaphor": "This is a working part inside the machine rather than the machine's dashboard.",
+      "ownerSummary": "A source file that contributes to repository behavior. It supports the repository with documentation, metadata, or simple glue behavior. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "tsconfig.build.json",
+      "talksTo": [],
+      "whatItIs": "A source file that contributes to repository behavior.",
+      "whyItExists": "It supports the repository with documentation, metadata, or simple glue behavior."
+    },
+    {
+      "breakRisk": "Small edits can ripple into build, tool, or runtime defaults across the repo.",
+      "contentHash": "f7ddf53fcd6fb5ee5e44181e1fe8b88984c4e718783e1f93253d25a06476b375",
+      "explanationId": "explanation-7568df5395d91adfa3418406e49016372edd6219a20e02f6ea8c1021efa66b13",
+      "fileId": "file-b55cdbef4907b7045f32cc5360d48d262cca5f94062e353089f189f4460039e0",
+      "metaphor": "This is a settings ledger: it tells the rest of the system which rules to follow.",
+      "ownerSummary": "A configuration or manifest file that shapes tooling or runtime defaults. It keeps shared configuration or contracts in one place so the rest of the app can reuse them. It currently talks to no clearly detected internal dependency edges.",
+      "projectId": "project-20260324062406462561",
+      "relativePath": "tsconfig.json",
+      "talksTo": [],
+      "whatItIs": "A configuration or manifest file that shapes tooling or runtime defaults.",
+      "whyItExists": "It keeps shared configuration or contracts in one place so the rest of the app can reuse them."
+    }
+  ],
+  "generatedAt": "2026-03-24T06:24:23.875268Z",
+  "projectId": "project-20260324062406462561",
+  "runId": "run-20260324062406462598",
+  "schemaVersion": "cutr.file-explanations.v1"
+}

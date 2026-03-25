@@ -33,7 +33,10 @@ export class PromptConfigController {
   constructor(private readonly svc: PromptConfigService) {}
 
   private getTraceId(req: Request) {
-    return (req.header('x-trace-id') || req.header('X-Trace-Id') || '').trim() || randomUUID();
+    return (
+      (req.header('x-trace-id') || req.header('X-Trace-Id') || '').trim() ||
+      randomUUID()
+    );
   }
 
   private setup(res: Response, traceId: string) {
@@ -72,7 +75,9 @@ export class PromptConfigController {
     } catch (e: any) {
       const status = typeof e?.status === 'number' ? e.status : 500;
       const msg =
-        typeof e?.message === 'string' && e.message.trim() ? e.message : 'Internal server error';
+        typeof e?.message === 'string' && e.message.trim()
+          ? e.message
+          : 'Internal server error';
       return this.sendError(res, status, msg);
     }
   }
@@ -88,7 +93,9 @@ export class PromptConfigController {
     } catch (e: any) {
       const status = typeof e?.status === 'number' ? e.status : 500;
       const msg =
-        typeof e?.message === 'string' && e.message.trim() ? e.message : 'Internal server error';
+        typeof e?.message === 'string' && e.message.trim()
+          ? e.message
+          : 'Internal server error';
       return this.sendError(res, status, msg);
     }
   }
@@ -104,7 +111,9 @@ export class PromptConfigController {
     } catch (e: any) {
       const status = typeof e?.status === 'number' ? e.status : 500;
       const msg =
-        typeof e?.message === 'string' && e.message.trim() ? e.message : 'Internal server error';
+        typeof e?.message === 'string' && e.message.trim()
+          ? e.message
+          : 'Internal server error';
       return this.sendError(res, status, msg);
     }
   }
@@ -120,7 +129,9 @@ export class PromptConfigController {
     } catch (e: any) {
       const status = typeof e?.status === 'number' ? e.status : 500;
       const msg =
-        typeof e?.message === 'string' && e.message.trim() ? e.message : 'Internal server error';
+        typeof e?.message === 'string' && e.message.trim()
+          ? e.message
+          : 'Internal server error';
       return this.sendError(res, status, msg);
     }
   }
@@ -136,7 +147,9 @@ export class PromptConfigController {
     } catch (e: any) {
       const status = typeof e?.status === 'number' ? e.status : 500;
       const msg =
-        typeof e?.message === 'string' && e.message.trim() ? e.message : 'Internal server error';
+        typeof e?.message === 'string' && e.message.trim()
+          ? e.message
+          : 'Internal server error';
       return this.sendError(res, status, msg);
     }
   }

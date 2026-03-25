@@ -37,7 +37,8 @@ function camelizeValue(value: any): any {
   if (Array.isArray(value)) return value.map(camelizeValue);
   if (value && typeof value === 'object' && !Array.isArray(value)) {
     const out: any = {};
-    for (const [k, v] of Object.entries(value)) out[toCamelKey(k)] = camelizeValue(v);
+    for (const [k, v] of Object.entries(value))
+      out[toCamelKey(k)] = camelizeValue(v);
     return out;
   }
   return value;
@@ -65,13 +66,19 @@ function parseYearValue(raw: any): number | null {
   return Number.isFinite(year) ? year : null;
 }
 
-function toCanonicalSearchItem(raw: any): { tconst: string; title: string; year: number } | null {
+function toCanonicalSearchItem(
+  raw: any,
+): { tconst: string; title: string; year: number } | null {
   if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
 
   const normalized = camelizeValue(raw);
 
   const tconst = String(
-    normalized.tconst ?? normalized.imdbId ?? normalized.imdbID ?? (raw as any).imdbID ?? '',
+    normalized.tconst ??
+      normalized.imdbId ??
+      normalized.imdbID ??
+      raw.imdbID ??
+      '',
   ).trim();
   const title = String(normalized.title ?? '').trim();
 
@@ -83,11 +90,15 @@ function toCanonicalSearchItem(raw: any): { tconst: string; title: string; year:
   return { tconst, title, year };
 }
 
-function normalizeItemsToCanonical(items: any): Array<{ tconst: string; title: string; year: number }> {
+function normalizeItemsToCanonical(
+  items: any,
+): Array<{ tconst: string; title: string; year: number }> {
   if (!Array.isArray(items)) return [];
   return items
     .map((item) => toCanonicalSearchItem(item))
-    .filter((item): item is { tconst: string; title: string; year: number } => Boolean(item));
+    .filter((item): item is { tconst: string; title: string; year: number } =>
+      Boolean(item),
+    );
 }
 
 function truncate(s: any, n = 800) {
@@ -131,9 +142,14 @@ function parseTitleWithOptionalYearSuffix(raw: string) {
 @UseGuards(BearerTokenGuard)
 export class TitleSearchController {
   @Get('titleSearch')
-  async titleSearch(@Req() req: Request, @Res() res: Response, @Query() _qp: any) {
+  async titleSearch(
+    @Req() req: Request,
+    @Res() res: Response,
+    @Query() _qp: any,
+  ) {
     const traceId =
-      (req.header('x-trace-id') || req.header('X-Trace-Id'))?.trim() || randomUUID();
+      (req.header('x-trace-id') || req.header('X-Trace-Id'))?.trim() ||
+      randomUUID();
 
     const base = process.env.CF_WORKER_BASE_URL;
     if (!base) {
@@ -164,7 +180,8 @@ export class TitleSearchController {
     const qs = req.url.split('?')[1] ?? '';
     const params = new URLSearchParams(qs);
 
-    const incomingQuery = params.get('q') || params.get('query') || params.get('s') || '';
+    const incomingQuery =
+      params.get('q') || params.get('query') || params.get('s') || '';
     const parsedQuery = parseTitleWithOptionalYearSuffix(incomingQuery);
 
     // Forward everything except dataSource; normalize search params for CF worker
@@ -265,7 +282,8 @@ export class TitleSearchController {
             status: resp.status,
             error: makeError({
               source: 'omdb',
-              message: `OMDb HTTP ${resp.status} ${resp.statusText || ''}`.trim(),
+              message:
+                `OMDb HTTP ${resp.status} ${resp.statusText || ''}`.trim(),
               code: resp.status,
               details: { omdbUrl, bodySnippet: truncate(text) },
             }),
@@ -290,7 +308,9 @@ export class TitleSearchController {
         return {
           ok: true,
           status: 200,
-          items: normalizeItemsToCanonical(pageLimit > 0 ? found.slice(0, pageLimit) : found),
+          items: normalizeItemsToCanonical(
+            pageLimit > 0 ? found.slice(0, pageLimit) : found,
+          ),
         };
       } catch (err) {
         return {
@@ -329,7 +349,8 @@ export class TitleSearchController {
         errors.push(
           makeError({
             source: 'upstream',
-            message: `Upstream HTTP ${upstream.status} ${upstream.statusText || ''}`.trim(),
+            message:
+              `Upstream HTTP ${upstream.status} ${upstream.statusText || ''}`.trim(),
             code: upstream.status,
             details: upstreamDebug,
           }),
@@ -388,7 +409,8 @@ export class TitleSearchController {
 
     // 2) Fallback: OMDb if upstream returns no items and query exists
     const shouldTryOmdbFallback =
-      (!Array.isArray(items) || items.length === 0) && Boolean(String(omdbQuery).trim());
+      (!Array.isArray(items) || items.length === 0) &&
+      Boolean(String(omdbQuery).trim());
 
     if (shouldTryOmdbFallback) {
       const omdb = await fetchOmdbFallback();
@@ -403,7 +425,8 @@ export class TitleSearchController {
       }
     }
 
-    const finalStatus = Array.isArray(items) && items.length > 0 ? 200 : upstreamStatus;
+    const finalStatus =
+      Array.isArray(items) && items.length > 0 ? 200 : upstreamStatus;
 
     const responseBody = {
       requestId: traceId,

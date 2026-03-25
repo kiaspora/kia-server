@@ -15,7 +15,10 @@ describe('GenerateReviewService', () => {
   let service: GenerateReviewService;
   let storePath: string;
   let fetchMock: jest.Mock;
-  const longReviewText = Array.from({ length: 520 }, (_, i) => `detail${i + 1}`).join(' ');
+  const longReviewText = Array.from(
+    { length: 520 },
+    (_, i) => `detail${i + 1}`,
+  ).join(' ');
 
   const validInput: ValidatedGenerateReviewInput = {
     title: {
@@ -40,7 +43,13 @@ describe('GenerateReviewService', () => {
         evidence: ['liked social games'],
       },
     ],
-    userRatings: [{ titleId: 'tt0133093', rating: 3.5, ratedAt: '2026-02-01T10:00:00.000Z' }],
+    userRatings: [
+      {
+        titleId: 'tt0133093',
+        rating: 3.5,
+        ratedAt: '2026-02-01T10:00:00.000Z',
+      },
+    ],
     contradictions: {
       unresolvedCount: 1,
       examples: [{ type: 'tone_mismatch' }],
@@ -72,7 +81,11 @@ describe('GenerateReviewService', () => {
 
   beforeEach(async () => {
     service = new GenerateReviewService();
-    storePath = join(process.cwd(), 'temp', `generate-review-store-${Date.now()}-${Math.random()}.json`);
+    storePath = join(
+      process.cwd(),
+      'temp',
+      `generate-review-store-${Date.now()}-${Math.random()}.json`,
+    );
     process.env.GENERATE_REVIEW_STORE_PATH = storePath;
 
     fetchMock = jest.fn();

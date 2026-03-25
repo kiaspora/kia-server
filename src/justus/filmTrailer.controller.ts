@@ -18,7 +18,10 @@ export class FilmTrailerController {
   options(@Req() req: Request, @Res() res: Response) {
     const traceId = this.resolveTraceId(req);
     res.setHeader('X-Trace-Id', traceId);
-    return res.status(204).set({ ...CORS_HEADERS, Allow: 'GET, OPTIONS' }).send();
+    return res
+      .status(204)
+      .set({ ...CORS_HEADERS, Allow: 'GET, OPTIONS' })
+      .send();
   }
 
   @Get('filmTrailer')
@@ -40,7 +43,10 @@ export class FilmTrailerController {
       };
 
       res.setHeader('X-Trace-Id', traceId);
-      return res.status(401).set({ ...JSON_HEADERS, ...CORS_HEADERS }).send(JSON.stringify(body));
+      return res
+        .status(401)
+        .set({ ...JSON_HEADERS, ...CORS_HEADERS })
+        .send(JSON.stringify(body));
     }
 
     const result = await this.filmTrailerService.search(traceId, queryParams);
@@ -72,12 +78,16 @@ export class FilmTrailerController {
   }
 
   private resolveTraceId(req: Request): string {
-    return (req.header('x-trace-id') || req.header('X-Trace-Id') || '').trim() || randomUUID();
+    return (
+      (req.header('x-trace-id') || req.header('X-Trace-Id') || '').trim() ||
+      randomUUID()
+    );
   }
 
   private isAuthorized(req: Request): boolean {
     const expected = process.env.API_BEARER_TOKEN ?? '';
-    const auth = req.header('authorization') || req.header('Authorization') || '';
+    const auth =
+      req.header('authorization') || req.header('Authorization') || '';
 
     if (!expected || !auth.startsWith('Bearer ')) return false;
 

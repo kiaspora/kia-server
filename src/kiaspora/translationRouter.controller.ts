@@ -11,7 +11,12 @@ const CORS_HEADERS = {
   'access-control-allow-headers': 'content-type, authorization, x-trace-id',
 };
 
-type ErrorBody = { error: string; code?: string; traceId?: string; details?: any };
+type ErrorBody = {
+  error: string;
+  code?: string;
+  traceId?: string;
+  details?: any;
+};
 
 @Controller('api/kiaspora')
 @UseGuards(BearerTokenGuard)
@@ -20,7 +25,9 @@ export class TranslationRouterController {
 
   @Post('translationRouter')
   async translationRouter(@Req() req: Request, @Res() res: Response) {
-    const traceId = (req.header('x-trace-id') || req.header('X-Trace-Id'))?.trim() || randomUUID();
+    const traceId =
+      (req.header('x-trace-id') || req.header('X-Trace-Id'))?.trim() ||
+      randomUUID();
 
     // Preflight
     if (req.method === 'OPTIONS') {
@@ -40,7 +47,10 @@ export class TranslationRouterController {
     } catch (e: any) {
       const status = typeof e?.status === 'number' ? e.status : 500;
       const body: ErrorBody = {
-        error: typeof e?.message === 'string' && e.message.trim() ? e.message : 'Internal server error',
+        error:
+          typeof e?.message === 'string' && e.message.trim()
+            ? e.message
+            : 'Internal server error',
         ...(e?.code ? { code: e.code } : {}),
         traceId,
         ...(e?.details !== undefined ? { details: e.details } : {}),

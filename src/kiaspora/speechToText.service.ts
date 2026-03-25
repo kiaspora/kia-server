@@ -18,7 +18,10 @@ type RouterBody = {
 const MULTIPART_MAX_BYTES = 20 * 1024 * 1024; // 20MB
 
 class HttpError extends Error {
-  constructor(public readonly statusCode: number, message: string) {
+  constructor(
+    public readonly statusCode: number,
+    message: string,
+  ) {
     super(message);
   }
 }
@@ -26,13 +29,16 @@ class HttpError extends Error {
 function pickTraceId(req: Request, body?: any): string {
   // per tmpl-api-pattern.md: middleware attaches req.traceId
   const fromMiddleware = (req as any)?.traceId;
-  if (typeof fromMiddleware === 'string' && fromMiddleware.trim()) return fromMiddleware.trim();
+  if (typeof fromMiddleware === 'string' && fromMiddleware.trim())
+    return fromMiddleware.trim();
 
   const fromHeader = req.headers['x-trace-id'];
-  if (typeof fromHeader === 'string' && fromHeader.trim()) return fromHeader.trim();
+  if (typeof fromHeader === 'string' && fromHeader.trim())
+    return fromHeader.trim();
 
   const bodyTrace = body?.traceId ?? body?.trace_id ?? body?.TraceId;
-  if (typeof bodyTrace === 'string' && bodyTrace.trim()) return bodyTrace.trim();
+  if (typeof bodyTrace === 'string' && bodyTrace.trim())
+    return bodyTrace.trim();
 
   // IMPORTANT: Cloud Function default for this route
   return 'stt-trace';
@@ -43,7 +49,7 @@ export class SpeechToTextService {
   parseJsonBody(raw: any): RouterBody {
     // In Nest, JSON is already parsed, but keep parity with the Functions parser:
     if (!raw) return {};
-    if (typeof raw === 'object') return raw as any;
+    if (typeof raw === 'object') return raw;
     if (typeof raw === 'string') {
       try {
         return JSON.parse(raw);
@@ -60,7 +66,9 @@ export class SpeechToTextService {
    * - Enforces 20MB limit
    * - Produces audioBase64 as data:<mime>;base64,<...>
    */
-  async parseMultipart(req: Request): Promise<{ body: RouterBody; audioBase64?: string }> {
+  async parseMultipart(
+    req: Request,
+  ): Promise<{ body: RouterBody; audioBase64?: string }> {
     return await new Promise((resolve, reject) => {
       const bb = Busboy({
         headers: req.headers as any,
@@ -98,18 +106,26 @@ export class SpeechToTextService {
           chunks.push(d);
         });
 
-        file.on('limit', () => reject(new HttpError(413, 'Uploaded audio is too large')));
+        file.on('limit', () =>
+          reject(new HttpError(413, 'Uploaded audio is too large')),
+        );
         file.on('end', () => {
           fileBuffer = Buffer.concat(chunks);
         });
-        file.on('error', () => reject(new HttpError(400, 'Failed to read uploaded audio')));
+        file.on('error', () =>
+          reject(new HttpError(400, 'Failed to read uploaded audio')),
+        );
       });
 
-      bb.on('error', () => reject(new HttpError(400, 'Invalid multipart/form-data payload')));
+      bb.on('error', () =>
+        reject(new HttpError(400, 'Invalid multipart/form-data payload')),
+      );
 
       bb.on('finish', () => {
         if (!sawFile || !fileBuffer || fileBuffer.length === 0) {
-          reject(new HttpError(400, 'Missing audio file field ("audio" or "file")'));
+          reject(
+            new HttpError(400, 'Missing audio file field ("audio" or "file")'),
+          );
           return;
         }
 
@@ -153,7 +169,11 @@ export class SpeechToTextService {
    * Returns stable response shape (must match Cloud Function):
    * { model, aiProvider, latency_ms, text, traceId }
    */
-  async run(rawBody: RouterBody, req: Request, audioBase64?: string): Promise<{
+  async run(
+    rawBody: RouterBody,
+    req: Request,
+    audioBase64?: string,
+  ): Promise<{
     model: string;
     aiProvider: 'google';
     latency_ms: number;
@@ -170,7 +190,11 @@ export class SpeechToTextService {
     const out = await runGoogleSpeechToTextCore({
       body,
       traceId,
-      audioBase64: audioBase64 ?? (typeof body.base64Audio === 'string' ? (body.base64Audio as any) : undefined),
+      audioBase64:
+        audioBase64 ??
+        (typeof body.base64Audio === 'string'
+          ? (body.base64Audio as any)
+          : undefined),
     });
 
     return {

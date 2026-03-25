@@ -9,6 +9,11 @@ import { PromptConfigModule } from './promptConfig.module';
 @Module({
   controllers: [TranslationRouterController],
   providers: [TranslationRouterService],
-  imports: [TranslationChatModule, ImageScanModule, SpeechToTextModule, PromptConfigModule],
+  imports: [
+    TranslationChatModule,
+    ImageScanModule,
+    SpeechToTextModule,
+    PromptConfigModule,
+  ],
 })
 export class KiasporaModule {}

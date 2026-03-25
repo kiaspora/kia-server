@@ -1,4 +1,12 @@
-import { Body, Controller, HttpCode, Options, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  Options,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import type { Request } from 'express';
 
 import { BearerTokenGuard } from '../auth/bearer-token.guard';

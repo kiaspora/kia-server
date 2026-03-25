@@ -7,7 +7,11 @@ export class MetaController {
   @Get('status')
   @ApiOkResponse({
     schema: {
-      example: { ok: true, service: 'api', timestamp: '2026-02-15T00:00:00.000Z' },
+      example: {
+        ok: true,
+        service: 'api',
+        timestamp: '2026-02-15T00:00:00.000Z',
+      },
     },
   })
   status() {
@@ -17,7 +21,11 @@ export class MetaController {
   @Get('about')
   @ApiOkResponse({
     schema: {
-      example: { name: 'api', description: 'NestJS service deployed on Railway', version: '0.0.0' },
+      example: {
+        name: 'api',
+        description: 'NestJS service deployed on Railway',
+        version: '0.0.0',
+      },
     },
   })
   about() {

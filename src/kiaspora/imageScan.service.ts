@@ -14,7 +14,10 @@ type RouterBody = {
 const MULTIPART_MAX_BYTES = 12 * 1024 * 1024; // 12MB
 
 class HttpError extends Error {
-  constructor(public readonly statusCode: number, message: string) {
+  constructor(
+    public readonly statusCode: number,
+    message: string,
+  ) {
     super(message);
   }
 }
@@ -23,20 +26,28 @@ function normalizeAiProvider(v: unknown): 'openai' | 'google' | null {
   if (typeof v !== 'string') return null;
   const trimmed = v.trim().toLowerCase();
   if (trimmed === 'openai') return 'openai';
-  if (trimmed === 'google' || trimmed === 'vision' || trimmed === 'google-vision') return 'google';
+  if (
+    trimmed === 'google' ||
+    trimmed === 'vision' ||
+    trimmed === 'google-vision'
+  )
+    return 'google';
   return null;
 }
 
 function pickTraceId(req: Request, body?: any): string {
   // per tmpl-api-pattern.md: middleware attaches req.traceId
   const fromMiddleware = (req as any)?.traceId;
-  if (typeof fromMiddleware === 'string' && fromMiddleware.trim()) return fromMiddleware.trim();
+  if (typeof fromMiddleware === 'string' && fromMiddleware.trim())
+    return fromMiddleware.trim();
 
   const fromHeader = req.headers['x-trace-id'];
-  if (typeof fromHeader === 'string' && fromHeader.trim()) return fromHeader.trim();
+  if (typeof fromHeader === 'string' && fromHeader.trim())
+    return fromHeader.trim();
 
   const bodyTrace = body?.traceId ?? body?.trace_id ?? body?.TraceId;
-  if (typeof bodyTrace === 'string' && bodyTrace.trim()) return bodyTrace.trim();
+  if (typeof bodyTrace === 'string' && bodyTrace.trim())
+    return bodyTrace.trim();
 
   // keep same default as function (it used "router-trace" if not string)
   return 'router-trace';
@@ -53,7 +64,7 @@ export class ImageScanService {
   parseJsonBody(raw: any): RouterBody {
     // In Nest, JSON is already parsed, but keep parity with the Functions parser:
     if (!raw) return {};
-    if (typeof raw === 'object') return raw as any;
+    if (typeof raw === 'object') return raw;
     if (typeof raw === 'string') {
       try {
         return JSON.parse(raw);
@@ -108,14 +119,20 @@ export class ImageScanService {
           chunks.push(d);
         });
 
-        file.on('limit', () => reject(new HttpError(413, 'Uploaded file is too large')));
+        file.on('limit', () =>
+          reject(new HttpError(413, 'Uploaded file is too large')),
+        );
         file.on('end', () => {
           fileBuffer = Buffer.concat(chunks);
         });
-        file.on('error', () => reject(new HttpError(400, 'Failed to read uploaded file')));
+        file.on('error', () =>
+          reject(new HttpError(400, 'Failed to read uploaded file')),
+        );
       });
 
-      bb.on('error', () => reject(new HttpError(400, 'Invalid multipart/form-data payload')));
+      bb.on('error', () =>
+        reject(new HttpError(400, 'Invalid multipart/form-data payload')),
+      );
 
       bb.on('finish', () => {
         const aiProvider = fields.aiProvider?.trim?.() || undefined;
@@ -130,7 +147,12 @@ export class ImageScanService {
         const mimeType = (fields.mimeType || fileMime || 'image/png').trim();
 
         if (!aiProvider) {
-          reject(new HttpError(400, 'Missing aiProvider. Expected "openai" or "google".'));
+          reject(
+            new HttpError(
+              400,
+              'Missing aiProvider. Expected "openai" or "google".',
+            ),
+          );
           return;
         }
 
@@ -144,7 +166,13 @@ export class ImageScanService {
           return;
         }
 
-        const body: RouterBody = { aiProvider, traceId, customPrompt, imageUrl, mimeType };
+        const body: RouterBody = {
+          aiProvider,
+          traceId,
+          customPrompt,
+          imageUrl,
+          mimeType,
+        };
 
         // normalize file -> base64 data URL
         if (!imageUrl && fileBuffer && fileBuffer.length > 0) {
@@ -168,7 +196,10 @@ export class ImageScanService {
    * Returns stable response shape:
    * { model, aiProvider, latency_ms, translation, traceId }
    */
-  async run(rawBody: RouterBody, req: Request): Promise<{
+  async run(
+    rawBody: RouterBody,
+    req: Request,
+  ): Promise<{
     model: string;
     aiProvider: 'openai' | 'google';
     latency_ms: number;
@@ -178,7 +209,10 @@ export class ImageScanService {
     const body = this.parseJsonBody(rawBody);
     const aiProvider = normalizeAiProvider(body.aiProvider);
     if (!aiProvider) {
-      throw new HttpError(400, 'Invalid aiProvider. Expected "openai" or "google".');
+      throw new HttpError(
+        400,
+        'Invalid aiProvider. Expected "openai" or "google".',
+      );
     }
 
     const traceId =
@@ -212,14 +246,21 @@ export class ImageScanService {
    * Contract matches:
    * { model, latency_ms, translation, traceId }
    */
-  private async runOpenaiImageScanCore(args: { body: RouterBody; traceId: string }) {
+  private async runOpenaiImageScanCore(args: {
+    body: RouterBody;
+    traceId: string;
+  }) {
     const { body, traceId } = args;
 
     const apiKey = requireEnv('OPENAI_KIA_API_KEY');
-    const model = (process.env.OPENAI_IMAGE_SCAN_MODEL || 'gpt-4.1-mini').trim();
+    const model = (
+      process.env.OPENAI_IMAGE_SCAN_MODEL || 'gpt-4.1-mini'
+    ).trim();
 
     const imageUrl =
-      typeof body.imageUrl === 'string' && body.imageUrl.trim().length > 0 ? body.imageUrl.trim() : null;
+      typeof body.imageUrl === 'string' && body.imageUrl.trim().length > 0
+        ? body.imageUrl.trim()
+        : null;
 
     const base64Image =
       typeof body.base64Image === 'string' && body.base64Image.trim().length > 0
@@ -236,7 +277,9 @@ export class ImageScanService {
         : 'Extract the text from this image. Return only the extracted text.';
 
     // Use Responses API (matches your translationChat OpenAI usage style)
-    const endpoint = (process.env.OPENAI_API_URL || 'https://api.openai.com/v1/responses').trim();
+    const endpoint = (
+      process.env.OPENAI_API_URL || 'https://api.openai.com/v1/responses'
+    ).trim();
 
     const inputImage = imageUrl ?? base64Image;
 
@@ -268,7 +311,9 @@ export class ImageScanService {
 
     if (!res.ok) {
       const text = await res.text().catch(() => '');
-      throw new Error(`Upstream openai error: HTTP ${res.status} ${res.statusText} ${text}`);
+      throw new Error(
+        `Upstream openai error: HTTP ${res.status} ${res.statusText} ${text}`,
+      );
     }
 
     const json = await res.json().catch(() => ({}));
@@ -283,7 +328,8 @@ export class ImageScanService {
       const parts: string[] = [];
       for (const item of json.output) {
         for (const block of item?.content || []) {
-          if (typeof block?.text?.value === 'string') parts.push(block.text.value);
+          if (typeof block?.text?.value === 'string')
+            parts.push(block.text.value);
           else if (typeof block?.text === 'string') parts.push(block.text);
         }
       }
@@ -298,14 +344,19 @@ export class ImageScanService {
    * Contract matches:
    * { model, latency_ms, translation, traceId }
    */
-  private async runGoogleVisionOcrCore(args: { body: RouterBody; traceId: string }) {
+  private async runGoogleVisionOcrCore(args: {
+    body: RouterBody;
+    traceId: string;
+  }) {
     const { body, traceId } = args;
 
     const apiKey = requireEnv('GOOGLE_API_KEY');
     const model = 'google-vision-ocr';
 
     const imageUrl =
-      typeof body.imageUrl === 'string' && body.imageUrl.trim().length > 0 ? body.imageUrl.trim() : null;
+      typeof body.imageUrl === 'string' && body.imageUrl.trim().length > 0
+        ? body.imageUrl.trim()
+        : null;
 
     const base64Image =
       typeof body.base64Image === 'string' && body.base64Image.trim().length > 0
@@ -331,26 +382,31 @@ export class ImageScanService {
     }
 
     const started = Date.now();
-    const res = await fetch(`https://vision.googleapis.com/v1/images:annotate?key=${encodeURIComponent(apiKey)}`, {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        'x-trace-id': traceId,
+    const res = await fetch(
+      `https://vision.googleapis.com/v1/images:annotate?key=${encodeURIComponent(apiKey)}`,
+      {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          'x-trace-id': traceId,
+        },
+        body: JSON.stringify({
+          requests: [
+            {
+              image,
+              features: [{ type: 'TEXT_DETECTION' }],
+            },
+          ],
+        }),
       },
-      body: JSON.stringify({
-        requests: [
-          {
-            image,
-            features: [{ type: 'TEXT_DETECTION' }],
-          },
-        ],
-      }),
-    });
+    );
     const latency_ms = Date.now() - started;
 
     if (!res.ok) {
       const text = await res.text().catch(() => '');
-      throw new Error(`Upstream google vision error: HTTP ${res.status} ${res.statusText} ${text}`);
+      throw new Error(
+        `Upstream google vision error: HTTP ${res.status} ${res.statusText} ${text}`,
+      );
     }
 
     const json = await res.json().catch(() => ({}));
@@ -360,6 +416,11 @@ export class ImageScanService {
       (resp?.textAnnotations?.[0]?.description as string | undefined) ||
       '';
 
-    return { model, latency_ms, translation: (translation || '').trim(), traceId };
+    return {
+      model,
+      latency_ms,
+      translation: (translation || '').trim(),
+      traceId,
+    };
   }
 }

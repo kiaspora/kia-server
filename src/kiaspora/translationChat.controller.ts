@@ -27,10 +27,12 @@ function getTraceId(req: Request, body?: any): string {
   }
 
   const fromHeader = req.headers['x-trace-id'];
-  if (typeof fromHeader === 'string' && fromHeader.trim()) return fromHeader.trim();
+  if (typeof fromHeader === 'string' && fromHeader.trim())
+    return fromHeader.trim();
 
   const bodyTrace = body?.traceId ?? body?.trace_id ?? body?.TraceId;
-  if (typeof bodyTrace === 'string' && bodyTrace.trim()) return bodyTrace.trim();
+  if (typeof bodyTrace === 'string' && bodyTrace.trim())
+    return bodyTrace.trim();
 
   return randomUUID();
 }

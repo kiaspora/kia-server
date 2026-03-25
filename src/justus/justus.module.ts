@@ -17,10 +17,7 @@ import { TrailersController } from './trailers.controller';
     LlmRouterController,
     TrailersController, // NEW
   ],
-  providers: [
-    FilmTrailerService,
-    LlmRouterService,
-  ],
+  providers: [FilmTrailerService, LlmRouterService],
   imports: [],
 })
 export class JustUsModule {}

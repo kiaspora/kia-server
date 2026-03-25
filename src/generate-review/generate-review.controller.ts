@@ -45,12 +45,15 @@ export class GenerateReviewController {
       };
     }
 
-    const serviceResult = await this.generateReviewService.generateReview(validation.value, {
-      traceId,
-      authorization: this.getAuthorization(req),
-      baseUrl: this.resolveBaseUrl(req),
-      userKey: this.resolveUserKey(req),
-    });
+    const serviceResult = await this.generateReviewService.generateReview(
+      validation.value,
+      {
+        traceId,
+        authorization: this.getAuthorization(req),
+        baseUrl: this.resolveBaseUrl(req),
+        userKey: this.resolveUserKey(req),
+      },
+    );
 
     return {
       statusCode: serviceResult.statusCode,
@@ -74,7 +77,9 @@ export class GenerateReviewController {
     if (configured && configured.trim()) return configured.replace(/\/+$/, '');
 
     const protocol =
-      (req.header('x-forwarded-proto') || '').split(',')[0]?.trim() || req.protocol || 'http';
+      (req.header('x-forwarded-proto') || '').split(',')[0]?.trim() ||
+      req.protocol ||
+      'http';
     const host =
       (req.header('x-forwarded-host') || '').split(',')[0]?.trim() ||
       req.get('host') ||
@@ -86,15 +91,18 @@ export class GenerateReviewController {
 
   private getAuthorization(req: Request): string | undefined {
     const raw =
-      (req.headers.authorization as string | undefined) ||
+      req.headers.authorization ||
       (req.headers.Authorization as string | undefined);
     return raw && raw.trim() ? raw.trim() : undefined;
   }
 
   private resolveUserKey(req: Request): string {
-    const header =
-      (req.header('x-user-id') || req.header('X-User-Id') || req.header('x-user-key') || '')
-        .trim();
+    const header = (
+      req.header('x-user-id') ||
+      req.header('X-User-Id') ||
+      req.header('x-user-key') ||
+      ''
+    ).trim();
     return header || 'global';
   }
 }

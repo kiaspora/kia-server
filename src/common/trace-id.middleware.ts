@@ -8,9 +8,11 @@ export type TraceRequest = Request & { traceId?: string };
 export class TraceIdMiddleware implements NestMiddleware {
   use(req: TraceRequest, res: Response, next: NextFunction) {
     const incoming =
-      (req.header('x-trace-id') ||
+      (
+        req.header('x-trace-id') ||
         req.header('trace-id') ||
-        req.header('x-request-id'))?.trim() || '';
+        req.header('x-request-id')
+      )?.trim() || '';
 
     const traceId = incoming && isUuid(incoming) ? incoming : randomUUID();
 

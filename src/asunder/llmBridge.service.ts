@@ -70,7 +70,10 @@ export class LlmBridgeError extends Error {
 
 @Injectable()
 export class LlmBridgeService {
-  async parseMultipart(req: Request, traceId = 'llmBridge-trace'): Promise<{
+  async parseMultipart(
+    req: Request,
+    traceId = 'llmBridge-trace',
+  ): Promise<{
     body: LlmBridgeRequest;
     attachments: UploadedAttachment[];
   }> {
@@ -121,11 +124,15 @@ export class LlmBridgeService {
           chunks.push(chunk);
         });
 
-        file.on('limit', () => rejectOnce(this.invalidRequest(413, 'Uploaded file is too large')));
+        file.on('limit', () =>
+          rejectOnce(this.invalidRequest(413, 'Uploaded file is too large')),
+        );
         file.on('end', () => {
           if (settled) return;
           if (total === 0) {
-            rejectOnce(this.invalidRequest(400, `Uploaded file "${filename}" is empty`));
+            rejectOnce(
+              this.invalidRequest(400, `Uploaded file "${filename}" is empty`),
+            );
             return;
           }
 
@@ -136,13 +143,24 @@ export class LlmBridgeService {
             size: total,
           });
         });
-        file.on('error', () => rejectOnce(this.invalidRequest(400, 'Failed to read uploaded file')));
+        file.on('error', () =>
+          rejectOnce(this.invalidRequest(400, 'Failed to read uploaded file')),
+        );
       });
 
       bb.on('filesLimit', () =>
-        rejectOnce(this.invalidRequest(400, `Too many files. Maximum ${MAX_ATTACHMENTS} allowed`)),
+        rejectOnce(
+          this.invalidRequest(
+            400,
+            `Too many files. Maximum ${MAX_ATTACHMENTS} allowed`,
+          ),
+        ),
       );
-      bb.on('error', () => rejectOnce(this.invalidRequest(400, 'Invalid multipart/form-data payload')));
+      bb.on('error', () =>
+        rejectOnce(
+          this.invalidRequest(400, 'Invalid multipart/form-data payload'),
+        ),
+      );
       bb.on('finish', () => {
         if (settled) return;
         if (payloadField == null || !payloadField.trim()) {
@@ -235,40 +253,60 @@ export class LlmBridgeService {
         'One of prompt, messages, input, or attachments is required',
         {
           error: {
-            message: 'One of prompt, messages, input, or attachments is required',
+            message:
+              'One of prompt, messages, input, or attachments is required',
             type: 'invalid_request_error',
           },
         },
       );
     }
 
-    if (body.model != null && (typeof body.model !== 'string' || !body.model.trim())) {
-      throw new LlmBridgeError(400, 'model must be a non-empty string when provided', {
-        error: {
-          message: 'model must be a non-empty string when provided',
-          type: 'invalid_request_error',
+    if (
+      body.model != null &&
+      (typeof body.model !== 'string' || !body.model.trim())
+    ) {
+      throw new LlmBridgeError(
+        400,
+        'model must be a non-empty string when provided',
+        {
+          error: {
+            message: 'model must be a non-empty string when provided',
+            type: 'invalid_request_error',
+          },
         },
-      });
+      );
     }
 
     if (hasPrompt) {
-      if (!body.prompt || typeof body.prompt !== 'object' || Array.isArray(body.prompt)) {
-        throw new LlmBridgeError(400, 'prompt must be an object when provided', {
-          error: {
-            message: 'prompt must be an object when provided',
-            type: 'invalid_request_error',
+      if (
+        !body.prompt ||
+        typeof body.prompt !== 'object' ||
+        Array.isArray(body.prompt)
+      ) {
+        throw new LlmBridgeError(
+          400,
+          'prompt must be an object when provided',
+          {
+            error: {
+              message: 'prompt must be an object when provided',
+              type: 'invalid_request_error',
+            },
           },
-        });
+        );
       }
 
       const prompt = body.prompt as Record<string, unknown>;
       if (prompt.id != null) {
-        throw new LlmBridgeError(400, 'prompt.id must not be provided by the client', {
-          error: {
-            message: 'prompt.id must not be provided by the client',
-            type: 'invalid_request_error',
+        throw new LlmBridgeError(
+          400,
+          'prompt.id must not be provided by the client',
+          {
+            error: {
+              message: 'prompt.id must not be provided by the client',
+              type: 'invalid_request_error',
+            },
           },
-        });
+        );
       }
 
       if (
@@ -276,12 +314,17 @@ export class LlmBridgeService {
         typeof prompt.version !== 'string' &&
         typeof prompt.version !== 'number'
       ) {
-        throw new LlmBridgeError(400, 'prompt.version must be a string or number when provided', {
-          error: {
-            message: 'prompt.version must be a string or number when provided',
-            type: 'invalid_request_error',
+        throw new LlmBridgeError(
+          400,
+          'prompt.version must be a string or number when provided',
+          {
+            error: {
+              message:
+                'prompt.version must be a string or number when provided',
+              type: 'invalid_request_error',
+            },
           },
-        });
+        );
       }
     }
 
@@ -289,24 +332,32 @@ export class LlmBridgeService {
       body.promptId != null &&
       (typeof body.promptId !== 'string' || !body.promptId.trim())
     ) {
-      throw new LlmBridgeError(400, 'promptId must be a non-empty string when provided', {
-        error: {
-          message: 'promptId must be a non-empty string when provided',
-          type: 'invalid_request_error',
+      throw new LlmBridgeError(
+        400,
+        'promptId must be a non-empty string when provided',
+        {
+          error: {
+            message: 'promptId must be a non-empty string when provided',
+            type: 'invalid_request_error',
+          },
         },
-      });
+      );
     }
 
     if (
       body.promptVersion != null &&
       (!Number.isInteger(body.promptVersion) || Number(body.promptVersion) < 1)
     ) {
-      throw new LlmBridgeError(400, 'promptVersion must be a positive integer when provided', {
-        error: {
-          message: 'promptVersion must be a positive integer when provided',
-          type: 'invalid_request_error',
+      throw new LlmBridgeError(
+        400,
+        'promptVersion must be a positive integer when provided',
+        {
+          error: {
+            message: 'promptVersion must be a positive integer when provided',
+            type: 'invalid_request_error',
+          },
         },
-      });
+      );
     }
 
     if (hasMessages && !Array.isArray(body.messages)) {
@@ -318,7 +369,7 @@ export class LlmBridgeService {
       });
     }
 
-    for (const message of ((body.messages as unknown[] | undefined) ?? [])) {
+    for (const message of (body.messages as unknown[] | undefined) ?? []) {
       if (!message || typeof message !== 'object' || Array.isArray(message)) {
         throw new LlmBridgeError(400, 'each message must be an object', {
           error: {
@@ -360,26 +411,38 @@ export class LlmBridgeService {
     }
 
     if (hasAttachments && !Array.isArray(body.attachments)) {
-      throw new LlmBridgeError(400, 'attachments must be an array when provided', {
-        error: {
-          message: 'attachments must be an array when provided',
-          type: 'invalid_request_error',
+      throw new LlmBridgeError(
+        400,
+        'attachments must be an array when provided',
+        {
+          error: {
+            message: 'attachments must be an array when provided',
+            type: 'invalid_request_error',
+          },
         },
-      });
+      );
     }
 
     const attachments = (body.attachments as unknown[] | undefined) ?? [];
     if (attachments.length > MAX_ATTACHMENTS) {
-      throw new LlmBridgeError(400, `Too many attachments. Maximum ${MAX_ATTACHMENTS} allowed`, {
-        error: {
-          message: `Too many attachments. Maximum ${MAX_ATTACHMENTS} allowed`,
-          type: 'invalid_request_error',
+      throw new LlmBridgeError(
+        400,
+        `Too many attachments. Maximum ${MAX_ATTACHMENTS} allowed`,
+        {
+          error: {
+            message: `Too many attachments. Maximum ${MAX_ATTACHMENTS} allowed`,
+            type: 'invalid_request_error',
+          },
         },
-      });
+      );
     }
 
     for (const attachment of attachments) {
-      if (!attachment || typeof attachment !== 'object' || Array.isArray(attachment)) {
+      if (
+        !attachment ||
+        typeof attachment !== 'object' ||
+        Array.isArray(attachment)
+      ) {
         throw new LlmBridgeError(400, 'each attachment must be an object', {
           error: {
             message: 'each attachment must be an object',
@@ -390,30 +453,50 @@ export class LlmBridgeService {
 
       const record = attachment as Record<string, unknown>;
       if (typeof record.name !== 'string' || !record.name.trim()) {
-        throw new LlmBridgeError(400, 'attachment.name must be a non-empty string', {
-          error: {
-            message: 'attachment.name must be a non-empty string',
-            type: 'invalid_request_error',
+        throw new LlmBridgeError(
+          400,
+          'attachment.name must be a non-empty string',
+          {
+            error: {
+              message: 'attachment.name must be a non-empty string',
+              type: 'invalid_request_error',
+            },
           },
-        });
+        );
       }
 
-      if (record.file_data != null && (typeof record.file_data !== 'string' || !record.file_data.trim())) {
-        throw new LlmBridgeError(400, 'attachment.file_data must be a non-empty string when provided', {
-          error: {
-            message: 'attachment.file_data must be a non-empty string when provided',
-            type: 'invalid_request_error',
+      if (
+        record.file_data != null &&
+        (typeof record.file_data !== 'string' || !record.file_data.trim())
+      ) {
+        throw new LlmBridgeError(
+          400,
+          'attachment.file_data must be a non-empty string when provided',
+          {
+            error: {
+              message:
+                'attachment.file_data must be a non-empty string when provided',
+              type: 'invalid_request_error',
+            },
           },
-        });
+        );
       }
 
-      if (record.path != null && (typeof record.path !== 'string' || !record.path.trim())) {
-        throw new LlmBridgeError(400, 'attachment.path must be a non-empty string when provided', {
-          error: {
-            message: 'attachment.path must be a non-empty string when provided',
-            type: 'invalid_request_error',
+      if (
+        record.path != null &&
+        (typeof record.path !== 'string' || !record.path.trim())
+      ) {
+        throw new LlmBridgeError(
+          400,
+          'attachment.path must be a non-empty string when provided',
+          {
+            error: {
+              message:
+                'attachment.path must be a non-empty string when provided',
+              type: 'invalid_request_error',
+            },
           },
-        });
+        );
       }
 
       if (record.file_data == null && record.path == null) {
@@ -501,12 +584,18 @@ export class LlmBridgeService {
 
     // Normalize prompt.version to string for consistency.
     const shouldAttachPromptConfig =
-      (payload.prompt && typeof payload.prompt === 'object' && !Array.isArray(payload.prompt)) ||
+      (payload.prompt &&
+        typeof payload.prompt === 'object' &&
+        !Array.isArray(payload.prompt)) ||
       promptId ||
       promptVersion;
 
     if (shouldAttachPromptConfig) {
-      if (!payload.prompt || typeof payload.prompt !== 'object' || Array.isArray(payload.prompt)) {
+      if (
+        !payload.prompt ||
+        typeof payload.prompt !== 'object' ||
+        Array.isArray(payload.prompt)
+      ) {
         payload.prompt = {};
       }
 
@@ -542,7 +631,10 @@ export class LlmBridgeService {
 
     if (totalCount === 0) return [];
     if (totalCount > MAX_ATTACHMENTS) {
-      throw this.invalidRequest(400, `Too many attachments. Maximum ${MAX_ATTACHMENTS} allowed`);
+      throw this.invalidRequest(
+        400,
+        `Too many attachments. Maximum ${MAX_ATTACHMENTS} allowed`,
+      );
     }
 
     const normalized: NormalizedAttachment[] = [];
@@ -550,8 +642,17 @@ export class LlmBridgeService {
     for (const attachment of requestedAttachments) {
       if (attachment.file_data) {
         const parsed = this.parseAttachmentDataUrl(attachment.file_data);
-        this.validateNormalizedAttachment(attachment.name, parsed.mimeType, parsed.buffer.length);
-        this.logNormalizedAttachment(traceId, attachment.name, parsed.mimeType, parsed.buffer.length);
+        this.validateNormalizedAttachment(
+          attachment.name,
+          parsed.mimeType,
+          parsed.buffer.length,
+        );
+        this.logNormalizedAttachment(
+          traceId,
+          attachment.name,
+          parsed.mimeType,
+          parsed.buffer.length,
+        );
         normalized.push({
           filename: attachment.name,
           mimeType: parsed.mimeType,
@@ -581,8 +682,17 @@ export class LlmBridgeService {
           );
         }
 
-        this.validateNormalizedAttachment(filename, mimeType, fileBuffer.length);
-        this.logNormalizedAttachment(traceId, filename, mimeType, fileBuffer.length);
+        this.validateNormalizedAttachment(
+          filename,
+          mimeType,
+          fileBuffer.length,
+        );
+        this.logNormalizedAttachment(
+          traceId,
+          filename,
+          mimeType,
+          fileBuffer.length,
+        );
         normalized.push({
           filename,
           mimeType,
@@ -621,11 +731,18 @@ export class LlmBridgeService {
     return normalized;
   }
 
-  private buildResponsesInput(body: LlmBridgeRequest, attachments: NormalizedAttachment[]) {
+  private buildResponsesInput(
+    body: LlmBridgeRequest,
+    attachments: NormalizedAttachment[],
+  ) {
     if (body.messages?.length) {
       return body.messages.map((message) => ({
         role: message.role,
-        content: this.buildMessageContent(message.content, message.role, attachments),
+        content: this.buildMessageContent(
+          message.content,
+          message.role,
+          attachments,
+        ),
       }));
     }
 
@@ -654,7 +771,10 @@ export class LlmBridgeService {
       return [this.buildAttachmentInputMessage(attachments)];
     }
 
-    throw this.invalidRequest(400, 'Request must include input, messages, or attachments');
+    throw this.invalidRequest(
+      400,
+      'Request must include input, messages, or attachments',
+    );
   }
 
   private buildMessageContent(
@@ -710,12 +830,18 @@ export class LlmBridgeService {
     } catch (error) {
       throw this.invalidRequest(
         400,
-        error instanceof Error ? error.message : 'attachments.file_data is invalid',
+        error instanceof Error
+          ? error.message
+          : 'attachments.file_data is invalid',
       );
     }
   }
 
-  private validateNormalizedAttachment(filename: string, mimeType: string, size: number) {
+  private validateNormalizedAttachment(
+    filename: string,
+    mimeType: string,
+    size: number,
+  ) {
     if (!size) {
       throw this.invalidRequest(
         400,
@@ -731,7 +857,10 @@ export class LlmBridgeService {
     }
 
     if (!ALLOWED_ATTACHMENT_MIME_TYPES.has(mimeType)) {
-      throw this.invalidRequest(400, `Unsupported attachment MIME type: ${mimeType}`);
+      throw this.invalidRequest(
+        400,
+        `Unsupported attachment MIME type: ${mimeType}`,
+      );
     }
   }
 
@@ -751,7 +880,9 @@ export class LlmBridgeService {
   }
 
   private resolvePromptVersion(requestPromptVersion?: number) {
-    return requestPromptVersion != null ? String(requestPromptVersion) : undefined;
+    return requestPromptVersion != null
+      ? String(requestPromptVersion)
+      : undefined;
   }
 
   private invalidRequest(statusCode: number, message: string) {
@@ -768,21 +899,28 @@ export class LlmBridgeService {
     if (!apiKey) {
       throw new LlmBridgeError(500, 'OPENAI_API_KEY missing', {
         error: {
-          message: 'Server misconfigured: OPENAI_API_KEY (or OPENAI_KIA_API_KEY) missing',
+          message:
+            'Server misconfigured: OPENAI_API_KEY (or OPENAI_KIA_API_KEY) missing',
           type: 'server_error',
         },
       });
     }
 
-    const baseUrl = (process.env.ASUNDER_LLM_UPSTREAM_BASE_URL ?? 'https://api.openai.com').trim();
-    const path = (process.env.ASUNDER_LLM_UPSTREAM_PATH ?? '/v1/responses').trim();
+    const baseUrl = (
+      process.env.ASUNDER_LLM_UPSTREAM_BASE_URL ?? 'https://api.openai.com'
+    ).trim();
+    const path = (
+      process.env.ASUNDER_LLM_UPSTREAM_PATH ?? '/v1/responses'
+    ).trim();
     const normalizedBase = baseUrl.replace(/\/+$/, '');
     const normalizedPath = path.startsWith('/') ? path : `/${path}`;
     const defaultModel =
-      (process.env.ASUNDER_LLM_DEFAULT_MODEL ||
+      (
+        process.env.ASUNDER_LLM_DEFAULT_MODEL ||
         process.env.OPENAI_PROMPT_MODEL ||
         process.env.OPENAI_MODEL ||
-        '').trim() || undefined;
+        ''
+      ).trim() || undefined;
     const promptId =
       (
         process.env.OPENAI_ARCHETYPE_PROMP_ID ||
@@ -811,12 +949,16 @@ export class LlmBridgeService {
       return await fetch(url, { ...options, signal: controller.signal });
     } catch (error: any) {
       if (error?.name === 'AbortError') {
-        throw new LlmBridgeError(504, `Upstream request timed out after ${timeoutMs}ms`, {
-          error: {
-            message: `Upstream request timed out after ${timeoutMs}ms`,
-            type: 'server_error',
+        throw new LlmBridgeError(
+          504,
+          `Upstream request timed out after ${timeoutMs}ms`,
+          {
+            error: {
+              message: `Upstream request timed out after ${timeoutMs}ms`,
+              type: 'server_error',
+            },
           },
-        });
+        );
       }
 
       throw new LlmBridgeError(502, 'Failed to reach upstream LLM provider', {

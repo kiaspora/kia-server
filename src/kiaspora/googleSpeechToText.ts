@@ -33,7 +33,7 @@ function asString(v: unknown): string | undefined {
 }
 
 function asStringArray(v: unknown): string[] | undefined {
-  if (Array.isArray(v) && v.every((x) => typeof x === 'string')) return v as string[];
+  if (Array.isArray(v) && v.every((x) => typeof x === 'string')) return v;
   return undefined;
 }
 
@@ -63,7 +63,17 @@ async function transcodeToLinear16Wav(inputBytes: Buffer): Promise<Buffer> {
   await transcode({
     input: inPath,
     output: outPath,
-    args: ['-vn', '-ac', '1', '-ar', '16000', '-acodec', 'pcm_s16le', '-f', 'wav'],
+    args: [
+      '-vn',
+      '-ac',
+      '1',
+      '-ar',
+      '16000',
+      '-acodec',
+      'pcm_s16le',
+      '-f',
+      'wav',
+    ],
   });
 
   const wav = await fs.readFile(outPath);
@@ -118,7 +128,8 @@ function normalizeLanguages(input: {
   if (combined.length === 0) combined = ['en-US'];
 
   // Validate tag format (simple, deterministic)
-  const isValid = (tag: string) => /^[a-zA-Z]{2,3}(-[a-zA-Z0-9]{2,8})+$/.test(tag);
+  const isValid = (tag: string) =>
+    /^[a-zA-Z]{2,3}(-[a-zA-Z0-9]{2,8})+$/.test(tag);
 
   // Deduplicate case-insensitively while preserving order
   const seen = new Set<string>();
@@ -159,7 +170,9 @@ export async function runGoogleSpeechToTextCore(params: {
 
   const audioB64 = base64FromRouter || base64FromBody;
   if (!audioB64) {
-    throw new Error('Missing audio. Provide multipart file ("audio" or "file") or JSON base64Audio.');
+    throw new Error(
+      'Missing audio. Provide multipart file ("audio" or "file") or JSON base64Audio.',
+    );
   }
 
   const mimeType = normalizeMimeType(asString(body.mimeType));
@@ -227,7 +240,9 @@ export async function runGoogleSpeechToTextCore(params: {
 
   if (!res.ok) {
     const text = await res.text().catch(() => '');
-    throw new Error(`Upstream google stt error: HTTP ${res.status} ${res.statusText} ${text}`);
+    throw new Error(
+      `Upstream google stt error: HTTP ${res.status} ${res.statusText} ${text}`,
+    );
   }
 
   const json: any = await res.json().catch(() => ({}));
