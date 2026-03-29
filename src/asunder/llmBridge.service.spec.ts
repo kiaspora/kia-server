@@ -217,7 +217,7 @@ describe('LlmBridgeService', () => {
           {
             type: 'input_file',
             filename: 'notes.md',
-            file_data: `data:text/plain;base64,${Buffer.from('hello path').toString('base64')}`,
+            file_data: `data:text/markdown;base64,${Buffer.from('hello path').toString('base64')}`,
           },
         ],
       },

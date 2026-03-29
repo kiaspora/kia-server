@@ -373,4 +373,295 @@ describe('LlmRouterService', () => {
     expect(upstreamBody.model).toBe('gpt-5-mini');
     expect(result.content).toEqual({ winner: 'Ada', confidence: 0.92 });
   });
+
+  it('maps json attachments into OpenAI input_file items', async () => {
+    process.env.OPENAI_ARCHETYPE_API_KEY = 'test-key';
+    process.env.OPENAI_MODEL = 'gpt-4.1-mini';
+
+    const fetchMock = jest
+      .fn()
+      .mockResolvedValue(new Response(JSON.stringify({ output_text: 'JSON ok' }), { status: 200 }));
+    global.fetch = fetchMock as typeof fetch;
+
+    const service = new LlmRouterService();
+    await service.handle(
+      {
+        provider: 'openai',
+        stream: false,
+        archetype: 'Analyst',
+        messages: [{ role: 'user', content: 'Summarize the attachment' }],
+        attachments: [
+          {
+            name: 'payload.json',
+            file_data: 'data:application/json;base64,eyJoZWxsbyI6IndvcmxkIn0=',
+          },
+        ],
+      },
+      'trace-attach-json',
+    );
+
+    const [, options] = fetchMock.mock.calls[0] as [string, RequestInit];
+    const upstreamBody = JSON.parse(String(options.body));
+    expect(upstreamBody.input).toEqual([
+      {
+        role: 'user',
+        content: [
+          { type: 'input_text', text: 'Summarize the attachment' },
+          {
+            type: 'input_file',
+            filename: 'payload.json',
+            file_data: 'data:application/json;base64,eyJoZWxsbyI6IndvcmxkIn0=',
+          },
+        ],
+      },
+    ]);
+  });
+
+  it('maps markdown attachments into OpenAI input_file items', async () => {
+    process.env.OPENAI_ARCHETYPE_API_KEY = 'test-key';
+
+    const fetchMock = jest
+      .fn()
+      .mockResolvedValue(new Response(JSON.stringify({ output_text: 'MD ok' }), { status: 200 }));
+    global.fetch = fetchMock as typeof fetch;
+
+    const service = new LlmRouterService();
+    await service.handle(
+      {
+        provider: 'openai',
+        stream: false,
+        archetype: 'Analyst',
+        messages: [{ role: 'user', content: 'Read the markdown file' }],
+        attachments: [
+          {
+            name: 'notes.md',
+            file_data: 'data:text/markdown;base64,IyBIZWxsbw==',
+          },
+        ],
+      },
+      'trace-attach-md',
+    );
+
+    const [, options] = fetchMock.mock.calls[0] as [string, RequestInit];
+    const upstreamBody = JSON.parse(String(options.body));
+    expect(upstreamBody.input[0].content[1]).toEqual({
+      type: 'input_file',
+      filename: 'notes.md',
+      file_data: 'data:text/markdown;base64,IyBIZWxsbw==',
+    });
+  });
+
+  it('maps text attachments into OpenAI input_file items', async () => {
+    process.env.OPENAI_ARCHETYPE_API_KEY = 'test-key';
+
+    const fetchMock = jest
+      .fn()
+      .mockResolvedValue(new Response(JSON.stringify({ output_text: 'TXT ok' }), { status: 200 }));
+    global.fetch = fetchMock as typeof fetch;
+
+    const service = new LlmRouterService();
+    await service.handle(
+      {
+        provider: 'openai',
+        stream: false,
+        archetype: 'Analyst',
+        messages: [{ role: 'user', content: 'Read the text file' }],
+        attachments: [
+          {
+            name: 'notes.txt',
+            file_data: 'data:text/plain;base64,SGVsbG8=',
+          },
+        ],
+      },
+      'trace-attach-txt',
+    );
+
+    const [, options] = fetchMock.mock.calls[0] as [string, RequestInit];
+    const upstreamBody = JSON.parse(String(options.body));
+    expect(upstreamBody.input[0].content[1]).toEqual({
+      type: 'input_file',
+      filename: 'notes.txt',
+      file_data: 'data:text/plain;base64,SGVsbG8=',
+    });
+  });
+
+  it('maps xml attachments into OpenAI input_file items', async () => {
+    process.env.OPENAI_ARCHETYPE_API_KEY = 'test-key';
+
+    const fetchMock = jest
+      .fn()
+      .mockResolvedValue(new Response(JSON.stringify({ output_text: 'XML ok' }), { status: 200 }));
+    global.fetch = fetchMock as typeof fetch;
+
+    const service = new LlmRouterService();
+    await service.handle(
+      {
+        provider: 'openai',
+        stream: false,
+        archetype: 'Analyst',
+        messages: [{ role: 'user', content: 'Read the xml file' }],
+        attachments: [
+          {
+            name: 'feed.xml',
+            file_data: 'data:application/xml;base64,PHJvb3Q+PC9yb290Pg==',
+          },
+        ],
+      },
+      'trace-attach-xml',
+    );
+
+    const [, options] = fetchMock.mock.calls[0] as [string, RequestInit];
+    const upstreamBody = JSON.parse(String(options.body));
+    expect(upstreamBody.input[0].content[1]).toEqual({
+      type: 'input_file',
+      filename: 'feed.xml',
+      file_data: 'data:application/xml;base64,PHJvb3Q+PC9yb290Pg==',
+    });
+  });
+
+  it('maps pdf attachments into OpenAI input_file items', async () => {
+    process.env.OPENAI_ARCHETYPE_API_KEY = 'test-key';
+
+    const fetchMock = jest
+      .fn()
+      .mockResolvedValue(new Response(JSON.stringify({ output_text: 'PDF ok' }), { status: 200 }));
+    global.fetch = fetchMock as typeof fetch;
+
+    const service = new LlmRouterService();
+    await service.handle(
+      {
+        provider: 'openai',
+        stream: false,
+        archetype: 'Analyst',
+        messages: [{ role: 'user', content: 'Read the pdf file' }],
+        attachments: [
+          {
+            name: 'report.pdf',
+            file_data: 'data:application/pdf;base64,aGVsbG8=',
+          },
+        ],
+      },
+      'trace-attach-pdf',
+    );
+
+    const [, options] = fetchMock.mock.calls[0] as [string, RequestInit];
+    const upstreamBody = JSON.parse(String(options.body));
+    expect(upstreamBody.input[0].content[1]).toEqual({
+      type: 'input_file',
+      filename: 'report.pdf',
+      file_data: 'data:application/pdf;base64,aGVsbG8=',
+    });
+  });
+
+  it('rejects malformed attachment data URLs', async () => {
+    process.env.OPENAI_ARCHETYPE_API_KEY = 'test-key';
+
+    const service = new LlmRouterService();
+
+    await expect(
+      service.handle(
+        {
+          provider: 'openai',
+          stream: false,
+          archetype: 'Analyst',
+          messages: [{ role: 'user', content: 'Explain the attachment' }],
+          attachments: [{ name: 'notes.txt', file_data: 'hello' }],
+        },
+        'trace-invalid-data-url',
+      ),
+    ).rejects.toMatchObject({
+      status: 400,
+      message:
+        'attachments.file_data must be a valid data URL like data:text/plain;base64,SGVsbG8=',
+    });
+  });
+
+  it('rejects unsupported attachment MIME types', async () => {
+    process.env.OPENAI_ARCHETYPE_API_KEY = 'test-key';
+
+    const service = new LlmRouterService();
+
+    await expect(
+      service.handle(
+        {
+          provider: 'openai',
+          stream: false,
+          archetype: 'Analyst',
+          messages: [{ role: 'user', content: 'Explain the attachment' }],
+          attachments: [
+            {
+              name: 'notes.csv',
+              file_data: 'data:text/csv;base64,YWJjLGRlZg==',
+            },
+          ],
+        },
+        'trace-invalid-mime',
+      ),
+    ).rejects.toMatchObject({
+      status: 400,
+      message: 'Unsupported attachment MIME type: text/csv',
+    });
+  });
+
+  it('rejects DeepSeek attachment requests before calling upstream', async () => {
+    process.env.DEEPSEEK_API_KEY = 'test-key';
+
+    const fetchMock = jest.fn();
+    global.fetch = fetchMock as typeof fetch;
+
+    const service = new LlmRouterService();
+
+    await expect(
+      service.handle(
+        {
+          provider: 'deepseek',
+          stream: false,
+          archetype: 'Reviewer',
+          messages: [{ role: 'user', content: 'Review this file' }],
+          attachments: [
+            {
+              name: 'notes.txt',
+              file_data: 'data:text/plain;base64,SGVsbG8=',
+            },
+          ],
+        },
+        'trace-deepseek-attachment',
+      ),
+    ).rejects.toMatchObject({
+      status: 400,
+      code: 'ATTACHMENTS_UNSUPPORTED_FOR_PROVIDER',
+    });
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  it('rejects Groq attachment requests before calling upstream', async () => {
+    process.env.GROQ_API_KEY = 'test-key';
+
+    const fetchMock = jest.fn();
+    global.fetch = fetchMock as typeof fetch;
+
+    const service = new LlmRouterService();
+
+    await expect(
+      service.handle(
+        {
+          provider: 'groq',
+          stream: false,
+          archetype: 'Builder',
+          messages: [{ role: 'user', content: 'Build from this file' }],
+          attachments: [
+            {
+              name: 'notes.txt',
+              file_data: 'data:text/plain;base64,SGVsbG8=',
+            },
+          ],
+        },
+        'trace-groq-attachment',
+      ),
+    ).rejects.toMatchObject({
+      status: 400,
+      code: 'ATTACHMENTS_UNSUPPORTED_FOR_PROVIDER',
+    });
+    expect(fetchMock).not.toHaveBeenCalled();
+  });
 });

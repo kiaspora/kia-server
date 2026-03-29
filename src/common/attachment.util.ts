@@ -33,12 +33,13 @@ export function inferMimeFromFilename(filename: string): string | null {
 
   switch (ext) {
     case '.txt':
-    case '.md':
       return 'text/plain';
+    case '.md':
+      return 'text/markdown';
     case '.json':
       return 'application/json';
-    case '.csv':
-      return 'text/csv';
+    case '.xml':
+      return 'application/xml';
     case '.pdf':
       return 'application/pdf';
     default:

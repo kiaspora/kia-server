@@ -1,4 +1,10 @@
 import { Injectable } from '@nestjs/common';
+import type { Request } from 'express';
+import {
+  normalizeAttachments,
+  parseMultipartWithAttachments,
+  validateRequestedAttachments,
+} from '../common/attachments';
 
 type Provider = 'deepseek' | 'groq' | 'openai';
 type Archetype =
@@ -20,6 +26,7 @@ type LlmRouterRequest = {
   stream: boolean;
   archetype: Archetype;
   messages: Message[];
+  attachments?: import('../common/attachments').RequestedAttachment[];
   traceId: string;
   model?: string;
   promptId?: string;
@@ -183,16 +190,62 @@ const VALID_ARCHETYPES: Archetype[] = [
 ];
 const VALID_PRIORITIES = ['latency', 'quality', 'balanced'] as const;
 type RoutingPriority = (typeof VALID_PRIORITIES)[number];
+const MAX_ATTACHMENT_BYTES = 20 * 1024 * 1024;
+const MAX_ATTACHMENTS = 5;
+const ALLOWED_ATTACHMENT_MIME_TYPES = new Set([
+  'application/json',
+  'text/markdown',
+  'text/plain',
+  'application/xml',
+  'text/xml',
+  'application/pdf',
+]);
 
 @Injectable()
 export class LlmRouterService {
-  async handle(body: any, traceId: string): Promise<ProviderResult> {
+  async parseMultipart(
+    req: Request,
+    traceId = 'cutr-llmRouter-trace',
+  ): Promise<{
+    body: Omit<LlmRouterRequest, 'traceId'>;
+    attachments: import('../common/attachments').UploadedAttachment[];
+  }> {
+    return await parseMultipartWithAttachments({
+      req,
+      traceId,
+      logPrefix: '[cutr.llmRouter]',
+      maxAttachments: MAX_ATTACHMENTS,
+      maxAttachmentBytes: MAX_ATTACHMENT_BYTES,
+      validateBody: (value) => this.validate(value),
+      createError: (statusCode, message) =>
+        new HttpError(statusCode, message, 'INVALID_ATTACHMENT_REQUEST'),
+    });
+  }
+
+  async handle(
+    body: any,
+    traceId: string,
+    uploadedAttachments: import('../common/attachments').UploadedAttachment[] = [],
+  ): Promise<ProviderResult> {
     const validated = this.validate(body);
+    const attachments = await this.normalizeAttachments(
+      validated.attachments,
+      uploadedAttachments,
+      traceId,
+    );
 
     const payload: LlmRouterRequest = {
       ...validated,
       traceId,
     };
+
+    if (attachments.length > 0 && validated.provider !== 'openai') {
+      throw new HttpError(
+        400,
+        'Attachments are currently supported only for provider "openai"',
+        'ATTACHMENTS_UNSUPPORTED_FOR_PROVIDER',
+      );
+    }
 
     if (validated.provider === 'deepseek') {
       try {
@@ -222,7 +275,7 @@ export class LlmRouterService {
 
     if (validated.provider === 'openai') {
       try {
-        return await this.callOpenAI(payload);
+        return await this.callOpenAI(payload, attachments);
       } catch (err: any) {
         throw new HttpError(
           502,
@@ -304,6 +357,13 @@ export class LlmRouterService {
       return { role, content };
     });
 
+    const attachments = validateRequestedAttachments({
+      attachments: body.attachments,
+      maxAttachments: MAX_ATTACHMENTS,
+      createError: (statusCode, message) =>
+        new HttpError(statusCode, message, 'INVALID_ATTACHMENT_REQUEST'),
+    });
+
     const promptId = body.promptId;
     const promptVersion = body.promptVersion;
     const model = isNonEmptyString(body.model) ? body.model.trim() : undefined;
@@ -354,6 +414,7 @@ export class LlmRouterService {
       stream,
       archetype,
       messages,
+      ...(attachments.length > 0 ? { attachments } : {}),
       ...(model ? { model } : {}),
       ...(typeof promptId === 'string' ? { promptId } : {}),
       ...(typeof promptVersion === 'number' ? { promptVersion } : {}),
@@ -428,7 +489,10 @@ export class LlmRouterService {
     };
   }
 
-  private async callOpenAI(payload: LlmRouterRequest): Promise<ProviderResult> {
+  private async callOpenAI(
+    payload: LlmRouterRequest,
+    attachments: import('../common/attachments').NormalizedAttachment[],
+  ): Promise<ProviderResult> {
     const apiKey = pickFirstEnv('OPENAI_ARCHETYPE_API_KEY', 'OPENAI_API_KEY');
     if (!apiKey) {
       throw new HttpError(
@@ -444,7 +508,10 @@ export class LlmRouterService {
       'gpt-4.1-mini';
     const requestBody: Record<string, unknown> = {
       model,
-      input: payload.messages,
+      input:
+        attachments.length > 0
+          ? this.buildOpenAIInput(payload.messages, attachments)
+          : payload.messages,
       stream: payload.stream,
     };
 
@@ -655,5 +722,59 @@ export class LlmRouterService {
         total_time_ms: toMilliseconds(usage?.total_time),
       },
     });
+  }
+
+  private async normalizeAttachments(
+    attachments: import('../common/attachments').RequestedAttachment[] | undefined,
+    uploadedAttachments: import('../common/attachments').UploadedAttachment[],
+    traceId: string,
+  ): Promise<import('../common/attachments').NormalizedAttachment[]> {
+    return await normalizeAttachments({
+      requestedAttachments: attachments,
+      uploadedAttachments,
+      traceId,
+      logPrefix: '[cutr.llmRouter]',
+      allowedMimeTypes: ALLOWED_ATTACHMENT_MIME_TYPES,
+      maxAttachments: MAX_ATTACHMENTS,
+      maxAttachmentBytes: MAX_ATTACHMENT_BYTES,
+      createError: (statusCode, message) =>
+        new HttpError(statusCode, message, 'INVALID_ATTACHMENT_REQUEST'),
+    });
+  }
+
+  private buildOpenAIInput(
+    messages: Message[],
+    attachments: import('../common/attachments').NormalizedAttachment[],
+  ) {
+    const hasUserMessage = messages.some((message) => message.role === 'user');
+    const input = messages.map((message) => ({
+      role: message.role,
+      content:
+        message.role === 'user'
+          ? [
+              { type: 'input_text' as const, text: message.content },
+              ...this.buildOpenAIFileContentItems(attachments),
+            ]
+          : [{ type: 'input_text' as const, text: message.content }],
+    }));
+
+    if (!hasUserMessage && attachments.length > 0) {
+      input.push({
+        role: 'user',
+        content: this.buildOpenAIFileContentItems(attachments),
+      });
+    }
+
+    return input;
+  }
+
+  private buildOpenAIFileContentItems(
+    attachments: import('../common/attachments').NormalizedAttachment[],
+  ) {
+    return attachments.map((attachment) => ({
+      type: 'input_file' as const,
+      filename: attachment.filename,
+      file_data: attachment.fileData,
+    }));
   }
 }

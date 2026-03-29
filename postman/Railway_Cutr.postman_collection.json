@@ -2,25 +2,15 @@
   "info": {
     "_postman_id": "94cf8227-3aba-4596-ba2b-05ddd70bb54f",
     "name": "Railway_Cutr",
-    "description": "Postman collection for /api/cutr/llmRouter",
+    "description": "Postman collection for /api/cutr/llmRouter, including attachment examples for OpenAI.",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "50448986",
     "_collection_link": "https://go.postman.co/collection/50448986-94cf8227-3aba-4596-ba2b-05ddd70bb54f?source=collection_link"
   },
   "item": [
     {
-      "name": "llmRouter - OpenAI",
+      "name": "llmRouter - OpenAI JSON",
       "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "{{API_BEARER_TOKEN}}",
-              "type": "string"
-            }
-          ]
-        },
         "method": "POST",
         "header": [
           {
@@ -47,23 +37,13 @@
             "llmRouter"
           ]
         },
-        "description": "Routes request to OpenAI provider."
+        "description": "Routes a standard JSON request to the OpenAI provider."
       },
       "response": []
     },
     {
-      "name": "llmRouter - Groq",
+      "name": "llmRouter - OpenAI JSON Attachment",
       "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
-            {
-              "key": "token",
-              "value": "{{apiBearerToken}}",
-              "type": "string"
-            }
-          ]
-        },
         "method": "POST",
         "header": [
           {
@@ -72,17 +52,17 @@
           },
           {
             "key": "x-trace-id",
-            "value": "{{traceId}}"
+            "value": "{{traceId}}-attach-json"
           }
         ],
         "body": {
           "mode": "raw",
-          "raw": "{\n  \"provider\": \"groq\",\n  \"stream\": false,\n  \"archetype\": \"Builder\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Write a short NestJS controller example.\"\n    }\n  ]\n}"
+          "raw": "{\n  \"provider\": \"openai\",\n  \"stream\": false,\n  \"archetype\": \"Analyst\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Summarize the attached markdown file in 5 bullets.\"\n    }\n  ],\n  \"attachments\": [\n    {\n      \"name\": \"sample.md\",\n      \"file_data\": \"data:text/markdown;base64,IyBTYW1wbGUgRG9jdW1lbnQKCi0gQWxwaGEKLSBCZXRh\"\n    }\n  ]\n}"
         },
         "url": {
-          "raw": "{{baseUrl}}/api/cutr/llmRouter",
+          "raw": "{{SERVER_BASE_URL}}/api/cutr/llmRouter",
           "host": [
-            "{{baseUrl}}"
+            "{{SERVER_BASE_URL}}"
           ],
           "path": [
             "api",
@@ -90,23 +70,53 @@
             "llmRouter"
           ]
         },
-        "description": "Routes request to Groq provider."
+        "description": "OpenAI request with inline JSON attachment data. Supported attachment types: JSON, markdown, text, XML, PDF."
       },
       "response": []
     },
     {
-      "name": "llmRouter - DeepSeek",
+      "name": "llmRouter - OpenAI Multipart Attachment",
       "request": {
-        "auth": {
-          "type": "bearer",
-          "bearer": [
+        "method": "POST",
+        "header": [
+          {
+            "key": "x-trace-id",
+            "value": "{{traceId}}-attach-multipart"
+          }
+        ],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
             {
-              "key": "token",
-              "value": "{{API_BEARER_TOKEN}}",
-              "type": "string"
+              "key": "payload",
+              "value": "{\n  \"provider\": \"openai\",\n  \"stream\": false,\n  \"archetype\": \"Analyst\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Summarize the uploaded file.\"\n    }\n  ]\n}",
+              "type": "text"
+            },
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/tmp/sample.md"
             }
           ]
         },
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/api/cutr/llmRouter",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "cutr",
+            "llmRouter"
+          ]
+        },
+        "description": "Multipart request with payload JSON plus a file upload. Change the file path before sending."
+      },
+      "response": []
+    },
+    {
+      "name": "llmRouter - Groq JSON",
+      "request": {
         "method": "POST",
         "header": [
           {
@@ -115,7 +125,40 @@
           },
           {
             "key": "x-trace-id",
-            "value": "{{traceId}}"
+            "value": "{{traceId}}-groq"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"provider\": \"groq\",\n  \"stream\": false,\n  \"archetype\": \"Builder\",\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"Write a short NestJS controller example.\"\n    }\n  ]\n}"
+        },
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/api/cutr/llmRouter",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "cutr",
+            "llmRouter"
+          ]
+        },
+        "description": "Routes a standard JSON request to Groq. Attachments are not supported for Groq on this endpoint."
+      },
+      "response": []
+    },
+    {
+      "name": "llmRouter - DeepSeek JSON",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "x-trace-id",
+            "value": "{{traceId}}-deepseek"
           }
         ],
         "body": {
@@ -133,15 +176,32 @@
             "llmRouter"
           ]
         },
-        "description": "Routes request to DeepSeek provider."
+        "description": "Routes a standard JSON request to DeepSeek. Attachments are not supported for DeepSeek on this endpoint."
       },
       "response": []
     },
     {
-      "name": "New Request",
+      "name": "llmRouter - OPTIONS Preflight",
       "request": {
-        "method": "GET",
-        "header": []
+        "method": "OPTIONS",
+        "header": [
+          {
+            "key": "Origin",
+            "value": "http://localhost:3000"
+          }
+        ],
+        "url": {
+          "raw": "{{SERVER_BASE_URL}}/api/cutr/llmRouter",
+          "host": [
+            "{{SERVER_BASE_URL}}"
+          ],
+          "path": [
+            "api",
+            "cutr",
+            "llmRouter"
+          ]
+        },
+        "description": "Browser preflight request for CUTR llmRouter."
       },
       "response": []
     }
@@ -151,23 +211,23 @@
     "bearer": [
       {
         "key": "token",
-        "value": "{{apiBearerToken}}",
+        "value": "{{API_BEARER_TOKEN}}",
         "type": "string"
       }
     ]
   },
   "variable": [
     {
-      "key": "baseUrl",
+      "key": "SERVER_BASE_URL",
       "value": "http://localhost:3000"
     },
     {
-      "key": "apiBearerToken",
+      "key": "API_BEARER_TOKEN",
       "value": ""
     },
     {
       "key": "traceId",
-      "value": "postman-trace-001"
+      "value": "postman-cutr-001"
     }
   ]
 }

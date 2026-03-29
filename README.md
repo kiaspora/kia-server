@@ -150,6 +150,23 @@ Public endpoints include:
 - `POST /api/cutr/llmRouter`
 
 `cutr` provides normalized multi-provider LLM responses across OpenAI, DeepSeek, and Groq.
+`llmRouter` accepts `application/json` and `multipart/form-data` requests.
+
+For multipart requests:
+
+- send the normal request body as a `payload` form field containing JSON
+- upload attachments under `file` or `files`
+
+Supported CUTR attachment types:
+
+- JSON
+- Markdown (`.md`)
+- Plain text (`.txt`)
+- XML (`.xml`)
+- PDF (`.pdf`)
+
+Attachments are currently supported only when `provider` is `openai`.
+Requests with attachments for `deepseek` or `groq` return `400`.
 
 ### Kiaspora
 
