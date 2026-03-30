@@ -719,6 +719,10 @@ describe('LlmRouterService', () => {
       const upstreamBody = JSON.parse(String(options.body));
       expect(upstreamBody).toMatchObject({
         model: 'gpt-4.1-mini',
+        prompt: {
+          id: 'test-prompt',
+          version: '1',
+        },
         stream: false,
         input: { text: 'Test input' },
         temperature: 0.7,
@@ -817,6 +821,10 @@ describe('LlmRouterService', () => {
 
       const [, options] = fetchMock.mock.calls[0] as [string, RequestInit];
       const upstreamBody = JSON.parse(String(options.body));
+      expect(upstreamBody.prompt).toEqual({
+        id: 'test-prompt',
+        version: '2',
+      });
       expect(upstreamBody.input).toEqual([
         {
           role: 'user',
@@ -929,7 +937,50 @@ describe('LlmRouterService', () => {
       const [, options] = fetchMock.mock.calls[0] as [string, RequestInit];
       const upstreamBody = JSON.parse(String(options.body));
       expect(upstreamBody.model).toBe('gpt-5-mini');
+      expect(upstreamBody.prompt).toEqual({
+        id: 'test-prompt',
+        version: '1',
+      });
       expect(upstreamBody.temperature).toBeUndefined();
+    });
+
+    it('preserves OpenAI HTTP errors for custom prompt requests', async () => {
+      process.env.OPENAI_ARCHETYPE_API_KEY = 'test-key';
+      process.env.OPENAI_MODEL = 'gpt-4.1-mini';
+
+      const fetchMock = jest.fn().mockResolvedValue(
+        new Response(
+          JSON.stringify({
+            error: {
+              message: 'Invalid prompt version',
+            },
+          }),
+          { status: 400, statusText: 'Bad Request' },
+        ),
+      );
+      global.fetch = fetchMock as typeof fetch;
+
+      const service = new LlmRouterService();
+
+      await expect(
+        service.handleCustomPrompt(
+          {
+            promptId: 'test-prompt',
+            promptVersion: 4,
+            stream: false,
+            input: { text: 'Test' },
+          },
+          'trace-custom-http-error-001',
+        ),
+      ).rejects.toMatchObject({
+        status: 502,
+        code: 'OPENAI_HTTP_ERROR',
+        message: 'OpenAI HTTP 400 Bad Request',
+        details: {
+          status: 400,
+          bodySnippet: expect.stringContaining('Invalid prompt version'),
+        },
+      });
     });
   });
 });

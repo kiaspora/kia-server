@@ -535,6 +535,9 @@ export class LlmRouterService {
     try {
       return await this.callOpenAICustomPrompt(payload, attachments);
     } catch (err: any) {
+      if (err instanceof HttpError) {
+        throw err;
+      }
       throw new HttpError(
         502,
         'OpenAI is currently unavailable; please try again later',
@@ -911,6 +914,10 @@ export class LlmRouterService {
       'gpt-4.1-mini';
     const requestBody: Record<string, unknown> = {
       model,
+      prompt: {
+        id: payload.promptId,
+        version: String(payload.promptVersion),
+      },
       input:
         attachments.length > 0
           ? this.buildOpenAICustomPromptInput(payload.input, attachments)
