@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import type { Request } from 'express';
 import Busboy from 'busboy';
+import { Readable } from 'node:stream';
 import {
   normalizeAttachments,
   parseMultipartWithAttachments,
@@ -48,6 +49,17 @@ type CustomPromptRequest = {
   traceId: string;
   model?: string;
 };
+
+type CustomPromptResult =
+  | {
+      kind: 'json';
+      body: unknown;
+    }
+  | {
+      kind: 'stream';
+      body: Readable;
+      contentType: string | null;
+    };
 
 type UniversalUsage = {
   input_tokens: number | null;
@@ -519,7 +531,7 @@ export class LlmRouterService {
     body: any,
     traceId: string,
     uploadedAttachments: import('../common/attachments').UploadedAttachment[] = [],
-  ): Promise<ProviderResult> {
+  ): Promise<CustomPromptResult> {
     const validated = this.validateCustomPrompt(body);
     const attachments = await this.normalizeAttachments(
       [],
@@ -898,7 +910,7 @@ export class LlmRouterService {
   private async callOpenAICustomPrompt(
     payload: CustomPromptRequest,
     attachments: import('../common/attachments').NormalizedAttachment[],
-  ): Promise<ProviderResult> {
+  ): Promise<CustomPromptResult> {
     const apiKey = pickFirstEnv('OPENAI_ARCHETYPE_API_KEY', 'OPENAI_API_KEY');
     if (!apiKey) {
       throw new HttpError(
@@ -946,15 +958,8 @@ export class LlmRouterService {
       body: JSON.stringify(requestBody),
     });
 
-    const latency_ms = Date.now() - started;
-    const rawText = await resp.text().catch(() => '');
-
-    let parsed: any = {};
-    try {
-      parsed = rawText ? JSON.parse(rawText) : {};
-    } catch {}
-
     if (!resp.ok) {
+      const rawText = await resp.text().catch(() => '');
       throw new HttpError(
         502,
         `OpenAI HTTP ${resp.status} ${resp.statusText || ''}`.trim(),
@@ -966,36 +971,39 @@ export class LlmRouterService {
       );
     }
 
-    const usage = parsed?.usage ?? {};
-    return this.buildNormalizedResult({
-      payload: {
-        provider: 'openai',
-        stream: payload.stream,
-        archetype: 'none',
-        messages: [],
-        traceId: payload.traceId,
-        promptId: payload.promptId,
-        promptVersion: payload.promptVersion,
-      },
-      provider: 'openai',
-      model,
-      latency_ms,
-      parsed,
-      requestId: resp.headers.get('x-request-id'),
-      usage: {
-        input_tokens: toNullableNumber(usage?.input_tokens),
-        output_tokens: toNullableNumber(usage?.output_tokens),
-        total_tokens: toNullableNumber(usage?.total_tokens),
-        reasoning_tokens: toNullableNumber(
-          usage?.output_tokens_details?.reasoning_tokens,
-        ),
-        cached_input_tokens: toNullableNumber(
-          usage?.input_tokens_details?.cached_tokens,
-        ),
-        cache_hit_tokens: null,
-        cache_miss_tokens: null,
-      },
-    });
+    if (payload.stream) {
+      if (!resp.body) {
+        throw new HttpError(
+          502,
+          'OpenAI returned an empty streaming response body',
+          'OPENAI_EMPTY_STREAM',
+        );
+      }
+
+      return {
+        kind: 'stream',
+        body: Readable.fromWeb(resp.body as globalThis.ReadableStream),
+        contentType: resp.headers.get('content-type'),
+      };
+    }
+
+    const rawText = await resp.text().catch(() => '');
+
+    try {
+      return {
+        kind: 'json',
+        body: rawText ? JSON.parse(rawText) : {},
+      };
+    } catch {
+      throw new HttpError(
+        502,
+        'OpenAI returned invalid JSON',
+        'OPENAI_INVALID_JSON',
+        {
+          bodySnippet: rawText.slice(0, 800),
+        },
+      );
+    }
   }
 
   private async callDeepSeek(

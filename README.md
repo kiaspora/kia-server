@@ -164,13 +164,16 @@ For multipart requests:
 #### `customPrompt`
 
 `customPrompt` accepts `multipart/form-data` only and is fixed to OpenAI provider.
+Successful responses are returned as raw OpenAI Responses API payloads.
+When `stream=true`, the upstream OpenAI stream is proxied through unchanged.
 
-Required form fields:
+Form fields:
 
 - `promptId`: non-empty string
 - `promptVersion`: positive integer
 - `payload`: valid JSON value (forwarded as OpenAI `input`)
 - `stream`: boolean (default `false`)
+- `model`: optional non-empty string override for the OpenAI model linked to the prompt, for example `gpt-4.1-mini`
 - `file`: optional file upload (single file)
 - `traceId`: optional text (used when no `x-trace-id` header)
 
@@ -182,9 +185,6 @@ Supported CUTR attachment types:
 - XML (`.xml`)
 - PDF (`.pdf`)
 
-Attachments are currently supported only when `provider` is `openai`.
-Requests with attachments for `deepseek` or `groq` return `400`.
-
 ### Kiaspora
 
 - `POST /api/kiaspora/translationRouter`
@@ -195,7 +195,7 @@ Requests with attachments for `deepseek` or `groq` return `400`.
 
 ## CUTR Response Contract
 
-`/api/cutr/llmRouter` returns one universal schema regardless of provider. Frontends and analytics should consume this normalized shape instead of branching on provider-native response payloads.
+`/api/cutr/llmRouter` returns one universal schema regardless of provider. Frontends and analytics should consume this normalized shape instead of branching on provider-native response payloads. `/api/cutr/customPrompt` is excluded from this contract and returns raw OpenAI Responses API output instead.
 
 Top-level fields:
 

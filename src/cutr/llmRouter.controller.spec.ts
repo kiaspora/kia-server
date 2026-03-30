@@ -3,10 +3,12 @@ import { LlmRouterService } from './llmRouter.service';
 
 function createResponseMock() {
   return {
+    headersSent: false,
     setHeader: jest.fn(),
     status: jest.fn().mockReturnThis(),
     set: jest.fn().mockReturnThis(),
     send: jest.fn().mockReturnThis(),
+    end: jest.fn().mockReturnThis(),
   };
 }
 
@@ -137,6 +139,7 @@ describe('LlmRouterController', () => {
         promptVersion: 1,
         stream: false,
         input: { text: 'Test input' },
+        model: 'gpt-4.1-mini',
       },
       attachments: [
         {
@@ -148,8 +151,11 @@ describe('LlmRouterController', () => {
       ],
     });
     const handleCustomPrompt = jest.fn().mockResolvedValue({
-      content: 'summary',
-      provider: 'openai',
+      kind: 'json',
+      body: {
+        id: 'resp_123',
+        output_text: 'summary',
+      },
     });
     const controller = new LlmRouterController({
       parseCustomPromptMultipart,
@@ -175,6 +181,7 @@ describe('LlmRouterController', () => {
         promptVersion: 1,
         stream: false,
         input: { text: 'Test input' },
+        model: 'gpt-4.1-mini',
       },
       'trace-customprompt-001',
       [
@@ -187,6 +194,54 @@ describe('LlmRouterController', () => {
       ],
     );
     expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.send).toHaveBeenCalledWith(
+      JSON.stringify({
+        id: 'resp_123',
+        output_text: 'summary',
+      }),
+    );
+  });
+
+  it('customPrompt pipes streaming passthrough responses', async () => {
+    const parseCustomPromptMultipart = jest.fn().mockResolvedValue({
+      body: {
+        promptId: 'test-prompt',
+        promptVersion: 1,
+        stream: true,
+        input: { text: 'Test input' },
+      },
+      attachments: [],
+    });
+    const body = {
+      on: jest.fn().mockReturnThis(),
+      pipe: jest.fn(),
+    };
+    const handleCustomPrompt = jest.fn().mockResolvedValue({
+      kind: 'stream',
+      body,
+      contentType: 'text/event-stream',
+    });
+    const controller = new LlmRouterController({
+      parseCustomPromptMultipart,
+      handleCustomPrompt,
+    } as unknown as LlmRouterService);
+    const req = {
+      headers: {
+        'content-type': 'multipart/form-data; boundary=abc123',
+      },
+      header: jest.fn().mockReturnValue('trace-customprompt-stream-001'),
+    };
+    const res = createResponseMock();
+
+    await controller.customPrompt(req as any, res as any);
+
+    expect(res.setHeader).toHaveBeenCalledWith(
+      'content-type',
+      'text/event-stream',
+    );
+    expect(body.on).toHaveBeenCalledWith('error', expect.any(Function));
+    expect(body.pipe).toHaveBeenCalledWith(res);
+    expect(res.send).not.toHaveBeenCalled();
   });
 
   it('customPrompt returns 415 for non-multipart requests', async () => {

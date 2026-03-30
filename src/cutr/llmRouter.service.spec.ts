@@ -678,23 +678,25 @@ describe('LlmRouterService', () => {
   });
 
   describe('customPrompt', () => {
-    it('calls OpenAI responses API with custom prompt input and extracts output_text', async () => {
+    it('calls OpenAI responses API with custom prompt input and returns the raw JSON response', async () => {
       process.env.OPENAI_ARCHETYPE_API_KEY = 'test-key';
       process.env.OPENAI_MODEL = 'gpt-4.1-mini';
 
+      const upstreamResponse = {
+        id: 'resp_custom_123',
+        output_text: 'Custom prompt response',
+        usage: {
+          input_tokens: 15,
+          output_tokens: 5,
+          total_tokens: 20,
+          input_tokens_details: { cached_tokens: 2 },
+          output_tokens_details: { reasoning_tokens: 3 },
+        },
+      };
+
       const fetchMock = jest.fn().mockResolvedValue(
         new Response(
-          JSON.stringify({
-            output_text: 'Custom prompt response',
-            usage: {
-              input_tokens: 15,
-              output_tokens: 5,
-              total_tokens: 20,
-              input_tokens_details: { cached_tokens: 2 },
-              output_tokens_details: { reasoning_tokens: 3 },
-            },
-            id: 'resp_custom_123',
-          }),
+          JSON.stringify(upstreamResponse),
           { status: 200, headers: { 'x-request-id': 'req_custom_123' } },
         ),
       );
@@ -734,58 +736,8 @@ describe('LlmRouterService', () => {
       });
 
       expect(result).toEqual({
-        content: 'Custom prompt response',
-        archetype: 'none',
-        provider: 'openai',
-        model: 'gpt-4.1-mini',
-        latency_ms: expect.any(Number),
-        usage: {
-          input_tokens: 15,
-          output_tokens: 5,
-          total_tokens: 20,
-          reasoning_tokens: 3,
-          cached_input_tokens: 2,
-          cache_hit_tokens: null,
-          cache_miss_tokens: null,
-        },
-        performance: {
-          queue_time_ms: null,
-          prompt_time_ms: null,
-          completion_time_ms: null,
-          total_time_ms: null,
-        },
-        routing: {
-          selected_provider: 'openai',
-          fallback_used: false,
-          fallback_from: null,
-          priority: null,
-        },
-        telemetry: {
-          request_id: 'req_custom_123',
-          response_id: 'resp_custom_123',
-          timestamp: expect.any(String),
-        },
-        raw_provider_meta: {
-          id: 'resp_custom_123',
-          usage: {
-            input_tokens: 15,
-            output_tokens: 5,
-            total_tokens: 20,
-            input_tokens_details: { cached_tokens: 2 },
-            output_tokens_details: { reasoning_tokens: 3 },
-          },
-          raw: {
-            output_text: 'Custom prompt response',
-            usage: {
-              input_tokens: 15,
-              output_tokens: 5,
-              total_tokens: 20,
-              input_tokens_details: { cached_tokens: 2 },
-              output_tokens_details: { reasoning_tokens: 3 },
-            },
-            id: 'resp_custom_123',
-          },
-        },
+        kind: 'json',
+        body: upstreamResponse,
       });
     });
 
@@ -986,6 +938,56 @@ describe('LlmRouterService', () => {
           bodySnippet: expect.stringContaining('Invalid prompt version'),
         },
       });
+    });
+
+    it('returns a streaming passthrough result for custom prompt stream requests', async () => {
+      process.env.OPENAI_ARCHETYPE_API_KEY = 'test-key';
+      process.env.OPENAI_MODEL = 'gpt-4.1-mini';
+
+      const upstreamStream = new ReadableStream({
+        start(controller) {
+          controller.enqueue(
+            new TextEncoder().encode('data: {"type":"response.output_text.delta"}\n\n'),
+          );
+          controller.enqueue(new TextEncoder().encode('data: [DONE]\n\n'));
+          controller.close();
+        },
+      });
+
+      const fetchMock = jest.fn().mockResolvedValue(
+        new Response(upstreamStream, {
+          status: 200,
+          headers: { 'content-type': 'text/event-stream' },
+        }),
+      );
+      global.fetch = fetchMock as typeof fetch;
+
+      const service = new LlmRouterService();
+      const result = await service.handleCustomPrompt(
+        {
+          promptId: 'test-prompt',
+          promptVersion: 1,
+          stream: true,
+          input: { text: 'Stream this' },
+        },
+        'trace-custom-stream-001',
+      );
+
+      expect(result.kind).toBe('stream');
+      if (result.kind !== 'stream') {
+        throw new Error('Expected streaming passthrough result');
+      }
+
+      expect(result.contentType).toBe('text/event-stream');
+
+      const chunks: Buffer[] = [];
+      for await (const chunk of result.body) {
+        chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+      }
+
+      expect(Buffer.concat(chunks).toString('utf8')).toBe(
+        'data: {"type":"response.output_text.delta"}\n\ndata: [DONE]\n\n',
+      );
     });
   });
 });

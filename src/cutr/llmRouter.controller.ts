@@ -129,7 +129,6 @@ export class LlmRouterController {
   async customPrompt(@Req() req: Request, @Res() res: Response) {
     const traceId = this.resolveTraceId(req);
     res.set(CORS_HEADERS);
-    res.set(JSON_HEADERS);
     res.setHeader('x-trace-id', traceId);
     res.setHeader('cache-control', 'no-store');
 
@@ -148,8 +147,25 @@ export class LlmRouterController {
         traceId,
         parsed.attachments,
       );
-      return res.status(200).send(JSON.stringify(out));
+      if (out.kind === 'stream') {
+        if (out.contentType) {
+          res.setHeader('content-type', out.contentType);
+        }
+        res.status(200);
+        out.body.on('error', () => {
+          if (!res.headersSent) {
+            res.status(502);
+          }
+          res.end();
+        });
+        out.body.pipe(res);
+        return;
+      }
+
+      res.set(JSON_HEADERS);
+      return res.status(200).send(JSON.stringify(out.body));
     } catch (e: any) {
+      res.set(JSON_HEADERS);
       const status = typeof e?.status === 'number' ? e.status : 500;
       const body: ErrorBody = {
         error:
