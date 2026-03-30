@@ -918,10 +918,7 @@ export class LlmRouterService {
         id: payload.promptId,
         version: String(payload.promptVersion),
       },
-      input:
-        attachments.length > 0
-          ? this.buildOpenAICustomPromptInput(payload.input, attachments)
-          : payload.input,
+      input: this.buildOpenAICustomPromptInput(payload.input, attachments),
       stream: payload.stream,
     };
 
@@ -1194,10 +1191,6 @@ export class LlmRouterService {
     input: unknown,
     attachments: import('../common/attachments').NormalizedAttachment[],
   ) {
-    if (attachments.length === 0) {
-      return input;
-    }
-
     if (Array.isArray(input)) {
       return input.map((item) => {
         if (

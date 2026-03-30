@@ -724,7 +724,12 @@ describe('LlmRouterService', () => {
           version: '1',
         },
         stream: false,
-        input: { text: 'Test input' },
+        input: [
+          {
+            role: 'user',
+            content: [{ type: 'input_text', text: '{"text":"Test input"}' }],
+          },
+        ],
         temperature: 0.7,
       });
 
