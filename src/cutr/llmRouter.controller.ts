@@ -49,7 +49,10 @@ export class LlmRouterController {
   options(@Req() req: Request, @Res() res: Response) {
     const traceId = this.resolveTraceId(req);
     res.setHeader('x-trace-id', traceId);
-    return res.status(204).set({ ...CORS_HEADERS, Allow: ALLOW_HEADER }).send();
+    return res
+      .status(204)
+      .set({ ...CORS_HEADERS, Allow: ALLOW_HEADER })
+      .send();
   }
 
   @Post('llmRouter')
@@ -75,7 +78,11 @@ export class LlmRouterController {
       const parsed = multipart
         ? await this.svc.parseMultipart(req, traceId)
         : { body: req.body ?? {}, attachments: [] };
-      const out = await this.svc.handle(parsed.body, traceId, parsed.attachments);
+      const out = await this.svc.handle(
+        parsed.body,
+        traceId,
+        parsed.attachments,
+      );
       return res.status(200).send(JSON.stringify(out));
     } catch (e: any) {
       const status = typeof e?.status === 'number' ? e.status : 500;
@@ -94,6 +101,71 @@ export class LlmRouterController {
 
   @All('llmRouter')
   methodNotAllowed(@Req() req: Request, @Res() res: Response) {
+    const traceId = this.resolveTraceId(req);
+    const body = {
+      error: 'Method not allowed',
+      traceId,
+    };
+
+    res.setHeader('x-trace-id', traceId);
+    return res
+      .status(405)
+      .set({ ...JSON_HEADERS, ...CORS_HEADERS, Allow: ALLOW_HEADER })
+      .send(JSON.stringify(body));
+  }
+
+  @Options('customPrompt')
+  customPromptOptions(@Req() req: Request, @Res() res: Response) {
+    const traceId = this.resolveTraceId(req);
+    res.setHeader('x-trace-id', traceId);
+    return res
+      .status(204)
+      .set({ ...CORS_HEADERS, Allow: ALLOW_HEADER })
+      .send();
+  }
+
+  @Post('customPrompt')
+  @UseGuards(BearerTokenGuard)
+  async customPrompt(@Req() req: Request, @Res() res: Response) {
+    const traceId = this.resolveTraceId(req);
+    res.set(CORS_HEADERS);
+    res.set(JSON_HEADERS);
+    res.setHeader('x-trace-id', traceId);
+    res.setHeader('cache-control', 'no-store');
+
+    try {
+      if (!isMultipart(req)) {
+        throw {
+          status: 415,
+          message: 'Unsupported media type. Use multipart/form-data',
+          code: 'UNSUPPORTED_MEDIA_TYPE',
+        };
+      }
+
+      const parsed = await this.svc.parseCustomPromptMultipart(req, traceId);
+      const out = await this.svc.handleCustomPrompt(
+        parsed.body,
+        traceId,
+        parsed.attachments,
+      );
+      return res.status(200).send(JSON.stringify(out));
+    } catch (e: any) {
+      const status = typeof e?.status === 'number' ? e.status : 500;
+      const body: ErrorBody = {
+        error:
+          typeof e?.message === 'string' && e.message.trim()
+            ? e.message
+            : 'Internal server error',
+        ...(e?.code ? { code: e.code } : {}),
+        traceId,
+        ...(e?.details !== undefined ? { details: e.details } : {}),
+      };
+      return res.status(status).send(JSON.stringify(body));
+    }
+  }
+
+  @All('customPrompt')
+  customPromptMethodNotAllowed(@Req() req: Request, @Res() res: Response) {
     const traceId = this.resolveTraceId(req);
     const body = {
       error: 'Method not allowed',

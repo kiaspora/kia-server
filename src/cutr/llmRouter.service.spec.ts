@@ -320,7 +320,9 @@ describe('LlmRouterService', () => {
 
     const fetchMock = jest
       .fn()
-      .mockResolvedValue(new Response(JSON.stringify({ output_text: 'Oak' }), { status: 200 }));
+      .mockResolvedValue(
+        new Response(JSON.stringify({ output_text: 'Oak' }), { status: 200 }),
+      );
     global.fetch = fetchMock as typeof fetch;
 
     const service = new LlmRouterService();
@@ -378,9 +380,11 @@ describe('LlmRouterService', () => {
     process.env.OPENAI_ARCHETYPE_API_KEY = 'test-key';
     process.env.OPENAI_MODEL = 'gpt-4.1-mini';
 
-    const fetchMock = jest
-      .fn()
-      .mockResolvedValue(new Response(JSON.stringify({ output_text: 'JSON ok' }), { status: 200 }));
+    const fetchMock = jest.fn().mockResolvedValue(
+      new Response(JSON.stringify({ output_text: 'JSON ok' }), {
+        status: 200,
+      }),
+    );
     global.fetch = fetchMock as typeof fetch;
 
     const service = new LlmRouterService();
@@ -422,7 +426,9 @@ describe('LlmRouterService', () => {
 
     const fetchMock = jest
       .fn()
-      .mockResolvedValue(new Response(JSON.stringify({ output_text: 'MD ok' }), { status: 200 }));
+      .mockResolvedValue(
+        new Response(JSON.stringify({ output_text: 'MD ok' }), { status: 200 }),
+      );
     global.fetch = fetchMock as typeof fetch;
 
     const service = new LlmRouterService();
@@ -454,9 +460,11 @@ describe('LlmRouterService', () => {
   it('maps text attachments into OpenAI input_file items', async () => {
     process.env.OPENAI_ARCHETYPE_API_KEY = 'test-key';
 
-    const fetchMock = jest
-      .fn()
-      .mockResolvedValue(new Response(JSON.stringify({ output_text: 'TXT ok' }), { status: 200 }));
+    const fetchMock = jest.fn().mockResolvedValue(
+      new Response(JSON.stringify({ output_text: 'TXT ok' }), {
+        status: 200,
+      }),
+    );
     global.fetch = fetchMock as typeof fetch;
 
     const service = new LlmRouterService();
@@ -488,9 +496,11 @@ describe('LlmRouterService', () => {
   it('maps xml attachments into OpenAI input_file items', async () => {
     process.env.OPENAI_ARCHETYPE_API_KEY = 'test-key';
 
-    const fetchMock = jest
-      .fn()
-      .mockResolvedValue(new Response(JSON.stringify({ output_text: 'XML ok' }), { status: 200 }));
+    const fetchMock = jest.fn().mockResolvedValue(
+      new Response(JSON.stringify({ output_text: 'XML ok' }), {
+        status: 200,
+      }),
+    );
     global.fetch = fetchMock as typeof fetch;
 
     const service = new LlmRouterService();
@@ -522,9 +532,11 @@ describe('LlmRouterService', () => {
   it('maps pdf attachments into OpenAI input_file items', async () => {
     process.env.OPENAI_ARCHETYPE_API_KEY = 'test-key';
 
-    const fetchMock = jest
-      .fn()
-      .mockResolvedValue(new Response(JSON.stringify({ output_text: 'PDF ok' }), { status: 200 }));
+    const fetchMock = jest.fn().mockResolvedValue(
+      new Response(JSON.stringify({ output_text: 'PDF ok' }), {
+        status: 200,
+      }),
+    );
     global.fetch = fetchMock as typeof fetch;
 
     const service = new LlmRouterService();
@@ -663,5 +675,261 @@ describe('LlmRouterService', () => {
       code: 'ATTACHMENTS_UNSUPPORTED_FOR_PROVIDER',
     });
     expect(fetchMock).not.toHaveBeenCalled();
+  });
+
+  describe('customPrompt', () => {
+    it('calls OpenAI responses API with custom prompt input and extracts output_text', async () => {
+      process.env.OPENAI_ARCHETYPE_API_KEY = 'test-key';
+      process.env.OPENAI_MODEL = 'gpt-4.1-mini';
+
+      const fetchMock = jest.fn().mockResolvedValue(
+        new Response(
+          JSON.stringify({
+            output_text: 'Custom prompt response',
+            usage: {
+              input_tokens: 15,
+              output_tokens: 5,
+              total_tokens: 20,
+              input_tokens_details: { cached_tokens: 2 },
+              output_tokens_details: { reasoning_tokens: 3 },
+            },
+            id: 'resp_custom_123',
+          }),
+          { status: 200, headers: { 'x-request-id': 'req_custom_123' } },
+        ),
+      );
+      global.fetch = fetchMock as typeof fetch;
+
+      const service = new LlmRouterService();
+      const result = await service.handleCustomPrompt(
+        {
+          promptId: 'test-prompt',
+          promptVersion: 1,
+          stream: false,
+          input: { text: 'Test input' },
+        },
+        'trace-custom-001',
+      );
+
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+
+      const [url, options] = fetchMock.mock.calls[0] as [string, RequestInit];
+      expect(url).toBe('https://api.openai.com/v1/responses');
+
+      const upstreamBody = JSON.parse(String(options.body));
+      expect(upstreamBody).toMatchObject({
+        model: 'gpt-4.1-mini',
+        stream: false,
+        input: { text: 'Test input' },
+        temperature: 0.7,
+      });
+
+      expect(result).toEqual({
+        content: 'Custom prompt response',
+        archetype: 'none',
+        provider: 'openai',
+        model: 'gpt-4.1-mini',
+        latency_ms: expect.any(Number),
+        usage: {
+          input_tokens: 15,
+          output_tokens: 5,
+          total_tokens: 20,
+          reasoning_tokens: 3,
+          cached_input_tokens: 2,
+          cache_hit_tokens: null,
+          cache_miss_tokens: null,
+        },
+        performance: {
+          queue_time_ms: null,
+          prompt_time_ms: null,
+          completion_time_ms: null,
+          total_time_ms: null,
+        },
+        routing: {
+          selected_provider: 'openai',
+          fallback_used: false,
+          fallback_from: null,
+          priority: null,
+        },
+        telemetry: {
+          request_id: 'req_custom_123',
+          response_id: 'resp_custom_123',
+          timestamp: expect.any(String),
+        },
+        raw_provider_meta: {
+          id: 'resp_custom_123',
+          usage: {
+            input_tokens: 15,
+            output_tokens: 5,
+            total_tokens: 20,
+            input_tokens_details: { cached_tokens: 2 },
+            output_tokens_details: { reasoning_tokens: 3 },
+          },
+          raw: {
+            output_text: 'Custom prompt response',
+            usage: {
+              input_tokens: 15,
+              output_tokens: 5,
+              total_tokens: 20,
+              input_tokens_details: { cached_tokens: 2 },
+              output_tokens_details: { reasoning_tokens: 3 },
+            },
+            id: 'resp_custom_123',
+          },
+        },
+      });
+    });
+
+    it('builds OpenAI input with attachments for custom prompt', async () => {
+      process.env.OPENAI_ARCHETYPE_API_KEY = 'test-key';
+      process.env.OPENAI_MODEL = 'gpt-4.1-mini';
+
+      const fetchMock = jest.fn().mockResolvedValue(
+        new Response(
+          JSON.stringify({
+            output_text: 'Response with attachment',
+            usage: {},
+            id: 'resp_attach_123',
+          }),
+          { status: 200 },
+        ),
+      );
+      global.fetch = fetchMock as typeof fetch;
+
+      const service = new LlmRouterService();
+      await service.handleCustomPrompt(
+        {
+          promptId: 'test-prompt',
+          promptVersion: 2,
+          stream: false,
+          input: { text: 'Process this file' },
+        },
+        'trace-custom-attach-001',
+        [
+          {
+            filename: 'notes.md',
+            mimeType: 'text/markdown',
+            buffer: Buffer.from('# Notes'),
+            size: 7,
+          },
+        ],
+      );
+
+      const [, options] = fetchMock.mock.calls[0] as [string, RequestInit];
+      const upstreamBody = JSON.parse(String(options.body));
+      expect(upstreamBody.input).toEqual([
+        {
+          role: 'user',
+          content: [
+            { type: 'input_text', text: '{"text":"Process this file"}' },
+            {
+              type: 'input_file',
+              filename: 'notes.md',
+              file_data: 'data:text/markdown;base64,IyBOb3Rlcw==',
+            },
+          ],
+        },
+      ]);
+    });
+
+    it('validates custom prompt request with missing fields', async () => {
+      const service = new LlmRouterService();
+
+      await expect(
+        service.handleCustomPrompt({}, 'trace-invalid-001'),
+      ).rejects.toMatchObject({
+        status: 400,
+        code: 'MISSING_PROMPT_ID',
+      });
+    });
+
+    it('validates custom prompt request with missing promptId', async () => {
+      const service = new LlmRouterService();
+
+      await expect(
+        service.handleCustomPrompt(
+          {
+            promptVersion: 1,
+            stream: false,
+            input: { text: 'Test' },
+          },
+          'trace-missing-promptid-001',
+        ),
+      ).rejects.toMatchObject({
+        status: 400,
+        code: 'MISSING_PROMPT_ID',
+      });
+    });
+
+    it('validates custom prompt request with invalid promptVersion', async () => {
+      const service = new LlmRouterService();
+
+      await expect(
+        service.handleCustomPrompt(
+          {
+            promptId: 'test-prompt',
+            promptVersion: 0,
+            stream: false,
+            input: { text: 'Test' },
+          },
+          'trace-invalid-version-001',
+        ),
+      ).rejects.toMatchObject({
+        status: 400,
+        code: 'INVALID_PROMPT_VERSION',
+      });
+    });
+
+    it('validates custom prompt request with missing input', async () => {
+      const service = new LlmRouterService();
+
+      await expect(
+        service.handleCustomPrompt(
+          {
+            promptId: 'test-prompt',
+            promptVersion: 1,
+            stream: false,
+          },
+          'trace-missing-input-001',
+        ),
+      ).rejects.toMatchObject({
+        status: 400,
+        code: 'MISSING_INPUT',
+      });
+    });
+
+    it('uses model override for custom prompt', async () => {
+      process.env.OPENAI_ARCHETYPE_API_KEY = 'test-key';
+      process.env.OPENAI_MODEL = 'gpt-4.1-mini';
+
+      const fetchMock = jest.fn().mockResolvedValue(
+        new Response(
+          JSON.stringify({
+            output_text: 'Response',
+            usage: {},
+            id: 'resp_model_123',
+          }),
+          { status: 200 },
+        ),
+      );
+      global.fetch = fetchMock as typeof fetch;
+
+      const service = new LlmRouterService();
+      await service.handleCustomPrompt(
+        {
+          promptId: 'test-prompt',
+          promptVersion: 1,
+          stream: false,
+          input: { text: 'Test' },
+          model: 'gpt-5-mini',
+        },
+        'trace-model-override-001',
+      );
+
+      const [, options] = fetchMock.mock.calls[0] as [string, RequestInit];
+      const upstreamBody = JSON.parse(String(options.body));
+      expect(upstreamBody.model).toBe('gpt-5-mini');
+      expect(upstreamBody.temperature).toBeUndefined();
+    });
   });
 });

@@ -148,14 +148,31 @@ Public endpoints include:
 ### CUTR
 
 - `POST /api/cutr/llmRouter`
+- `POST /api/cutr/customPrompt`
 
 `cutr` provides normalized multi-provider LLM responses across OpenAI, DeepSeek, and Groq.
+
+#### `llmRouter`
+
 `llmRouter` accepts `application/json` and `multipart/form-data` requests.
 
 For multipart requests:
 
 - send the normal request body as a `payload` form field containing JSON
 - upload attachments under `file` or `files`
+
+#### `customPrompt`
+
+`customPrompt` accepts `multipart/form-data` only and is fixed to OpenAI provider.
+
+Required form fields:
+
+- `promptId`: non-empty string
+- `promptVersion`: positive integer
+- `payload`: valid JSON value (forwarded as OpenAI `input`)
+- `stream`: boolean (default `false`)
+- `file`: optional file upload (single file)
+- `traceId`: optional text (used when no `x-trace-id` header)
 
 Supported CUTR attachment types:
 

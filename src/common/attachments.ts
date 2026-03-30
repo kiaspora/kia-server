@@ -126,7 +126,10 @@ export function validateRequestedAttachments<TError extends Error>({
   });
 }
 
-export async function parseMultipartWithAttachments<TBody, TError extends Error>({
+export async function parseMultipartWithAttachments<
+  TBody,
+  TError extends Error,
+>({
   req,
   validateBody,
   createError,
@@ -260,7 +263,10 @@ export async function normalizeAttachments<TError extends Error>({
 
   if (totalCount === 0) return [];
   if (totalCount > maxAttachments) {
-    throw createError(400, `Too many attachments. Maximum ${maxAttachments} allowed`);
+    throw createError(
+      400,
+      `Too many attachments. Maximum ${maxAttachments} allowed`,
+    );
   }
 
   const normalized: NormalizedAttachment[] = [];
@@ -378,7 +384,9 @@ function parseAttachmentDataUrl<TError extends Error>(
   } catch (error) {
     throw createError(
       400,
-      error instanceof Error ? error.message : 'attachments.file_data is invalid',
+      error instanceof Error
+        ? error.message
+        : 'attachments.file_data is invalid',
     );
   }
 }

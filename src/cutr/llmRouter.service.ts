@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import type { Request } from 'express';
+import Busboy from 'busboy';
 import {
   normalizeAttachments,
   parseMultipartWithAttachments,
@@ -37,6 +38,15 @@ type LlmRouterRequest = {
   telemetry?: {
     request_id: string | null;
   };
+};
+
+type CustomPromptRequest = {
+  promptId: string;
+  promptVersion: number;
+  stream: boolean;
+  input: unknown;
+  traceId: string;
+  model?: string;
 };
 
 type UniversalUsage = {
@@ -222,6 +232,222 @@ export class LlmRouterService {
     });
   }
 
+  async parseCustomPromptMultipart(
+    req: Request,
+    traceId = 'cutr-customPrompt-trace',
+  ): Promise<{
+    body: Omit<CustomPromptRequest, 'traceId'>;
+    attachments: import('../common/attachments').UploadedAttachment[];
+  }> {
+    return await new Promise((resolve, reject) => {
+      let settled = false;
+      const rejectOnce = (error: HttpError) => {
+        if (settled) return;
+        settled = true;
+        reject(error);
+      };
+
+      const bb = Busboy({
+        headers: req.headers as Busboy.BusboyConfig['headers'],
+        limits: {
+          files: MAX_ATTACHMENTS,
+          fileSize: MAX_ATTACHMENT_BYTES,
+        },
+      });
+
+      const attachments: import('../common/attachments').UploadedAttachment[] =
+        [];
+      const fields: Record<string, string> = {};
+
+      bb.on('field', (name, value) => {
+        if (name === 'traceId' && fields.traceId === undefined) {
+          fields.traceId = value;
+        } else if (fields[name] === undefined) {
+          fields[name] = value;
+        }
+      });
+
+      bb.on('file', (name, file, info) => {
+        if (name !== 'file' && name !== 'files') {
+          file.resume();
+          return;
+        }
+
+        const filename = info.filename?.trim() || 'upload.bin';
+        const mimeType = info.mimeType || 'application/octet-stream';
+        const chunks: Buffer[] = [];
+        let total = 0;
+
+        file.on('data', (chunk: Buffer) => {
+          total += chunk.length;
+          if (total > MAX_ATTACHMENT_BYTES) {
+            rejectOnce(
+              new HttpError(
+                413,
+                'Uploaded file is too large',
+                'FILE_TOO_LARGE',
+              ),
+            );
+            file.resume();
+            return;
+          }
+
+          chunks.push(chunk);
+        });
+
+        file.on('limit', () =>
+          rejectOnce(
+            new HttpError(413, 'Uploaded file is too large', 'FILE_TOO_LARGE'),
+          ),
+        );
+        file.on('end', () => {
+          if (settled) return;
+          if (total === 0) {
+            rejectOnce(
+              new HttpError(
+                400,
+                `Uploaded file "${filename}" is empty`,
+                'EMPTY_FILE',
+              ),
+            );
+            return;
+          }
+
+          attachments.push({
+            filename,
+            mimeType,
+            buffer: Buffer.concat(chunks),
+            size: total,
+          });
+        });
+        file.on('error', () =>
+          rejectOnce(
+            new HttpError(
+              400,
+              'Failed to read uploaded file',
+              'FILE_READ_ERROR',
+            ),
+          ),
+        );
+      });
+
+      bb.on('filesLimit', () =>
+        rejectOnce(
+          new HttpError(
+            400,
+            `Too many files. Maximum ${MAX_ATTACHMENTS} allowed`,
+            'TOO_MANY_FILES',
+          ),
+        ),
+      );
+      bb.on('error', () =>
+        rejectOnce(
+          new HttpError(
+            400,
+            'Invalid multipart/form-data payload',
+            'INVALID_MULTIPART',
+          ),
+        ),
+      );
+      bb.on('finish', () => {
+        if (settled) return;
+
+        const promptId = fields.promptId;
+        const promptVersion = fields.promptVersion;
+        const stream = fields.stream;
+        const payload = fields.payload;
+        const traceIdField = fields.traceId;
+
+        if (!promptId || !promptId.trim()) {
+          rejectOnce(
+            new HttpError(
+              400,
+              'Missing required field: promptId',
+              'MISSING_PROMPT_ID',
+            ),
+          );
+          return;
+        }
+
+        if (!promptVersion || !promptVersion.trim()) {
+          rejectOnce(
+            new HttpError(
+              400,
+              'Missing required field: promptVersion',
+              'MISSING_PROMPT_VERSION',
+            ),
+          );
+          return;
+        }
+
+        if (!payload || !payload.trim()) {
+          rejectOnce(
+            new HttpError(
+              400,
+              'Missing required field: payload',
+              'MISSING_PAYLOAD',
+            ),
+          );
+          return;
+        }
+
+        let parsedPayload: unknown;
+        try {
+          parsedPayload = JSON.parse(payload);
+        } catch {
+          rejectOnce(
+            new HttpError(
+              400,
+              'payload must be valid JSON',
+              'INVALID_PAYLOAD_JSON',
+            ),
+          );
+          return;
+        }
+
+        const promptVersionNum = Number.parseInt(promptVersion, 10);
+        if (!Number.isInteger(promptVersionNum) || promptVersionNum < 1) {
+          rejectOnce(
+            new HttpError(
+              400,
+              'promptVersion must be a positive integer',
+              'INVALID_PROMPT_VERSION',
+            ),
+          );
+          return;
+        }
+
+        const streamBool =
+          stream === 'true' || stream === '1'
+            ? true
+            : stream === 'false' || stream === '0'
+              ? false
+              : false;
+
+        const body = {
+          promptId: promptId.trim(),
+          promptVersion: promptVersionNum,
+          stream: streamBool,
+          input: parsedPayload,
+          ...(fields.model ? { model: fields.model.trim() } : {}),
+        };
+
+        console.info(
+          `[cutr.customPrompt] parsed multipart trace=${traceId} attachments=${attachments.length}`,
+        );
+        settled = true;
+        resolve({
+          body: this.validateCustomPrompt(body),
+          attachments,
+        });
+      });
+
+      const raw: unknown = (req as any).rawBody ?? (req as any).body;
+      if (Buffer.isBuffer(raw)) bb.end(raw);
+      else req.pipe(bb);
+    });
+  }
+
   async handle(
     body: any,
     traceId: string,
@@ -287,6 +513,35 @@ export class LlmRouterService {
     }
 
     throw new HttpError(400, 'Invalid provider', 'INVALID_PROVIDER');
+  }
+
+  async handleCustomPrompt(
+    body: any,
+    traceId: string,
+    uploadedAttachments: import('../common/attachments').UploadedAttachment[] = [],
+  ): Promise<ProviderResult> {
+    const validated = this.validateCustomPrompt(body);
+    const attachments = await this.normalizeAttachments(
+      [],
+      uploadedAttachments,
+      traceId,
+    );
+
+    const payload: CustomPromptRequest = {
+      ...validated,
+      traceId,
+    };
+
+    try {
+      return await this.callOpenAICustomPrompt(payload, attachments);
+    } catch (err: any) {
+      throw new HttpError(
+        502,
+        'OpenAI is currently unavailable; please try again later',
+        'OPENAI_UNAVAILABLE',
+        { message: String(err?.message ?? err) },
+      );
+    }
   }
 
   private validate(body: any): Omit<LlmRouterRequest, 'traceId'> {
@@ -370,7 +625,11 @@ export class LlmRouterService {
 
     let routing: LlmRouterRequest['routing'];
     const routingRaw = body.routing;
-    if (routingRaw && typeof routingRaw === 'object' && !Array.isArray(routingRaw)) {
+    if (
+      routingRaw &&
+      typeof routingRaw === 'object' &&
+      !Array.isArray(routingRaw)
+    ) {
       const priorityRaw = (routingRaw as Record<string, unknown>).priority;
       if (priorityRaw == null || priorityRaw === '') {
         routing = { priority: null };
@@ -420,6 +679,54 @@ export class LlmRouterService {
       ...(typeof promptVersion === 'number' ? { promptVersion } : {}),
       ...(routing ? { routing } : {}),
       ...(telemetry ? { telemetry } : {}),
+    };
+  }
+
+  private validateCustomPrompt(
+    body: any,
+  ): Omit<CustomPromptRequest, 'traceId'> {
+    if (!body || typeof body !== 'object') {
+      throw new HttpError(400, 'Request body is required', 'MISSING_BODY');
+    }
+
+    const promptId = body.promptId;
+    if (!isNonEmptyString(promptId)) {
+      throw new HttpError(
+        400,
+        'Missing required field: promptId',
+        'MISSING_PROMPT_ID',
+      );
+    }
+
+    const promptVersionRaw = body.promptVersion;
+    if (!Number.isInteger(promptVersionRaw) || Number(promptVersionRaw) < 1) {
+      throw new HttpError(
+        400,
+        'promptVersion must be a positive integer',
+        'INVALID_PROMPT_VERSION',
+      );
+    }
+    const promptVersion = Number(promptVersionRaw);
+
+    const stream = typeof body.stream === 'boolean' ? body.stream : false;
+
+    const input = body.input;
+    if (input === undefined || input === null) {
+      throw new HttpError(
+        400,
+        'Missing required field: input',
+        'MISSING_INPUT',
+      );
+    }
+
+    const model = isNonEmptyString(body.model) ? body.model.trim() : undefined;
+
+    return {
+      promptId: promptId.trim(),
+      promptVersion,
+      stream,
+      input,
+      ...(model ? { model } : {}),
     };
   }
 
@@ -478,7 +785,9 @@ export class LlmRouterService {
       raw_provider_meta: {
         id: typeof parsed?.id === 'string' ? parsed.id : null,
         usage:
-          parsed?.usage && typeof parsed.usage === 'object' && !Array.isArray(parsed.usage)
+          parsed?.usage &&
+          typeof parsed.usage === 'object' &&
+          !Array.isArray(parsed.usage)
             ? (parsed.usage as Record<string, unknown>)
             : {},
         raw:
@@ -583,6 +892,108 @@ export class LlmRouterService {
     });
   }
 
+  private async callOpenAICustomPrompt(
+    payload: CustomPromptRequest,
+    attachments: import('../common/attachments').NormalizedAttachment[],
+  ): Promise<ProviderResult> {
+    const apiKey = pickFirstEnv('OPENAI_ARCHETYPE_API_KEY', 'OPENAI_API_KEY');
+    if (!apiKey) {
+      throw new HttpError(
+        500,
+        'Missing OPENAI_ARCHETYPE_API_KEY',
+        'MISSING_OPENAI_API_KEY',
+      );
+    }
+
+    const model =
+      payload.model ||
+      pickFirstEnv('OPENAI_PROMPT_MODEL', 'OPENAI_MODEL') ||
+      'gpt-4.1-mini';
+    const requestBody: Record<string, unknown> = {
+      model,
+      input:
+        attachments.length > 0
+          ? this.buildOpenAICustomPromptInput(payload.input, attachments)
+          : payload.input,
+      stream: payload.stream,
+    };
+
+    if (!/^gpt-5/i.test(model)) {
+      requestBody.temperature = 0.7;
+    }
+
+    const maxOutputTokens = process.env.OPENAI_MAX_OUTPUT_TOKENS;
+    if (isNonEmptyString(maxOutputTokens)) {
+      const parsed = Number.parseInt(maxOutputTokens, 10);
+      if (Number.isFinite(parsed) && parsed > 0) {
+        requestBody.max_output_tokens = parsed;
+      }
+    }
+
+    const started = Date.now();
+
+    const resp = await fetch('https://api.openai.com/v1/responses', {
+      method: 'POST',
+      headers: {
+        authorization: `Bearer ${apiKey}`,
+        'content-type': 'application/json',
+        'x-trace-id': payload.traceId,
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    const latency_ms = Date.now() - started;
+    const rawText = await resp.text().catch(() => '');
+
+    let parsed: any = {};
+    try {
+      parsed = rawText ? JSON.parse(rawText) : {};
+    } catch {}
+
+    if (!resp.ok) {
+      throw new HttpError(
+        502,
+        `OpenAI HTTP ${resp.status} ${resp.statusText || ''}`.trim(),
+        'OPENAI_HTTP_ERROR',
+        {
+          status: resp.status,
+          bodySnippet: rawText.slice(0, 800),
+        },
+      );
+    }
+
+    const usage = parsed?.usage ?? {};
+    return this.buildNormalizedResult({
+      payload: {
+        provider: 'openai',
+        stream: payload.stream,
+        archetype: 'none',
+        messages: [],
+        traceId: payload.traceId,
+        promptId: payload.promptId,
+        promptVersion: payload.promptVersion,
+      },
+      provider: 'openai',
+      model,
+      latency_ms,
+      parsed,
+      requestId: resp.headers.get('x-request-id'),
+      usage: {
+        input_tokens: toNullableNumber(usage?.input_tokens),
+        output_tokens: toNullableNumber(usage?.output_tokens),
+        total_tokens: toNullableNumber(usage?.total_tokens),
+        reasoning_tokens: toNullableNumber(
+          usage?.output_tokens_details?.reasoning_tokens,
+        ),
+        cached_input_tokens: toNullableNumber(
+          usage?.input_tokens_details?.cached_tokens,
+        ),
+        cache_hit_tokens: null,
+        cache_miss_tokens: null,
+      },
+    });
+  }
+
   private async callDeepSeek(
     payload: LlmRouterRequest,
   ): Promise<ProviderResult> {
@@ -594,7 +1005,8 @@ export class LlmRouterService {
         'MISSING_DEEPSEEK_API_KEY',
       );
 
-    const model = payload.model || pickFirstEnv('DEEPSEEK_MODEL') || 'deepseek-chat';
+    const model =
+      payload.model || pickFirstEnv('DEEPSEEK_MODEL') || 'deepseek-chat';
     const started = Date.now();
 
     const resp = await fetch('https://api.deepseek.com/chat/completions', {
@@ -658,7 +1070,8 @@ export class LlmRouterService {
     if (!apiKey)
       throw new HttpError(500, 'Missing GROQ_API_KEY', 'MISSING_GROQ_API_KEY');
 
-    const model = payload.model || pickFirstEnv('GROQ_MODEL') || 'llama-3.1-8b-instant';
+    const model =
+      payload.model || pickFirstEnv('GROQ_MODEL') || 'llama-3.1-8b-instant';
     const started = Date.now();
 
     const resp = await fetch(
@@ -725,7 +1138,9 @@ export class LlmRouterService {
   }
 
   private async normalizeAttachments(
-    attachments: import('../common/attachments').RequestedAttachment[] | undefined,
+    attachments:
+      | import('../common/attachments').RequestedAttachment[]
+      | undefined,
     uploadedAttachments: import('../common/attachments').UploadedAttachment[],
     traceId: string,
   ): Promise<import('../common/attachments').NormalizedAttachment[]> {
@@ -763,6 +1178,72 @@ export class LlmRouterService {
         role: 'user',
         content: this.buildOpenAIFileContentItems(attachments),
       });
+    }
+
+    return input;
+  }
+
+  private buildOpenAICustomPromptInput(
+    input: unknown,
+    attachments: import('../common/attachments').NormalizedAttachment[],
+  ) {
+    if (attachments.length === 0) {
+      return input;
+    }
+
+    if (Array.isArray(input)) {
+      return input.map((item) => {
+        if (
+          item &&
+          typeof item === 'object' &&
+          'role' in item &&
+          item.role === 'user'
+        ) {
+          const content = item.content;
+          if (Array.isArray(content)) {
+            return {
+              ...item,
+              content: [
+                ...content,
+                ...this.buildOpenAIFileContentItems(attachments),
+              ],
+            };
+          } else if (typeof content === 'string') {
+            return {
+              ...item,
+              content: [
+                { type: 'input_text' as const, text: content },
+                ...this.buildOpenAIFileContentItems(attachments),
+              ],
+            };
+          }
+        }
+        return item;
+      });
+    }
+
+    if (typeof input === 'string') {
+      return [
+        {
+          role: 'user' as const,
+          content: [
+            { type: 'input_text' as const, text: input },
+            ...this.buildOpenAIFileContentItems(attachments),
+          ],
+        },
+      ];
+    }
+
+    if (input && typeof input === 'object' && !Array.isArray(input)) {
+      return [
+        {
+          role: 'user' as const,
+          content: [
+            { type: 'input_text' as const, text: JSON.stringify(input) },
+            ...this.buildOpenAIFileContentItems(attachments),
+          ],
+        },
+      ];
     }
 
     return input;

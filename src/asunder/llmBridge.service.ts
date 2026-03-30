@@ -293,7 +293,10 @@ export class LlmBridgeService {
     }
 
     if (hasAttachments && !Array.isArray(body.attachments)) {
-      throw this.invalidRequest(400, 'attachments must be an array when provided');
+      throw this.invalidRequest(
+        400,
+        'attachments must be an array when provided',
+      );
     }
 
     validateRequestedAttachments({
