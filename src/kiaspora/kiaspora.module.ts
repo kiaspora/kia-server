@@ -5,10 +5,12 @@ import { TranslationChatModule } from './translationChat.module';
 import { ImageScanModule } from './imageScan.module';
 import { SpeechToTextModule } from './speechToText.module';
 import { PromptConfigModule } from './promptConfig.module';
+import { VoiceSessionController } from './voiceSession.controller';
+import { VoiceSessionService } from './voiceSession.service';
 
 @Module({
-  controllers: [TranslationRouterController],
-  providers: [TranslationRouterService],
+  controllers: [TranslationRouterController, VoiceSessionController],
+  providers: [TranslationRouterService, VoiceSessionService],
   imports: [
     TranslationChatModule,
     ImageScanModule,

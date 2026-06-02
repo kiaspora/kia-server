@@ -70,12 +70,17 @@ GROQ_API_KEY=...
 
 OMDB_API_KEY=...
 GOOGLE_API_KEY=...
+
+LIVEKIT_API_KEY=...
+LIVEKIT_API_SECRET=...
+LIVEKIT_URL=wss://...
 ```
 
 Notes:
 
 - `API_BEARER_TOKEN` is required by guarded routes such as `api/cutr/llmRouter` and `api/asunder/llmBridge`.
 - `OPENAI_*`, `DEEPSEEK_*`, and `GROQ_*` are only required for the providers you call.
+- `LIVEKIT_*` is required for `POST /voice/session`.
 - Do not commit secrets. Keep `.env` local.
 
 ### 3. Start the server
@@ -192,6 +197,35 @@ Supported CUTR attachment types:
 - `POST /api/kiaspora/speechToText`
 - `POST /api/kiaspora/imageScan`
 - `GET/POST /api/kiaspora/promptConfig`
+- `POST /voice/session`
+
+#### `voice/session`
+
+Creates a short-lived LiveKit room token and dispatches `kiaspora-voice-agent` in read-aloud mode.
+
+Request:
+
+```json
+{
+  "passageId": "genesis-1-1",
+  "reference": "Genesis 1:1",
+  "text": "In the beginning God created the heaven and the earth."
+}
+```
+
+Response:
+
+```json
+{
+  "roomName": "feed-genesis-1-1-a82fd4",
+  "token": "...",
+  "wsUrl": "wss://...",
+  "reference": "Genesis 1:1",
+  "server_time": "2026-06-02T18:00:00.000Z"
+}
+```
+
+The endpoint is bearer-token guarded and requires `LIVEKIT_API_KEY`, `LIVEKIT_API_SECRET`, and `LIVEKIT_URL`.
 
 ## CUTR Response Contract
 

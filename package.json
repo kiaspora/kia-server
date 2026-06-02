@@ -1,6 +1,6 @@
 {
   "name": "kia-server",
-  "version": "0.0.32",
+  "version": "0.0.33",
   "description": "",
   "author": "",
   "private": true,
@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@google-cloud/speech": "^7.2.1",
+    "@livekit/protocol": "^1.46.4",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.3",
     "@nestjs/core": "^11.0.1",
@@ -34,6 +35,7 @@
     "cheerio": "^1.2.0",
     "domhandler": "^5.0.3",
     "express-basic-auth": "^1.2.1",
+    "livekit-server-sdk": "^2.15.4",
     "pg": "^8.18.0",
     "playwright": "^1.58.2",
     "reflect-metadata": "^0.2.2",

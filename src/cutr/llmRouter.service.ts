@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import type { Request } from 'express';
 import Busboy from 'busboy';
 import { Readable } from 'node:stream';
+import type { ReadableStream as NodeReadableStream } from 'node:stream/web';
 import {
   normalizeAttachments,
   parseMultipartWithAttachments,
@@ -982,7 +983,7 @@ export class LlmRouterService {
 
       return {
         kind: 'stream',
-        body: Readable.fromWeb(resp.body as globalThis.ReadableStream),
+        body: Readable.fromWeb(resp.body as unknown as NodeReadableStream),
         contentType: resp.headers.get('content-type'),
       };
     }
