@@ -11,6 +11,7 @@ export type VoiceSessionRequest = {
   passageId?: unknown;
   reference?: unknown;
   text?: unknown;
+  voiceId?: unknown;
 };
 
 export type VoiceSessionResponse = {
@@ -30,6 +31,7 @@ export class VoiceSessionService {
     const passageId = this.requireString(body.passageId, 'passageId', 128);
     const reference = this.requireString(body.reference, 'reference', 256);
     const text = this.requireString(body.text, 'text', 12000);
+    const voiceId = this.readOptionalString(body.voiceId, 'voiceId', 128);
     const { apiKey, apiSecret, wsUrl } = this.getLiveKitConfig();
     const roomName = this.buildRoomName(passageId);
     const identity = `feed-listener-${randomUUID()}`;
@@ -57,6 +59,7 @@ export class VoiceSessionService {
             room: roomName,
             reference,
             text,
+            ...(voiceId ? { voiceId } : {}),
           }),
         }),
       ],
@@ -86,6 +89,13 @@ export class VoiceSessionService {
     }
 
     return normalized;
+  }
+
+  private readOptionalString(value: unknown, field: string, maxLength: number): string | undefined {
+    if (value === null || value === undefined) return undefined;
+    if (typeof value === 'string' && !value.trim()) return undefined;
+
+    return this.requireString(value, field, maxLength);
   }
 
   private getLiveKitConfig() {
