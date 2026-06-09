@@ -201,15 +201,29 @@ Supported CUTR attachment types:
 
 #### `voice/session`
 
-Creates a short-lived LiveKit room token and dispatches `kiaspora-voice-agent` in read-aloud mode.
+Creates a short-lived LiveKit room token and dispatches `kiaspora-voice-agent` in read-aloud or autoplay mode.
 
 Request:
 
 ```json
 {
+  "mode": "single",
   "passageId": "genesis-1-1",
   "reference": "Genesis 1:1",
   "text": "In the beginning God created the heaven and the earth."
+}
+```
+
+Autoplay request:
+
+```json
+{
+  "mode": "autoplay",
+  "initialPassage": {
+    "passageId": "genesis-1-1",
+    "reference": "Genesis 1:1",
+    "text": "In the beginning God created the heaven and the earth."
+  }
 }
 ```
 
